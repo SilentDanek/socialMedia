@@ -14,11 +14,18 @@ function Profile() {
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCV3qXCZ7YaJ4MOkCaw17CjrusyoQMp4fFNA&s"
                     alt="Avatar"
                 />
-                    <span>Ricardo Milos</span>
+                <span>Ricardo Milos</span>
             </div>
-            <div className={s.posts}>
-                <div>Is it really u legend?</div>
-                <div>Your flex is amazing</div>
+            <div>
+                My post
+                <div>
+                    New post
+                </div>
+                <div className={s.posts}>
+                    <div className={"item"}>Is it really u legend?</div>
+                    <div className={"item"}>Your flex is amazing</div>
+                </div>
+
             </div>
         </div>
     )

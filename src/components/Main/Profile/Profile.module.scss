@@ -8,15 +8,15 @@
   }
 
   .profile{
+    display: flex;
     img{
       width: 100px;
-      float: left;
       border-radius: 30%;
     }
   }
 
   .posts{
-    clear: both;
+
   }
 }
 
