@@ -5,7 +5,8 @@ function MyPosts() {
         <div>
             My post
             <div>
-                New post
+                <textarea/>
+                <button>Add new post</button>
             </div>
             <div className={s.posts}>
                 <div className={"item"}>
