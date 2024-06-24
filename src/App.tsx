@@ -3,13 +3,13 @@ import "./App.css"
 import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
 import Footer from "./components/Footer/Footer";
-import Nav from "./components/Nav/Nav";
+import NavBar from "./components/NavBar/NavBar";
 
 function App() {
   return (
     <div className="app-wrapper">
         <Header/>
-        <Nav/>
+        <NavBar/>
         <Main/>
         <Footer/>
     </div>
