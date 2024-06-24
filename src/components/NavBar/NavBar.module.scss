@@ -1,4 +1,10 @@
 .nav{
   grid-area: nav;
   background: aqua;
+  > ul{
+    list-style: none;
+    > li > a {
+      text-decoration: none;
+    }
+  }
 }

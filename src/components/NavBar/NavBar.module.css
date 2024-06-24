@@ -2,5 +2,11 @@
   grid-area: nav;
   background: aqua;
 }
+.nav > ul {
+  list-style: none;
+}
+.nav > ul > li > a {
+  text-decoration: none;
+}
 
 /*# sourceMappingURL=NavBar.module.css.map */

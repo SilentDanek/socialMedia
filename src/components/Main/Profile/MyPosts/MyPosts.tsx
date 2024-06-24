@@ -1,7 +1,7 @@
 import s from "../Profile.module.css";
 
 function MyPosts() {
-    return(
+    return (
         <div>
             My post
             <div>

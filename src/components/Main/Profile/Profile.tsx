@@ -10,7 +10,7 @@ function Profile() {
                     alt="wallpaper"
                 />
             </div>
-            <div className={s.profile}>
+            <div className={s.profileInfo}>
                 <img
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCV3qXCZ7YaJ4MOkCaw17CjrusyoQMp4fFNA&s"
                     alt="Avatar"

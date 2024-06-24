@@ -2,10 +2,10 @@
   height: 150px;
   width: 100%;
 }
-.profileWrapper .profile {
+.profileWrapper .profileInfo {
   display: flex;
 }
-.profileWrapper .profile img {
+.profileWrapper .profileInfo img {
   width: 100px;
   border-radius: 30%;
 }
