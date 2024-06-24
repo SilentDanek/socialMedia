@@ -1,0 +1,17 @@
+.item {
+  display: flex;
+  align-items: center;
+}
+.item img {
+  border-radius: 30%;
+  height: 50px;
+  width: 50px;
+}
+.item .text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: space-between;
+}
+
+/*# sourceMappingURL=Post.module.css.map */

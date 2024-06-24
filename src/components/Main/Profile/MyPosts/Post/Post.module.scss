@@ -1,0 +1,16 @@
+
+.item{
+  display: flex;
+  align-items: center;
+  img{
+    border-radius: 30%;
+    height: 50px;
+    width: 50px;
+  }
+  .text{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: space-between;
+  }
+}
