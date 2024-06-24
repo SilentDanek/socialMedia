@@ -1,0 +1,14 @@
+.profileWrapper .wallpaper img {
+  height: 150px;
+  width: 100%;
+}
+.profileWrapper .profile img {
+  width: 100px;
+  float: left;
+  border-radius: 30%;
+}
+.profileWrapper .posts {
+  clear: both;
+}
+
+/*# sourceMappingURL=Profile.module.css.map */
