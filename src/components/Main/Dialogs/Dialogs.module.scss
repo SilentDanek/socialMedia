@@ -1,0 +1,23 @@
+
+
+.dialogs{
+  display: grid;
+  grid-template-columns: 2fr 9fr;
+  grid-gap: 50px;
+  $padding-dialogs: 10px;
+
+  .dialogsItems{
+    padding: $padding-dialogs;
+    .dialog{
+
+    }
+  }
+
+  .massages{
+    padding: $padding-dialogs;
+    .massage{
+      
+    }
+  }
+}
+

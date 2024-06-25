@@ -17,7 +17,7 @@ function NavBar() {
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to={"/messages"} aria-label="Messages" style={active}>
+                    <NavLink to={"/dialogs"} aria-label="Messages" style={active}>
                         Messages
                     </NavLink>
                 </li>

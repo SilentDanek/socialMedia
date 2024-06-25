@@ -1,7 +1,7 @@
 import React from "react";
 import {Routes, Route} from "react-router-dom"
 import HomePage from "./HomePage/HomePage";
-import Dialog from "./Dialog/Dialog";
+import Dialogs from "./Dialogs/Dialogs";
 import Profile from "./Profile/Profile";
 
 
@@ -11,7 +11,7 @@ function Main() {
         <main>
             <Routes>
                 <Route element={<HomePage/>}/>
-                <Route path="/dialog" element={<Dialog/>}/>
+                <Route path="/dialogs" element={<Dialogs/>}/>
                 <Route path="/profile" element={<Profile/>}/>
             </Routes>
         </main>
