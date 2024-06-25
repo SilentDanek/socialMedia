@@ -1,16 +1,16 @@
-.item {
+.post:not(:last-child) {
+  margin-bottom: 10px;
+}
+.post .item {
   display: flex;
   align-items: center;
 }
-.item:not(:last-child) {
-  margin-bottom: 10px;
-}
-.item img {
+.post .item img {
   border-radius: 30%;
   height: 50px;
   width: 50px;
 }
-.item .text {
+.post .item .text {
   margin-left: 3px;
   height: 45px;
   display: flex;

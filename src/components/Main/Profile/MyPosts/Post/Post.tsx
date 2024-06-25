@@ -10,7 +10,7 @@ interface postInfo {
 
 function Post(props: postInfo) {
     return (
-        <div>
+        <div className={s.post}>
             <div className={s.item}>
                 <img src={props.user.avatarURL} alt="avatar"/>
                 <div className={s.text}>

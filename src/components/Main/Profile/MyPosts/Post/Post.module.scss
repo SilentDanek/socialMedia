@@ -1,23 +1,24 @@
-.item{
-  display: flex;
-  align-items: center;
-
+.post{
   &:not(:last-child){
     margin-bottom: 10px;
   }
 
-  img{
-    border-radius: 30%;
-    height: 50px;
-    width: 50px;
-  }
-  .text{
-    margin-left: 3px;
-    height: 45px;
+  .item{
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-content: space-between;
-  }
+    align-items: center;
 
+    img{
+      border-radius: 30%;
+      height: 50px;
+      width: 50px;
+    }
+    .text{
+      margin-left: 3px;
+      height: 45px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-content: space-between;
+    }
+  }
 }
