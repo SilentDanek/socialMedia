@@ -1,0 +1,92 @@
+/* Box sizing rules */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin and padding */
+body, h1, h2, h3, h4, h5, h6, p, blockquote, figure, dl, dd {
+  margin: 0;
+  padding: 0;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  font-family: Arial, sans-serif; /* Вы можете изменить на свой шрифт */
+}
+
+/* Remove list styles on ul, ol elements */
+ul, ol {
+  list-style: none;
+  padding: 0;
+}
+
+/* Anchor defaults */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Reset button styles */
+button, input, select, textarea {
+  font: inherit;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+/* Set image and media defaults */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Remove default table styles */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Remove default fieldset styles */
+fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+/* Remove default form element styles */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* Remove default iframe styles */
+iframe {
+  border: 0;
+}
+
+/* Remove default hr styles */
+hr {
+  border: 0;
+  height: 1px;
+  background: #ccc;
+  margin: 0;
+}
+
+/* Misc */
+address {
+  font-style: normal;
+}
+
+/* Remove default quotes */
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: none;
+}
