@@ -3,7 +3,7 @@ import s from "./Post.module.css"
 interface postInfo {
     user: {
         avatarURL: string,
-        NickName: string
+        nickName: string
     }
     massage: string;
 }
@@ -14,7 +14,7 @@ function Post(props: postInfo) {
             <div className={s.item}>
                 <img src={props.user.avatarURL} alt="avatar"/>
                 <div className={s.text}>
-                    <span><strong>{props.user.NickName}</strong></span>
+                    <span><strong>{props.user.nickName}</strong></span>
                     <span>{props.massage}</span>
                 </div>
             </div>
