@@ -5,6 +5,8 @@ interface postInfo {
         avatarURL: string,
         nickName: string
     }
+    likes: number;
+    dislikes:number;
     massage: string;
 }
 
@@ -20,15 +22,14 @@ function Post(props: postInfo) {
             </div>
             <div>
                 <span>
-                    Like
+                    Like {props.likes}
                 </span>
                 &emsp;
                 <span>
-                    Dislike
+                    Dislike {props.dislikes}
                 </span>
             </div>
         </div>
-
     )
 }
 
