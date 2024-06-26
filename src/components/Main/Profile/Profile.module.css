@@ -1,13 +1,3 @@
-.profileWrapper .wallpaper img {
-  height: 150px;
-  width: 100%;
-}
-.profileWrapper .profileInfo {
-  display: flex;
-}
-.profileWrapper .profileInfo img {
-  width: 100px;
-  border-radius: 30%;
-}
+
 
 /*# sourceMappingURL=Profile.module.css.map */

@@ -1,0 +1,13 @@
+.profile .wallpaper img {
+  height: 150px;
+  width: 100%;
+}
+.profile .profileInfo {
+  display: flex;
+}
+.profile .profileInfo img {
+  width: 100px;
+  border-radius: 30%;
+}
+
+/*# sourceMappingURL=ProfileInfo.module.css.map */
