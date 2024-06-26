@@ -1,5 +1,6 @@
 import s from "./Dialogs.module.css"
 import DialogItem from "./DialogItem/DialogItem";
+import Massage from "./Massage/Massage";
 
 function Dialogs(props:any){
     return(
@@ -11,18 +12,10 @@ function Dialogs(props:any){
                 <DialogItem name={"Миша"}   id={4}/>
             </div>
             <div className={s.massages}>
-                <div className={s.massage}>
-                    Hi
-                </div>
-                <div className={s.massage}>
-                    Hello
-                </div>
-                <div className={s.massage}>
-                    Привет
-                </div>
-                <div className={s.massage}>
-                    Хай
-                </div>
+                <Massage massage={"Hi"}/>
+                <Massage massage={"Hello"}/>
+                <Massage massage={"Привет"}/>
+                <Massage massage={"Хай"}/>
             </div>
         </div>
     )
