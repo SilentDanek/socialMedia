@@ -4,6 +4,7 @@
 }
 .profile .profileInfo {
   display: flex;
+  padding: 1%;
 }
 .profile .profileInfo img {
   width: 100px;

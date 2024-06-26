@@ -3,7 +3,7 @@ import Post from "./Post/Post";
 
 function MyPosts() {
     return (
-        <div>
+        <div className={s.posts}>
             My post
             <div>
                 <textarea/>
