@@ -6,13 +6,15 @@ import Profile from "./Profile/Profile";
 
 
 
-function Main() {
+function Main(props:any) {
+    const state = props.appState;
+    const profile = state.profile;
     return (
         <main>
             <Routes>
                 <Route element={<HomePage/>}/>
-                <Route path="/dialogs" element={<Dialogs/>}/>
-                <Route path="/profile" element={<Profile/>}/>
+                <Route path="/dialogs" element={<Dialogs dialogs={state.dialogs} messages={state.messages}/>}/>
+                <Route path="/profile" element={<Profile posts={profile.posts} profileInfo ={profile.profileInfo}/>}/>
             </Routes>
         </main>
     )

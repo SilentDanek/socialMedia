@@ -1,30 +1,23 @@
 import s from "./Dialogs.module.css"
 import DialogItem from "./DialogItem/DialogItem";
-import Massage from "./Massage/Massage";
+import Message from "./Message/Message";
 
-function dialogsElements(tempStoreUsers:any) {
-    return tempStoreUsers.map(({name, id}:{name:string, id:number})=> {
-        return <DialogItem name={name} id={id}/>;
-    });
+function dialogsElements(users:any) {
+    return users.map(({name, id}:any) => <DialogItem name={name} id={id}/>);
 }
 
-function massagesElements(tempStoreMes:string[]) {
-    return tempStoreMes.map((massage) => <Massage massage={massage}/>);
-
+function messagesElements(messages:string[]) {
+    return messages.map((message) => <Message message={message}/>);
 }
 
 function Dialogs(props:any){
-    const tempStoreUsers = [{name:"Ярик", id:1}, {name:"Саша", id:2}, {name:"Славик", id:3}, {name:"Миша", id:4}];
-    const tempStoreMes = ["Hi", "Hello", "Привет", "Хай"];
-
-
     return(
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
-                {dialogsElements(tempStoreUsers)}
+                {dialogsElements(props.dialogs)}
             </div>
-            <div className={s.massages}>
-                {massagesElements(tempStoreMes)}
+            <div className={s.messages}>
+                {messagesElements(props.messages)}
             </div>
         </div>
     )

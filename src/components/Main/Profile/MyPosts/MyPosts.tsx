@@ -8,11 +8,11 @@ interface postInfo {
     }
     likes: number;
     dislikes:number;
-    massage: string;
+    message: string;
 }
 
 function postElement(posts:postInfo[]) {
-    return posts.map(({user, massage, likes,dislikes})=>{
+    return posts.map(({user, message, likes,dislikes})=>{
         return  <Post
             user={{
                 avatarURL: user.avatarURL,
@@ -20,34 +20,12 @@ function postElement(posts:postInfo[]) {
             }}
             likes={likes}
             dislikes={dislikes}
-            massage={massage}
+            message={message}
         />
     })
 }
 
-function MyPosts() {
-
-    const tempStore:postInfo[] = [
-        {
-            user:{
-                avatarURL: "https://i1.sndcdn.com/artworks-RWbimAOTSJFzOztu-hjI7tQ-t240x240.jpg",
-                nickName: "Billy Harrington"
-            },
-            likes: 3,
-            dislikes:0,
-            massage: "Is it you legend?"
-        },
-        {
-            user:{
-                avatarURL: "https://pbs.twimg.com/profile_images/1345885533256507393/B853M8A4_400x400.jpg",
-                nickName: "Van Darkholm"
-            },
-            likes: 12,
-            dislikes:0,
-            massage: "Your flex is amazing!"
-        },
-    ]
-
+function MyPosts(props:any) {
     return (
         <div className={s.posts}>
             My posts
@@ -55,7 +33,7 @@ function MyPosts() {
                 <textarea/>
                 <button>Add new post</button>
             </div>
-            {postElement(tempStore)}
+            {postElement(props.posts)}
         </div>
     )
 }

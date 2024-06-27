@@ -7,7 +7,7 @@ interface postInfo {
     }
     likes: number;
     dislikes:number;
-    massage: string;
+    message: string;
 }
 
 function Post(props: postInfo) {
@@ -17,7 +17,7 @@ function Post(props: postInfo) {
                 <img src={props.user.avatarURL} alt="avatar"/>
                 <div className={s.text}>
                     <span><strong>{props.user.nickName}</strong></span>
-                    <span>{props.massage}</span>
+                    <span>{props.message}</span>
                 </div>
             </div>
             <div>
