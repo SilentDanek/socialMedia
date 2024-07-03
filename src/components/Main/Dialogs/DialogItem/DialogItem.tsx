@@ -1,12 +1,12 @@
 import s from "./DialogItem.module.css"
 import {NavLink} from "react-router-dom";
 
-type user = {
+interface IUser {
     id:number;
     name:string;
 }
 
-function DialogItem(props:user){
+function DialogItem(props:IUser){
     const path = "/dialogs/" + props.id;
 
     return(

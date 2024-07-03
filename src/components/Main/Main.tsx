@@ -5,16 +5,24 @@ import Dialogs from "./Dialogs/Dialogs";
 import Profile from "./Profile/Profile";
 
 
-
-function Main(props:any) {
-    const state = props.appState;
-    const profile = state.profile;
+function Main(props: any) {
+    const state = props.state;
     return (
         <main>
             <Routes>
-                <Route element={<HomePage/>}/>
-                <Route path="/dialogs" element={<Dialogs dialogs={state.dialogs} messages={state.messages}/>}/>
-                <Route path="/profile" element={<Profile posts={profile.posts} profileInfo ={profile.profileInfo}/>}/>
+                <Route path="/" element = {<HomePage/>}/>
+                <Route path="/dialogs" element = {
+                    <Dialogs
+                        dialogsPage = {state.dialogsPage}
+                        dispatch    = {props.dispatch}
+                    />}
+                />
+                <Route path="/profile" element = {
+                    <Profile
+                        profilePage = {state.profilePage}
+                        dispatch    = {props.dispatch}
+                    />
+                }/>
             </Routes>
         </main>
     )

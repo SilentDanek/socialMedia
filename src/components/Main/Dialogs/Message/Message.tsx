@@ -1,10 +1,10 @@
 import s from "./Message.module.css";
 
-type message={
+interface IMessage {
     message:string;
 }
 
-function Message(props:message){
+function Message(props:IMessage){
     return(
         <div className={s.message}>
             {props.message}

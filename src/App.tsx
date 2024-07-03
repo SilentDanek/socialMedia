@@ -6,15 +6,18 @@ import Footer from "./components/Footer/Footer";
 import NavBar from "./components/NavBar/NavBar";
 
 
+
 function App(props:any) {
   return (
     <div className="app-wrapper">
         <Header/>
         <NavBar/>
-        <Main appState = {props.appState}/>
+        <Main state = {props.state} dispatch = {props.dispatch}/>
         <Footer/>
     </div>
   );
 }
+
+
 
 export default App;

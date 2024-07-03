@@ -2,16 +2,18 @@
 
 
   .wallpaper{
-    img{
-      height: 150px;
-      width: 100%;
-    }
+    background-image: url("https://img.freepik.com/free-photo/digital-art-moon-wallpaper_23-2150918875.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 15vh;
+    width: 100%;
   }
 
   .profileInfo{
     display: flex;
     padding: 1%;
-    img{
+
+    .avatar{
       width: 100px;
       border-radius: 30%;
     }
