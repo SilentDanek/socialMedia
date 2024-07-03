@@ -20,7 +20,11 @@ function rerenderEntireTree(state:any){
     );
 }
 
+store.subscribe(() => rerenderEntireTree(store.getState()))
+
 rerenderEntireTree(store.getState());
+
+
 
 
 
