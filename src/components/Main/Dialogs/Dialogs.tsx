@@ -2,7 +2,7 @@ import s from "./Dialogs.module.css"
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import React from "react";
-import {createSendMessageAction, updateNewMessageBodyAction} from "../../../redux/actions/actionCreators/dialogsActionCreators";
+
 
 interface IUsers{
     id:number,
@@ -25,15 +25,12 @@ function Dialogs(props:any){
 
 
     function onSendMessageClick(){
-        const action = createSendMessageAction();
-
-        props.dispatch(action);
+        props.sendMessage();
     }
 
     function onNewMessageChange(e:React.ChangeEvent<HTMLTextAreaElement>){
         const text = e.target.value;
-        const action = updateNewMessageBodyAction(text);
-        props.dispatch(action)
+        props.updateNewMessageBody(text)
     }
 
     return(

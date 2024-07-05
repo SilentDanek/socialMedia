@@ -21,23 +21,17 @@ interface IMyPostsProps {
     posts: IPost[];
     newPostText: string;
     updateNewPostText:(text:string)=>void
-    addPost:(text:string)=>void
+    addPost:()=>void
 }
 
 export function MyPosts(props:IMyPostsProps) {
-    const newPostText:React.RefObject<HTMLTextAreaElement> = React.createRef();
 
     function onAddPost(){
-        if(!newPostText.current) return;
-
-        const text = newPostText.current.value;
-        props.addPost(text);
+        props.addPost();
     }
 
-    function onPostChange(){
-        if(!newPostText.current) return;
-
-        const text = newPostText.current.value;
+    function onPostChange(e:React.ChangeEvent<HTMLTextAreaElement>){
+        const text = e.target.value;
         props.updateNewPostText(text);
     }
 
@@ -46,7 +40,6 @@ export function MyPosts(props:IMyPostsProps) {
             My posts
             <div>
                 <textarea
-                    ref={newPostText}
                     onChange={onPostChange}
                     value={props.newPostText}
                     placeholder={"Enter your post message"}
