@@ -11,7 +11,6 @@ interface IProfileInfo{
 function ProfileInfo(props:IProfileInfo) {
     const profileInfo = props.profileInfo;
 
-    console.log(profileInfo.wallpaperURL);
     return(
         <div className={s.profile}>
             <div className={s.wallpaper}>

@@ -1,25 +1,15 @@
 import s from "./Profile.module.css"
-import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-
-interface IProfileInfo {
-    wallpaperURL: string;
-    avatarURL: string;
-    nickName: string;
-}
+import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 
-
-function Profile(props: any) {
-    const profileInfo:IProfileInfo = props.profilePage.profileInfo;
+function Profile(props:any) {
+    const state = props.store.getState();
+    const profileInfo = state.profilePage.profileInfo;
     return (
         <div className={s.profileWrapper}>
             <ProfileInfo profileInfo = {profileInfo}/>
-            <MyPosts
-                posts    = {props.profilePage.posts}
-                newPostText ={props.profilePage.newPostText}
-                dispatch = {props.dispatch}
-            />
+            <MyPostsContainer store = {props.store}/>
         </div>
     )
 }

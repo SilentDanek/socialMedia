@@ -1,7 +1,9 @@
 import IAction from "../actions/IAction";
 import DialogsActionTypes from "../actions/actionTypes/dialogsActionTypes";
+import {IDialogsPage} from "../../interfaces/IDialogsPage";
 
-let initialState = {
+
+let initialState:IDialogsPage = {
     dialogs: [
         {id: 1, name: "Ярик"},
         {id: 2, name: "Саша"},
@@ -16,7 +18,7 @@ let initialState = {
     newMessageBody:"123321",
 };
 
-export function dialogsReducer(state = initialState, action:IAction){
+export function dialogsReducer(state = initialState, action:IAction):IDialogsPage{
     switch (action.type){
         case DialogsActionTypes.SEND_MESSAGE:{
             return sendMassage(state);

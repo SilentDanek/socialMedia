@@ -1,20 +1,9 @@
-import s from "./MyPosts.module.css"
-import Post from "./Post/Post";
 import React from "react";
-import {updateNewPostTextAction, createAddPostAction} from "../../../../redux/actions/actionCreators/profileActionCreators";
+import s from "./MyPosts.module.css";
+import Post from "./Post/Post";
+import {IPost} from "../../../../interfaces/IProfilePage";
 
-interface postInfo {
-    id:number
-    user: {
-        avatarURL: string,
-        nickName: string
-    }
-    likes: number;
-    dislikes:number;
-    message: string;
-}
-
-function postElement(posts:postInfo[]) {
+function postElement(posts:IPost[]) {
     return posts.map(({user, message, likes,dislikes})=>{
         return  <Post
             user={{
@@ -28,25 +17,28 @@ function postElement(posts:postInfo[]) {
     })
 }
 
-function MyPosts(props:any) {
+interface IMyPostsProps {
+    posts: IPost[];
+    newPostText: string;
+    updateNewPostText:(text:string)=>void
+    addPost:(text:string)=>void
+}
+
+export function MyPosts(props:IMyPostsProps) {
     const newPostText:React.RefObject<HTMLTextAreaElement> = React.createRef();
 
-    function addPost(){
+    function onAddPost(){
         if(!newPostText.current) return;
 
         const text = newPostText.current.value;
-        const action = createAddPostAction(text);
-
-        props.dispatch(action);
+        props.addPost(text);
     }
 
     function onPostChange(){
         if(!newPostText.current) return;
 
         const text = newPostText.current.value;
-        const action = updateNewPostTextAction(text);
-
-        props.dispatch(action);
+        props.updateNewPostText(text);
     }
 
     return (
@@ -59,11 +51,9 @@ function MyPosts(props:any) {
                     value={props.newPostText}
                     placeholder={"Enter your post message"}
                 />
-                <button onClick={addPost}>Add new post</button>
+                <button onClick={onAddPost}>Add new post</button>
             </div>
             {postElement(props.posts)}
         </div>
     )
 }
-
-export default MyPosts;

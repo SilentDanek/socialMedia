@@ -1,7 +1,9 @@
 import IAction from "../actions/IAction";
 import ProfileActionTypes from "../actions/actionTypes/profileActionTypes";
+import {IProfilePage} from "../../interfaces/IProfilePage";
 
-let initialState = {
+
+let initialState:IProfilePage = {
     profileInfo: {
         avatarURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCV3qXCZ7YaJ4MOkCaw17CjrusyoQMp4fFNA&s",
         wallpaperURL: "https://interier-foto.ru/wp-content/uploads/dlinnye-foto-4.jpg",
@@ -31,13 +33,13 @@ let initialState = {
     newPostText: "Flexzilla"
 };
 
-export function profileReducer(state = initialState, action: IAction) {
+export function profileReducer(state = initialState, action: IAction):IProfilePage {
     switch (action.type) {
         case ProfileActionTypes.UPDATE_NEW_POST_TEXT: {
             return updateNewPostText(state, action.payload.text);
         }
         case ProfileActionTypes.ADD_POST: {
-            return addPost(state, action.payload.text);
+            return addPost(state);
         }
         default: {
             return state;
@@ -45,7 +47,7 @@ export function profileReducer(state = initialState, action: IAction) {
     }
 }
 
-function addPost(state: any, postMessage: string) {
+function addPost(state: IProfilePage) {
     // Test
     const newPost = {
         user: {
@@ -53,7 +55,7 @@ function addPost(state: any, postMessage: string) {
             nickName: "Anon"
         },
         id: 5,
-        message: postMessage,
+        message: state.newPostText,
         likes: 0,
         dislikes: 0
     }
@@ -65,7 +67,7 @@ function addPost(state: any, postMessage: string) {
     }
 }
 
-function updateNewPostText(state: any, newText: string) {
+function updateNewPostText(state: IProfilePage, newText: string) {
     return {
         ...state,
         newPostText:newText

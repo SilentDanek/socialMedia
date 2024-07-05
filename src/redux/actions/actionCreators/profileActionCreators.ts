@@ -6,7 +6,7 @@ export const updateNewPostTextAction = (text:string): IAction => ({
     payload: { text }
 });
 
-export const createAddPostAction = (text:string): IAction => ({
+export const createAddPostAction = (): IAction => ({
     type: ProfileActionTypes.ADD_POST,
-    payload: { text }
+    payload: { text:"" }
 });

@@ -1,10 +1,12 @@
 import IAction from "../actions/IAction";
+import {ISideBar} from "../../interfaces/ISideBar";
 
-const initialState = {
+
+const initialState:ISideBar = {
 
 }
 
-export function sideBarReducer(state = initialState, action: IAction) {
+export function sideBarReducer(state = initialState, action: IAction):ISideBar {
     switch (state) {
 
         default:{

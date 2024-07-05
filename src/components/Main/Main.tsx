@@ -5,23 +5,16 @@ import Dialogs from "./Dialogs/Dialogs";
 import Profile from "./Profile/Profile";
 
 
-function    Main(props: any) {
-    const state = props.state;
+function Main(props: any) {
     return (
         <main>
             <Routes>
                 <Route path="/" element = {<HomePage/>}/>
                 <Route path="/dialogs" element = {
-                    <Dialogs
-                        dialogsPage = {state.dialogsPage}
-                        dispatch    = {props.dispatch}
-                    />}
-                />
+                    <Dialogs store={props.store}/>
+                }/>
                 <Route path="/profile" element = {
-                    <Profile
-                        profilePage = {state.profilePage}
-                        dispatch    = {props.dispatch}
-                    />
+                    <Profile store={props.store}/>
                 }/>
             </Routes>
         </main>
