@@ -1,36 +1,73 @@
 import IAction from "../actions/IAction";
 import ProfileActionTypes from "../actions/actionTypes/profileActionTypes";
 
-export function profileReducer(state:any, action:IAction) {
-    switch (action.type){
-        case ProfileActionTypes.UPDATE_NEW_POST_TEXT:{
-            updateNewPostText(state, action.payload.text);
-            return state;
+let initialState = {
+    profileInfo: {
+        avatarURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCV3qXCZ7YaJ4MOkCaw17CjrusyoQMp4fFNA&s",
+        wallpaperURL: "https://interier-foto.ru/wp-content/uploads/dlinnye-foto-4.jpg",
+        nickName: "Ricardo Milos"
+    },
+    posts: [
+        {
+            id: 1,
+            user: {
+                avatarURL: "https://i1.sndcdn.com/artworks-RWbimAOTSJFzOztu-hjI7tQ-t240x240.jpg",
+                nickName: "Billy Harrington"
+            },
+            likes: 3,
+            dislikes: 0,
+            message: "Is it you legend?"
+        },
+        {
+            id: 2,
+            user: {
+                avatarURL: "https://pbs.twimg.com/profile_images/1345885533256507393/B853M8A4_400x400.jpg",
+                nickName: "Van Darkholm"
+            },
+            likes: 12,
+            dislikes: 0,
+            message: "Your flex is amazing!"
+        }],
+    newPostText: "Flexzilla"
+};
+
+export function profileReducer(state = initialState, action: IAction) {
+    switch (action.type) {
+        case ProfileActionTypes.UPDATE_NEW_POST_TEXT: {
+            return updateNewPostText(state, action.payload.text);
         }
-        case ProfileActionTypes.ADD_POST:{
-            addPost(state, action.payload.text);
+        case ProfileActionTypes.ADD_POST: {
+            return addPost(state, action.payload.text);
+        }
+        default: {
             return state;
         }
     }
-    return state;
 }
 
-function addPost(state:any, postMessage:string){
+function addPost(state: any, postMessage: string) {
     // Test
     const newPost = {
         user: {
             avatarURL: "https://steamuserimages-a.akamaihd.net/ugc/1736675605280339028/3E984442933B76839E2E6F719C780B554603DB14/",
             nickName: "Anon"
         },
-        id:5,
-        message:postMessage,
-        likes:0,
-        dislikes:0
+        id: 5,
+        message: postMessage,
+        likes: 0,
+        dislikes: 0
     }
 
-    state.profilePage.posts = state.profilePage.posts.concat(newPost);
+    return {
+        ...state,
+        posts: state.posts.concat(newPost),
+        newPostText: ""
+    }
 }
 
-function updateNewPostText(state:any, newText:string){
-    state.profilePage.newPostText = newText;
+function updateNewPostText(state: any, newText: string) {
+    return {
+        ...state,
+        newPostText:newText
+    };
 }

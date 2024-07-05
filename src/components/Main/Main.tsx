@@ -5,7 +5,7 @@ import Dialogs from "./Dialogs/Dialogs";
 import Profile from "./Profile/Profile";
 
 
-function Main(props: any) {
+function    Main(props: any) {
     const state = props.state;
     return (
         <main>

@@ -1,32 +1,51 @@
 import IAction from "../actions/IAction";
 import DialogsActionTypes from "../actions/actionTypes/dialogsActionTypes";
 
-export function dialogsReducer(state:any, action:IAction,){
+let initialState = {
+    dialogs: [
+        {id: 1, name: "Ярик"},
+        {id: 2, name: "Саша"},
+        {id: 3, name: "Славик"},
+        {id: 4, name: "Миша"}
+    ],
+    messages: [
+        {id: 1, message: "Hi"},
+        {id: 2, message: "Hello"},
+        {id: 3, message: "Привет"},
+    ],
+    newMessageBody:"123321",
+};
+
+export function dialogsReducer(state = initialState, action:IAction){
     switch (action.type){
         case DialogsActionTypes.SEND_MESSAGE:{
-            sendMassage(state);
-            return state;
+            return sendMassage(state);
         }
         case DialogsActionTypes.UPDATE_NEW_MASSAGE_BODY:{
-            updateNewMassageBody(state, action.payload.text);
+            return updateNewMassageBody(state, action.payload.text);
+        }
+        default:{
             return state;
         }
     }
-    return state;
 }
 
 function updateNewMassageBody(state:any, newText:string){
-    state.dialogsPage.newMessageBody = newText;
+    return {
+        ...state,
+        newMessageBody: newText
+    }
 }
 
 function sendMassage(state:any) {
     const newMessage = {
         id: 4,
-        message:state.dialogsPage.newMessageBody
+        message:state.newMessageBody
     }
-    state.dialogsPage.newMessageBody = "";
 
-    const newMessagesArray = state.dialogsPage.messages.concat(newMessage);
-
-    state.dialogsPage.messages = newMessagesArray;
+    return {
+        ...state,
+        messages: state.messages.concat(newMessage),
+        newMessageBody: ""
+    }
 }
