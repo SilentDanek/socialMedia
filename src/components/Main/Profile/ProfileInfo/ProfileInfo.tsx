@@ -1,17 +1,14 @@
 import s from "./ProfileInfo.module.css";
 
-interface IProfileInfo{
-    profileInfo:{
-        wallpaperURL:string;
-        avatarURL: string;
-        nickName:string;
-    }
+interface IProfileInfo {
+    wallpaperURL: string;
+    avatarURL: string;
+    nickName: string;
 }
 
-function ProfileInfo(props:IProfileInfo) {
-    const profileInfo = props.profileInfo;
+function ProfileInfo(props: IProfileInfo) {
 
-    return(
+    return (
         <div className={s.profile}>
             <div className={s.wallpaper}>
 
@@ -19,10 +16,10 @@ function ProfileInfo(props:IProfileInfo) {
             <div className={s.profileInfo}>
                 <img
                     className={s.avatar}
-                    src={profileInfo.avatarURL}
+                    src={props.avatarURL}
                     alt="Avatar"
                 />
-                <span>{profileInfo.nickName}</span>
+                <span>{props.nickName}</span>
             </div>
         </div>
     );

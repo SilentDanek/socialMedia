@@ -10,12 +10,8 @@ function Main(props: any) {
         <main>
             <Routes>
                 <Route path="/" element = {<HomePage/>}/>
-                <Route path="/dialogs" element = {
-                    <DialogsContainer store={props.store}/>
-                }/>
-                <Route path="/profile" element = {
-                    <Profile store={props.store}/>
-                }/>
+                <Route path="/dialogs" element = {<DialogsContainer/>}/>
+                <Route path="/profile" element = {<Profile/>}/>
             </Routes>
         </main>
     )
