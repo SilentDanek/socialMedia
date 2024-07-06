@@ -1,40 +1,33 @@
 import React from "react";
+import Dialogs from "./Dialogs";
+import {connect} from "react-redux";
+import {IState} from "../../../interfaces/IState";
+import {IDispatch} from "../../../interfaces/IDispatch";
 import {
     createSendMessageAction,
     updateNewMessageBodyAction
 } from "../../../redux/actions/actionCreators/dialogsActionCreators";
 
-import Dialogs from "./Dialogs";
-import {StoreContext} from "../../../StoreContext";
-
-
-function DialogsContainer(props: any) {
-    return (
-        <StoreContext.Consumer>{(store) => {
-            if (!store) return;
-
-            const state = store.getState();
-
-            const onSendMessageClick = () => {
-                const action = createSendMessageAction();
-                store.dispatch(action);
-            }
-
-            const onNewMessageChange = (text: string) => {
-                const action = updateNewMessageBodyAction(text);
-                store.dispatch(action)
-            }
-
-            return (
-                <Dialogs
-                    updateNewMessageBody={onNewMessageChange}
-                    sendMessage={onSendMessageClick}
-                    dialogsPage={state.dialogsPage}
-                />)
-        }}
-        </StoreContext.Consumer>
-    )
+const mapStateToProps = (state:IState) => {
+    return {
+        dialogsPage: state.dialogsPage
+    }
 }
+
+const mapDispatchToProps = (dispatch:IDispatch) => {
+    return {
+        updateNewMessageBody:(text:string) => {
+            const action = updateNewMessageBodyAction(text);
+            dispatch(action)
+        },
+        sendMessage:() => {
+            const action = createSendMessageAction();
+            dispatch(action);
+        }
+    }
+}
+
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
 
 export default DialogsContainer;
 

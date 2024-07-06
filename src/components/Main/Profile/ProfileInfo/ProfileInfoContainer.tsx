@@ -1,25 +1,17 @@
-import {StoreContext} from "../../../../StoreContext";
 import ProfileInfo from "./ProfileInfo";
+import {connect} from "react-redux";
+import {IState} from "../../../../interfaces/IState";
 
-function ProfileInfoContainer(props: any) {
-    return (
-        <StoreContext.Consumer>{
-            (store) => {
-                if (!store) return;
 
-                const state = store.getState();
-                const profileInfo = state.profilePage.profileInfo;
-
-                return (
-                    <ProfileInfo
-                        avatarURL={profileInfo.avatarURL}
-                        wallpaperURL={profileInfo.wallpaperURL}
-                        nickName={profileInfo.nickName}
-                    />
-                )
-            }}
-        </StoreContext.Consumer>
-    );
+const mapStateToProps = (state:IState) => {
+    const profileInfo = state.profilePage.profileInfo;
+    return {
+        avatarURL: profileInfo.avatarURL,
+        wallpaperURL: profileInfo.wallpaperURL,
+        nickName: profileInfo.nickName,
+    }
 }
+
+const ProfileInfoContainer = connect(mapStateToProps)(ProfileInfo);
 
 export default ProfileInfoContainer;
