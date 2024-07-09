@@ -1,12 +1,12 @@
 import IAction from "../IAction";
 import DialogsActionTypes from "../actionTypes/dialogsActionTypes";
 
-export const updateNewMessageBodyAction = (text: string): IAction => ({
+export const newMessageBodyAC = (text: string): IAction => ({
     type: DialogsActionTypes.UPDATE_NEW_MASSAGE_BODY,
     payload: { text }
 });
 
-export const createSendMessageAction = (): IAction => ({
+export const sendMessageAC = (): IAction => ({
     type: DialogsActionTypes.SEND_MESSAGE,
     payload: { text:"" }
 });

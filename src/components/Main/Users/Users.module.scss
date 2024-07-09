@@ -1,0 +1,27 @@
+.userSection{
+  display: grid;
+  grid-template-columns: minmax(100px, 1fr) 9fr;
+  grid-gap: 20px;
+
+  padding: 15px;
+
+  border-radius: 25px;
+  border: 2px gray solid;
+  background-color: antiquewhite;
+
+  > .userContent{
+    display: grid;
+    grid-template-columns: 1fr auto;
+
+    > .userInfo{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+  }
+
+  img{
+    width:  100px;
+    height: 100px;
+  }
+}

@@ -32,6 +32,11 @@ function NavBar() {
                     </NavLink>
                 </li>
                 <li>
+                    <NavLink to={"/users"} aria-label="Find users" style={active}>
+                        Find users
+                    </NavLink>
+                </li>
+                <li>
                     <NavLink to={"/settings"} aria-label="Settings" style={active}>
                         Settings
                     </NavLink>

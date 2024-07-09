@@ -4,8 +4,8 @@ import {connect} from "react-redux";
 import {IState} from "../../../interfaces/IState";
 import {IDispatch} from "../../../interfaces/IDispatch";
 import {
-    createSendMessageAction,
-    updateNewMessageBodyAction
+    newMessageBodyAC,
+    sendMessageAC
 } from "../../../redux/actions/actionCreators/dialogsActionCreators";
 
 const mapStateToProps = (state:IState) => {
@@ -17,11 +17,11 @@ const mapStateToProps = (state:IState) => {
 const mapDispatchToProps = (dispatch:IDispatch) => {
     return {
         updateNewMessageBody:(text:string) => {
-            const action = updateNewMessageBodyAction(text);
+            const action = newMessageBodyAC(text);
             dispatch(action)
         },
         sendMessage:() => {
-            const action = createSendMessageAction();
+            const action = sendMessageAC();
             dispatch(action);
         }
     }

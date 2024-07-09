@@ -1,7 +1,7 @@
 import React from "react";
 import {
-    updateNewPostTextAction,
-    createAddPostAction
+    newPostTextAC,
+    addPostAC
 } from "../../../../redux/actions/actionCreators/profileActionCreators";
 import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
@@ -19,11 +19,11 @@ const mapStateToProps = (state:IState) => {
 const mapDispatchToProps = (dispatch:IDispatch)=>{
     return {
         addPost: () => {
-            const action = createAddPostAction();
+            const action = addPostAC();
             dispatch(action);
         },
         updateNewPostText: (text: string) => {
-            const action = updateNewPostTextAction(text);
+            const action = newPostTextAC(text);
             dispatch(action);
         }
     }
