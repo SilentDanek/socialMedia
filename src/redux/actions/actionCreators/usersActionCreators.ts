@@ -15,7 +15,7 @@ export const unfollowAC = (id:number): IAction => ({
 });
 
 export const setUsersAC = (users:IUser[]): IAction => ({
-    type: UsersActionTypes.UNFOLLOW,
+    type: UsersActionTypes.SET_USERS,
     // @ts-ignore
     payload: { users }
 });

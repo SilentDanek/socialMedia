@@ -1,14 +1,15 @@
 export interface IUser{
+    name:string;
     id:number;
-    photoURL:string;
+    uniqueUrlName: null,
+    "photos": {
+        "small": string | null,
+        "large": string | null
+    },
     followed:boolean;
-    fullname:string;
-    status:string;
-    location:{
-        city:string;
-        country:string;
-    }
+    status:string | null;
 }
+
 
 
 export interface IUsersPage{

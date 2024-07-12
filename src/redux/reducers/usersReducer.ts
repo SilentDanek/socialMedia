@@ -5,7 +5,7 @@ import UsersActionTypes from "../actions/actionTypes/usersActionTypes";
 
 const initialState: IUsersPage = {
     users: [
-        {
+/*        {
             id: 1,
             photoURL: "https://i.ytimg.com/vi/9iVsbli8Cs0/maxresdefault.jpg",
             followed: true,
@@ -37,7 +37,7 @@ const initialState: IUsersPage = {
                 city: "Краковець",
                 country: "Украина"
             }
-        },
+        },*/
     ]
 }
 
@@ -72,7 +72,7 @@ export function usersReducer(state = initialState, action: IAction): IUsersPage 
         }
         case UsersActionTypes.SET_USERS:{
             // @ts-ignore
-            return {...state, users: users.concat(action.payload.users)}
+            return {...state, users: state.users.concat(action.payload.users)}
         }
         default: {
             return state;
