@@ -4,11 +4,11 @@ import HomePage from "./HomePage/HomePage";
 import Profile from "./Profile/Profile";
 import UsersContainer from "./Users/UsersContainer";
 import DialogsContainer from "./Dialogs/DialogsContainer";
-
+import s from "./Main.module.css"
 
 function Main() {
     return (
-        <main>
+        <main className={s.main}>
             <Routes>
                 <Route path="/" element = {<HomePage/>}/>
                 <Route path="/dialogs" element = {<DialogsContainer/>}/>

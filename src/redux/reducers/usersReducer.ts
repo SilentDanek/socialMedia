@@ -2,7 +2,6 @@ import IAction from "../actions/IAction";
 import {IUsersPage} from "../../interfaces/IUsersPage";
 import UsersActionTypes from "../actions/actionTypes/usersActionTypes";
 
-
 const initialState: IUsersPage = {
     users: [
 /*        {
@@ -42,10 +41,10 @@ const initialState: IUsersPage = {
     pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
+    isFetching: true,
 }
 
 export function usersReducer(state = initialState, action: IAction): IUsersPage {
-
     switch (action.type) {
         case UsersActionTypes.FOLLOW: {
             return {
@@ -84,6 +83,10 @@ export function usersReducer(state = initialState, action: IAction): IUsersPage 
         case UsersActionTypes.SET_TOTAL_USERS_COUNT:{
             // @ts-ignore
             return {...state,totalUsersCount: action.payload.totalUsersCount}
+        }
+        case UsersActionTypes.TOGGLE_IS_FETCHING:{
+            // @ts-ignore
+            return {...state,isFetching: action.payload.isFetching}
         }
         default: {
             return state;

@@ -11,22 +11,3 @@
   grid-template-rows: 50px 1fr 50px;
   grid-template-columns: 1fr 4fr;
 }
-
-header{
-  grid-area: header;
-  background: lawngreen;
-}
-
-
-main{
-  grid-area: main;
-  background: orangered;
-}
-
-footer{
-  grid-area: footer;
-  background: gold;
-}
-
-
-

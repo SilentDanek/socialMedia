@@ -1,4 +1,8 @@
-.logoImg {
+header {
+  grid-area: header;
+  background: lawngreen;
+}
+header .logoImg {
   border-radius: 8px;
 }
 

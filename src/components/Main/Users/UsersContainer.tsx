@@ -8,41 +8,52 @@ import {
     followAC,
     setCurrentPageAC,
     setTotalUsersCountAC,
-    setUsersAC,
+    setUsersAC, toggleIsFetchingAC,
     unfollowAC
 } from "../../../redux/actions/actionCreators/usersActionCreators";
-
-
+import {Preloader} from "../../common/Preloader/Preloader";
 
 export function UsersContainer(props: any) {
     useEffect(() => {
+        //props.toggleIsFetching(true);     isFetching: false,
         fetch(`http://localhost:5000/users?page=${props.currentPage}&count=${props.pageSize}`)
             .then((response) => response.json())
             .then((response) => {
                 props.setUsers(response.items);
                 props.setTotalUsersCount(response.totalCount);
+                props.toggleIsFetching(false);
             });
     }, []);
 
 
     function onPageChanged(page: number) {
+        props.toggleIsFetching(true);
         props.setCurrentPage(page);
 
         fetch(`http://localhost:5000/users?page=${page}&count=${props.pageSize}`)
             .then((response) => response.json())
-            .then((response) => props.setUsers(response.items));
+            .then((response) => {
+                props.setUsers(response.items);
+                props.toggleIsFetching(false);
+            });
     }
 
     return (
-        <Users
-            follow   = {props.follow  }
-            unfollow = {props.unfollow}
-            users    = {props.users   }
-            pageSize = {props.pageSize}
-            currentPage     = {props.currentPage}
-            onPageChanged   = {onPageChanged}
-            totalUsersCount = {props.totalUsersCount}
-        />
+        <>
+            {
+                props.isFetching?
+                    <Preloader/>:
+                    <Users
+                        follow={props.follow}
+                        unfollow={props.unfollow}
+                        users={props.users}
+                        pageSize={props.pageSize}
+                        currentPage={props.currentPage}
+                        onPageChanged={onPageChanged}
+                        totalUsersCount={props.totalUsersCount}
+                    />
+            }
+        </>
     )
 }
 
@@ -53,6 +64,7 @@ const mapStateToProps = (state: IState) => {
         pageSize: state.usersPage.pageSize,
         currentPage: state.usersPage.currentPage,
         totalUsersCount: state.usersPage.totalUsersCount,
+        isFetching: state.usersPage.isFetching
     };
 }
 
@@ -72,6 +84,9 @@ const mapDispatchToProps = (dispatch: IDispatch) => {
         },
         setTotalUsersCount: (totalUsersCount: number) => {
             dispatch(setTotalUsersCountAC(totalUsersCount));
+        },
+        toggleIsFetching: (isFetching: boolean) => {
+            dispatch(toggleIsFetchingAC(isFetching));
         },
     }
 }

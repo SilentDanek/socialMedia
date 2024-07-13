@@ -6,13 +6,13 @@ import Footer from "./components/Footer/Footer";
 import NavBar from "./components/NavBar/NavBar";
 
 
-function App(props:any) {
+function App() {
 
   return (
     <div className="app-wrapper">
         <Header/>
         <NavBar/>
-        <Main store = {props.store}/>
+        <Main  />
         <Footer/>
     </div>
   );

@@ -31,3 +31,9 @@ export const setTotalUsersCountAC = (totalUsersCount:number): IAction => ({
     // @ts-ignore
     payload: { totalUsersCount }
 });
+
+export const toggleIsFetchingAC = (isFetching:boolean): IAction => ({
+    type: UsersActionTypes.TOGGLE_IS_FETCHING,
+    // @ts-ignore
+    payload: { isFetching }
+});

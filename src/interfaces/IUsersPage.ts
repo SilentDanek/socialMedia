@@ -4,13 +4,13 @@ export interface IUser{
     status:string | null;
     uniqueUrlName: null;
     followed:boolean;
-    "photos": {
-        "small": string | null,
-        "large": string | null
+    photos: {
+        small: string | null,
+        large: string | null
     },
-    "location": {
-        "country":string,
-        "city": string
+    location: {
+        country:string,
+        city: string
     },
 }
 
@@ -21,4 +21,5 @@ export interface IUsersPage{
     pageSize: number,
     totalUsersCount: number,
     currentPage: number,
+    isFetching: boolean
 }
