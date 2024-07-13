@@ -1,13 +1,11 @@
 import React from "react";
 import {
-    newPostTextAC,
-    addPostAC
+    updateNewPostText,
+    addPost
 } from "../../../../redux/actions/actionCreators/profileActionCreators";
 import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
 import {IState} from "../../../../interfaces/IState";
-import {IDispatch} from "../../../../interfaces/IDispatch";
-
 
 const mapStateToProps = (state:IState) => {
     return {
@@ -16,20 +14,9 @@ const mapStateToProps = (state:IState) => {
     }
 }
 
-const mapDispatchToProps = (dispatch:IDispatch)=>{
-    return {
-        addPost: () => {
-            const action = addPostAC();
-            dispatch(action);
-        },
-        updateNewPostText: (text: string) => {
-            const action = newPostTextAC(text);
-            dispatch(action);
-        }
-    }
-}
-
-
-const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
+const MyPostsContainer = connect(mapStateToProps, {
+    addPost,
+    updateNewPostText
+})(MyPosts);
 
 export default MyPostsContainer;

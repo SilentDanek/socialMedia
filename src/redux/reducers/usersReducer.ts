@@ -86,7 +86,7 @@ export function usersReducer(state = initialState, action: IAction): IUsersPage 
         }
         case UsersActionTypes.TOGGLE_IS_FETCHING:{
             // @ts-ignore
-            return {...state,isFetching: action.payload.isFetching}
+            return {...state, isFetching: action.payload.isFetching}
         }
         default: {
             return state;

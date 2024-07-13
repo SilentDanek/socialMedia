@@ -2,10 +2,9 @@ import React from "react";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {IState} from "../../../interfaces/IState";
-import {IDispatch} from "../../../interfaces/IDispatch";
 import {
-    newMessageBodyAC,
-    sendMessageAC
+    updateNewMessageBody,
+    sendMessage
 } from "../../../redux/actions/actionCreators/dialogsActionCreators";
 
 const mapStateToProps = (state:IState) => {
@@ -14,20 +13,7 @@ const mapStateToProps = (state:IState) => {
     }
 }
 
-const mapDispatchToProps = (dispatch:IDispatch) => {
-    return {
-        updateNewMessageBody:(text:string) => {
-            const action = newMessageBodyAC(text);
-            dispatch(action)
-        },
-        sendMessage:() => {
-            const action = sendMessageAC();
-            dispatch(action);
-        }
-    }
-}
-
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+const DialogsContainer = connect(mapStateToProps, {updateNewMessageBody, sendMessage})(Dialogs);
 
 export default DialogsContainer;
 

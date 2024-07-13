@@ -1,15 +1,10 @@
 import {IState} from "../../../interfaces/IState";
-import {IUser} from "../../../interfaces/IUsersPage";
-import {IDispatch} from "../../../interfaces/IDispatch";
 import {connect} from "react-redux";
 import {Users} from "./Users";
 import {useEffect} from "react";
 import {
-    followAC,
-    setCurrentPageAC,
-    setTotalUsersCountAC,
-    setUsersAC, toggleIsFetchingAC,
-    unfollowAC
+    follow, unfollow, setUsers,
+    setCurrentPage, setTotalUsersCount, toggleIsFetching,
 } from "../../../redux/actions/actionCreators/usersActionCreators";
 import {Preloader} from "../../common/Preloader/Preloader";
 
@@ -24,7 +19,6 @@ export function UsersContainer(props: any) {
                 props.toggleIsFetching(false);
             });
     }, []);
-
 
     function onPageChanged(page: number) {
         props.toggleIsFetching(true);
@@ -57,7 +51,6 @@ export function UsersContainer(props: any) {
     )
 }
 
-
 const mapStateToProps = (state: IState) => {
     return {
         users: state.usersPage.users,
@@ -68,27 +61,7 @@ const mapStateToProps = (state: IState) => {
     };
 }
 
-const mapDispatchToProps = (dispatch: IDispatch) => {
-    return {
-        follow: (userId: number) => {
-            dispatch(followAC(userId))
-        },
-        unfollow: (userId: number) => {
-            dispatch(unfollowAC(userId))
-        },
-        setUsers: (users: IUser[]) => {
-            dispatch(setUsersAC(users));
-        },
-        setCurrentPage: (currentPage: number) => {
-            dispatch(setCurrentPageAC(currentPage));
-        },
-        setTotalUsersCount: (totalUsersCount: number) => {
-            dispatch(setTotalUsersCountAC(totalUsersCount));
-        },
-        toggleIsFetching: (isFetching: boolean) => {
-            dispatch(toggleIsFetchingAC(isFetching));
-        },
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+export default connect(mapStateToProps, {
+    follow, unfollow, setUsers,
+    setCurrentPage, setTotalUsersCount, toggleIsFetching,
+})(UsersContainer);

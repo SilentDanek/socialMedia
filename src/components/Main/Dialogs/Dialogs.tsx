@@ -4,36 +4,38 @@ import Message from "./Message/Message";
 import React from "react";
 
 
-interface IUsers{
-    id:number,
-    name:string
+interface IUsers {
+    id: number,
+    name: string
 }
-function dialogsElements(users:IUsers[]) {
+
+function dialogsElements(users: IUsers[]) {
     return users.map(({name, id}) => <DialogItem name={name} id={id}/>);
 }
 
-interface IMessages{
-    id:number,
-    message:string
+interface IMessages {
+    id: number,
+    message: string
 }
-function messagesElements(messages:IMessages[]) {
+
+function messagesElements(messages: IMessages[]) {
     return messages.map((m) => <Message message={m.message}/>);
 }
 
-function Dialogs(props:any){
+function Dialogs(props: any) {
     const state = props.dialogsPage;
 
 
-    function onSendMessageClick(){
+    function onSendMessageClick() {
         props.sendMessage();
     }
 
-    function onNewMessageChange(e:React.ChangeEvent<HTMLTextAreaElement>){
+    function onNewMessageChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
         const text = e.target.value;
         props.updateNewMessageBody(text)
     }
 
-    return(
+    return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
                 {dialogsElements(state.dialogs)}
@@ -55,7 +57,7 @@ function Dialogs(props:any){
                     </div>
                 </div>
             </div>
-            
+
         </div>
     )
 }

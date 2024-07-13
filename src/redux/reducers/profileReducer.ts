@@ -30,7 +30,7 @@ let initialState:IProfilePage = {
             dislikes: 0,
             message: "Your flex is amazing!"
         }],
-    newPostText: "Flexzilla"
+    newPostText: ""
 };
 
 export function profileReducer(state = initialState, action: IAction):IProfilePage {
