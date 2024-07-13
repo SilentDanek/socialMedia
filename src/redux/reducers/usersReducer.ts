@@ -38,7 +38,10 @@ const initialState: IUsersPage = {
                 country: "Украина"
             }
         },*/
-    ]
+    ],
+    pageSize: 10,
+    totalUsersCount: 0,
+    currentPage: 1,
 }
 
 export function usersReducer(state = initialState, action: IAction): IUsersPage {
@@ -72,7 +75,15 @@ export function usersReducer(state = initialState, action: IAction): IUsersPage 
         }
         case UsersActionTypes.SET_USERS:{
             // @ts-ignore
-            return {...state, users: state.users.concat(action.payload.users)}
+            return {...state, users: action.payload.users}
+        }
+        case UsersActionTypes.SET_CURRENT_PAGE:{
+            // @ts-ignore
+            return {...state,currentPage: action.payload.currentPage}
+        }
+        case UsersActionTypes.SET_TOTAL_USERS_COUNT:{
+            // @ts-ignore
+            return {...state,totalUsersCount: action.payload.totalUsersCount}
         }
         default: {
             return state;

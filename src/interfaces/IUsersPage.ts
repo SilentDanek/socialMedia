@@ -1,17 +1,24 @@
 export interface IUser{
-    name:string;
     id:number;
-    uniqueUrlName: null,
+    name:string;
+    status:string | null;
+    uniqueUrlName: null;
+    followed:boolean;
     "photos": {
         "small": string | null,
         "large": string | null
     },
-    followed:boolean;
-    status:string | null;
+    "location": {
+        "country":string,
+        "city": string
+    },
 }
 
 
 
 export interface IUsersPage{
     users:IUser[];
+    pageSize: number,
+    totalUsersCount: number,
+    currentPage: number,
 }

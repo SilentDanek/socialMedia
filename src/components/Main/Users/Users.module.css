@@ -1,3 +1,16 @@
+.pageSeqContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.pageSeqContainer .pageButton {
+  cursor: pointer;
+  padding: 1px 3px;
+}
+.pageSeqContainer .pageButton.selectedPage {
+  font-weight: bold;
+}
+
 .userSection {
   display: grid;
   grid-template-columns: minmax(100px, 1fr) 9fr;

@@ -19,3 +19,15 @@ export const setUsersAC = (users:IUser[]): IAction => ({
     // @ts-ignore
     payload: { users }
 });
+
+export const setCurrentPageAC = (currentPage:number): IAction => ({
+    type: UsersActionTypes.SET_CURRENT_PAGE,
+    // @ts-ignore
+    payload: { currentPage }
+});
+
+export const setTotalUsersCountAC = (totalUsersCount:number): IAction => ({
+    type: UsersActionTypes.SET_TOTAL_USERS_COUNT,
+    // @ts-ignore
+    payload: { totalUsersCount }
+});
