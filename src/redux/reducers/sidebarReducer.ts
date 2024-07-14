@@ -1,4 +1,4 @@
-import IAction from "../actions/IAction";
+import {IAction} from "../../interfaces/IAction";
 import {ISideBar} from "../../interfaces/ISideBar";
 
 

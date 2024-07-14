@@ -1,4 +1,4 @@
-import IAction from "../actions/IAction";
+import {IAction} from "../../interfaces/IAction";
 import {IUsersPage} from "../../interfaces/IUsersPage";
 import UsersActionTypes from "../actions/actionTypes/usersActionTypes";
 
@@ -41,7 +41,7 @@ const initialState: IUsersPage = {
     pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: true,
+    isFetching: false,
 }
 
 export function usersReducer(state = initialState, action: IAction): IUsersPage {

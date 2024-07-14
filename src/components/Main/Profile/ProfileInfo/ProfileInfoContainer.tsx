@@ -1,14 +1,14 @@
 import ProfileInfo from "./ProfileInfo";
 import {connect} from "react-redux";
 import {IState} from "../../../../interfaces/IState";
-
+import unknownUserSVG from "../../../../assets/images/unknown-user.svg"
 
 const mapStateToProps = (state:IState) => {
-    const profileInfo = state.profilePage.profileInfo;
+    if (!state.profilePage || !state.profilePage.profile) return;
     return {
-        avatarURL: profileInfo.avatarURL,
-        wallpaperURL: profileInfo.wallpaperURL,
-        nickName: profileInfo.nickName,
+        wallpaperURL: state.profilePage.wallpaperURL,
+        photoURL: state.profilePage.profile.photos.large || unknownUserSVG,
+        fullName: state.profilePage.profile.fullName
     }
 }
 

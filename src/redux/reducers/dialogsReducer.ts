@@ -1,4 +1,4 @@
-import IAction from "../actions/IAction";
+import {IAction} from "../../interfaces/IAction";
 import DialogsActionTypes from "../actions/actionTypes/dialogsActionTypes";
 import {IDialogsPage} from "../../interfaces/IDialogsPage";
 

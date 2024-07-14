@@ -1,6 +1,7 @@
 import {IUser} from "../../../interfaces/IUsersPage";
 import s from "./Users.module.css"
-
+import {NavLink} from "react-router-dom";
+import unknownUserSVG from "../../../assets/images/unknown-user.svg"
 
 export function Users(props: any) {
     const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -28,9 +29,11 @@ export function Users(props: any) {
                         <section key={user.id} className={s.userSection}>
                             <div>
                                 <div>
-                                    <img
-                                        src={user.photos.large || "https://i1.sndcdn.com/artworks-ZWMdM4B4RnS3RMmT-LXIgNA-t500x500.jpg"}
-                                        alt="user photo"/>
+                                    <NavLink to={`/profile/${user.id}`}>
+                                        <img
+                                            src={user.photos.large || unknownUserSVG}
+                                            alt="user photo"/>
+                                    </NavLink>
                                 </div>
                                 <div>
                                     {user.followed ?

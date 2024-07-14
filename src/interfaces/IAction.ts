@@ -1,12 +1,10 @@
-interface IAction {
-    type: string;
-    //payload: object;
-    payload: {
-        text: string;
-    };
+export interface IAction {
+  type: string;
+  //payload: object;
+  payload: {
+    text: string;
+  };
 }
-
-export default IAction;
 
 /*export interface IUpdateNewPostTextAction extends IAction {
     type: ActionTypes.UPDATE_NEW_POST_TEXT,

@@ -1,4 +1,4 @@
-import IAction from "../IAction";
+import {IAction} from "../../../interfaces/IAction";
 import DialogsActionTypes from "../actionTypes/dialogsActionTypes";
 
 export const updateNewMessageBody = (text: string): IAction => ({

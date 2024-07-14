@@ -1,14 +1,13 @@
-import IAction from "../actions/IAction";
+import {IAction} from "../../interfaces/IAction";
 import ProfileActionTypes from "../actions/actionTypes/profileActionTypes";
 import {IProfilePage} from "../../interfaces/IProfilePage";
 
 
 let initialState:IProfilePage = {
-    profileInfo: {
-        avatarURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCV3qXCZ7YaJ4MOkCaw17CjrusyoQMp4fFNA&s",
-        wallpaperURL: "https://interier-foto.ru/wp-content/uploads/dlinnye-foto-4.jpg",
-        nickName: "Ricardo Milos"
-    },
+    //avatarURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCV3qXCZ7YaJ4MOkCaw17CjrusyoQMp4fFNA&s",
+    wallpaperURL: "https://interier-foto.ru/wp-content/uploads/dlinnye-foto-4.jpg",
+    profile: null,
+    newPostText: "",
     posts: [
         {
             id: 1,
@@ -30,46 +29,45 @@ let initialState:IProfilePage = {
             dislikes: 0,
             message: "Your flex is amazing!"
         }],
-    newPostText: ""
 };
 
 export function profileReducer(state = initialState, action: IAction):IProfilePage {
     switch (action.type) {
         case ProfileActionTypes.UPDATE_NEW_POST_TEXT: {
-            return updateNewPostText(state, action.payload.text);
+            return {
+                ...state,
+                // @ts-ignore
+                newPostText:action.payload.newPostText
+            };
         }
         case ProfileActionTypes.ADD_POST: {
-            return addPost(state);
+            // Test
+            const newPost = {
+                user: {
+                    avatarURL: "https://steamuserimages-a.akamaihd.net/ugc/1736675605280339028/3E984442933B76839E2E6F719C780B554603DB14/",
+                    nickName: "Anon"
+                },
+                id: 5,
+                message: state.newPostText,
+                likes: 0,
+                dislikes: 0
+            }
+
+            return {
+                ...state,
+                posts: state.posts.concat(newPost),
+                newPostText: ""
+            };
+        }
+        case ProfileActionTypes.SET_USER_PROFILE: {
+            return {
+                ...state,
+                // @ts-ignore
+                profile:action.payload.profile
+            };
         }
         default: {
             return state;
         }
     }
-}
-
-function addPost(state: IProfilePage) {
-    // Test
-    const newPost = {
-        user: {
-            avatarURL: "https://steamuserimages-a.akamaihd.net/ugc/1736675605280339028/3E984442933B76839E2E6F719C780B554603DB14/",
-            nickName: "Anon"
-        },
-        id: 5,
-        message: state.newPostText,
-        likes: 0,
-        dislikes: 0
-    }
-
-    return {
-        ...state,
-        posts: state.posts.concat(newPost),
-        newPostText: ""
-    }
-}
-
-function updateNewPostText(state: IProfilePage, newText: string) {
-    return {
-        ...state,
-        newPostText:newText
-    };
 }

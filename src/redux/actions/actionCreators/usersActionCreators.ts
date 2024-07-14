@@ -1,4 +1,4 @@
-import IAction from "../IAction";
+import {IAction} from "../../../interfaces/IAction";
 import UsersActionTypes from "../actionTypes/usersActionTypes";
 import {IUser} from "../../../interfaces/IUsersPage";
 

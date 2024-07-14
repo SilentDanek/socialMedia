@@ -2,24 +2,21 @@ import s from "./ProfileInfo.module.css";
 
 interface IProfileInfo {
     wallpaperURL: string;
-    avatarURL: string;
-    nickName: string;
+    photoURL: string;
+    fullName: string;
 }
 
 function ProfileInfo(props: IProfileInfo) {
-
     return (
         <div className={s.profile}>
-            <div className={s.wallpaper}>
-
-            </div>
+            <div className={s.wallpaper}/>
             <div className={s.profileInfo}>
                 <img
                     className={s.avatar}
-                    src={props.avatarURL}
+                    src={props.photoURL}
                     alt="Avatar"
                 />
-                <span>{props.nickName}</span>
+                <span>{props.fullName}</span>
             </div>
         </div>
     );

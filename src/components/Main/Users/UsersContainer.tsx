@@ -10,7 +10,7 @@ import {Preloader} from "../../common/Preloader/Preloader";
 
 export function UsersContainer(props: any) {
     useEffect(() => {
-        //props.toggleIsFetching(true);     isFetching: false,
+        props.toggleIsFetching(true);
         fetch(`http://localhost:5000/users?page=${props.currentPage}&count=${props.pageSize}`)
             .then((response) => response.json())
             .then((response) => {
