@@ -1,15 +1,18 @@
-import Profile from "./Profile";
-import {connect} from "react-redux";
 import {useEffect} from "react";
+import {connect} from "react-redux";
+import {useParams} from "react-router-dom";
 import {IState} from "../../../interfaces/IState";
 import {setUserProfile} from "../../../redux/actions/actionCreators/profileActionCreators";
-import { toggleIsFetching } from "../../../redux/actions/actionCreators/usersActionCreators";
+import {toggleIsFetching} from "../../../redux/actions/actionCreators/usersActionCreators";
 import {Preloader} from "../../common/Preloader/Preloader"
+import Profile from "./Profile";
+
 
 function ProfileContainer(props:any) {
+    const params = useParams();
     useEffect(() => {
         props.toggleIsFetching(true);
-        fetch(`http://localhost:5000/profile/1`)
+        fetch(`http://localhost:5000/profile/${params.userID}`)
             .then((response) => response.json())
             .then((response) => {
                 props.setUserProfile(response);
@@ -25,5 +28,7 @@ function mapStateToProps(state:IState){
         profile: state.profilePage.profile,
     }
 }
+
+
 
 export default connect(mapStateToProps, {setUserProfile, toggleIsFetching})(ProfileContainer);

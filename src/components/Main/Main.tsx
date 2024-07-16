@@ -13,7 +13,7 @@ function Main() {
             <Routes>
                 <Route path="/" element = {<HomePage/>}/>
                 <Route path="/dialogs" element = {<DialogsContainer/>}/>
-                <Route path="/profile/:id" element = {<ProfileContainer/>}/>
+                <Route path="/profile/:userID" element = {<ProfileContainer/>}/>
                 <Route path="/users"   element = {<UsersContainer/>  }/>
             </Routes>
         </main>
