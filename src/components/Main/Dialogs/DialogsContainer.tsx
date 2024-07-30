@@ -1,5 +1,4 @@
-import React from "react";
-import Dialogs from "./Dialogs";
+import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {IState} from "../../../interfaces/IState";
 import {
@@ -16,4 +15,3 @@ const mapStateToProps = (state:IState) => {
 const DialogsContainer = connect(mapStateToProps, {updateNewMessageBody, sendMessage})(Dialogs);
 
 export default DialogsContainer;
-

@@ -1,12 +1,9 @@
-import React from "react";
 import s from "./Footer.module.css"
 
-function Footer() {
+export function Footer() {
     return (
         <footer className={s.footer}>
-            4
+            _
         </footer>
     )
 }
-
-export default Footer;

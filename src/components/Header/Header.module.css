@@ -1,8 +1,10 @@
-header {
+.header {
   grid-area: header;
   background: lawngreen;
+  display: flex;
+  justify-content: space-between;
 }
-header .logoImg {
+.header .logoImg {
   border-radius: 8px;
 }
 

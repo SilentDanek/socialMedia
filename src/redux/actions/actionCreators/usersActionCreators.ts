@@ -1,5 +1,5 @@
 import {IAction} from "../../../interfaces/IAction";
-import UsersActionTypes from "../actionTypes/usersActionTypes";
+import {UsersActionTypes} from "../actionTypes/usersActionTypes";
 import {IUser} from "../../../interfaces/IUsersPage";
 
 export const follow = (id:number): IAction => ({

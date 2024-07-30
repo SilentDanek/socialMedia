@@ -1,5 +1,5 @@
 import {IAction} from "../../interfaces/IAction";
-import DialogsActionTypes from "../actions/actionTypes/dialogsActionTypes";
+import {DialogsActionTypes} from "../actions/actionTypes/dialogsActionTypes";
 import {IDialogsPage} from "../../interfaces/IDialogsPage";
 
 
@@ -21,9 +21,11 @@ let initialState:IDialogsPage = {
 export function dialogsReducer(state = initialState, action:IAction):IDialogsPage{
     switch (action.type){
         case DialogsActionTypes.SEND_MESSAGE:{
+            // @ts-ignore
             return sendMassage(state);
         }
         case DialogsActionTypes.UPDATE_NEW_MASSAGE_BODY:{
+            // @ts-ignore
             return updateNewMassageBody(state, action.payload.text);
         }
         default:{

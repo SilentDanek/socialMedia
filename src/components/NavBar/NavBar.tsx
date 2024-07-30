@@ -1,8 +1,7 @@
-import React from "react";
 import {NavLink} from "react-router-dom";
 import s from "./NavBar.module.css"
 
-function NavBar() {
+export function NavBar() {
 
     function active({isActive}:{isActive:boolean}){
         return isActive? {color: "#d1c324"}: {};
@@ -45,5 +44,3 @@ function NavBar() {
         </nav>
     )
 }
-
-export default NavBar;

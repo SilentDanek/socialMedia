@@ -1,5 +1,5 @@
 import {IAction} from "../../../interfaces/IAction";
-import DialogsActionTypes from "../actionTypes/dialogsActionTypes";
+import {DialogsActionTypes} from "../actionTypes/dialogsActionTypes";
 
 export const updateNewMessageBody = (text: string): IAction => ({
     type: DialogsActionTypes.UPDATE_NEW_MASSAGE_BODY,

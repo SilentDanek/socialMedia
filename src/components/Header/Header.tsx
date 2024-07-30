@@ -1,9 +1,9 @@
 import {NavLink} from "react-router-dom";
-import s from "./Header.module.css"
+import s from "./Header.module.css";
 
-function Header() {
+export function Header() {
     return (
-        <header>
+        <header className={s.header}>
             <NavLink to={"/"} aria-label="Home">
                 <img
                     className={s.logoImg}
@@ -11,8 +11,13 @@ function Header() {
                     alt="Aviary logo"
                     height={"100%"}/>
             </NavLink>
+
+            <div>
+                <NavLink to={"/login"}>
+                    <button className="">Sign in</button>
+                </NavLink>
+
+            </div>
         </header>
     )
 }
-
-export default Header;

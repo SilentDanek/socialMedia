@@ -1,4 +1,3 @@
-import React from "react";
 import {Routes, Route} from "react-router-dom"
 import s from "./Main.module.css"
 
@@ -7,7 +6,8 @@ import UsersContainer from "./Users/UsersContainer";
 import DialogsContainer from "./Dialogs/DialogsContainer";
 import ProfileContainer from "./Profile/ProfileContainer";
 
-function Main() {
+
+export function Main() {
     return (
         <main className={s.main}>
             <Routes>
@@ -19,5 +19,3 @@ function Main() {
         </main>
     )
 }
-
-export default Main;

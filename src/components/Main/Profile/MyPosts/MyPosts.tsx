@@ -1,6 +1,7 @@
 import React from "react";
 import s from "./MyPosts.module.css";
-import Post from "./Post/Post";
+
+import {Post} from "./Post/Post";
 import {IPost} from "../../../../interfaces/IProfilePage";
 
 function postElement(posts:IPost[]) {
@@ -42,7 +43,7 @@ export function MyPosts(props:IMyPostsProps) {
                 <textarea
                     onChange={onPostChange}
                     value={props.newPostText}
-                    placeholder={"Enter your post message"}
+                    placeholder={"Type your post message"}
                 />
                 <button onClick={onAddPost}>Add new post</button>
             </div>

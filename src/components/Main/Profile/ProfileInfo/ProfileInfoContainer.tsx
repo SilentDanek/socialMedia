@@ -1,4 +1,4 @@
-import ProfileInfo from "./ProfileInfo";
+import {ProfileInfo} from "./ProfileInfo";
 import {connect} from "react-redux";
 import {IState} from "../../../../interfaces/IState";
 import unknownUserSVG from "../../../../assets/images/unknown-user.svg"
@@ -12,6 +12,4 @@ const mapStateToProps = (state:IState) => {
     }
 }
 
-const ProfileInfoContainer = connect(mapStateToProps)(ProfileInfo);
-
-export default ProfileInfoContainer;
+export default connect(mapStateToProps)(ProfileInfo);

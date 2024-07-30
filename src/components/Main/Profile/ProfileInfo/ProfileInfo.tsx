@@ -6,7 +6,7 @@ interface IProfileInfo {
     fullName: string;
 }
 
-function ProfileInfo(props: IProfileInfo) {
+export function ProfileInfo(props: IProfileInfo) {
     return (
         <div className={s.profile}>
             <div className={s.wallpaper}/>
@@ -21,5 +21,3 @@ function ProfileInfo(props: IProfileInfo) {
         </div>
     );
 }
-
-export default ProfileInfo;

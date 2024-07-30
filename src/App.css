@@ -1,7 +1,12 @@
-@import "styles/reset.css";
+@import 'styles/reset.css';
+
+body{
+  background-color: aquamarine;
+}
 
 .app-wrapper {
   width: 90%;
+  min-height: 100vh;
   margin: auto;
   display: grid;
   grid-template-areas:

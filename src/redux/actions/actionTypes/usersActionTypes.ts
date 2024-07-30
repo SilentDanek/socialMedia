@@ -1,4 +1,4 @@
-enum UsersActionTypes {
+export enum UsersActionTypes {
     FOLLOW = "FOLLOW",
     UNFOLLOW = "UNFOLLOW",
     SET_USERS = "SET_USERS",
@@ -7,5 +7,3 @@ enum UsersActionTypes {
     TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING",
 
 }
-
-export default UsersActionTypes;

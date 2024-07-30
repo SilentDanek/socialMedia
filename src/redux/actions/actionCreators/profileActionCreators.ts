@@ -1,5 +1,5 @@
 import {IAction} from "../../../interfaces/IAction";
-import ProfileActionTypes from "../actionTypes/profileActionTypes";
+import {ProfileActionTypes} from "../actionTypes/profileActionTypes";
 import {IUserProfile} from "../../../interfaces/IProfilePage";
 
 export const updateNewPostText = (newPostText:string): IAction => ({

@@ -4,13 +4,10 @@ interface IMessage {
     message:string;
 }
 
-function Message(props:IMessage){
+export function Message(props:IMessage){
     return(
         <div className={s.message}>
             {props.message}
         </div>
     )
 }
-
-
-export default Message;

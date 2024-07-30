@@ -1,18 +1,19 @@
 import {useEffect} from "react";
-import {connect} from "react-redux";
+import {connect}   from "react-redux";
 import {useParams} from "react-router-dom";
-import {IState} from "../../../interfaces/IState";
-import {setUserProfile} from "../../../redux/actions/actionCreators/profileActionCreators";
-import {toggleIsFetching} from "../../../redux/actions/actionCreators/usersActionCreators";
+import {IState}    from "../../../interfaces/IState";
 import {Preloader} from "../../common/Preloader/Preloader"
-import Profile from "./Profile";
+import {Profile}   from "./Profile";
+import {setUserProfile}   from "../../../redux/actions/actionCreators/profileActionCreators";
+import {toggleIsFetching} from "../../../redux/actions/actionCreators/usersActionCreators";
+
 
 
 function ProfileContainer(props:any) {
     const params = useParams();
     useEffect(() => {
         props.toggleIsFetching(true);
-        fetch(`http://localhost:5000/profile/${params.userID}`)
+        fetch(`https://social-network.samuraijs.com/api/1.0/profile/${params.userID}`)
             .then((response) => response.json())
             .then((response) => {
                 props.setUserProfile(response);
@@ -28,7 +29,6 @@ function mapStateToProps(state:IState){
         profile: state.profilePage.profile,
     }
 }
-
 
 
 export default connect(mapStateToProps, {setUserProfile, toggleIsFetching})(ProfileContainer);

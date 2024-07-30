@@ -1,5 +1,5 @@
 import {IAction} from "../../interfaces/IAction";
-import ProfileActionTypes from "../actions/actionTypes/profileActionTypes";
+import {ProfileActionTypes} from "../actions/actionTypes/profileActionTypes";
 import {IProfilePage} from "../../interfaces/IProfilePage";
 
 

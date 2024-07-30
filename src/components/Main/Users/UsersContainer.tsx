@@ -11,7 +11,7 @@ import {Preloader} from "../../common/Preloader/Preloader";
 export function UsersContainer(props: any) {
     useEffect(() => {
         props.toggleIsFetching(true);
-        fetch(`http://localhost:5000/users?page=${props.currentPage}&count=${props.pageSize}`)
+        fetch(`https://social-network.samuraijs.com/api/1.0/users?page=${props.currentPage}&count=${props.pageSize}`)
             .then((response) => response.json())
             .then((response) => {
                 props.setUsers(response.items);
@@ -24,7 +24,7 @@ export function UsersContainer(props: any) {
         props.toggleIsFetching(true);
         props.setCurrentPage(page);
 
-        fetch(`http://localhost:5000/users?page=${page}&count=${props.pageSize}`)
+        fetch(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${props.pageSize}`)
             .then((response) => response.json())
             .then((response) => {
                 props.setUsers(response.items);

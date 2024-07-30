@@ -1,6 +1,6 @@
 import {IAction} from "../../interfaces/IAction";
 import {IUsersPage} from "../../interfaces/IUsersPage";
-import UsersActionTypes from "../actions/actionTypes/usersActionTypes";
+import {UsersActionTypes} from "../actions/actionTypes/usersActionTypes";
 
 const initialState: IUsersPage = {
     users: [

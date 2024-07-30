@@ -1,17 +1,13 @@
 export interface IUser{
     id:number;
     name:string;
-    status:string | null;
     uniqueUrlName: null;
-    followed:boolean;
     photos: {
         small: string | null,
         large: string | null
     },
-    location: {
-        country:string,
-        city: string
-    },
+    status:string | null;
+    followed:boolean;
 }
 
 

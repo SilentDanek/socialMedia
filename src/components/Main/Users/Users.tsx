@@ -47,8 +47,8 @@ export function Users(props: any) {
                                     <div>{user.status}</div>
                                 </div>
                                 <div>
-                                    <div>{user.location.country}</div>
-                                    <div>{user.location.city}</div>
+                                    {/*<div>{user.location.country}</div>
+                                    <div>{user.location.city}</div>*/}
                                 </div>
                             </div>
                         </section>

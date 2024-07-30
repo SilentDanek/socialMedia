@@ -10,7 +10,7 @@ interface postInfo {
     message: string;
 }
 
-function Post(props: postInfo) {
+export function Post(props: postInfo) {
     return (
         <div className={s.post}>
             <div className={s.item}>
@@ -32,5 +32,3 @@ function Post(props: postInfo) {
         </div>
     )
 }
-
-export default Post;
