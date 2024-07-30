@@ -4,7 +4,6 @@ import {ISideBar} from "./ISideBar";
 import {IUsersPage} from "./IUsersPage";
 import {IAuth} from "./IAuth";
 
-
 export interface IState {
     profilePage: IProfilePage,
     dialogsPage: IDialogsPage,

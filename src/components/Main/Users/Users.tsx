@@ -23,38 +23,63 @@ export function Users(props: any) {
                     })
                 }
             </div>
-            {
-                props.users.map((user: IUser) => {
-                    return (
-                        <section key={user.id} className={s.userSection}>
-                            <div>
-                                <div>
-                                    <NavLink to={`/profile/${user.id}`}>
-                                        <img
-                                            src={user.photos.large || unknownUserSVG}
-                                            alt="user photo"/>
-                                    </NavLink>
-                                </div>
-                                <div>
-                                    {user.followed ?
-                                        <button onClick={() => props.unfollow(user.id)}>Followed</button> :
-                                        <button onClick={() => props.follow(user.id)}>Unfollowed</button>}
-                                </div>
-                            </div>
-                            <div className={s.userContent}>
-                                <div className={s.userInfo}>
-                                    <div><b>{user.name}</b></div>
-                                    <div>{user.status}</div>
-                                </div>
-                                <div>
-                                    {/*<div>{user.location.country}</div>
+            {props.users.map((user: IUser) => (
+                <section key={user.id} className={s.userSection}>
+                    <div>
+                        <div>
+                            <NavLink to={`/profile/${user.id}`}>
+                                <img
+                                    src={user.photos.large || unknownUserSVG}
+                                    alt="user photo"/>
+                            </NavLink>
+                        </div>
+                        <div>
+                            {
+                                user.followed ?
+                                (<button onClick={() => {
+                                    fetch(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
+                                        {
+                                            credentials: "include",
+                                            method: "delete",
+                                            headers:{
+                                                "API-KEY": "8535baf1-4bf0-4155-a641-cd65532bc347"
+                                            }
+                                        }).then(response => response.json())
+                                        .then((response) => {
+                                            if(response.resultCode === 0){
+                                                props.unfollow(user.id);
+                                            }
+                                        })
+                                }}>Unfollow</button>):
+                                (<button onClick={() => {
+                                    fetch(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
+                                        {
+                                            credentials: "include",
+                                            method: "post",
+                                            headers:{
+                                                "API-KEY": "8535baf1-4bf0-4155-a641-cd65532bc347"
+                                            }
+                                        }).then(response => response.json())
+                                        .then((response) => {
+                                            if(response.resultCode === 0){
+                                                props.follow(user.id)
+                                            }
+                                        })
+                                }}>Follow</button>)}
+                        </div>
+                    </div>
+                    <div className={s.userContent}>
+                        <div className={s.userInfo}>
+                            <div><b>{user.name}</b></div>
+                            <div>{user.status}</div>
+                        </div>
+                        <div>
+                            {/*<div>{user.location.country}</div>
                                     <div>{user.location.city}</div>*/}
-                                </div>
-                            </div>
-                        </section>
-                    )
-                })
-            }
+                        </div>
+                    </div>
+                </section>
+            ))}
         </div>
     )
 }

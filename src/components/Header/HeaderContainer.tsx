@@ -14,12 +14,15 @@ function HeaderContainer(props:any) {
                   props.setAuthUserData(response.data)
               }
           })
-    })
+    },[])
 
     return (
         <Header {...props}/>
     )
 }
 
-const mapStateToProps = (state:IState) => ({});
+const mapStateToProps = (state:IState) => ({
+    isAuth: state.auth.isAuth,
+    login : state.auth.login
+});
 export default connect(mapStateToProps, {setAuthUserData})(HeaderContainer);

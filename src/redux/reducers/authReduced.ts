@@ -6,7 +6,8 @@ import {AuthActionTypes} from "../actions/actionTypes/authActionTypes";
 let initialState:IAuth = {
     email: null,
     id: null,
-    login: null
+    login: null,
+    isAuth:false
 };
 
 export function authReducer(state = initialState, action:IAction):IAuth{

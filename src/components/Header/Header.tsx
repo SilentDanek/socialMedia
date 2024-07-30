@@ -1,7 +1,7 @@
 import {NavLink} from "react-router-dom";
 import s from "./Header.module.css";
 
-export function Header() {
+export function Header(props:any) {
     return (
         <header className={s.header}>
             <NavLink to={"/"} aria-label="Home">
@@ -13,10 +13,9 @@ export function Header() {
             </NavLink>
 
             <div>
-                <NavLink to={"/login"}>
-                    <button className="">Sign in</button>
-                </NavLink>
-
+                {props.isAuth?
+                    props.login:
+                    <NavLink to={"/login"}>Sign in</NavLink>}
             </div>
         </header>
     )

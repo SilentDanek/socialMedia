@@ -7,6 +7,7 @@ export const setAuthUserData = ({id, email, login}:IAuth):IAction=>({
     payload:{
         id,
         email,
-        login
+        login,
+        isAuth:true
     }
 })
