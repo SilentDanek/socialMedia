@@ -37,3 +37,9 @@ export const toggleIsFetching = (isFetching:boolean): IAction => ({
     // @ts-ignore
     payload: { isFetching }
 });
+
+export const toggleFollowingInProgress = (id:number, isFetching:boolean): IAction => ({
+    type: UsersActionTypes.TOGGLE_IS_FOLLOWING_IN_PROGRESS,
+    // @ts-ignore
+    payload: { id, isFetching }
+});

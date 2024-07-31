@@ -18,4 +18,5 @@ export interface IUsersPage{
     totalUsersCount: number,
     currentPage: number,
     isFetching: boolean
+    followingInProgress: number[]
 }

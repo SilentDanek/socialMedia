@@ -42,6 +42,7 @@ const initialState: IUsersPage = {
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
+    followingInProgress: []
 }
 
 export function usersReducer(state = initialState, action: IAction): IUsersPage {
@@ -87,6 +88,16 @@ export function usersReducer(state = initialState, action: IAction): IUsersPage 
         case UsersActionTypes.TOGGLE_IS_FETCHING:{
             // @ts-ignore
             return {...state, isFetching: action.payload.isFetching}
+        }
+        case UsersActionTypes.TOGGLE_IS_FOLLOWING_IN_PROGRESS:{
+            return {...state,
+                // @ts-ignore
+                followingInProgress: action.payload.isFetching?
+                    // @ts-ignore
+                    state.followingInProgress.concat(action.payload.id):
+                    // @ts-ignore
+                    state.followingInProgress.filter((userId) => userId !== action.payload.id)
+            }
         }
         default: {
             return state;

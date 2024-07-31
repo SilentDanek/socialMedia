@@ -36,7 +36,8 @@ export function Users(props: any) {
                         <div>
                             {
                                 user.followed ?
-                                (<button onClick={() => {
+                                (<button disabled={props.followingInProgress.some((id:number) => id===user.id)} onClick={() => {
+                                    props.toggleFollowingInProgress(user.id, true);
                                     fetch(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
                                         {
                                             credentials: "include",
@@ -49,9 +50,11 @@ export function Users(props: any) {
                                             if(response.resultCode === 0){
                                                 props.unfollow(user.id);
                                             }
+                                            props.toggleFollowingInProgress(user.id, false);
                                         })
                                 }}>Unfollow</button>):
-                                (<button onClick={() => {
+                                (<button disabled={props.followingInProgress.some((id:number) => id===user.id)} onClick={() => {
+                                    props.toggleFollowingInProgress(user.id, true);
                                     fetch(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
                                         {
                                             credentials: "include",
@@ -64,6 +67,7 @@ export function Users(props: any) {
                                             if(response.resultCode === 0){
                                                 props.follow(user.id)
                                             }
+                                            props.toggleFollowingInProgress(user.id, false);
                                         })
                                 }}>Follow</button>)}
                         </div>
