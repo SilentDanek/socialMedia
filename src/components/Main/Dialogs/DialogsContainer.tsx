@@ -4,7 +4,7 @@ import {IState} from "../../../interfaces/IState";
 import {
     updateNewMessageBody,
     sendMessage
-} from "../../../redux/actions/actionCreators/dialogsActionCreators";
+} from "../../../redux/reducers/dialogsReducer";
 
 const mapStateToProps = (state:IState) => {
     return {

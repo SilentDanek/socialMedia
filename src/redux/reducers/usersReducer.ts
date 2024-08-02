@@ -1,42 +1,44 @@
 import {IAction} from "../../interfaces/IAction";
-import {IUsersPage} from "../../interfaces/IUsersPage";
+import {IUser, IUsersPage} from "../../interfaces/IUsersPage";
 import {UsersActionTypes} from "../actions/actionTypes/usersActionTypes";
+import {userAPI} from "../../api/api";
+import {Dispatch} from "react";
 
 const initialState: IUsersPage = {
     users: [
-/*        {
-            id: 1,
-            photoURL: "https://i.ytimg.com/vi/9iVsbli8Cs0/maxresdefault.jpg",
-            followed: true,
-            fullname: "Ярик",
-            status: "Учу прогу",
-            location: {
-                city: "Ахтырка",
-                country: "Украина"
-            }
-        },
-        {
-            id: 2,
-            photoURL: "https://i1.sndcdn.com/avatars-5jUjsbHgYzArXQ6M-tjdn5g-t500x500.jpg",
-            followed: false,
-            fullname: "Славик",
-            status: "Бавлюсь в раст",
-            location: {
-                city: "Краковець",
-                country: "Украина"
-            }
-        },
-        {
-            id: 3,
-            photoURL: "https://i1.sndcdn.com/artworks-000287672720-rukn20-t500x500.jpg",
-            followed: false,
-            fullname: "Майкл",
-            status: "Гортаю ТикТок",
-            location: {
-                city: "Краковець",
-                country: "Украина"
-            }
-        },*/
+        /*        {
+                    id: 1,
+                    photoURL: "https://i.ytimg.com/vi/9iVsbli8Cs0/maxresdefault.jpg",
+                    followed: true,
+                    fullname: "Ярик",
+                    status: "Учу прогу",
+                    location: {
+                        city: "Ахтырка",
+                        country: "Украина"
+                    }
+                },
+                {
+                    id: 2,
+                    photoURL: "https://i1.sndcdn.com/avatars-5jUjsbHgYzArXQ6M-tjdn5g-t500x500.jpg",
+                    followed: false,
+                    fullname: "Славик",
+                    status: "Бавлюсь в раст",
+                    location: {
+                        city: "Краковець",
+                        country: "Украина"
+                    }
+                },
+                {
+                    id: 3,
+                    photoURL: "https://i1.sndcdn.com/artworks-000287672720-rukn20-t500x500.jpg",
+                    followed: false,
+                    fullname: "Майкл",
+                    status: "Гортаю ТикТок",
+                    location: {
+                        city: "Краковець",
+                        country: "Украина"
+                    }
+                },*/
     ],
     pageSize: 10,
     totalUsersCount: 0,
@@ -73,28 +75,29 @@ export function usersReducer(state = initialState, action: IAction): IUsersPage 
                     })
             };
         }
-        case UsersActionTypes.SET_USERS:{
+        case UsersActionTypes.SET_USERS: {
             // @ts-ignore
             return {...state, users: action.payload.users}
         }
-        case UsersActionTypes.SET_CURRENT_PAGE:{
+        case UsersActionTypes.SET_CURRENT_PAGE: {
             // @ts-ignore
-            return {...state,currentPage: action.payload.currentPage}
+            return {...state, currentPage: action.payload.currentPage}
         }
-        case UsersActionTypes.SET_TOTAL_USERS_COUNT:{
+        case UsersActionTypes.SET_TOTAL_USERS_COUNT: {
             // @ts-ignore
-            return {...state,totalUsersCount: action.payload.totalUsersCount}
+            return {...state, totalUsersCount: action.payload.totalUsersCount}
         }
-        case UsersActionTypes.TOGGLE_IS_FETCHING:{
+        case UsersActionTypes.TOGGLE_IS_FETCHING: {
             // @ts-ignore
             return {...state, isFetching: action.payload.isFetching}
         }
-        case UsersActionTypes.TOGGLE_IS_FOLLOWING_IN_PROGRESS:{
-            return {...state,
+        case UsersActionTypes.TOGGLE_IS_FOLLOWING_IN_PROGRESS: {
+            return {
+                ...state,
                 // @ts-ignore
-                followingInProgress: action.payload.isFetching?
+                followingInProgress: action.payload.isFetching ?
                     // @ts-ignore
-                    state.followingInProgress.concat(action.payload.id):
+                    state.followingInProgress.concat(action.payload.id) :
                     // @ts-ignore
                     state.followingInProgress.filter((userId) => userId !== action.payload.id)
             }
@@ -102,5 +105,80 @@ export function usersReducer(state = initialState, action: IAction): IUsersPage 
         default: {
             return state;
         }
+    }
+}
+
+export const followAC = (id: number): IAction => ({
+    type: UsersActionTypes.FOLLOW,
+    // @ts-ignore
+    payload: {id}
+});
+export const unfollowAC = (id: number): IAction => ({
+    type: UsersActionTypes.UNFOLLOW,
+    // @ts-ignore
+    payload: {id}
+});
+export const setUsers = (users: IUser[]): IAction => ({
+    type: UsersActionTypes.SET_USERS,
+    // @ts-ignore
+    payload: {users}
+});
+export const setCurrentPage = (currentPage: number): IAction => ({
+    type: UsersActionTypes.SET_CURRENT_PAGE,
+    // @ts-ignore
+    payload: {currentPage}
+});
+export const setTotalUsersCount = (totalUsersCount: number): IAction => ({
+    type: UsersActionTypes.SET_TOTAL_USERS_COUNT,
+    // @ts-ignore
+    payload: {totalUsersCount}
+});
+export const toggleIsFetching = (isFetching: boolean): IAction => ({
+    type: UsersActionTypes.TOGGLE_IS_FETCHING,
+    // @ts-ignore
+    payload: {isFetching}
+});
+export const toggleFollowingInProgress = (id: number, isFetching: boolean): IAction => ({
+    type: UsersActionTypes.TOGGLE_IS_FOLLOWING_IN_PROGRESS,
+    // @ts-ignore
+    payload: {id, isFetching}
+});
+
+export const getUsers = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch<any>) => {
+        dispatch(toggleIsFetching(true));
+        userAPI.getUsers(currentPage, pageSize)
+            .then((response) => {
+                dispatch(toggleIsFetching(false));
+                dispatch(setUsers(response.items));
+                dispatch(setTotalUsersCount(response.totalCount));
+                dispatch(setCurrentPage(currentPage));
+            });
+    }
+}
+export const follow = (userId: number) => {
+    return (dispatch: Dispatch<any>) => {
+        dispatch(toggleFollowingInProgress(userId, true));
+        userAPI.follow(userId)
+            .then((response) => {
+                console.log(response)
+                if (response.resultCode === 0) {
+                    dispatch(followAC(userId));
+                }
+                dispatch(toggleFollowingInProgress(userId, false));
+            })
+    }
+}
+export const unfollow = (userId: number) => {
+    return (dispatch: Dispatch<any>) => {
+        dispatch(toggleFollowingInProgress(userId, true));
+        userAPI.unfollow(userId)
+            .then((response) => {
+                console.log(response)
+                if (response.resultCode === 0) {
+                    dispatch(unfollowAC(userId));
+                }
+                dispatch(toggleFollowingInProgress(userId, false));
+            })
     }
 }

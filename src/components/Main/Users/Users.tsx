@@ -34,42 +34,11 @@ export function Users(props: any) {
                             </NavLink>
                         </div>
                         <div>
-                            {
-                                user.followed ?
-                                (<button disabled={props.followingInProgress.some((id:number) => id===user.id)} onClick={() => {
-                                    props.toggleFollowingInProgress(user.id, true);
-                                    fetch(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
-                                        {
-                                            credentials: "include",
-                                            method: "delete",
-                                            headers:{
-                                                "API-KEY": "8535baf1-4bf0-4155-a641-cd65532bc347"
-                                            }
-                                        }).then(response => response.json())
-                                        .then((response) => {
-                                            if(response.resultCode === 0){
-                                                props.unfollow(user.id);
-                                            }
-                                            props.toggleFollowingInProgress(user.id, false);
-                                        })
-                                }}>Unfollow</button>):
-                                (<button disabled={props.followingInProgress.some((id:number) => id===user.id)} onClick={() => {
-                                    props.toggleFollowingInProgress(user.id, true);
-                                    fetch(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
-                                        {
-                                            credentials: "include",
-                                            method: "post",
-                                            headers:{
-                                                "API-KEY": "8535baf1-4bf0-4155-a641-cd65532bc347"
-                                            }
-                                        }).then(response => response.json())
-                                        .then((response) => {
-                                            if(response.resultCode === 0){
-                                                props.follow(user.id)
-                                            }
-                                            props.toggleFollowingInProgress(user.id, false);
-                                        })
-                                }}>Follow</button>)}
+                            {user.followed ?
+                                <button disabled={props.followingInProgress.some((id: number) => id === user.id)}
+                                        onClick={() => props.unfollow(user.id)}>Unfollow</button> :
+                                <button disabled={props.followingInProgress.some((id: number) => id === user.id)}
+                                        onClick={() => props.follow(user.id)}>Follow</button>}
                         </div>
                     </div>
                     <div className={s.userContent}>

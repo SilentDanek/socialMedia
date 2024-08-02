@@ -1,7 +1,6 @@
 import {IAction} from "../../interfaces/IAction";
 import {ProfileActionTypes} from "../actions/actionTypes/profileActionTypes";
-import {IProfilePage} from "../../interfaces/IProfilePage";
-
+import {IProfilePage, IUserProfile} from "../../interfaces/IProfilePage";
 
 let initialState:IProfilePage = {
     //avatarURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCV3qXCZ7YaJ4MOkCaw17CjrusyoQMp4fFNA&s",
@@ -71,3 +70,20 @@ export function profileReducer(state = initialState, action: IAction):IProfilePa
         }
     }
 }
+
+export const updateNewPostText = (newPostText:string): IAction => ({
+    type: ProfileActionTypes.UPDATE_NEW_POST_TEXT,
+    // @ts-ignore
+    payload: { newPostText }
+});
+
+export const addPost = (): IAction => ({
+    type: ProfileActionTypes.ADD_POST,
+    payload: { text:"" }
+});
+
+export const setUserProfile = (profile:IUserProfile): IAction => ({
+    type: ProfileActionTypes.SET_USER_PROFILE,
+    // @ts-ignore
+    payload: { profile }
+});

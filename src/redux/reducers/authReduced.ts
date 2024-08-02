@@ -23,3 +23,13 @@ export function authReducer(state = initialState, action:IAction):IAuth{
         }
     }
 }
+
+export const setAuthUserData = ({id, email, login}:IAuth):IAction=>({
+    type:AuthActionTypes.SET_AUTH_USER_DATA,
+    payload:{
+        id,
+        email,
+        login,
+        isAuth:true
+    }
+})

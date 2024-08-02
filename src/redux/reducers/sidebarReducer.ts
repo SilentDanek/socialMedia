@@ -14,3 +14,5 @@ export function sideBarReducer(state = initialState, action: IAction):ISideBar {
         }
     }
 }
+
+

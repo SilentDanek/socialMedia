@@ -12,4 +12,4 @@ const mapStateToProps = (state:IState) => {
     }
 }
 
-export default connect(mapStateToProps)(ProfileInfo);
+export const ProfileInfoContainer = connect(mapStateToProps)(ProfileInfo);

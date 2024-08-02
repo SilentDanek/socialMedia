@@ -53,3 +53,13 @@ function sendMassage(state:any) {
         newMessageBody: ""
     }
 }
+
+export const updateNewMessageBody = (text: string): IAction => ({
+    type: DialogsActionTypes.UPDATE_NEW_MASSAGE_BODY,
+    payload: { text }
+});
+
+export const sendMessage = (): IAction => ({
+    type: DialogsActionTypes.SEND_MESSAGE,
+    payload: { text:"" }
+});

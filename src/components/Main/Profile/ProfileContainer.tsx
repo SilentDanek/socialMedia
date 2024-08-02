@@ -4,8 +4,8 @@ import {useParams} from "react-router-dom";
 import {IState}    from "../../../interfaces/IState";
 import {Preloader} from "../../common/Preloader/Preloader"
 import {Profile}   from "./Profile";
-import {setUserProfile}   from "../../../redux/actions/actionCreators/profileActionCreators";
-import {toggleIsFetching} from "../../../redux/actions/actionCreators/usersActionCreators";
+import {setUserProfile}   from "../../../redux/reducers/profileReducer";
+import {toggleIsFetching} from "../../../redux/reducers/usersReducer";
 
 
 

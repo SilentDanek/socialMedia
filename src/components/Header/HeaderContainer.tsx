@@ -2,7 +2,7 @@ import {Header} from "./Header";
 import {useEffect} from "react";
 import {connect}   from "react-redux";
 import {IState} from "../../interfaces/IState";
-import {setAuthUserData} from "../../redux/actions/actionCreators/authActionCreators";
+import {setAuthUserData} from "../../redux/reducers/authReduced";
 
 function HeaderContainer(props:any) {
     useEffect(()=>{
