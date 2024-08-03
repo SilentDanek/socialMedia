@@ -12,12 +12,19 @@ export const userAPI = {
     getUsers(currentPage = 1, pageSize = 10) {
         return customFetch(`users?page=${currentPage}&count=${pageSize}`);
     },
-
     follow(userId: number) {
         return customFetch(`follow/${userId}`, {method: "post"})
     },
-
     unfollow(userId: number) {
         return customFetch(`follow/${userId}`, {method: "delete"})
+    },
+    getUserProfile(userID: number){
+        return customFetch(`profile/${userID}`)
+    },
+}
+
+export const authAPI = {
+    getAuthUserData(){
+        return customFetch(`auth/me`);
     }
 }

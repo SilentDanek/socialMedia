@@ -1,6 +1,9 @@
 import {IAction} from "../../interfaces/IAction";
 import {ProfileActionTypes} from "../actions/actionTypes/profileActionTypes";
 import {IProfilePage, IUserProfile} from "../../interfaces/IProfilePage";
+import {Dispatch} from "react";
+import {userAPI} from "../../api/api";
+import {toggleIsFetching} from "./usersReducer";
 
 let initialState:IProfilePage = {
     //avatarURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCV3qXCZ7YaJ4MOkCaw17CjrusyoQMp4fFNA&s",
@@ -87,3 +90,12 @@ export const setUserProfile = (profile:IUserProfile): IAction => ({
     // @ts-ignore
     payload: { profile }
 });
+
+export const getUserProfile = (userId:number) => (dispatch:Dispatch<any>) => {
+    dispatch(toggleIsFetching(true));
+    userAPI.getUserProfile(userId)
+        .then((response) => {
+            dispatch(setUserProfile(response));
+            dispatch(toggleIsFetching(false));
+        });
+}

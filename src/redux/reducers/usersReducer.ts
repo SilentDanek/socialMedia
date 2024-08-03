@@ -5,41 +5,7 @@ import {userAPI} from "../../api/api";
 import {Dispatch} from "react";
 
 const initialState: IUsersPage = {
-    users: [
-        /*        {
-                    id: 1,
-                    photoURL: "https://i.ytimg.com/vi/9iVsbli8Cs0/maxresdefault.jpg",
-                    followed: true,
-                    fullname: "Ярик",
-                    status: "Учу прогу",
-                    location: {
-                        city: "Ахтырка",
-                        country: "Украина"
-                    }
-                },
-                {
-                    id: 2,
-                    photoURL: "https://i1.sndcdn.com/avatars-5jUjsbHgYzArXQ6M-tjdn5g-t500x500.jpg",
-                    followed: false,
-                    fullname: "Славик",
-                    status: "Бавлюсь в раст",
-                    location: {
-                        city: "Краковець",
-                        country: "Украина"
-                    }
-                },
-                {
-                    id: 3,
-                    photoURL: "https://i1.sndcdn.com/artworks-000287672720-rukn20-t500x500.jpg",
-                    followed: false,
-                    fullname: "Майкл",
-                    status: "Гортаю ТикТок",
-                    location: {
-                        city: "Краковець",
-                        country: "Украина"
-                    }
-                },*/
-    ],
+    users: [],
     pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,

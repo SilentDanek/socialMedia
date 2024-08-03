@@ -4,21 +4,14 @@ import {useParams} from "react-router-dom";
 import {IState}    from "../../../interfaces/IState";
 import {Preloader} from "../../common/Preloader/Preloader"
 import {Profile}   from "./Profile";
-import {setUserProfile}   from "../../../redux/reducers/profileReducer";
-import {toggleIsFetching} from "../../../redux/reducers/usersReducer";
+import {getUserProfile} from "../../../redux/reducers/profileReducer";
 
 
 
 function ProfileContainer(props:any) {
     const params = useParams();
     useEffect(() => {
-        props.toggleIsFetching(true);
-        fetch(`https://social-network.samuraijs.com/api/1.0/profile/${params.userID}`)
-            .then((response) => response.json())
-            .then((response) => {
-                props.setUserProfile(response);
-                props.toggleIsFetching(false);
-            });
+        props.getUserProfile(params.userID);
     }, []);
 
     return props.profile? <Profile/>: <Preloader/>;
@@ -31,4 +24,4 @@ function mapStateToProps(state:IState){
 }
 
 
-export default connect(mapStateToProps, {setUserProfile, toggleIsFetching})(ProfileContainer);
+export default connect(mapStateToProps, {getUserProfile})(ProfileContainer);

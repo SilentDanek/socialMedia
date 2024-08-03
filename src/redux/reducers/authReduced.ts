@@ -1,6 +1,8 @@
 import {IAction} from "../../interfaces/IAction";
 import {IAuth} from "../../interfaces/IAuth";
 import {AuthActionTypes} from "../actions/actionTypes/authActionTypes";
+import {authAPI} from "../../api/api";
+import {Dispatch} from "react";
 
 
 let initialState:IAuth = {
@@ -33,3 +35,12 @@ export const setAuthUserData = ({id, email, login}:IAuth):IAction=>({
         isAuth:true
     }
 })
+
+export const getAuthUserData = () => (dispatch:Dispatch<any>) => {
+    authAPI.getAuthUserData()
+        .then((response) => {
+            if(response.resultCode === 0){
+                dispatch(setAuthUserData(response.data));
+            }
+        })
+}
