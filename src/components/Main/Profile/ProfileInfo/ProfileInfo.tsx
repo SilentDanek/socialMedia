@@ -1,22 +1,20 @@
 import s from "./ProfileInfo.module.css";
+import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
+import unknownUserSVG from "../../../../assets/images/unknown-user.svg"
 
-interface IProfileInfo {
-    wallpaperURL: string;
-    photoURL: string;
-    fullName: string;
-}
-
-export function ProfileInfo(props: IProfileInfo) {
+export function ProfileInfo(props: any) {
     return (
         <div className={s.profile}>
-            <div className={s.wallpaper}/>
             <div className={s.profileInfo}>
                 <img
                     className={s.avatar}
-                    src={props.photoURL}
+                    src={props.profile.photos.large || unknownUserSVG}
                     alt="Avatar"
                 />
-                <span>{props.fullName}</span>
+                <div>
+                    <span>{props.profile.fullName}</span>
+                    <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+                </div>
             </div>
         </div>
     );

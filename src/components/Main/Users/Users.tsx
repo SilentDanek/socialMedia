@@ -2,13 +2,16 @@ import {IUser} from "../../../interfaces/IUsersPage";
 import s from "./Users.module.css"
 import {NavLink} from "react-router-dom";
 import unknownUserSVG from "../../../assets/images/unknown-user.svg"
+import React from "react";
 
 export function Users(props: any) {
+
     const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
     const pages = [];
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
+
 
     return (
         <div>

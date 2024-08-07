@@ -2,14 +2,13 @@ import {IAction} from "../../interfaces/IAction";
 import {ProfileActionTypes} from "../actions/actionTypes/profileActionTypes";
 import {IProfilePage, IUserProfile} from "../../interfaces/IProfilePage";
 import {Dispatch} from "react";
-import {userAPI} from "../../api/api";
+import {profileAPI} from "../../api/api";
 import {toggleIsFetching} from "./usersReducer";
 
 let initialState:IProfilePage = {
-    //avatarURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCV3qXCZ7YaJ4MOkCaw17CjrusyoQMp4fFNA&s",
-    wallpaperURL: "https://interier-foto.ru/wp-content/uploads/dlinnye-foto-4.jpg",
     profile: null,
     newPostText: "",
+    status:"",
     posts: [
         {
             id: 1,
@@ -68,6 +67,13 @@ export function profileReducer(state = initialState, action: IAction):IProfilePa
                 profile:action.payload.profile
             };
         }
+        case ProfileActionTypes.SET_STATUS: {
+            return {
+                ...state,
+                // @ts-ignore
+                status:action.payload.status
+            };
+        }
         default: {
             return state;
         }
@@ -79,23 +85,45 @@ export const updateNewPostText = (newPostText:string): IAction => ({
     // @ts-ignore
     payload: { newPostText }
 });
-
 export const addPost = (): IAction => ({
     type: ProfileActionTypes.ADD_POST,
     payload: { text:"" }
 });
-
 export const setUserProfile = (profile:IUserProfile): IAction => ({
     type: ProfileActionTypes.SET_USER_PROFILE,
     // @ts-ignore
     payload: { profile }
 });
+export const setStatus = (status:string): IAction => ({
+    type: ProfileActionTypes.SET_STATUS,
+    // @ts-ignore
+    payload: { status }
+});
+
+export const getStatus = (userId:number) => (dispatch:Dispatch<any>) => {
+    profileAPI.getStatus(userId)
+        .then((response) => {
+            dispatch(setStatus(response));
+        });
+}
+
+export const updateStatus = (status:string) => (dispatch:Dispatch<any>) => {
+
+    profileAPI.updateStatus(status)
+        .then((response) => {
+            if(response.resultCode === 0){
+                dispatch(setStatus(status));
+            }
+        });
+}
 
 export const getUserProfile = (userId:number) => (dispatch:Dispatch<any>) => {
     dispatch(toggleIsFetching(true));
-    userAPI.getUserProfile(userId)
+    profileAPI.getUserProfile(userId)
         .then((response) => {
             dispatch(setUserProfile(response));
             dispatch(toggleIsFetching(false));
         });
 }
+
+

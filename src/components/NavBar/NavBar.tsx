@@ -1,17 +1,17 @@
 import {NavLink} from "react-router-dom";
 import s from "./NavBar.module.css"
 
-export function NavBar() {
+export function NavBar(props:any) {
 
-    function active({isActive}:{isActive:boolean}){
-        return isActive? {color: "#d1c324"}: {};
+    function active({isActive}: { isActive: boolean }) {
+        return isActive ? {color: "#d1c324"} : {};
     }
 
-    return(
+    return (
         <nav className={s.nav}>
             <ul>
                 <li>
-                    <NavLink to={"/profile"} aria-label="Profile" style={active}>
+                    <NavLink to={`/profile/${props.id}`} aria-label="Profile" style={active}>
                         Profile
                     </NavLink>
                 </li>
@@ -38,6 +38,11 @@ export function NavBar() {
                 <li>
                     <NavLink to={"/settings"} aria-label="Settings" style={active}>
                         Settings
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to={"/login"} aria-label="Login" style={active}>
+                        Login
                     </NavLink>
                 </li>
             </ul>

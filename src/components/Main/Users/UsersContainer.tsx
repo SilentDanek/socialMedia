@@ -1,9 +1,11 @@
 import {IState} from "../../../interfaces/IState";
 import {connect} from "react-redux";
 import {Users} from "./Users";
-import {useEffect} from "react";
+import {ComponentType, useEffect} from "react";
 import {follow, unfollow, toggleFollowingInProgress, getUsers,} from "../../../redux/reducers/usersReducer";
 import {Preloader} from "../../common/Preloader/Preloader";
+import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 
 export function UsersContainer(props: any) {
@@ -42,8 +44,11 @@ const mapStateToProps = (state: IState) => {
         currentPage: state.usersPage.currentPage,
         totalUsersCount: state.usersPage.totalUsersCount,
         isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        followingInProgress: state.usersPage.followingInProgress,
+        isAuth: state.auth.isAuth
     };
 }
 
-export default connect(mapStateToProps, {follow, unfollow, toggleFollowingInProgress, getUsers })(UsersContainer);
+export default compose<ComponentType>(
+    connect(mapStateToProps, {follow, unfollow, toggleFollowingInProgress, getUsers}),
+    withAuthRedirect)(UsersContainer);

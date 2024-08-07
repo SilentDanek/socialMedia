@@ -5,6 +5,7 @@ import HomePage from "./HomePage/HomePage";
 import UsersContainer from "./Users/UsersContainer";
 import DialogsContainer from "./Dialogs/DialogsContainer";
 import ProfileContainer from "./Profile/ProfileContainer";
+import {Login} from "./Login/Login";
 
 
 export function Main() {
@@ -14,7 +15,8 @@ export function Main() {
                 <Route path="/" element = {<HomePage/>}/>
                 <Route path="/dialogs" element = {<DialogsContainer/>}/>
                 <Route path="/profile/:userID" element = {<ProfileContainer/>}/>
-                <Route path="/users"   element = {<UsersContainer/>  }/>
+                <Route path="/users" element = {<UsersContainer/>}/>
+                <Route path="/login" element = {<Login/>}/>
             </Routes>
         </main>
     )

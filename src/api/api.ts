@@ -1,30 +1,37 @@
-const customFetch = (route: Request | string | URL, options?: RequestInit | undefined) => {
-    return fetch("https://social-network.samuraijs.com/api/1.0/" + route, {
-        credentials: "include",
-        headers: {
-            "API-KEY": "8535baf1-4bf0-4155-a641-cd65532bc347"
-        },
-        ...options,
-    }).then(response => response.json());
-}
+import axios from "axios";
+
+const instance = axios.create({
+    baseURL: "https://social-network.samuraijs.com/api/1.0/",
+    headers: { "API-KEY": "8535baf1-4bf0-4155-a641-cd65532bc347" },
+    withCredentials: true
+});
 
 export const userAPI = {
     getUsers(currentPage = 1, pageSize = 10) {
-        return customFetch(`users?page=${currentPage}&count=${pageSize}`);
+        return instance.get(`users?page=${currentPage}&count=${pageSize}`).then(response => response.data);
     },
     follow(userId: number) {
-        return customFetch(`follow/${userId}`, {method: "post"})
+        return instance.post(`follow/${userId}`).then(response => response.data);
     },
     unfollow(userId: number) {
-        return customFetch(`follow/${userId}`, {method: "delete"})
-    },
-    getUserProfile(userID: number){
-        return customFetch(`profile/${userID}`)
-    },
+        return instance.delete(`follow/${userId}`).then(response => response.data);
+    }
 }
 
 export const authAPI = {
     getAuthUserData(){
-        return customFetch(`auth/me`);
+        return instance.get(`auth/me`).then(response => response.data);
     }
+}
+
+export const profileAPI = {
+    getStatus(userID: number){
+        return instance.get(`profile/status/${userID}`).then(response => response.data);
+    },
+    updateStatus(status: string){
+        return instance.put(`profile/status`, {status}).then(response => response.data);
+    },
+    getUserProfile(userID: number){
+        return instance.get(`profile/${userID}`).then(response => response.data);
+    },
 }

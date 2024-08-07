@@ -37,8 +37,8 @@ export interface IUserProfile {
 
 
 export interface IProfilePage {
-    wallpaperURL: string;
     profile: IUserProfile | null;
     newPostText: string;
     posts: IPost[];
+    status:string;
 }
