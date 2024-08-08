@@ -1,8 +1,11 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 export function ProfileStatus(props: any) {
     const [isStatusEditMode, setStatusEditMode] = useState(false);
     const [statusText, setStatusText] = useState(props.status as string);
+
+    useEffect(() => setStatusText(props.status),[props.status])
+
 
     const toggleEditMode = () => {
         setStatusEditMode(!isStatusEditMode);

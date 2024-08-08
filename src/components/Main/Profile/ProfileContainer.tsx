@@ -15,6 +15,8 @@ function ProfileContainer(props: any): JSX.Element {
         props.getStatus(params.userID)
     },[]);
 
+
+
     return <Profile profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>;
 }
 
@@ -22,8 +24,7 @@ function mapStateToProps(state:IState){
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status,
-        isAuth: state.auth.isAuth,
-        isFetching: state.usersPage.isFetching
+        isAuth: state.auth.isAuth
     }
 }
 

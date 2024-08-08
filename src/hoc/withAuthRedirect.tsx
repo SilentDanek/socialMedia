@@ -8,7 +8,7 @@ type redirectStatus = {
 
 export function withAuthRedirect(Component:React.ComponentType<any>){
     return function RedirectComponent(props:redirectStatus){
-        if(!props.isAuth && !props.isFetching){
+        if(!props.isAuth){
             return <Navigate to="/login"/>;
         }
         return <Component {...props}/>;
