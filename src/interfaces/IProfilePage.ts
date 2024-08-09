@@ -38,7 +38,6 @@ export interface IUserProfile {
 
 export interface IProfilePage {
     profile: IUserProfile | null;
-    newPostText: string;
     posts: IPost[];
     status:string;
 }

@@ -11,5 +11,4 @@ export interface IMessage {
 export interface IDialogsPage {
     dialogs: IDialog[];
     messages: IMessage[];
-    newMessageBody: string;
 }

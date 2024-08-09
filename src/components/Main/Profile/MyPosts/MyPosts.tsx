@@ -1,52 +1,49 @@
 import React from "react";
 import s from "./MyPosts.module.css";
-
 import {Post} from "./Post/Post";
 import {IPost} from "../../../../interfaces/IProfilePage";
+import {Field, reduxForm} from "redux-form";
 
-function postElement(posts:IPost[]) {
-    return posts.map(({user, message, likes,dislikes})=>{
-        return  <Post
-            user={{
-                avatarURL: user.avatarURL,
-                nickName: user.nickName
-            }}
-            likes={likes}
-            dislikes={dislikes}
-            message={message}
-        />
-    })
-}
+const AddNewPostForm = (props: any) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <Field component={"textarea"} name={"newPostText"} placeholder={"Enter your post message"}/>
+            <button>Add new post</button>
+        </form>
+    );
+};
+
+const AddNewPostFormRedux = reduxForm({form: "ProfileAddNewPostForm"})(AddNewPostForm);
+
 
 interface IMyPostsProps {
     posts: IPost[];
-    newPostText: string;
-    updateNewPostText:(text:string)=>void
-    addPost:()=>void
+    addPost(text:string):void;
 }
+export function MyPosts(props: IMyPostsProps) {
 
-export function MyPosts(props:IMyPostsProps) {
-
-    function onAddPost(){
-        props.addPost();
+    const onSubmit = (values:any) => {
+        props.addPost(values.newPostText);
     }
 
-    function onPostChange(e:React.ChangeEvent<HTMLTextAreaElement>){
-        const text = e.target.value;
-        props.updateNewPostText(text);
+    const postElement =(posts: IPost[]) => {
+        return posts.map(({user, message, likes, dislikes}) => {
+            return <Post
+                user={{
+                    avatarURL: user.avatarURL,
+                    nickName: user.nickName
+                }}
+                likes={likes}
+                dislikes={dislikes}
+                message={message}
+            />
+        })
     }
 
     return (
         <div className={s.posts}>
             My posts
-            <div>
-                <textarea
-                    onChange={onPostChange}
-                    value={props.newPostText}
-                    placeholder={"Type your post message"}
-                />
-                <button onClick={onAddPost}>Add new post</button>
-            </div>
+            <AddNewPostFormRedux onSubmit={onSubmit}/>
             {postElement(props.posts)}
         </div>
     )

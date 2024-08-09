@@ -14,19 +14,21 @@ let initialState:IDialogsPage = {
         {id: 1, message: "Hi"},
         {id: 2, message: "Hello"},
         {id: 3, message: "Привет"},
-    ],
-    newMessageBody:"123321",
+    ]
 };
 
 export function dialogsReducer(state = initialState, action:IAction):IDialogsPage{
     switch (action.type){
         case DialogsActionTypes.SEND_MESSAGE:{
-            // @ts-ignore
-            return sendMassage(state);
-        }
-        case DialogsActionTypes.UPDATE_NEW_MASSAGE_BODY:{
-            // @ts-ignore
-            return updateNewMassageBody(state, action.payload.text);
+            const newMessage = {
+                id: 4,
+                // @ts-ignore
+                message:action.payload.text
+            }
+            return {
+                ...state,
+                messages: state.messages.concat(newMessage),
+            };
         }
         default:{
             return state;
@@ -34,32 +36,7 @@ export function dialogsReducer(state = initialState, action:IAction):IDialogsPag
     }
 }
 
-function updateNewMassageBody(state:any, newText:string){
-    return {
-        ...state,
-        newMessageBody: newText
-    }
-}
-
-function sendMassage(state:any) {
-    const newMessage = {
-        id: 4,
-        message:state.newMessageBody
-    }
-
-    return {
-        ...state,
-        messages: state.messages.concat(newMessage),
-        newMessageBody: ""
-    }
-}
-
-export const updateNewMessageBody = (text: string): IAction => ({
-    type: DialogsActionTypes.UPDATE_NEW_MASSAGE_BODY,
-    payload: { text }
-});
-
-export const sendMessage = (): IAction => ({
+export const sendMessage = (text: string): IAction => ({
     type: DialogsActionTypes.SEND_MESSAGE,
-    payload: { text:"" }
+    payload: { text }
 });

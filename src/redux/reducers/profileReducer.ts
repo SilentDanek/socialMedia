@@ -7,7 +7,6 @@ import {toggleIsFetching} from "./usersReducer";
 
 let initialState:IProfilePage = {
     profile: null,
-    newPostText: "",
     status:"",
     posts: [
         {
@@ -34,13 +33,6 @@ let initialState:IProfilePage = {
 
 export function profileReducer(state = initialState, action: IAction):IProfilePage {
     switch (action.type) {
-        case ProfileActionTypes.UPDATE_NEW_POST_TEXT: {
-            return {
-                ...state,
-                // @ts-ignore
-                newPostText:action.payload.newPostText
-            };
-        }
         case ProfileActionTypes.ADD_POST: {
             // Test
             const newPost = {
@@ -49,7 +41,8 @@ export function profileReducer(state = initialState, action: IAction):IProfilePa
                     nickName: "Anon"
                 },
                 id: 5,
-                message: state.newPostText,
+                //@ts-ignore
+                message: action.payload.text,
                 likes: 0,
                 dislikes: 0
             }
@@ -57,7 +50,6 @@ export function profileReducer(state = initialState, action: IAction):IProfilePa
             return {
                 ...state,
                 posts: state.posts.concat(newPost),
-                newPostText: ""
             };
         }
         case ProfileActionTypes.SET_USER_PROFILE: {
@@ -80,14 +72,9 @@ export function profileReducer(state = initialState, action: IAction):IProfilePa
     }
 }
 
-export const updateNewPostText = (newPostText:string): IAction => ({
-    type: ProfileActionTypes.UPDATE_NEW_POST_TEXT,
-    // @ts-ignore
-    payload: { newPostText }
-});
-export const addPost = (): IAction => ({
+export const addPost = (text:string): IAction => ({
     type: ProfileActionTypes.ADD_POST,
-    payload: { text:"" }
+    payload: { text }
 });
 export const setUserProfile = (profile:IUserProfile): IAction => ({
     type: ProfileActionTypes.SET_USER_PROFILE,
