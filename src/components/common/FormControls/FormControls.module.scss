@@ -1,0 +1,11 @@
+.formControl{
+  &.error{
+    input, textarea{
+      border: solid red 2.5px;
+    }
+    .errorText{
+      color: red;
+      font-weight: bolder;
+    }
+  }
+}

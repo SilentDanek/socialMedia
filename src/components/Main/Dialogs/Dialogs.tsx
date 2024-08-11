@@ -1,7 +1,7 @@
 import s from "./Dialogs.module.css"
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {Field, reduxForm} from "redux-form";
+import AddMessageForm from "../AddMessageForm/addMessageForm";
 
 interface IUsers {
     id: number,
@@ -20,29 +20,12 @@ const messagesElements = (messages: IMessages[]) => {
 }
 
 
-const AddMessageForm = (props: any) => {
-    return (
-        <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field component={"textarea"} name={"newMessageBody"} aria-placeholder={"Enter your message"}/>
-            </div>
-            <div>
-                <button>Send</button>
-            </div>
-        </form>
-    );
-};
-
-const AddMessageFormRedux = reduxForm({form:"DialogAddMessageForm"})(AddMessageForm)
-
-
 export const Dialogs = (props: any) => {
     const state = props.dialogsPage;
 
     const onSubmit = (values:any) => {
         props.sendMessage(values.newMessageBody);
     };
-
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
@@ -53,7 +36,7 @@ export const Dialogs = (props: any) => {
                     {messagesElements(state.messages)}
                 </div>
             </div>
-            <AddMessageFormRedux onSubmit={onSubmit}/>
+            <AddMessageForm onSubmit={onSubmit}/>
         </div>
     )
 }

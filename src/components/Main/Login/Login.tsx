@@ -1,18 +1,38 @@
 import {Field, reduxForm} from "redux-form";
+import {ValidatedElement} from "../../common/FormControls/FormControls";
+import {maxLengthCreator, minLengthCreator, required} from "../../../utils/validators/validators";
+
+const Input = ValidatedElement("input");
+const minLength = minLengthCreator(8);
+const maxLength = maxLengthCreator(30);
+
 
 export const LoginForm = (props:any) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
                 <label htmlFor={"textInput"}>Login</label>
-                <Field component={"input"} name={"login"} type={"text"} id={"textInput"} aria-placeholder={"Login"}/>
+                <Field
+                    component={Input}
+                    name={"login"}
+                    type={"text"}
+                    id={"textInput"}
+                    placeholder={"Login"}
+                    validate={[required, minLength,maxLength]}
+                />
             </div>
             <div>
                 <label htmlFor={"passwordInput"}>Password</label>
-                <Field component={"input"} name={"password"} type={"password"} id={"passwordInput"} aria-placeholder={"Password"}/>
+                <Field component={Input}
+                       name={"password"}
+                       type={"password"}
+                       id={"passwordInput"}
+                       placeholder={"Password"}
+                       validate={[required, minLength,maxLength]}
+                />
             </div>
             <div>
-                <Field  component={"input"} name={"rememberMe"} type={"checkbox"} id={"rememberMeCheckbox"}/>
+                <Field component={"input"} name={"rememberMe"} type={"checkbox"} id={"rememberMeCheckbox"}/>
                 <label htmlFor={"rememberMeCheckbox"}> remember me</label>
             </div>
             <div>

@@ -3,11 +3,21 @@ import s from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
 import {IPost} from "../../../../interfaces/IProfilePage";
 import {Field, reduxForm} from "redux-form";
+import {maxLengthCreator, required} from "../../../../utils/validators/validators";
+import {ValidatedElement} from "../../../common/FormControls/FormControls";
+
+const maxLengthPost= maxLengthCreator(30);
+const Textarea = ValidatedElement("textarea");
 
 const AddNewPostForm = (props: any) => {
     return (
         <form onSubmit={props.handleSubmit}>
-            <Field component={"textarea"} name={"newPostText"} placeholder={"Enter your post message"}/>
+            <Field
+                component={Textarea}
+                name={"newPostText"}
+                placeholder={"Enter your post message"}
+                validate={[required, maxLengthPost]}
+            />
             <button>Add new post</button>
         </form>
     );
