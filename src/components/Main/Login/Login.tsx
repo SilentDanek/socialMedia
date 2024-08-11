@@ -1,6 +1,8 @@
 import {Field, reduxForm} from "redux-form";
 import {ValidatedElement} from "../../common/FormControls/FormControls";
 import {maxLengthCreator, minLengthCreator, required} from "../../../utils/validators/validators";
+import {Navigate} from "react-router-dom";
+import React from "react";
 
 const Input = ValidatedElement("input");
 const minLength = minLengthCreator(8);
@@ -8,16 +10,17 @@ const maxLength = maxLengthCreator(30);
 
 
 export const LoginForm = (props:any) => {
+
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
                 <label htmlFor={"textInput"}>Login</label>
                 <Field
                     component={Input}
-                    name={"login"}
+                    name={"email"}
                     type={"text"}
                     id={"textInput"}
-                    placeholder={"Login"}
+                    placeholder={"Email"}
                     validate={[required, minLength,maxLength]}
                 />
             </div>
@@ -43,13 +46,13 @@ export const LoginForm = (props:any) => {
 
 const ReduxLoginForm = reduxForm({form:"login"})(LoginForm);
 
-export const Login = () => {
-    const onSubmit = (values: any) => {
-        const formData = new FormData();
-        for (const [key, value] of Object.entries(values)) {
-            formData.append(key, `${value}`);
-        }
+export const Login = (props:any) => {
+    if(props.isAuth) return <Navigate to={`/profile/${props.id}`}/>;
+
+    const onSubmit = (formData: any) => {
+        props.login(formData.email, formData.password, formData.rememberMe)
     };
+
     return (
         <div>
             <h1>Login</h1>

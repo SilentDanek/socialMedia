@@ -95,7 +95,6 @@ export const getStatus = (userId:number) => (dispatch:Dispatch<any>) => {
 }
 
 export const updateStatus = (status:string) => (dispatch:Dispatch<any>) => {
-
     profileAPI.updateStatus(status)
         .then((response) => {
             if(response.resultCode === 0){

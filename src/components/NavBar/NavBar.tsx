@@ -11,37 +11,37 @@ export function NavBar(props:any) {
         <nav className={s.nav}>
             <ul>
                 <li>
-                    <NavLink to={`/profile/${props.id}`} aria-label="Profile" style={active}>
+                    <NavLink to={`/profile/${props.id}`} style={active}>
                         Profile
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to={"/dialogs"} aria-label="Messages" style={active}>
+                    <NavLink to={"/dialogs"} style={active}>
                         Messages
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to={"/news"} aria-label="News" style={active}>
+                    <NavLink to={"/news"} style={active}>
                         News
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to={"/music"} aria-label="Music" style={active}>
+                    <NavLink to={"/music"} style={active}>
                         Music
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to={"/users"} aria-label="Find users" style={active}>
+                    <NavLink to={"/users"} style={active}>
                         Find users
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to={"/settings"} aria-label="Settings" style={active}>
+                    <NavLink to={"/settings"} style={active}>
                         Settings
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to={"/login"} aria-label="Login" style={active}>
+                    <NavLink to={"/login"} style={active}>
                         Login
                     </NavLink>
                 </li>

@@ -8,14 +8,11 @@ import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
 import {compose} from "redux"
 
 function ProfileContainer(props: any): JSX.Element {
-
     const params = useParams();
     useEffect(() => {
         props.getUserProfile(params.userID);
-        props.getStatus(params.userID)
+        props.getStatus(params.userID);
     },[]);
-
-
 
     return <Profile profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>;
 }

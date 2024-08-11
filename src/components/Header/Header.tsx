@@ -2,6 +2,7 @@ import {NavLink} from "react-router-dom";
 import s from "./Header.module.css";
 
 export function Header(props:any) {
+    console.log(props.isAuth)
     return (
         <header className={s.header}>
             <NavLink to={"/"} aria-label="Home">
@@ -11,11 +12,13 @@ export function Header(props:any) {
                     alt="Aviary logo"
                     height={"100%"}/>
             </NavLink>
-
             <div>
-                {props.isAuth?
-                    props.login:
-                    <NavLink to={"/login"}>Sign in</NavLink>}
+                {props.isAuth
+                    ? <div>
+                        <div>{props.login}</div>
+                        <button onClick={props.logout}>Log out</button>
+                      </div>
+                    : <NavLink to={"/login"}>Sign in</NavLink>}
             </div>
         </header>
     )

@@ -6,10 +6,10 @@ import {Dispatch} from "react";
 
 
 let initialState: IAuth = {
-    email: null,
-    id: null,
     login: null,
-    isAuth: true
+    id: null,
+    password: null,
+    isAuth: false
 };
 
 export function authReducer(state = initialState, action: IAction): IAuth {
@@ -26,13 +26,13 @@ export function authReducer(state = initialState, action: IAction): IAuth {
     }
 }
 
-export const setAuthUserData = ({id, email, login}: IAuth): IAction => ({
+export const setAuthUserData = (id:number|null, login:string|null, password:string|null, isAuth:boolean): IAction => ({
     type: AuthActionTypes.SET_AUTH_USER_DATA,
     payload: {
         id,
-        email,
         login,
-        isAuth: true
+        password,
+        isAuth
     }
 })
 
@@ -40,7 +40,26 @@ export const getAuthUserData = () => (dispatch: Dispatch<any>) => {
     authAPI.getAuthUserData()
         .then((response) => {
             if (response.resultCode === 0) {
-                dispatch(setAuthUserData(response.data));
+                const {id, login, password} = response.data;
+                dispatch(setAuthUserData(id, login, password, true));
+            }
+        })
+}
+
+export const login = (login:string, password:string, rememberMe:boolean) => (dispatch: Dispatch<any>) => {
+    authAPI.login(login, password, rememberMe)
+        .then((response) => {
+            if (response.resultCode === 0) {
+                dispatch(getAuthUserData());
+            }
+        })
+}
+
+export const logout = () => (dispatch: Dispatch<any>) => {
+    authAPI.logout()
+        .then((response) => {
+            if (response.resultCode === 0) {
+                dispatch(setAuthUserData(null, null, null, false));
             }
         })
 }
