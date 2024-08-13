@@ -6,4 +6,12 @@
   font-weight: bolder;
 }
 
+.formError {
+  border: solid red 2.5px;
+  border-radius: 5px;
+  color: red;
+  font-weight: bolder;
+  display: inline-block;
+}
+
 /*# sourceMappingURL=FormControls.module.css.map */

@@ -3,6 +3,7 @@ import {IDialogsPage} from "./IDialogsPage";
 import {ISideBar} from "./ISideBar";
 import {IUsersPage} from "./IUsersPage";
 import {IAuth} from "./IAuth";
+import {IMainPreload} from "./IMainPreload";
 
 export interface IState {
     profilePage: IProfilePage,
@@ -10,4 +11,5 @@ export interface IState {
     sideBar    : ISideBar,
     usersPage  : IUsersPage,
     auth       : IAuth
+    main       : IMainPreload
 }

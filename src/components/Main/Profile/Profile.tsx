@@ -5,11 +5,11 @@ import {Preloader} from "../../common/Preloader/Preloader";
 
 export function Profile(props: any) {
     return (
-        props.profile ?
-            <div className={s.profileWrapper}>
+        props.profile
+            ? <div className={s.profileWrapper}>
                 <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
                 <MyPostsContainer/>
-            </div> :
-            <Preloader/>
+              </div>
+            : <Preloader/>
     )
 }

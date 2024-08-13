@@ -6,6 +6,7 @@ import {authReducer}     from "./reducers/authReduced";
 import {configureStore}  from "@reduxjs/toolkit";
 import {combineReducers} from "@reduxjs/toolkit";
 import {reducer as formReducer} from "redux-form";
+import {mainReducer} from "./reducers/mainReducer";
 
 const reducers = combineReducers({
     dialogsPage: dialogsReducer,
@@ -13,6 +14,7 @@ const reducers = combineReducers({
     usersPage  : usersReducer,
     sideBar    : sideBarReducer,
     auth       : authReducer,
+    main       : mainReducer,
     form       : formReducer
 })
 

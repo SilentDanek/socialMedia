@@ -1,5 +1,5 @@
 import "./App.css"
-import {Main}   from "./components/Main/Main";
+import MainContainer   from "./components/Main/Main";
 import {Footer} from "./components/Footer/Footer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import NavBarContainer from "./components/NavBar/NavBarContainer";
@@ -10,8 +10,10 @@ export function App() {
     <div className="app-wrapper">
         <HeaderContainer/>
         <NavBarContainer/>
-        <Main  />
+        <MainContainer  />
         <Footer/>
     </div>
   );
 }
+
+

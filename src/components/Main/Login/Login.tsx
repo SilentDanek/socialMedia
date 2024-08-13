@@ -1,5 +1,5 @@
 import {Field, reduxForm} from "redux-form";
-import {ValidatedElement} from "../../common/FormControls/FormControls";
+import {FormError, ValidatedElement} from "../../common/FormControls/FormControls";
 import {maxLengthCreator, minLengthCreator, required} from "../../../utils/validators/validators";
 import {Navigate} from "react-router-dom";
 import React from "react";
@@ -41,6 +41,12 @@ export const LoginForm = (props:any) => {
             <div>
                 <button type={"submit"}>Submit</button>
             </div>
+            {
+                props.error
+                ? <FormError error={props.error}/>
+                : <></>
+            }
+
         </form>)
 }
 

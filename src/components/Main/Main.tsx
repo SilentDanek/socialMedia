@@ -6,9 +6,18 @@ import UsersContainer from "./Users/UsersContainer";
 import DialogsContainer from "./Dialogs/DialogsContainer";
 import ProfileContainer from "./Profile/ProfileContainer";
 import LoginContainer from "./Login/LoginContainer";
+import {connect} from "react-redux";
+import {IState} from "../../interfaces/IState";
+import {Preloader} from "../common/Preloader/Preloader";
+import {initialize} from "../../redux/reducers/mainReducer";
 
 
-export function Main() {
+function Main(props:any) {
+    if(!props.isInitialized){
+        props.initialize();
+        return <Preloader/>;
+    }
+
     return (
         <main className={s.main}>
             <Routes>
@@ -21,3 +30,10 @@ export function Main() {
         </main>
     )
 }
+
+const mapStateToProps = (state:IState) => {
+    return {
+        isInitialized: state.main.isInitialized,
+    };
+};
+export default connect(mapStateToProps,{initialize})(Main);

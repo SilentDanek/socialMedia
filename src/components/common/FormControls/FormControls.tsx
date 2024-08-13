@@ -11,3 +11,9 @@ export const ValidatedElement = (Element: string) => ({input, meta, ...props}: a
         </div>
     );
 };
+
+export const FormError = (props:any) => {
+    return <div className={props.style || s.formError}>
+        {props.error}
+    </div>;
+}

@@ -1,11 +1,20 @@
-.formControl{
-  &.error{
-    input, textarea{
+.formControl {
+  &.error {
+    input, textarea {
       border: solid red 2.5px;
     }
-    .errorText{
+
+    .errorText {
       color: red;
       font-weight: bolder;
     }
   }
+}
+
+.formError {
+  border: solid red 2.5px;
+  border-radius: 5px;
+  color: red;
+  font-weight: bolder;
+  display: inline-block;
 }
