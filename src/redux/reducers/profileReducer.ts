@@ -91,6 +91,13 @@ export function profileReducer(state = initialState, action: IAction):IProfilePa
                 posts: state.posts.concat(newPost),
             };
         }
+        case ProfileActionTypes.DELETE_POST: {
+            return {
+                ...state,
+                //@ts-ignore
+                posts: state.posts.filter(post => post.id !== action.payload.id),
+            };
+        }
         case ProfileActionTypes.SET_USER_PROFILE: {
             return {
                 ...state,
@@ -115,6 +122,12 @@ export const addPost = (text:string): IAction => ({
     type: ProfileActionTypes.ADD_POST,
     payload: { text }
 });
+
+export const deletePost = (id:number): IAction => ({
+    type: ProfileActionTypes.DELETE_POST,
+    payload: { id }
+});
+
 export const setUserProfile = (profile:IUserProfile): IAction => ({
     type: ProfileActionTypes.SET_USER_PROFILE,
     // @ts-ignore
