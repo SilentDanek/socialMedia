@@ -6,7 +6,6 @@ import NavBarContainer from "./components/NavBar/NavBarContainer";
 import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 import {store} from "./redux/store";
-import React from "react";
 
 // @ts-ignore
 window.store = store;

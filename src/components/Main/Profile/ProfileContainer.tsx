@@ -1,13 +1,13 @@
 import {ComponentType, useEffect} from "react";
 import {connect} from "react-redux";
 import {useParams} from "react-router-dom";
-import {IState} from "../../../interfaces/IState";
 import {Profile} from "./Profile";
 import {getStatus, requestUserProfile, updateStatus} from "../../../redux/reducers/profileReducer";
 import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
 import {compose} from "redux"
 import {getAuthStatus} from "../../../redux/selectors/authSelectors";
 import {getUserProfile, getUserStatus} from "../../../redux/selectors/profileSelectors";
+import {IState} from "../../../redux/store";
 
 function ProfileContainer(props: any): JSX.Element {
     const params = useParams();

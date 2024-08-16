@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import {Login} from "./Login";
 import {login, logout} from "../../../redux/reducers/authReduced";
-import {IState} from "../../../interfaces/IState";
+import {IState} from "../../../redux/store";
 
 export const mapStateToProps = (state:IState) => {
     return {

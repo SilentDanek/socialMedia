@@ -1,4 +1,4 @@
-import {IState} from "../../interfaces/IState";
+import {IState} from "../store";
 
 export const getUsers = (state:IState) => {
     return  state.usersPage.users;

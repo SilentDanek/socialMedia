@@ -1,8 +1,14 @@
 import {IAction} from "../../interfaces/IAction";
-import {ProfileActionTypes} from "../actions/actionTypes/profileActionTypes";
 import {Dispatch} from "react";
 import {profileAPI} from "../../api/api";
 import {toggleIsFetching} from "./usersReducer";
+
+export enum ProfileActionTypes {
+    ADD_POST = "ADD_POST",
+    DELETE_POST = "DELETE_POST",
+    SET_USER_PROFILE = "SET_USER_PROFILE",
+    SET_STATUS = "SET_STATUS",
+}
 
 export interface IUser {
     avatarURL: string;
@@ -15,7 +21,7 @@ export interface IPost {
     dislikes: number;
     message: string;
 }
-interface IContacts {
+export interface IContacts {
     facebook: string | null;
     website: string | null;
     vk: string | null;
@@ -25,7 +31,7 @@ interface IContacts {
     github: string | null;
     mainLink: string | null;
 }
-interface IPhotos {
+export interface IPhotos {
     small: string | null;
     large: string | null;
 }
@@ -38,15 +44,15 @@ export interface IUserProfile {
     userId: number;
     photos: IPhotos;
 }
-
 export interface IProfilePage {
     profile: IUserProfile | null;
     posts: IPost[];
-    status:string;
+    status: string;
 }
-let initialState:IProfilePage = {
+
+let initialState: IProfilePage = {
     profile: null,
-    status:"",
+    status: "",
     posts: [
         {
             id: 1,
@@ -70,7 +76,7 @@ let initialState:IProfilePage = {
         }],
 };
 
-export function profileReducer(state = initialState, action: IAction):IProfilePage {
+export function profileReducer(state = initialState, action: IAction): IProfilePage {
     switch (action.type) {
         case ProfileActionTypes.ADD_POST: {
             // Test
@@ -102,14 +108,14 @@ export function profileReducer(state = initialState, action: IAction):IProfilePa
             return {
                 ...state,
                 // @ts-ignore
-                profile:action.payload.profile
+                profile: action.payload.profile
             };
         }
         case ProfileActionTypes.SET_STATUS: {
             return {
                 ...state,
                 // @ts-ignore
-                status:action.payload.status
+                status: action.payload.status
             };
         }
         default: {
@@ -118,48 +124,51 @@ export function profileReducer(state = initialState, action: IAction):IProfilePa
     }
 }
 
-export const addPost = (text:string): IAction => ({
+export const addPost = (text: string): IAction => ({
     type: ProfileActionTypes.ADD_POST,
-    payload: { text }
+    payload: {text}
 });
 
-export const deletePost = (id:number): IAction => ({
+export const deletePost = (id: number): IAction => ({
     type: ProfileActionTypes.DELETE_POST,
-    payload: { id }
+    payload: {id}
 });
 
-export const setUserProfile = (profile:IUserProfile): IAction => ({
+export const setUserProfile = (profile: IUserProfile): IAction => ({
     type: ProfileActionTypes.SET_USER_PROFILE,
     // @ts-ignore
-    payload: { profile }
+    payload: {profile}
 });
-export const setStatus = (status:string): IAction => ({
+
+export const setStatus = (status: string): IAction => ({
     type: ProfileActionTypes.SET_STATUS,
     // @ts-ignore
-    payload: { status }
+    payload: {status}
 });
 
-export const getStatus = (userId:number) => (dispatch:Dispatch<any>) => {
-    profileAPI.getStatus(userId)
-        .then((response) => {
-            dispatch(setStatus(response));
-        });
+export const getStatus = (userId: number) => {
+    return async (dispatch: Dispatch<any>) => {
+        const response = await profileAPI.getStatus(userId);
+        dispatch(setStatus(response));
+    }
 }
 
-export const updateStatus = (status:string) => (dispatch:Dispatch<any>) => {
-    profileAPI.updateStatus(status)
-        .then((response) => {
-            if(response.resultCode === 0){
-                dispatch(setStatus(status));
-            }
-        });
+
+export const updateStatus = (status: string) => {
+    return async (dispatch: Dispatch<any>) => {
+        const response = await profileAPI.updateStatus(status);
+        if (response.resultCode === 0) {
+            dispatch(setStatus(status));
+        }
+    }
 }
 
-export const requestUserProfile = (userId:number) => (dispatch:Dispatch<any>) => {
-    dispatch(toggleIsFetching(true));
-    profileAPI.getUserProfile(userId)
-        .then((response) => {
-            dispatch(setUserProfile(response));
-            dispatch(toggleIsFetching(false));
-        });
+export const requestUserProfile = (userId: number) => {
+    return async (dispatch: Dispatch<any>) => {
+        dispatch(toggleIsFetching(true));
+
+        const response = await profileAPI.getUserProfile(userId)
+        dispatch(setUserProfile(response));
+        dispatch(toggleIsFetching(false));
+    }
 }

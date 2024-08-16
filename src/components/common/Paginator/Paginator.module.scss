@@ -1,0 +1,12 @@
+.pageSeqContainer{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  .pageButton{
+    cursor: pointer;
+    padding: 1px 3px;
+    &.selectedPage{
+      font-weight: bold;
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import {addPost} from "../../../../redux/reducers/profileReducer";
 import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
-import {IState} from "../../../../interfaces/IState";
+import {IState} from "../../../../redux/store";
 
 const mapStateToProps = (state:IState) => {
     return {
