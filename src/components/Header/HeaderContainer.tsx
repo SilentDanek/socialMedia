@@ -1,7 +1,7 @@
 import {Header} from "./Header";
 import {connect}   from "react-redux";
-import {IState} from "../../interfaces/IState";
 import {logout} from "../../redux/reducers/authReduced";
+import {IState} from "../../redux/store";
 
 function HeaderContainer(props:any) {
     return (

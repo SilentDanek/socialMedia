@@ -1,15 +1,18 @@
 import {IAction} from "../../interfaces/IAction";
-import {IMainPreload} from "../../interfaces/IMainPreload";
-import {MainActionTypes} from "../actions/actionTypes/mainActionTypes";
 import {getAuthUserData} from "./authReduced";
 
+enum MainActionTypes {
+    INITIALIZED = "INITIALIZED",
+}
 
-let initialState:IMainPreload = {
+export interface IMain {
+    isInitialized: boolean;
+}
+let initialState:IMain = {
     isInitialized: false,
 };
 
-
-export function mainReducer(state = initialState, action:IAction):IMainPreload{
+export function mainReducer(state = initialState, action:IAction):IMain{
     switch (action.type){
         case MainActionTypes.INITIALIZED:{
             return {
@@ -29,9 +32,7 @@ export const initialized = (): IAction => ({
     payload: {isInitialized: true}
 });
 
-export const initialize = () => (dispatch:(thunk:any) => Promise<any>) =>{
-    dispatch(getAuthUserData())
-        .then(() => {
-            dispatch(initialized());
-        });
+export const initialize = () => async (dispatch:(thunk:any) => Promise<any>) =>{
+    await dispatch(getAuthUserData());
+    await dispatch(initialized());
 }

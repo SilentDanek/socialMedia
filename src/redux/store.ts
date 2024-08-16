@@ -7,6 +7,21 @@ import {configureStore}  from "@reduxjs/toolkit";
 import {combineReducers} from "@reduxjs/toolkit";
 import {reducer as formReducer} from "redux-form";
 import {mainReducer} from "./reducers/mainReducer";
+import {ISideBar} from "./reducers/sidebarReducer";
+import {IAuth} from "./reducers/authReduced";
+import {IMain} from "./reducers/mainReducer";
+import {IUsersPage} from "./reducers/usersReducer";
+import {IDialogsPage} from "./reducers/dialogsReducer";
+import {IProfilePage} from "./reducers/profileReducer";
+
+export interface IState {
+    profilePage: IProfilePage,
+    dialogsPage: IDialogsPage,
+    sideBar    : ISideBar,
+    usersPage  : IUsersPage,
+    auth       : IAuth
+    main       : IMain
+}
 
 const reducers = combineReducers({
     dialogsPage: dialogsReducer,

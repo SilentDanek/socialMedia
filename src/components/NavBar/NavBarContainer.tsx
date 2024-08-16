@@ -1,6 +1,7 @@
-import {IState} from "../../interfaces/IState";
+
 import {connect} from "react-redux";
 import {NavBar} from "./NavBar";
+import {IState} from "../../redux/store";
 
 
 export function UsersContainer(props: any) {

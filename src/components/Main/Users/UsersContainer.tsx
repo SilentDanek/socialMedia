@@ -1,4 +1,3 @@
-import {IState} from "../../../interfaces/IState";
 import {connect} from "react-redux";
 import {Users} from "./Users";
 import {ComponentType, useEffect} from "react";
@@ -13,6 +12,7 @@ import {
     getTotalUsersCount,
     getUsers
 } from "../../../redux/selectors/usersSelector";
+import {IState} from "../../../redux/store";
 
 
 export function UsersContainer(props: any) {

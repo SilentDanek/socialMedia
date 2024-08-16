@@ -1,10 +1,11 @@
 import {compose} from "redux";
 import {ComponentType} from "react";
 import {connect} from "react-redux";
-import {IState} from "../../../interfaces/IState";
+import {IState} from "../../../redux/store";
 import {Dialogs} from "./Dialogs";
 import {sendMessage} from "../../../redux/reducers/dialogsReducer";
 import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
+
 
 
 const mapStateToProps = (state:IState) => {

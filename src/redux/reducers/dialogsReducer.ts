@@ -1,16 +1,17 @@
 import {IAction} from "../../interfaces/IAction";
-import {DialogsActionTypes} from "../actions/actionTypes/dialogsActionTypes";
+
+enum DialogsActionTypes {
+    SEND_MESSAGE = "SEND_MESSAGE",
+}
 
 export interface IDialog {
     id: number;
     name: string;
 }
-
 export interface IMessage {
     id: number;
     message: string;
 }
-
 export interface IDialogsPage {
     dialogs: IDialog[];
     messages: IMessage[];

@@ -9,10 +9,10 @@ const minLength = minLengthCreator(8);
 const maxLength = maxLengthCreator(30);
 
 
-export const LoginForm = (props:any) => {
+export const LoginForm = ({handleSubmit, error}:any) => {
 
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
                 <label htmlFor={"textInput"}>Login</label>
                 <Field
@@ -31,7 +31,7 @@ export const LoginForm = (props:any) => {
                        type={"password"}
                        id={"passwordInput"}
                        placeholder={"Password"}
-                       validate={[required, minLength,maxLength]}
+                       validate={[required, minLength, maxLength]}
                 />
             </div>
             <div>
@@ -42,18 +42,18 @@ export const LoginForm = (props:any) => {
                 <button type={"submit"}>Submit</button>
             </div>
             {
-                props.error
-                ? <FormError error={props.error}/>
-                : <></>
+                error
+                ? <FormError error={error}/>
+                    : <></>
             }
 
         </form>)
 }
 
-const ReduxLoginForm = reduxForm({form:"login"})(LoginForm);
+const ReduxLoginForm = reduxForm({form: "login"})(LoginForm);
 
-export const Login = (props:any) => {
-    if(props.isAuth) return <Navigate to={`/profile/${props.id}`}/>;
+export const Login = (props: any) => {
+    if (props.isAuth) return <Navigate to={`/profile/${props.id}`}/>;
 
     const onSubmit = (formData: any) => {
         props.login(formData.email, formData.password, formData.rememberMe)

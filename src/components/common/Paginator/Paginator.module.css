@@ -1,0 +1,14 @@
+.pageSeqContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.pageSeqContainer .pageButton {
+  cursor: pointer;
+  padding: 1px 3px;
+}
+.pageSeqContainer .pageButton.selectedPage {
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=Paginator.module.css.map */
