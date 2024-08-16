@@ -1,8 +1,20 @@
 import {IAction} from "../../interfaces/IAction";
 import {DialogsActionTypes} from "../actions/actionTypes/dialogsActionTypes";
-import {IDialogsPage} from "../../interfaces/IDialogsPage";
 
+export interface IDialog {
+    id: number;
+    name: string;
+}
 
+export interface IMessage {
+    id: number;
+    message: string;
+}
+
+export interface IDialogsPage {
+    dialogs: IDialog[];
+    messages: IMessage[];
+}
 let initialState:IDialogsPage = {
     dialogs: [
         {id: 1, name: "Ярик"},

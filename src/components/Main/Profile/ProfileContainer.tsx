@@ -3,15 +3,18 @@ import {connect} from "react-redux";
 import {useParams} from "react-router-dom";
 import {IState} from "../../../interfaces/IState";
 import {Profile} from "./Profile";
-import {getStatus, getUserProfile, updateStatus} from "../../../redux/reducers/profileReducer";
+import {getStatus, requestUserProfile, updateStatus} from "../../../redux/reducers/profileReducer";
 import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
 import {compose} from "redux"
+import {getAuthStatus} from "../../../redux/selectors/authSelectors";
+import {getUserProfile, getUserStatus} from "../../../redux/selectors/profileSelectors";
 
 function ProfileContainer(props: any): JSX.Element {
     const params = useParams();
     useEffect(() => {
-        props.getUserProfile(params.userID);
-        props.getStatus(params.userID);
+        const userId = Number(params.userID || "");
+        props.requestUserProfile(userId);
+        props.getStatus(userId);
     },[]);
 
     return <Profile profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>;
@@ -19,12 +22,12 @@ function ProfileContainer(props: any): JSX.Element {
 
 function mapStateToProps(state:IState){
     return {
-        profile: state.profilePage.profile,
-        status: state.profilePage.status,
-        isAuth: state.auth.isAuth
+        profile: getUserProfile(state),
+        status : getUserStatus(state),
+        isAuth : getAuthStatus(state)
     }
 }
 
 export default compose<ComponentType>(
-    connect(mapStateToProps, {getUserProfile, getStatus, updateStatus}),
+    connect(mapStateToProps, {requestUserProfile, getStatus, updateStatus}),
     withAuthRedirect)(ProfileContainer);

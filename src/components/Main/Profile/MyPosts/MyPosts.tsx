@@ -1,12 +1,13 @@
 import React from "react";
 import s from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
-import {IPost} from "../../../../interfaces/IProfilePage";
 import {Field, reduxForm} from "redux-form";
-import {maxLengthCreator, required} from "../../../../utils/validators/validators";
+import {required,maxLengthCreator, minLengthCreator} from "../../../../utils/validators/validators";
 import {ValidatedElement} from "../../../common/FormControls/FormControls";
+import {IPost} from "../../../../redux/reducers/profileReducer";
 
 const maxLengthPost= maxLengthCreator(30);
+const minLengthPost= minLengthCreator(3);
 const Textarea = ValidatedElement("textarea");
 
 const AddNewPostForm = (props: any) => {
@@ -16,7 +17,7 @@ const AddNewPostForm = (props: any) => {
                 component={Textarea}
                 name={"newPostText"}
                 placeholder={"Enter your post message"}
-                validate={[required, maxLengthPost]}
+                validate={[required, minLengthPost, maxLengthPost]}
             />
             <button>Add new post</button>
         </form>
@@ -30,7 +31,7 @@ interface IMyPostsProps {
     posts: IPost[];
     addPost(text:string):void;
 }
-export function MyPosts(props: IMyPostsProps) {
+export const MyPosts = (props: IMyPostsProps) => {
 
     const onSubmit = (values:any) => {
         props.addPost(values.newPostText);

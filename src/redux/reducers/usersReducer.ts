@@ -1,8 +1,28 @@
 import {IAction} from "../../interfaces/IAction";
-import {IUser, IUsersPage} from "../../interfaces/IUsersPage";
 import {UsersActionTypes} from "../actions/actionTypes/usersActionTypes";
 import {userAPI} from "../../api/api";
 import {Dispatch} from "react";
+
+export interface IUser{
+    id:number;
+    name:string;
+    uniqueUrlName: null;
+    photos: {
+        small: string | null,
+        large: string | null
+    },
+    status:string | null;
+    followed:boolean;
+}
+
+export interface IUsersPage{
+    users:IUser[];
+    pageSize: number,
+    totalUsersCount: number,
+    currentPage: number,
+    isFetching: boolean
+    followingInProgress: number[]
+}
 
 const initialState: IUsersPage = {
     users: [],
@@ -110,7 +130,7 @@ export const toggleFollowingInProgress = (id: number, isFetching: boolean): IAct
     payload: {id, isFetching}
 });
 
-export const getUsers = (currentPage: number, pageSize: number) => {
+export const requestUsers = (currentPage: number, pageSize: number) => {
     return (dispatch: Dispatch<any>) => {
         dispatch(toggleIsFetching(true));
         userAPI.getUsers(currentPage, pageSize)

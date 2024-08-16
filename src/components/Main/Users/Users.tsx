@@ -1,8 +1,7 @@
-import {IUser} from "../../../interfaces/IUsersPage";
+import {IUser} from "../../../redux/reducers/usersReducer";
 import s from "./Users.module.css"
 import {NavLink} from "react-router-dom";
 import unknownUserSVG from "../../../assets/images/unknown-user.svg"
-import React from "react";
 
 export function Users(props: any) {
 

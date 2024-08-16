@@ -1,10 +1,49 @@
 import {IAction} from "../../interfaces/IAction";
 import {ProfileActionTypes} from "../actions/actionTypes/profileActionTypes";
-import {IProfilePage, IUserProfile} from "../../interfaces/IProfilePage";
 import {Dispatch} from "react";
 import {profileAPI} from "../../api/api";
 import {toggleIsFetching} from "./usersReducer";
 
+export interface IUser {
+    avatarURL: string;
+    nickName: string;
+}
+export interface IPost {
+    id: number;
+    user: IUser;
+    likes: number;
+    dislikes: number;
+    message: string;
+}
+interface IContacts {
+    facebook: string | null;
+    website: string | null;
+    vk: string | null;
+    twitter: string | null;
+    instagram: string | null;
+    youtube: string | null;
+    github: string | null;
+    mainLink: string | null;
+}
+interface IPhotos {
+    small: string | null;
+    large: string | null;
+}
+export interface IUserProfile {
+    aboutMe: string;
+    contacts: IContacts;
+    lookingForAJob: boolean;
+    lookingForAJobDescription: string;
+    fullName: string;
+    userId: number;
+    photos: IPhotos;
+}
+
+export interface IProfilePage {
+    profile: IUserProfile | null;
+    posts: IPost[];
+    status:string;
+}
 let initialState:IProfilePage = {
     profile: null,
     status:"",
@@ -103,7 +142,7 @@ export const updateStatus = (status:string) => (dispatch:Dispatch<any>) => {
         });
 }
 
-export const getUserProfile = (userId:number) => (dispatch:Dispatch<any>) => {
+export const requestUserProfile = (userId:number) => (dispatch:Dispatch<any>) => {
     dispatch(toggleIsFetching(true));
     profileAPI.getUserProfile(userId)
         .then((response) => {
@@ -111,5 +150,3 @@ export const getUserProfile = (userId:number) => (dispatch:Dispatch<any>) => {
             dispatch(toggleIsFetching(false));
         });
 }
-
-

@@ -1,8 +1,9 @@
 import s from "./ProfileInfo.module.css";
 import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
 import unknownUserSVG from "../../../../assets/images/unknown-user.svg"
+import React, {memo} from "react";
 
-export function ProfileInfo(props: any) {
+export const ProfileInfo = React.memo((props: any) => {
     return (
         <div className={s.profile}>
             <div className={s.profileInfo}>
@@ -18,4 +19,4 @@ export function ProfileInfo(props: any) {
             </div>
         </div>
     );
-}
+})

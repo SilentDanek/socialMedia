@@ -1,9 +1,9 @@
-import {IProfilePage} from "./IProfilePage"
-import {IDialogsPage} from "./IDialogsPage";
 import {ISideBar} from "./ISideBar";
-import {IUsersPage} from "./IUsersPage";
 import {IAuth} from "./IAuth";
 import {IMainPreload} from "./IMainPreload";
+import {IUsersPage} from "../redux/reducers/usersReducer";
+import {IDialogsPage} from "../redux/reducers/dialogsReducer";
+import {IProfilePage} from "../redux/reducers/profileReducer";
 
 export interface IState {
     profilePage: IProfilePage,
