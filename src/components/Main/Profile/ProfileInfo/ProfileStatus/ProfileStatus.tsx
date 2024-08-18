@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from "react";
 
-export function ProfileStatus(props: any) {
+export function ProfileStatus({status, updateStatus}: any) {
     const [isStatusEditMode, setStatusEditMode] = useState(false);
-    const [statusText, setStatusText] = useState(props.status as string);
+    const [statusText, setStatusText] = useState(status as string);
 
-    useEffect(() => setStatusText(props.status),[props.status])
+    useEffect(() => setStatusText(status),[status])
 
 
     const toggleEditMode = () => {
         setStatusEditMode(!isStatusEditMode);
-        if(isStatusEditMode){
-            props.updateStatus(statusText);
+        if (isStatusEditMode && statusText !== status) {
+            updateStatus(statusText);
         }
     }
 
@@ -28,7 +28,7 @@ export function ProfileStatus(props: any) {
                                value={statusText}/>
                     </div>:
                     <div>
-                        <span onDoubleClick={toggleEditMode}>{props.status || "No status"}</span>
+                        <span onDoubleClick={toggleEditMode}>{status || "No status"}</span>
                     </div>
                 }
             </div>

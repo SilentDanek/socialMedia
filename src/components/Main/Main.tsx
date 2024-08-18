@@ -22,7 +22,7 @@ function Main({isInitialized,initialize}:any) {
             <Routes>
                 <Route path="/" element = {<HomePage/>}/>
                 <Route path="/dialogs" element = {<DialogsContainer/>}/>
-                <Route path="/profile/:userID" element = {<ProfileContainer/>}/>
+                <Route path="/profile/:userID?" element = {<ProfileContainer/>}/>
                 <Route path="/users" element = {<UsersContainer/>}/>
                 <Route path="/login" element = {<LoginContainer/>}/>
             </Routes>

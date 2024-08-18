@@ -1,7 +1,13 @@
 import {connect} from "react-redux";
 import {Users} from "./Users";
-import {ComponentType, useEffect} from "react";
-import {follow, unfollow, toggleFollowingInProgress, requestUsers,} from "../../../redux/reducers/usersReducer";
+import {ComponentType, useCallback, useEffect} from "react";
+import {
+    follow,
+    unfollow,
+    toggleFollowingInProgress,
+    requestUsers,
+    setCurrentPage,
+} from "../../../redux/reducers/usersReducer";
 import {Preloader} from "../../common/Preloader/Preloader";
 import {compose} from "redux";
 import {
@@ -15,31 +21,30 @@ import {
 import {IState} from "../../../redux/store";
 
 
+// Optimized
 export function UsersContainer(props: any) {
+    //Preload users when the users page opens
     useEffect(() => {
         props.requestUsers(props.currentPage, props.pageSize);
-    }, []);
+    }, [props.requestUsers]);
 
-    function onPageChanged(pageNumber: number) {
+    const onPageChanged = useCallback((pageNumber:number)=>{
         props.requestUsers(pageNumber, props.pageSize);
-    }
+    },[props.requestUsers]);
 
     return (
         <>
-            {
-                props.isFetching ?
-                    <Preloader/> :
-                    <Users
-                        follow={props.follow}
-                        unfollow={props.unfollow}
-                        users={props.users}
-                        pageSize={props.pageSize}
-                        currentPage={props.currentPage}
-                        onPageChanged={onPageChanged}
-                        totalUsersCount={props.totalUsersCount}
-                        followingInProgress={props.followingInProgress}
-                    />
-            }
+            {props.isFetching ? <Preloader/> : null}
+            <Users
+                follow={props.follow}
+                unfollow={props.unfollow}
+                users={props.users}
+                pageSize={props.pageSize}
+                currentPage={props.currentPage}
+                onPageChanged={onPageChanged}
+                totalUsersCount={props.totalUsersCount}
+                followingInProgress={props.followingInProgress}
+            />
         </>
     )
 }
@@ -57,4 +62,4 @@ const mapStateToProps = (state: IState) => {
 }
 
 export default compose<ComponentType>(
-    connect(mapStateToProps, {follow, unfollow, toggleFollowingInProgress, requestUsers}))(UsersContainer);
+    connect(mapStateToProps, {setCurrentPage, follow, unfollow, toggleFollowingInProgress, requestUsers}))(UsersContainer);

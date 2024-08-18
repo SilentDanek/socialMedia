@@ -1,13 +1,14 @@
-.pageSeqContainer {
+.itemsSeqContainer {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
 }
-.pageSeqContainer .pageButton {
+.itemsSeqContainer .pageButton {
   cursor: pointer;
   padding: 1px 3px;
+  border: black 1px solid;
 }
-.pageSeqContainer .pageButton.selectedPage {
+.itemsSeqContainer .pageButton.selectedPage {
   font-weight: bold;
 }
 

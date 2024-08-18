@@ -70,3 +70,4 @@ export const logout = () => async (dispatch: Dispatch<any>) => {
         dispatch(setAuthUserData(null, null, false));
     }
 }
+

@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProfileStatus component matches the snapshot 1`] = `
+<div>
+  <div>
+    <div>
+      <div>
+        <span>
+          Test status
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;

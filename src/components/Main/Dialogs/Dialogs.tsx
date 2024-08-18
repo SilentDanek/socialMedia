@@ -1,7 +1,7 @@
 import s from "./Dialogs.module.css"
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import AddMessageForm from "../AddMessageForm/addMessageForm";
+import AddMessageForm from "./AddMessageForm/addMessageForm";
 
 interface IUsers {
     id: number,

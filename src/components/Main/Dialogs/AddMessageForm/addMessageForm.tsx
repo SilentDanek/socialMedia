@@ -1,6 +1,6 @@
 import {Field, reduxForm} from "redux-form";
-import {ValidatedElement} from "../../common/FormControls/FormControls";
-import {maxLengthCreator, required} from "../../../utils/validators/validators";
+import {ValidatedElement} from "../../../common/FormControls/FormControls";
+import {maxLengthCreator, required} from "../../../../utils/validators/validators";
 
 const maxMessageLength = maxLengthCreator(200);
 const Textarea = ValidatedElement("textarea");

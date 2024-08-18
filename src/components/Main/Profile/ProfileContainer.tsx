@@ -5,17 +5,18 @@ import {Profile} from "./Profile";
 import {getStatus, requestUserProfile, updateStatus} from "../../../redux/reducers/profileReducer";
 import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
 import {compose} from "redux"
-import {getAuthStatus} from "../../../redux/selectors/authSelectors";
+import {getAuthStatus, getAuthUserId} from "../../../redux/selectors/authSelectors";
 import {getUserProfile, getUserStatus} from "../../../redux/selectors/profileSelectors";
 import {IState} from "../../../redux/store";
 
 function ProfileContainer(props: any): JSX.Element {
     const params = useParams();
+
     useEffect(() => {
-        const userId = Number(params.userID || "");
+        const userId = Number(params.userID || props.authUserId);
         props.requestUserProfile(userId);
         props.getStatus(userId);
-    },[]);
+    },[params.userID, props.authUserId]);
 
     return <Profile profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>;
 }
@@ -24,7 +25,8 @@ function mapStateToProps(state:IState){
     return {
         profile: getUserProfile(state),
         status : getUserStatus(state),
-        isAuth : getAuthStatus(state)
+        isAuth : getAuthStatus(state),
+        authUserId : getAuthUserId(state)
     }
 }
 
