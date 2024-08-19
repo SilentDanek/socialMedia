@@ -1,38 +1,41 @@
 import {Routes, Route} from "react-router-dom"
 import s from "./Main.module.css"
 import HomePage from "./HomePage/HomePage";
-import UsersContainer from "./Users/UsersContainer";
-import DialogsContainer from "./Dialogs/DialogsContainer";
-import ProfileContainer from "./Profile/ProfileContainer";
-import LoginContainer from "./Login/LoginContainer";
 import {connect} from "react-redux";
 import {Preloader} from "../common/Preloader/Preloader";
 import {initialize} from "../../redux/reducers/mainReducer";
 import {IState} from "../../redux/store";
+import {SuspensePreload} from "../common/SuspensePreload/withSuspense";
+import React from "react";
 
+const LazyUsersContainer = React.lazy(() => import("./Users/UsersContainer"));
+const LazyDialogsContainer = React.lazy(() => import("./Dialogs/DialogsContainer"));
+const LazyProfileContainer = React.lazy(() => import("./Profile/ProfileContainer"));
+const LazyLoginContainer = React.lazy(() => import("./Login/LoginContainer"));
 
-function Main({isInitialized,initialize}:any) {
-    if(!isInitialized){
+function Main({isInitialized, initialize}: any) {
+    if (!isInitialized) {
         initialize();
         return <Preloader/>;
     }
 
-    return (
-        <main className={s.main}>
-            <Routes>
-                <Route path="/" element = {<HomePage/>}/>
-                <Route path="/dialogs" element = {<DialogsContainer/>}/>
-                <Route path="/profile/:userID?" element = {<ProfileContainer/>}/>
-                <Route path="/users" element = {<UsersContainer/>}/>
-                <Route path="/login" element = {<LoginContainer/>}/>
-            </Routes>
+    return (<main className={s.main}>
+            <SuspensePreload>
+                <Routes>
+                    <Route path="/dialogs" element={<LazyDialogsContainer/>}/>
+                    <Route path="/profile/:userID?" element={<LazyProfileContainer/>}/>
+                    <Route path="/users" element={<LazyUsersContainer/>}/>
+                    <Route path="/login" element={<LazyLoginContainer/>}/>
+                    <Route path="/" element={<HomePage/>}/>
+                </Routes>
+            </SuspensePreload>
         </main>
     )
 }
 
-const mapStateToProps = (state:IState) => {
+const mapStateToProps = (state: IState) => {
     return {
         isInitialized: state.main.isInitialized,
     };
 };
-export default connect(mapStateToProps,{initialize})(Main);
+export default connect(mapStateToProps, {initialize})(Main);
