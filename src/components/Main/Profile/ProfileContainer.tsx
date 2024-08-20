@@ -9,14 +9,14 @@ import {getAuthStatus, getAuthUserId} from "../../../redux/selectors/authSelecto
 import {getUserProfile, getUserStatus} from "../../../redux/selectors/profileSelectors";
 import {IState} from "../../../redux/store";
 
-function ProfileContainer(props: any): JSX.Element {
+function ProfileContainer({authUserId, ...props}: any): JSX.Element {
     const params = useParams();
 
     useEffect(() => {
-        const userId = Number(params.userID || props.authUserId);
+        const userId = Number(params.userID || authUserId);
         props.requestUserProfile(userId);
         props.getStatus(userId);
-    },[params.userID, props.authUserId]);
+    },[params.userID, authUserId]);
 
     return <Profile profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>;
 }
