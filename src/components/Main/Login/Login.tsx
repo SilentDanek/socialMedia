@@ -42,11 +42,8 @@ export const LoginForm = ({handleSubmit, error}:any) => {
                 <button type={"submit"}>Submit</button>
             </div>
             {
-                error
-                ? <FormError error={error}/>
-                    : <></>
+                error && <FormError error={error}/>
             }
-
         </form>)
 }
 

@@ -1,4 +1,5 @@
 import axios from "axios";
+import {IUserProfile} from "../redux/reducers/profileReducer";
 
 const instance = axios.create({
     baseURL: "https://social-network.samuraijs.com/api/1.0/",
@@ -40,5 +41,15 @@ export const profileAPI = {
     },
     getUserProfile(userID: number) {
         return instance.get(`profile/${userID}`).then(response => response.data);
+    },
+    updateUserProfile(newProfile: IUserProfile) {
+        return instance.put(`profile`, newProfile).then(response => response.data);
+    },
+    updatePhoto(file: FormData) {
+        return instance.put(`profile/photo`, file, {
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }}
+        ).then(response => response.data);
     },
 }

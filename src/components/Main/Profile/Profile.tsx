@@ -8,7 +8,13 @@ export function Profile(props: any) {
     return (
         props.profile
             ? <div className={s.profileWrapper}>
-                <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
+                <ProfileInfo profile={props.profile}
+                             status={props.status}
+                             updateStatus={props.updateStatus}
+                             updatePhoto={props.updatePhoto}
+                             updateUserProfile={props.updateUserProfile}
+                             isOwner={props.isOwner}
+                />
                 <MyPostsContainer/>
               </div>
             : <Preloader/>

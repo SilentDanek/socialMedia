@@ -38,8 +38,9 @@ export const MyPosts = (props: IMyPostsProps) => {
     }
 
     const postElement =(posts: IPost[]) => {
-        return posts.map(({user, message, likes, dislikes}) => {
+        return posts.map(({user, message, likes, dislikes, id}) => {
             return <Post
+                key={id}
                 user={{
                     avatarURL: user.avatarURL,
                     nickName: user.nickName

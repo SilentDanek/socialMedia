@@ -4,8 +4,7 @@ export function ProfileStatus({status, updateStatus}: any) {
     const [isStatusEditMode, setStatusEditMode] = useState(false);
     const [statusText, setStatusText] = useState(status as string);
 
-    useEffect(() => setStatusText(status),[status])
-
+    useEffect(() => setStatusText(status),[])
 
     const toggleEditMode = () => {
         setStatusEditMode(!isStatusEditMode);

@@ -2,18 +2,22 @@ import {IAction} from "../../interfaces/IAction";
 import {Dispatch} from "react";
 import {profileAPI} from "../../api/api";
 import {toggleIsFetching} from "./usersReducer";
+import {IState} from "../store";
+import {stopSubmit} from "redux-form";
 
 export enum ProfileActionTypes {
     ADD_POST = "ADD_POST",
     DELETE_POST = "DELETE_POST",
     SET_USER_PROFILE = "SET_USER_PROFILE",
     SET_STATUS = "SET_STATUS",
+    SET_NEW_PHOTO = "SET_NEW_PHOTO"
 }
 
 export interface IUser {
     avatarURL: string;
     nickName: string;
 }
+
 export interface IPost {
     id: number;
     user: IUser;
@@ -21,6 +25,7 @@ export interface IPost {
     dislikes: number;
     message: string;
 }
+
 export interface IContacts {
     facebook: string | null;
     website: string | null;
@@ -31,10 +36,12 @@ export interface IContacts {
     github: string | null;
     mainLink: string | null;
 }
+
 export interface IPhotos {
     small: string | null;
     large: string | null;
 }
+
 export interface IUserProfile {
     aboutMe: string;
     contacts: IContacts;
@@ -44,6 +51,7 @@ export interface IUserProfile {
     userId: number;
     photos: IPhotos;
 }
+
 export interface IProfilePage {
     profile: IUserProfile | null;
     posts: IPost[];
@@ -77,6 +85,7 @@ let initialState: IProfilePage = {
 };
 
 export function profileReducer(state = initialState, action: IAction): IProfilePage {
+
     switch (action.type) {
         case ProfileActionTypes.ADD_POST: {
             // Test
@@ -118,6 +127,13 @@ export function profileReducer(state = initialState, action: IAction): IProfileP
                 status: action.payload.status
             };
         }
+        case ProfileActionTypes.SET_NEW_PHOTO: {
+            return {
+                ...state,
+                // @ts-ignore
+                profile: {...state.profile, photos: action.payload.photos}
+            };
+        }
         default: {
             return state;
         }
@@ -146,13 +162,18 @@ export const setStatus = (status: string): IAction => ({
     payload: {status}
 });
 
+export const setNewPhotos = (photos: string): IAction => ({
+    type: ProfileActionTypes.SET_NEW_PHOTO,
+    // @ts-ignore
+    payload: {photos}
+});
+
 export const getStatus = (userId: number) => {
     return async (dispatch: Dispatch<any>) => {
         const response = await profileAPI.getStatus(userId);
         dispatch(setStatus(response));
     }
 }
-
 
 export const updateStatus = (status: string) => {
     return async (dispatch: Dispatch<any>) => {
@@ -170,5 +191,48 @@ export const requestUserProfile = (userId: number) => {
         const response = await profileAPI.getUserProfile(userId)
         dispatch(setUserProfile(response));
         dispatch(toggleIsFetching(false));
+    }
+}
+
+export const updatePhoto = (photo: FormData) => {
+    return async (dispatch: Dispatch<any>) => {
+        const response = await profileAPI.updatePhoto(photo);
+        if (response.resultCode === 0) {
+            dispatch(setNewPhotos(response.data.photos));
+        }
+    }
+}
+
+export const updateUserProfile = (newProfile: IUserProfile) => {
+    return async (dispatch: Dispatch<any>, getState: () => IState) => {
+        const response = await profileAPI.updateUserProfile(newProfile);
+        const userId = getState().auth.id;
+
+        if (response.resultCode === 0 && userId) {
+            dispatch(requestUserProfile(userId));
+            return;
+        }
+
+        const errorMessage: string = response.messages.length
+            ? response.messages[0]
+            : "Some error";
+        let badField;
+        if (errorMessage.includes("Contacts")) {
+            const match = errorMessage.match(/(\w+)->(\w+)/);
+            if (match) {
+                badField = {
+                    [match[1].toLowerCase()]: {
+                        [match[2].toLowerCase()]: errorMessage
+                    }
+                };
+            }
+        } else {
+            badField = {_error: errorMessage};
+        }
+
+        const action = stopSubmit("editProfile", badField);
+        dispatch(action);
+
+        return Promise.reject(errorMessage);
     }
 }
