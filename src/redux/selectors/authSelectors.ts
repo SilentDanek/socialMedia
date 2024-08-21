@@ -7,3 +7,7 @@ export const getAuthStatus = (state:IState) => {
 export const getAuthUserId = (state:IState) => {
     return state.auth.id;
 };
+
+export const getCaptchaUrl = (state:IState) => {
+    return state.auth.captchaUrl;
+};

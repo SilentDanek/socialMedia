@@ -9,35 +9,42 @@ const minLength = minLengthCreator(8);
 const maxLength = maxLengthCreator(30);
 
 
-export const LoginForm = ({handleSubmit, error}:any) => {
-
+export const LoginForm = ({handleSubmit, error, captchaUrl}: any) => {
     return (
         <form onSubmit={handleSubmit}>
             <div>
-                <label htmlFor={"textInput"}>Login</label>
-                <Field
-                    component={Input}
-                    name={"email"}
-                    type={"text"}
-                    id={"textInput"}
-                    placeholder={"Email"}
-                    validate={[required, minLength,maxLength]}
-                />
+                <label>
+                    Login
+                    <Field
+                        component={Input}
+                        name={"email"}
+                        type={"text"}
+                        id={"textInput"}
+                        placeholder={"Email"}
+                        validate={[required, minLength, maxLength]}/>
+                </label>
             </div>
             <div>
-                <label htmlFor={"passwordInput"}>Password</label>
-                <Field component={Input}
-                       name={"password"}
-                       type={"password"}
-                       id={"passwordInput"}
-                       placeholder={"Password"}
-                       validate={[required, minLength, maxLength]}
-                />
+                <label>
+                    Password
+                    <Field component={Input}
+                           name={"password"}
+                           type={"password"}
+                           placeholder={"Password"}
+                           validate={[required, minLength, maxLength]}/>
+                </label>
             </div>
             <div>
-                <Field component={"input"} name={"rememberMe"} type={"checkbox"} id={"rememberMeCheckbox"}/>
-                <label htmlFor={"rememberMeCheckbox"}> remember me</label>
+                <label>
+                <Field component={Input} name={"rememberMe"} type={"checkbox"}/>
+                remember me</label>
             </div>
+
+            {captchaUrl && <div>
+                <img src={captchaUrl} alt="captcha"/>
+                <Field component={Input} name={"captcha"} validation={[required]} placefolder={"captcha"}/>
+            </div>}
+
             <div>
                 <button type={"submit"}>Submit</button>
             </div>
@@ -49,17 +56,19 @@ export const LoginForm = ({handleSubmit, error}:any) => {
 
 const ReduxLoginForm = reduxForm({form: "login"})(LoginForm);
 
-export const Login = (props: any) => {
-    if (props.isAuth) return <Navigate to={`/profile/${props.id}`}/>;
+export const Login = ({isAuth, id, captchaUrl, login}: any) => {
+    if (isAuth) return <Navigate to={`/profile/${id}`}/>;
 
     const onSubmit = (formData: any) => {
-        props.login(formData.email, formData.password, formData.rememberMe)
+        login(formData.email, formData.password, formData.rememberMe, formData.captcha)
     };
 
     return (
         <div>
             <h1>Login</h1>
-            <ReduxLoginForm onSubmit={onSubmit}/>
+            {   //@ts-ignore
+                <ReduxLoginForm onSubmit={onSubmit} captchaUrl={captchaUrl}/>
+            }
         </div>
     )
 }

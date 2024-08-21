@@ -1,13 +1,15 @@
 import {connect} from "react-redux";
 import {Login} from "./Login";
-import {login, logout} from "../../../redux/reducers/authReduced";
+import {login} from "../../../redux/reducers/authReduced";
 import {IState} from "../../../redux/store";
+import {getAuthStatus, getAuthUserId, getCaptchaUrl} from "../../../redux/selectors/authSelectors";
 
 export const mapStateToProps = (state:IState) => {
     return {
-        isAuth:state.auth.isAuth,
-        id: state.auth.id
+        isAuth: getAuthStatus(state),
+        id:getAuthUserId(state),
+        captchaUrl: getCaptchaUrl(state)
     };
 };
 
-export default connect(mapStateToProps,{login, logout})(Login)
+export default connect(mapStateToProps,{login})(Login)
