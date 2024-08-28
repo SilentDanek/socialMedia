@@ -1,7 +1,6 @@
-export const updateItemsByCondition = (items:any[], fieldName:string, conditionValue:any, newValues:any) => {
+export const updateItemsByCondition = <T>(items:T[], fieldName:keyof T, conditionValue:T[keyof T], {...newValues}:Partial<T>) => {
     return items.map(
         (item) => {
-            // @ts-ignore
             if (item[fieldName] === conditionValue) {
                 return {...item, ...newValues};
             }
@@ -10,7 +9,7 @@ export const updateItemsByCondition = (items:any[], fieldName:string, conditionV
 };
 
 // Quick way to check calls and props
-export const testArr:any = new Proxy([], {
+export const testArr = new Proxy([], {
     get(target, prop, receiver) {
         // Перехватываем методы массива
         if (prop === 'push') {
@@ -22,5 +21,10 @@ export const testArr:any = new Proxy([], {
         return Reflect.get(target, prop, receiver);
     }
 })
-// @ts-ignore
+declare global {
+    interface Window {
+        testArr: typeof testArr;
+    }
+}
+
 window.testArr = testArr;

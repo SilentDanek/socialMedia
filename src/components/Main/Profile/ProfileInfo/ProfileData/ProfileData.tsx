@@ -33,6 +33,11 @@ export const ProfileData:FC<ProfileDataProps> = memo(({profile, isOwner, goToEdi
     </div>
 })
 
-const Contact = ({contactTitle, contactValue}: any) => {
+
+type ContactProps = {
+    contactTitle:string;
+    contactValue:string | null;
+}
+const Contact:FC<ContactProps> = ({contactTitle, contactValue}) => {
     return <li /*className={s.contact}*/><b>{contactTitle}</b>: {contactValue}</li>
 }

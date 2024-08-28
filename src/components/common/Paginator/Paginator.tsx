@@ -2,7 +2,7 @@ import {FC, memo, useMemo, useState} from 'react';
 import cn from "classnames";
 import s from "./Paginator.module.css";
 
-const createPaginationItems = (items: any[], currentItem: number, onPageChanged: (page: number) => void) => (
+const createPaginationItems = (items: number[], currentItem: number, onPageChanged: (page: number) => void) => (
     items.map(item => (
         <span key={item}
               className={cn(s.pageButton, {[s.selectedPage]: currentItem === item})}
