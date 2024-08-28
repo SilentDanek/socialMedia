@@ -1,16 +1,15 @@
 import {Header} from "./Header";
-import {connect}   from "react-redux";
-import {logout} from "../../redux/reducers/authReduced";
-import {IState} from "../../redux/store";
+import {useAppSelector} from "../../redux/store";
+import {logout} from "../../redux/ducks/auth/thunks";
+import {getAuthStatus, getLogin} from "../../redux/ducks/auth/selectors";
+import {useActions} from "../../hooks/useActions";
 
-function HeaderContainer(props:any) {
-    return (
-        <Header {...props}/>
-    )
+
+export const HeaderContainer = () => {
+    const isAuth = useAppSelector(getAuthStatus);
+    const login  = useAppSelector(getLogin);
+
+    const [logoutD] = useActions([logout])
+
+    return <Header isAuth={isAuth} login={login} logout={logoutD}/>;
 }
-
-const mapStateToProps = (state:IState) => ({
-    isAuth: state.auth.isAuth,
-    login : state.auth.login
-});
-export default connect(mapStateToProps, {logout})(HeaderContainer);

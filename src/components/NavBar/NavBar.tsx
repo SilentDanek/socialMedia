@@ -1,7 +1,11 @@
 import {NavLink} from "react-router-dom";
 import s from "./NavBar.module.css"
+import {FC} from "react";
 
-export function NavBar(props:any) {
+type NavBarProps = {
+    id:number | null;
+}
+export const NavBar:FC<NavBarProps> = ({id}) => {
 
     function active({isActive}: { isActive: boolean }) {
         return isActive ? {color: "#d1c324"} : {};
@@ -11,7 +15,7 @@ export function NavBar(props:any) {
         <nav className={s.nav}>
             <ul>
                 <li>
-                    <NavLink to={`/profile/${props.id}`} style={active}>
+                    <NavLink to={`/profile/${id}`} style={active}>
                         Profile
                     </NavLink>
                 </li>

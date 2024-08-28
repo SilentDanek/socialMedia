@@ -1,18 +1,11 @@
-
-import {connect} from "react-redux";
 import {NavBar} from "./NavBar";
-import {IState} from "../../redux/store";
+import {useAppSelector} from "../../redux/store";
+import {getAuthUserId} from "../../redux/ducks/auth/selectors";
 
 
-export function UsersContainer(props: any) {
-    return<NavBar id={props.id}/>
+const NavBarContainer = () =>{
+    const id = useAppSelector(getAuthUserId);
+    return <NavBar id={id}/>
 }
 
-
-const mapStateToProps = (state: IState) => {
-    return {
-        id: state.auth.id,
-    };
-}
-
-export default connect(mapStateToProps)(UsersContainer);
+export default NavBarContainer;

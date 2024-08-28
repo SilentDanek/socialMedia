@@ -1,13 +1,13 @@
 import s from "./Message.module.css";
+import {FC} from "react";
 
-interface IMessage {
+type Message = {
     message:string;
-}
-
-export function Message(props:IMessage){
+};
+export const Message:FC<Message> = ({message}) => {
     return(
         <div className={s.message}>
-            {props.message}
+            {message}
         </div>
-    )
-}
+    );
+};

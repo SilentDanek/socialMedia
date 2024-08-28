@@ -1,38 +1,33 @@
-import {dialogsReducer}  from "./reducers/dialogsReducer";
-import {profileReducer}  from "./reducers/profileReducer";
-import {sideBarReducer}  from "./reducers/sidebarReducer";
-import {usersReducer}    from "./reducers/usersReducer";
-import {authReducer}     from "./reducers/authReduced";
-import {configureStore}  from "@reduxjs/toolkit";
-import {combineReducers} from "@reduxjs/toolkit";
+import {dialogsReducer}  from "./ducks/dialogs/reducer";
+import {profileReducer}  from "./ducks/profile/reducer";
+import {sidebarReducer}  from "./ducks/sidebar/reducer";
+import {usersReducer}    from "./ducks/users/reducer";
+import {authReducer}     from "./ducks/auth/reducer";
+import {mainReducer}     from "./ducks/main/reducer";
+import {configureStore,combineReducers } from "@reduxjs/toolkit";
 import {reducer as formReducer} from "redux-form";
-import {mainReducer} from "./reducers/mainReducer";
-import {ISideBar} from "./reducers/sidebarReducer";
-import {IAuth} from "./reducers/authReduced";
-import {IMain} from "./reducers/mainReducer";
-import {IUsersPage} from "./reducers/usersReducer";
-import {IDialogsPage} from "./reducers/dialogsReducer";
-import {IProfilePage} from "./reducers/profileReducer";
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 
-export interface IState {
-    profilePage: IProfilePage,
-    dialogsPage: IDialogsPage,
-    sideBar    : ISideBar,
-    usersPage  : IUsersPage,
-    auth       : IAuth
-    main       : IMain
-}
 
-const reducers = combineReducers({
+const rootReducer = combineReducers({
     dialogsPage: dialogsReducer,
     profilePage: profileReducer,
     usersPage  : usersReducer,
-    sideBar    : sideBarReducer,
+    sideBar    : sidebarReducer,
     auth       : authReducer,
     main       : mainReducer,
     form       : formReducer
 })
 
 export const store  = configureStore({
-    reducer: reducers
-})
+    reducer: rootReducer
+});
+
+type RootReducer = typeof rootReducer;
+export type State = ReturnType<RootReducer>;
+
+type AppDispatch = typeof store.dispatch;
+export type AppActions = Parameters<AppDispatch>[0];
+
+export const useAppDispatch = ():AppDispatch => useDispatch<AppDispatch>();
+export const useAppSelector:TypedUseSelectorHook<State> = useSelector;

@@ -1,6 +1,12 @@
-import {memo} from "react";
+import {FC, memo} from "react";
+import {UserProfile} from "../../../../../redux/ducks/profile/types"
 
-export const ProfileData = memo(({profile, isOwner, goToEditMode}: any) => {
+type ProfileDataProps = {
+    profile:UserProfile;
+    isOwner:boolean;
+    goToEditMode:() => void;
+}
+export const ProfileData:FC<ProfileDataProps> = memo(({profile, isOwner, goToEditMode}) => {
 
     return <div>
         {isOwner && <div>

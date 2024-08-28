@@ -1,7 +1,18 @@
-import React, {useState, useMemo, memo} from 'react';
+import {FC, memo, useMemo, useState} from 'react';
+import cn from "classnames";
 import s from "./Paginator.module.css";
 
-interface PaginatorProps {
+const createPaginationItems = (items: any[], currentItem: number, onPageChanged: (page: number) => void) => (
+    items.map(item => (
+        <span key={item}
+              className={cn(s.pageButton, {[s.selectedPage]: currentItem === item})}
+              onClick={() => onPageChanged(item)}>
+                    {item}
+        </span>
+    ))
+);
+
+type PaginatorProps = {
     totalItemsCount: number;
     pageSize: number;
     currentPage: number;
@@ -12,28 +23,17 @@ interface PaginatorProps {
     nextLabel?: string;
     lastLabel?: string;
 }
-
-const createPaginationItems = (items:any[], currentItem:number,onPageChanged: (page: number) => void) => (
-    items.map(item => (
-        <span key={item}
-              className={`${currentItem === item ? s.selectedPage : ''} ${s.pageButton}`}
-              onClick={() => onPageChanged(item)}>
-                    {item}
-        </span>
-    ))
-);
-
-export const Paginator: React.FC<PaginatorProps> = memo(({
-                                                        totalItemsCount,
-                                                        pageSize,
-                                                        currentPage,
-                                                        onPageChanged,
-                                                        portionSize = 10,
-                                                        firstLabel = '«First',
-                                                        prevLabel = '‹Prev',
-                                                        nextLabel = 'Next›',
-                                                        lastLabel = 'Last»',
-                                                    }) => {
+export const Paginator: FC<PaginatorProps> = memo(({
+                                                                   totalItemsCount,
+                                                                   pageSize,
+                                                                   currentPage,
+                                                                   onPageChanged,
+                                                                   portionSize = 10,
+                                                                   firstLabel = '«First',
+                                                                   prevLabel = '‹Prev',
+                                                                   nextLabel = 'Next›',
+                                                                   lastLabel = 'Last»',
+                                                               }) => {
     const pagesCount = Math.ceil(totalItemsCount / pageSize);
     const portionCount = Math.ceil(pagesCount / portionSize);
 
@@ -59,7 +59,7 @@ export const Paginator: React.FC<PaginatorProps> = memo(({
                 </>
             )}
 
-            { createPaginationItems(pages, currentPage, onPageChanged) }
+            {createPaginationItems(pages, currentPage, onPageChanged)}
 
             {portionCount > portionNumber && (
                 <>

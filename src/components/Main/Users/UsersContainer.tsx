@@ -1,15 +1,6 @@
-import {connect} from "react-redux";
 import {Users} from "./Users";
-import {ComponentType, useCallback, useEffect} from "react";
-import {
-    follow,
-    unfollow,
-    toggleFollowingInProgress,
-    requestUsers,
-    setCurrentPage,
-} from "../../../redux/reducers/usersReducer";
-import {Preloader} from "../../common/Preloader/Preloader";
-import {compose} from "redux";
+import {useCallback, useEffect} from "react";
+import {follow, unfollow, requestUsers} from "../../../redux/ducks/users/thunks";
 import {
     getCurrentPage,
     getFollowingInProgress,
@@ -17,49 +8,44 @@ import {
     getPageSize,
     getTotalUsersCount,
     getUsers
-} from "../../../redux/selectors/usersSelector";
-import {IState} from "../../../redux/store";
+} from "../../../redux/ducks/users/selectors";
+import {useAppSelector} from "../../../redux/store";
+import {useActions} from "../../../hooks/useActions";
 
 
 // Optimized
-export function UsersContainer(props: any) {
+const UsersContainer = () => {
+    const users = useAppSelector(getUsers);
+    const pageSize = useAppSelector(getPageSize);
+    const isFetching = useAppSelector(getIsFetching);
+    const currentPage = useAppSelector(getCurrentPage);
+    const totalUsersCount = useAppSelector(getTotalUsersCount);
+    const followingInProgress = useAppSelector(getFollowingInProgress);
+
+    const [followD, unfollowD, requestUsersD] = useActions([follow, unfollow,  requestUsers]);
+
     //Preload users when the users page opens
     useEffect(() => {
-        props.requestUsers(props.currentPage, props.pageSize);
-    }, [props.requestUsers]);
+        requestUsersD(currentPage, pageSize);
+    }, [requestUsersD]);
 
-    const onPageChanged = useCallback((pageNumber:number)=>{
-        props.requestUsers(pageNumber, props.pageSize);
-    },[props.requestUsers]);
+    const onPageChanged = useCallback((pageNumber: number) => {
+        requestUsersD(pageNumber, pageSize);
+    }, [requestUsersD]);
 
     return (
-        <>
-            {props.isFetching ? <Preloader/> : null}
             <Users
-                follow={props.follow}
-                unfollow={props.unfollow}
-                users={props.users}
-                pageSize={props.pageSize}
-                currentPage={props.currentPage}
+                isFetching={isFetching}
+                users={users}
+                pageSize={pageSize}
+                currentPage={currentPage}
                 onPageChanged={onPageChanged}
-                totalUsersCount={props.totalUsersCount}
-                followingInProgress={props.followingInProgress}
+                totalUsersCount={totalUsersCount}
+                followingInProgress={followingInProgress}
+                follow={followD}
+                unfollow={unfollowD}
             />
-        </>
-    )
+    );
 }
 
-
-const mapStateToProps = (state: IState) => {
-    return {
-        users: getUsers(state),
-        pageSize: getPageSize(state),
-        currentPage: getCurrentPage(state),
-        totalUsersCount: getTotalUsersCount(state),
-        isFetching: getIsFetching(state),
-        followingInProgress: getFollowingInProgress(state),
-    };
-}
-
-export default compose<ComponentType>(
-    connect(mapStateToProps, {setCurrentPage, follow, unfollow, toggleFollowingInProgress, requestUsers}))(UsersContainer);
+export default UsersContainer;

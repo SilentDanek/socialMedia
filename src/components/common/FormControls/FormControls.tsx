@@ -15,5 +15,4 @@ export const FormError = ({style, error}: any) => {
     return <div className={style || s.formError}>
         {error}
     </div>;
-}
-
+};

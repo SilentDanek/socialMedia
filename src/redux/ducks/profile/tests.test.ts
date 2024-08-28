@@ -1,5 +1,6 @@
-import {IAction} from "../../interfaces/IAction";
-import {addPost, deletePost, profileReducer} from "./profileReducer";
+
+import {addPost, deletePost} from "./actions";
+import {profileReducer} from "./reducer";
 
 interface IUser {
     avatarURL: string;

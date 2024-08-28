@@ -1,21 +1,19 @@
-import {compose} from "redux";
-import {ComponentType} from "react";
-import {connect} from "react-redux";
-import {IState} from "../../../redux/store";
 import {Dialogs} from "./Dialogs";
-import {sendMessage} from "../../../redux/reducers/dialogsReducer";
-import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
+import {useAppSelector} from "../../../redux/store";
+import {sendMessage} from "../../../redux/ducks/dialogs/actions";
+import {getDialogsPage} from "../../../redux/ducks/dialogs/selectors";
+import {useAuthRedirect} from "../../../hooks/useAuthRedirect";
+import {useActions} from "../../../hooks/useActions";
 
 
+const DialogsContainer = () => {
+    useAuthRedirect();
 
-const mapStateToProps = (state:IState) => {
-    return {
-        dialogsPage: state.dialogsPage,
-        isAuth: state.auth.isAuth
-    }
+    const dialogsPage = useAppSelector(getDialogsPage);
+    const [sendMessageD] = useActions([sendMessage]);
+
+    return <Dialogs dialogsPage={dialogsPage} sendMessage={sendMessageD}/>
 }
 
-export default compose<ComponentType>(
-    connect(mapStateToProps, {sendMessage}),
-    withAuthRedirect
-)(Dialogs);
+//Default export for lazy load
+export default DialogsContainer;

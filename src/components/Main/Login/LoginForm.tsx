@@ -1,20 +1,20 @@
 import {Field, reduxForm} from "redux-form";
-import {FormError, ValidatedElement} from "../../common/FormControls/FormControls";
 import {maxLengthCreator, minLengthCreator, required} from "../../../utils/validators/validators";
+import {FormError, ValidatedElement} from "../../common/FormControls/FormControls";
 import {Navigate} from "react-router-dom";
-import React from "react";
 
 const Input = ValidatedElement("input");
 const minLength = minLengthCreator(8);
 const maxLength = maxLengthCreator(30);
 
-
-export const LoginForm = ({handleSubmit, error, captchaUrl}: any) => {
+const LoginForm = ({handleSubmit, error, captchaUrl, isAuth, id}: any) => {
     return (
-        <form onSubmit={handleSubmit}>
+        isAuth
+        ?<Navigate to={`/profile/${id}`}/>
+        :<form onSubmit={handleSubmit}>
             <div>
                 <label>
-                    Login
+                    <h1>Login</h1>
                     <Field
                         component={Input}
                         name={"email"}
@@ -36,8 +36,8 @@ export const LoginForm = ({handleSubmit, error, captchaUrl}: any) => {
             </div>
             <div>
                 <label>
-                <Field component={Input} name={"rememberMe"} type={"checkbox"}/>
-                remember me</label>
+                    <Field component={Input} name={"rememberMe"} type={"checkbox"}/>
+                    remember me</label>
             </div>
 
             {captchaUrl && <div>
@@ -54,21 +54,4 @@ export const LoginForm = ({handleSubmit, error, captchaUrl}: any) => {
         </form>)
 }
 
-const ReduxLoginForm = reduxForm({form: "login"})(LoginForm);
-
-export const Login = ({isAuth, id, captchaUrl, login}: any) => {
-    if (isAuth) return <Navigate to={`/profile/${id}`}/>;
-
-    const onSubmit = (formData: any) => {
-        login(formData.email, formData.password, formData.rememberMe, formData.captcha)
-    };
-
-    return (
-        <div>
-            <h1>Login</h1>
-            {   //@ts-ignore
-                <ReduxLoginForm onSubmit={onSubmit} captchaUrl={captchaUrl}/>
-            }
-        </div>
-    )
-}
+export default reduxForm({form: "login"})(LoginForm);

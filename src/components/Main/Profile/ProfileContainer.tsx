@@ -1,6 +1,5 @@
-import {ComponentType, useEffect} from "react";
-import {connect} from "react-redux";
-import {useParams} from "react-router-dom";
+import {useEffect} from "react";
+import {useNavigate, useParams} from "react-router-dom";
 import {Profile} from "./Profile";
 import {
     getStatus,
@@ -8,40 +7,43 @@ import {
     updatePhoto,
     updateStatus,
     updateUserProfile
-} from "../../../redux/reducers/profileReducer";
-import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
-import {compose} from "redux"
-import {getAuthStatus, getAuthUserId} from "../../../redux/selectors/authSelectors";
-import {getUserProfile, getUserStatus} from "../../../redux/selectors/profileSelectors";
-import {IState} from "../../../redux/store";
+} from "../../../redux/ducks/profile/thunks";
+import {getAuthUserId} from "../../../redux/ducks/auth/selectors";
+import {getUserProfile, getUserStatus} from "../../../redux/ducks/profile/selectors";
+import {useAppSelector} from "../../../redux/store";
+import {useActions} from "../../../hooks/useActions";
+import {getIsFetching} from "../../../redux/ducks/users/selectors";
 
-function ProfileContainer({authUserId, ...props}: any): JSX.Element {
+const ProfileContainer = () => {
+    const profile = useAppSelector(getUserProfile);
+    const isFetching = useAppSelector(getIsFetching);
+    const status  = useAppSelector(getUserStatus);
+    const authUserId = useAppSelector(getAuthUserId);
+
+    const [requestUserProfileD, getStatusD,
+        updateStatusD, updatePhotoD,
+        updateUserProfileD] = useActions([requestUserProfile, getStatus, updateStatus, updatePhoto, updateUserProfile]);
+
     const params = useParams();
-
+    const navigate = useNavigate();
     useEffect(() => {
-        const userId = Number(params.userID || authUserId);
-        props.requestUserProfile(userId);
-        props.getStatus(userId);
-    },[params.userID, authUserId]);
+        if(!Number(params.userID)){
+            navigate('/login');
+            return;
+        }
+        const userId = Number(params.userID);
+        requestUserProfileD(userId);
+        getStatusD(userId);
+    },[params.userID]);
 
-    return <Profile profile={props.profile}
-                    status={props.status}
-                    updateStatus={props.updateStatus}
-                    updatePhoto={props.updatePhoto}
-                    updateUserProfile={props.updateUserProfile}
+    return <Profile isFetching={isFetching}
+                    profile={profile}
+                    status={status}
+                    updateStatus={updateStatusD}
+                    updatePhoto={updatePhotoD}
+                    updateUserProfile={updateUserProfileD}
                     isOwner={params.userID ===`${authUserId}`}
     />;
 }
 
-function mapStateToProps(state:IState){
-    return {
-        profile: getUserProfile(state),
-        status : getUserStatus(state),
-        isAuth : getAuthStatus(state),
-        authUserId : getAuthUserId(state)
-    }
-}
-
-export default compose<ComponentType>(
-    connect(mapStateToProps, {requestUserProfile, getStatus, updateStatus, updatePhoto, updateUserProfile}),
-    withAuthRedirect)(ProfileContainer);
+export default ProfileContainer;

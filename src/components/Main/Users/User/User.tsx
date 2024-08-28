@@ -1,10 +1,18 @@
 import s from "./User.module.css"
 import {NavLink} from "react-router-dom";
 import unknownUserSVG from "../../../../assets/images/unknown-user.svg"
+import {TUser} from "../../../../redux/ducks/users/types";
+import {FC} from "react";
 
-export function User({user, follow, unfollow, followingInProgress}: any) {
+type UserProps = {
+    user:TUser;
+    follow:(id:number) => void;
+    unfollow:(id:number) => void;
+    followingInProgress:number[];
+};
+export const User:FC<UserProps> = ({user, follow, unfollow, followingInProgress}) => {
     return (
-        <section key={user.id} className={s.userSection}>
+        <section className={s.userSection}>
             <div>
                 <div>
                     <NavLink to={`/profile/${user.id}`}>

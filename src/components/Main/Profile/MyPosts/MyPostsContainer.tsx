@@ -1,12 +1,15 @@
-import {addPost} from "../../../../redux/reducers/profileReducer";
 import {MyPosts} from "./MyPosts";
-import {connect} from "react-redux";
-import {IState} from "../../../../redux/store";
+import {useAppSelector} from "../../../../redux/store";
+import {addPost} from "../../../../redux/ducks/profile/actions";
+import {getPosts} from "../../../../redux/ducks/profile/selectors";
+import {useActions} from "../../../../hooks/useActions";
 
-const mapStateToProps = (state:IState) => {
-    return {
-        posts: state.profilePage.posts,
-    }
+
+const MyPostsContainer = () => {
+    const posts = useAppSelector(getPosts);
+    const [addPostD] = useActions([addPost]);
+
+    return <MyPosts addPost={addPostD} posts={posts}/>;
 }
 
-export const MyPostsContainer = connect(mapStateToProps, {addPost})(MyPosts);
+export default MyPostsContainer;

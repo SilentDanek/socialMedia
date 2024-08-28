@@ -1,10 +1,16 @@
-import React, {useEffect, useState} from "react";
+import {ChangeEvent, FC, useEffect, useState} from "react";
 
-export function ProfileStatus({status, updateStatus}: any) {
+
+type ProfileStatusProps = {
+    status: string;
+    updateStatus: (newStatus:string) => void;
+}
+// mb
+export const ProfileStatus:FC<ProfileStatusProps> = ({status, updateStatus}) => {
     const [isStatusEditMode, setStatusEditMode] = useState(false);
-    const [statusText, setStatusText] = useState(status as string);
+    const [statusText, setStatusText] = useState(status);
 
-    useEffect(() => setStatusText(status),[])
+    useEffect(() => setStatusText(status),[status]);
 
     const toggleEditMode = () => {
         setStatusEditMode(!isStatusEditMode);
@@ -13,7 +19,7 @@ export function ProfileStatus({status, updateStatus}: any) {
         }
     }
 
-    const onStatusChange = (e:React.ChangeEvent<HTMLInputElement>) => setStatusText(e.target.value);
+    const onStatusChange = (e:ChangeEvent<HTMLInputElement>) => setStatusText(e.target.value);
 
     return (
         <div>

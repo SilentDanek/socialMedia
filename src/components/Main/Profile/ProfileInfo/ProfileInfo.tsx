@@ -1,20 +1,29 @@
 import s from "./ProfileInfo.module.css";
 import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
 import unknownUserSVG from "../../../../assets/images/unknown-user.svg"
-import React, {ChangeEvent, memo, useCallback, useState} from "react";
+import {ChangeEvent, FC, memo, useState} from "react";
 import ProfileDataReduxForm from "./ProfileDataForm/ProfileDataForm";
 import {ProfileData} from "./ProfileData/ProfileData"
+import {UserProfile} from "../../../../redux/ducks/profile/types";
 
-export const ProfileInfo = memo(({updatePhoto, updateStatus, updateUserProfile, profile, status, isOwner}: any) => {
+type ProfileInfoProps = {
+    profile: UserProfile;
+    status: string;
+    updateStatus: () => void;
+    updatePhoto: (photos:FormData) => void;
+    updateUserProfile: (formData:any) => Promise<void>;
+    isOwner: boolean;
+}
+export const ProfileInfo:FC<ProfileInfoProps> = memo(({updatePhoto, updateStatus, updateUserProfile, profile, status, isOwner}) => {
     const [editMode, setEditMode] = useState(false);
 
-    const onSubmit = useCallback((formData:any) => {
+    const onSubmit = (formData:any) => {
         updateUserProfile(formData).then(
             () => {
                 setEditMode(false);
             }
-        ).catch(console.warn)
-    },[updateUserProfile]);
+        ).catch(console.warn);
+    };
 
     const onUpdatePhoto = (e: ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files || !e.target.files.length) return;
@@ -23,12 +32,9 @@ export const ProfileInfo = memo(({updatePhoto, updateStatus, updateUserProfile, 
         file.append("image", e.target.files[0]);
 
         updatePhoto(file);
-    }
+    };
 
-
-
-    const goToEditMode = useCallback(() => {setEditMode(true)},[setEditMode])
-
+    const goToEditMode = () => setEditMode(true);
 
     return (
         <div className={s.profile}>
@@ -39,7 +45,7 @@ export const ProfileInfo = memo(({updatePhoto, updateStatus, updateUserProfile, 
                         src={profile.photos.large || unknownUserSVG}
                         alt="Avatar"
                     />
-                    <input type={"file"} onChange={onUpdatePhoto}/>
+                    {isOwner && <input type={"file"} onChange={onUpdatePhoto}/>}
                 </div>
                 <div>
                     <div>

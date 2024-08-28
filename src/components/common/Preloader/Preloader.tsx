@@ -1,6 +1,5 @@
 import svgPreloader from "../../../assets/images/bouncing-circles.svg";
 
-export function Preloader() {
+export const Preloader = () => {
     return <img src={svgPreloader} alt={"preloader"}/>
-}
-
+};
