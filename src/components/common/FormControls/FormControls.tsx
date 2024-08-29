@@ -1,17 +1,25 @@
 import s from "./FormControls.module.css"
+import {ElementType, FC} from "react";
+import {WrappedFieldProps} from "redux-form";
 
-export const ValidatedElement = (Element: string) => ({input, meta:{touched, error}, ...props}:any) => {
-    const hasError = touched && error;
-    Element = Element.toLowerCase();
-    return (
-        <div className={s.formControl + " " + (hasError ? s.error : "")}>
-            <Element {...input} {...props}/>
-            {hasError && <span className={s.errorText}> {error} </span>}
-        </div>
-    );
-};
+type ValidatedElementType = (Element: ElementType) => FC<WrappedFieldProps>;
 
-export const FormError = ({style, error}: any) => {
+export const ValidatedElement: ValidatedElementType = (Element) =>
+    ({input, meta: {touched, error}, ...props}) => {
+        const hasError = touched && error;
+        return (
+            <div className={s.formControl + " " + (hasError ? s.error : "")}>
+                <Element {...input} {...props}/>
+                {hasError && <span className={s.errorText}> {error} </span>}
+            </div>
+        );
+    };
+
+type FormErrorProps = {
+    error: string;
+    style?: string;
+}
+export const FormError: FC<FormErrorProps> = ({style, error}) => {
     return <div className={style || s.formError}>
         {error}
     </div>;

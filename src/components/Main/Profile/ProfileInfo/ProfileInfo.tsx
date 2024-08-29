@@ -11,13 +11,13 @@ type ProfileInfoProps = {
     status: string;
     updateStatus: () => void;
     updatePhoto: (photos:FormData) => void;
-    updateUserProfile: (formData:any) => Promise<void>;
+    updateUserProfile: (formData: UserProfile) => Promise<void>;
     isOwner: boolean;
 }
 export const ProfileInfo:FC<ProfileInfoProps> = memo(({updatePhoto, updateStatus, updateUserProfile, profile, status, isOwner}) => {
     const [editMode, setEditMode] = useState(false);
 
-    const onSubmit = (formData:any) => {
+    const onSubmit = (formData: UserProfile) => {
         updateUserProfile(formData).then(
             () => {
                 setEditMode(false);

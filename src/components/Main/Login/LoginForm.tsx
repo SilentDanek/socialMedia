@@ -1,13 +1,21 @@
-import {Field, reduxForm} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, minLengthCreator, required} from "../../../utils/validators/validators";
 import {FormError, ValidatedElement} from "../../common/FormControls/FormControls";
 import {Navigate} from "react-router-dom";
+import {FC} from "react";
 
 const Input = ValidatedElement("input");
 const minLength = minLengthCreator(8);
 const maxLength = maxLengthCreator(30);
 
-const LoginForm = ({handleSubmit, error, captchaUrl, isAuth, id}: any) => {
+
+type LoginFormOwnProps = {
+    captchaUrl: string | null;
+    isAuth: boolean;
+    id: number;
+}
+type LoginFormType = FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnProps> & LoginFormOwnProps>;
+const LoginForm: LoginFormType = ({handleSubmit, error, captchaUrl, isAuth, id}) => {
     return (
         isAuth
         ?<Navigate to={`/profile/${id}`}/>
@@ -54,4 +62,10 @@ const LoginForm = ({handleSubmit, error, captchaUrl, isAuth, id}: any) => {
         </form>)
 }
 
-export default reduxForm({form: "login"})(LoginForm);
+type LoginFormValuesType = {
+    captcha: string
+    rememberMe: boolean
+    password: string
+    email: string
+}
+export default reduxForm<LoginFormValuesType, LoginFormOwnProps>({form: "login"})(LoginForm);

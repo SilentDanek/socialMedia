@@ -11,7 +11,7 @@ type ProfileProps = {
     status: string;
     updateStatus: () => void;
     updatePhoto: () => void;
-    updateUserProfile: (formData:any) => Promise<void>;
+    updateUserProfile: (formData: UserProfile) => Promise<void>;
     isOwner: boolean;
 }
 

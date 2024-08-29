@@ -13,13 +13,19 @@ const LoginFormContainer = () => {
 
     const [loginD] = useActions([login]);
 
+    type LoginFormData = {
+        captcha: string;
+        rememberMe: string;
+        email:string;
+        password:string;
+    }
     //Login page reload often because every typed symbol call rerender
-    const onSubmit = useCallback((formData: any) => {
+    const handleSubmit = useCallback((formData: LoginFormData) => {
         loginD(formData.email, formData.password, formData.rememberMe, formData.captcha);
     }, [loginD]);
 
     //@ts-ignore
-    return <LoginForm onSubmit={onSubmit} captchaUrl={captchaUrl} isAuth={isAuth} id={id}/>;
+    return <LoginForm onSubmit={handleSubmit} captchaUrl={captchaUrl} isAuth={isAuth} id={id}/>;
 }
 
 export default LoginFormContainer;

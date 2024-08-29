@@ -1,14 +1,20 @@
-import React from "react";
-import {Field, reduxForm} from "redux-form";
+import React, {FC} from "react";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {FormError, ValidatedElement} from "../../../../common/FormControls/FormControls";
 import {required} from "../../../../../utils/validators/validators";
+import {UserProfile} from "../../../../../redux/ducks/profile/types";
+
+
 
 const Textarea = ValidatedElement("textarea");
 const Input = ValidatedElement("input");
 
 
-
-const ProfileDataForm = ({handleSubmit, profile, error}: any) => {
+type ProfileDataFormOwnProps ={
+    profile:UserProfile;
+}
+type ProfileDataFormType = FC<InjectedFormProps<LoginFormValuesType, ProfileDataFormOwnProps> & ProfileDataFormOwnProps>;
+const ProfileDataForm:ProfileDataFormType = ({handleSubmit, profile, error}) => {
     return <form onSubmit={handleSubmit}>
         <div>
             <button>save</button>
@@ -41,11 +47,14 @@ const ProfileDataForm = ({handleSubmit, profile, error}: any) => {
         </div>
     </form>
 }
-
-const ContactFormElement = ({mediaName}: any) => {
+type ContactFormElement = {
+    mediaName: string
+}
+const ContactFormElement:FC<ContactFormElement> = ({mediaName}) => {
     return <div key={mediaName} /*className={s.contact}*/>
         <label>{mediaName}: <Field component={Textarea} name={`contacts.${mediaName}`} placeholder={mediaName}/></label>
     </div>
 }
 
-export default reduxForm({form: 'editProfile'})(ProfileDataForm);
+type LoginFormValuesType = (formData: UserProfile) => void;
+export default reduxForm<LoginFormValuesType, ProfileDataFormOwnProps>({form: 'editProfile'})(ProfileDataForm);

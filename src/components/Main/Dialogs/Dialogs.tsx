@@ -26,7 +26,10 @@ type DialogsProps = {
     sendMessage: (message: string) => void;
 };
 export const Dialogs:FC<DialogsProps> = ({dialogsPage, sendMessage}) => {
-    const onSubmit = (values:any) => sendMessage(values.newMessageBody);
+    type formValues = {
+        newMessageBody: string;
+    }
+    const handlerSubmit = (values:formValues) => sendMessage(values.newMessageBody);
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
@@ -37,7 +40,7 @@ export const Dialogs:FC<DialogsProps> = ({dialogsPage, sendMessage}) => {
                     {messagesElements(dialogsPage.messages)}
                 </div>
             </div>
-            <AddMessageForm onSubmit={onSubmit}/>
+            <AddMessageForm onSubmit={handlerSubmit}/>
         </div>
     )
 };

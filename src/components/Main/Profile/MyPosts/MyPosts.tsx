@@ -22,17 +22,20 @@ const postElement = (posts: TPost[]) => {
 
 type MyPostsProps = {
     posts: TPost[];
-    addPost: (values: any) => void;
+    addPost: (text: string) => void;
 }
 export const MyPosts:FC<MyPostsProps> = ({addPost, posts}) => {
-    const onSubmit = (values: any) => {
+    type FormDataType = {
+        newPostText:string;
+    }
+    const handlerSubmit = (values: FormDataType) => {
         addPost(values.newPostText);
     };
 
     return (
         <div className={s.posts}>
             <h3>My posts</h3>
-            <AddNewPostForm onSubmit={onSubmit}/>
+            <AddNewPostForm onSubmit={handlerSubmit}/>
             {postElement(posts)}
         </div>
     );
