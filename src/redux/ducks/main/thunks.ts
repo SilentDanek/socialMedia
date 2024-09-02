@@ -1,11 +1,15 @@
-import {initialized} from "./actions";
-import {getAuthUserData} from "../auth/thunks";
+import {mainActions} from "./actions";
+import {authThunks} from "../auth/thunks";
 import {ThunkAction} from "redux-thunk";
-import {State} from "../../store";
+import {State} from "../../types";
 import {MainAction} from "./types";
 
-type MainThunk = ThunkAction<Promise<void>, State, unknown, MainAction>
-export const initialize = ():MainThunk => async (dispatch) =>{
-    dispatch(getAuthUserData());
-    dispatch(initialized());
+type MainThunk = ThunkAction<Promise<void>, State, unknown, MainAction>;
+const initialize = ():MainThunk => async (dispatch) =>{
+    dispatch(authThunks.getAuthUserData());
+    dispatch(mainActions.initialized());
+}
+
+export const mainThunks = {
+    initialize
 }

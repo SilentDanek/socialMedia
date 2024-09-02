@@ -1,9 +1,9 @@
-import {setAuthUserData, setCaptchaUrl} from "./actions";
+import {authActions} from "./actions";
 import {AuthAction} from "./types";
 import {FormAction, stopSubmit} from "redux-form";
 import {authAPI, ResultCodeForCaptcha, ResultCodes, securityAPI} from "../../../api/api";
 import {ThunkAction} from "redux-thunk";
-import {State} from "../../store";
+import {State} from "../../types";
 import {Action} from "redux";
 
 
@@ -13,26 +13,25 @@ type Thunk<ReturnType = void, ActionType extends Action = Action> = ThunkAction<
 // Определяем типы Thunk для Auth
 export type AuthThunk = Thunk<void, AuthAction>;
 
-// Определяем Thunk, который может принимать как AuthAction, так и FormAction
-type Auth_FormThunk = Thunk<void, AuthAction | FormAction>;
 
-export const getAuthUserData = ():AuthThunk => async (dispatch) => {
+const getAuthUserData = ():AuthThunk => async (dispatch) => {
     const response = await authAPI.getAuthUserData();
     if (response.resultCode === ResultCodes.Success) {
         const {id, login} = response.data;
-        dispatch(setAuthUserData(id, login, true));
+        dispatch(authActions.setAuthUserData(id, login, true));
     }
 };
-
-export const login = (login: string, password: string, rememberMe: boolean, captcha = ""):Auth_FormThunk => async (dispatch) => {
+// Определяем Thunk, который может принимать как AuthAction, так и FormAction
+type Auth_FormThunk = Thunk<void, AuthAction | FormAction>;
+const login = (login: string, password: string, rememberMe: boolean, captcha = ""):Auth_FormThunk => async (dispatch) => {
     const response = await authAPI.login(login, password, rememberMe, captcha);
     if (response.resultCode === ResultCodes.Success) {
-        dispatch(getAuthUserData());
+        await dispatch(getAuthUserData());
         return;
     }
 
     if (response.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {
-        dispatch(getCaptchaUrl());
+        await dispatch(getCaptchaUrl());
     }
     const errorMessage = response.messages.length
         ? response.messages[0]
@@ -41,17 +40,24 @@ export const login = (login: string, password: string, rememberMe: boolean, capt
     dispatch(action);
 };
 
-export const logout = ():AuthThunk => async (dispatch) => {
+const logout = ():AuthThunk => async (dispatch) => {
     const response = await authAPI.logout();
 
     if (response.resultCode === ResultCodes.Success) {
-        dispatch(setAuthUserData(null, null, false));
+        dispatch(authActions.setAuthUserData(null, null, false));
     }
 };
 
-export const getCaptchaUrl = ():AuthThunk => async (dispatch) => {
+const getCaptchaUrl = ():AuthThunk => async (dispatch) => {
     const response = await securityAPI.getCaptchaUrl();
     const captchaUrl = response.url;
 
-    dispatch(setCaptchaUrl(captchaUrl));
+    dispatch(authActions.setCaptchaUrl(captchaUrl));
 };
+
+export const authThunks = {
+    getAuthUserData,
+    login,
+    logout,
+    getCaptchaUrl
+}

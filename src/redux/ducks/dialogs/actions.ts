@@ -1,8 +1,9 @@
 import {DialogsActionTypes} from "./actionTypes";
-import {SendMessageAction} from "./types";
 
 
-export const sendMessage = (message: string): SendMessageAction => ({
-    type: DialogsActionTypes.SEND_MESSAGE,
-    payload: { message }
-});
+export const dialogsActions = {
+    sendMessage:(message: string) => ({
+        type: DialogsActionTypes.SEND_MESSAGE,
+        payload: { message }
+    } as const)
+}

@@ -1,12 +1,12 @@
 import "./App.css"
-import MainContainer from "./components/Main/MainContainer";
 import {Footer} from "./components/Footer/Footer";
-import {HeaderContainer} from "./components/Header/HeaderContainer";
-import NavBarContainer from "./components/NavBar/NavBarContainer";
+import {Header} from "./components/Header/Header";
 import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
-import {store} from "./redux/store";
+import {store} from "./redux";
 import {useEffect} from "react";
+import {NavBar} from "./components/NavBar/NavBar";
+import {Main} from "./components/Main/Main";
 
 // @ts-ignore
 window.store = store;
@@ -29,9 +29,9 @@ export function App() {
         <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Provider store={store}>
                 <div className="app-wrapper">
-                    <HeaderContainer/>
-                    <NavBarContainer/>
-                    <MainContainer/>
+                    <Header/>
+                    <NavBar/>
+                    <Main/>
                     <Footer/>
                 </div>
             </Provider>

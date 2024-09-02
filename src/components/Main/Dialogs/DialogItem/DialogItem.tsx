@@ -3,11 +3,11 @@ import s from "./DialogItem.module.css"
 import {FC} from "react";
 
 type User = {
-    id:number;
-    name:string;
+    id: number;
+    name: string;
 };
-export const DialogItem:FC<User> = ({id, name}) => {
-    return(
+export const DialogItem: FC<User> = ({id, name}) => {
+    return (
         <div className={s.dialog}>
             <NavLink to={"/dialogs/" + id}>
                 {name}

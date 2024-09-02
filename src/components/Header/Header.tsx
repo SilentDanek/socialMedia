@@ -1,13 +1,14 @@
 import {NavLink} from "react-router-dom";
 import s from "./Header.module.css";
 import {FC} from "react";
+import {useAppSelector, bindedThunks, getAuthStatus, getLogin} from "../../redux";
 
-type HeaderProps = {
-    isAuth: boolean;
-    login: string | null;
-    logout: () => any;
-}
-export const Header:FC<HeaderProps> = ({isAuth, login, logout}) => {
+
+export const Header:FC = () => {
+    const {logout} = bindedThunks.authThunks;
+    const isAuth = useAppSelector(getAuthStatus);
+    const login  = useAppSelector(getLogin);
+
     return (
         <header className={s.header}>
             <NavLink to={"/"} aria-label="Home">

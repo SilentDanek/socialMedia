@@ -1,6 +1,6 @@
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {ValidatedElement} from "../../../common/FormControls/FormControls";
-import {maxLengthCreator, required} from "../../../../utils/validators/validators";
+import {ValidatedElement} from "../../../common";
+import {maxLengthCreator, required} from "../../../../utils";
 import {FC} from "react";
 
 const maxMessageLength = maxLengthCreator(200);

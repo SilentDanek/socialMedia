@@ -1,4 +1,5 @@
-import {AuthActionTypes} from "./actionTypes";
+import {InferActionsTypes} from "../../types";
+import {authActions} from "./actions";
 
 
 export type AuthState = {
@@ -8,18 +9,5 @@ export type AuthState = {
     captchaUrl: string | null;
 };
 
-export type SetAuthUserDataAction = {
-    type: AuthActionTypes.SET_AUTH_USER_DATA;
-    payload: {
-        id: number | null;
-        login: string | null;
-        isAuth: boolean;
-    };
-};
-export type SetCaptchaUrlAction = {
-    type: AuthActionTypes.SET_CAPTCHA_URL;
-    payload: {
-        captchaUrl: string | null;
-    };
-};
-export type AuthAction = SetAuthUserDataAction | SetCaptchaUrlAction;
+
+export type AuthAction = InferActionsTypes<typeof authActions>;

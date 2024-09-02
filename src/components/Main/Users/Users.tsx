@@ -1,31 +1,62 @@
-import {TUser} from "../../../redux/ducks/users/types";
-import {Paginator} from "../../common/Paginator/Paginator";
-import {User} from "./User/User";
-import {FC, memo} from "react";
-import {Preloader} from "../../common/Preloader/Preloader";
+import { Paginator, Preloader } from "../../common";
+import { User } from "./User/User";
+import { FC, useCallback, useEffect } from "react";
+import {
+    bindedThunks,
+    useAppSelector,
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers,
+} from "../../../redux";
 
-type UsersProps = {
-    isFetching: boolean;
-    currentPage: number;
-    totalUsersCount: number;
-    pageSize: number;
-    users: TUser[];
-    followingInProgress: number[];
-    follow: (id: number) => void;
-    unfollow: (id: number) => void;
-    onPageChanged: (pageNumber: number) => void;
-};
-export const Users: FC<UsersProps> = memo(({totalUsersCount, pageSize, currentPage, onPageChanged, ...props}) => {
+const Users: FC = () => {
+    const users = useAppSelector(getUsers);
+    const pageSize = useAppSelector(getPageSize);
+    const isFetching = useAppSelector(getIsFetching);
+    const currentPage = useAppSelector(getCurrentPage);
+    const totalUsersCount = useAppSelector(getTotalUsersCount);
+    const followingInProgress = useAppSelector(getFollowingInProgress);
+
+    const { requestUsers, follow, unfollow } = bindedThunks.usersThunks;
+
+    //Preload users when the users page opens
+    useEffect(() => {
+        requestUsers(currentPage, pageSize);
+    }, [requestUsers]);
+
+    const handlePageChanged = useCallback(
+        (pageNumber: number) => {
+            requestUsers(pageNumber, pageSize);
+        },
+        [requestUsers]
+    );
+
     return (
         <div>
-            <Paginator currentPage={currentPage} onPageChanged={onPageChanged}
-                       totalItemsCount={totalUsersCount} pageSize={pageSize}/>
-            {props.isFetching
-                ? <Preloader/>
-                : props.users.map((user) => (
-                    <User key={user.id} user={user} follow={props.follow}
-                          unfollow={props.unfollow} followingInProgress={props.followingInProgress}/>
-                ))}
+            <Paginator
+                currentPage={currentPage}
+                handlePageChanged={handlePageChanged}
+                totalItemsCount={totalUsersCount}
+                pageSize={pageSize}
+            />
+            {isFetching ? (
+                <Preloader />
+            ) : (
+                users.map((user) => (
+                    <User
+                        key={user.id}
+                        user={user}
+                        follow={follow}
+                        unfollow={unfollow}
+                        followingInProgress={followingInProgress}
+                    />
+                ))
+            )}
         </div>
-    )
-});
+    );
+};
+
+export default Users;

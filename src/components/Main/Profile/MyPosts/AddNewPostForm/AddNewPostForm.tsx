@@ -1,6 +1,6 @@
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {maxLengthCreator, minLengthCreator, required} from "../../../../../utils/validators/validators";
-import {ValidatedElement} from "../../../../common/FormControls/FormControls";
+import {maxLengthCreator, minLengthCreator, required} from "../../../../../utils";
+import {ValidatedElement} from "../../../../common";
 import {FC} from "react";
 
 const maxLengthPost = maxLengthCreator(30);

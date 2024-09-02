@@ -1,4 +1,5 @@
-import {DialogsActionTypes} from "./actionTypes";
+import {InferActionsTypes} from "../../types";
+import {dialogsActions} from "./actions";
 
 
 export type Dialog = {
@@ -14,8 +15,4 @@ export type DialogsState = {
     messages: Message[];
 };
 
-export type SendMessageAction ={
-    type: DialogsActionTypes.SEND_MESSAGE;
-        payload: { message:string };
-};
-export type DialogsAction = SendMessageAction;
+export type DialogsAction = InferActionsTypes<typeof dialogsActions>;

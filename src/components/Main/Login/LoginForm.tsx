@@ -1,6 +1,6 @@
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {maxLengthCreator, minLengthCreator, required} from "../../../utils/validators/validators";
-import {FormError, ValidatedElement} from "../../common/FormControls/FormControls";
+import {maxLengthCreator, minLengthCreator, required} from "../../../utils";
+import {FormError, ValidatedElement} from "../../common";
 import {Navigate} from "react-router-dom";
 import {FC} from "react";
 
@@ -12,7 +12,7 @@ const maxLength = maxLengthCreator(30);
 type LoginFormOwnProps = {
     captchaUrl: string | null;
     isAuth: boolean;
-    id: number;
+    id: number | null;
 }
 type LoginFormType = FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnProps> & LoginFormOwnProps>;
 const LoginForm: LoginFormType = ({handleSubmit, error, captchaUrl, isAuth, id}) => {

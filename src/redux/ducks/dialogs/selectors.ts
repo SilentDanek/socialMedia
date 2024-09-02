@@ -1,3 +1,3 @@
-import {State} from "../../store";
+import {State} from "../../types";
 
 export const getDialogsPage = (state:State) => state.dialogsPage;

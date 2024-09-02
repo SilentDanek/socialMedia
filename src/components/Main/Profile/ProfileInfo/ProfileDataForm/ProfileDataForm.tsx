@@ -1,14 +1,12 @@
 import React, {FC} from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {FormError, ValidatedElement} from "../../../../common/FormControls/FormControls";
-import {required} from "../../../../../utils/validators/validators";
-import {UserProfile} from "../../../../../redux/ducks/profile/types";
-
+import {FormError, ValidatedElement} from "../../../../common";
+import {required} from "../../../../../utils";
+import {UserProfile} from "../../../../../redux";
 
 
 const Textarea = ValidatedElement("textarea");
 const Input = ValidatedElement("input");
-
 
 type ProfileDataFormOwnProps ={
     profile:UserProfile;

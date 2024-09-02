@@ -1,14 +1,14 @@
 import {NavLink} from "react-router-dom";
 import s from "./NavBar.module.css"
 import {FC} from "react";
+import {useAppSelector, getAuthUserId} from "../../redux/";
 
-type NavBarProps = {
-    id:number | null;
-}
-export const NavBar:FC<NavBarProps> = ({id}) => {
+
+export const NavBar:FC = () => {
+    const id = useAppSelector(getAuthUserId);
 
     function active({isActive}: { isActive: boolean }) {
-        return isActive ? {color: "#d1c324"} : {};
+        return isActive? {color: "#d1c324"} : {};
     }
 
     return (

@@ -1,4 +1,4 @@
-import {State} from "../../store";
+import {State} from "../../types";
 
 
 export const getAuthStatus = (state:State) => {

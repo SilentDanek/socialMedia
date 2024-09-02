@@ -1,6 +1,5 @@
-
-import {addPost, deletePost} from "./actions";
 import {profileReducer} from "./reducer";
+import {bindedActions} from "../../actions";
 
 interface IUser {
     avatarURL: string;
@@ -68,7 +67,7 @@ let initialState:IProfilePage = {
 };
 
 test("after deleting a post, the number of posts should decrement", () => {
-
+    const {addPost} = bindedActions.profileActions;
     const action = addPost("some text");
 
     const newState = profileReducer(initialState, action);
@@ -78,7 +77,7 @@ test("after deleting a post, the number of posts should decrement", () => {
 
 
 test("after deleting a post, the number of posts should decrement", () => {
-
+    const {deletePost} = bindedActions.profileActions;
     const action = deletePost(2);
 
     const newState = profileReducer(initialState, action);

@@ -1,4 +1,5 @@
-import {ProfileActionTypes} from "./actionTypes";
+import {profileActions} from "./actions";
+import {InferActionsTypes} from "../../types";
 
 export type User = {
     avatarURL: string;
@@ -40,24 +41,4 @@ export type ProfileState = {
     status: string;
 };
 
-export type AddPostAction = {
-    type: ProfileActionTypes.ADD_POST,
-    payload: {text:string}
-};
-export type DeletePostAction = {
-    type: ProfileActionTypes.DELETE_POST,
-    payload: {id:number}
-};
-export type SetUserProfileAction = {
-    type: ProfileActionTypes.SET_USER_PROFILE,
-    payload: {profile: UserProfile}
-};
-export type SetStatusAction = {
-    type: ProfileActionTypes.SET_STATUS,
-    payload: {status:string}
-};
-export type SetNewPhotosAction = {
-    type: ProfileActionTypes.SET_NEW_PHOTO,
-    payload: {photos:Photos}
-};
-export type ProfileAction = AddPostAction | DeletePostAction | SetUserProfileAction | SetStatusAction |SetNewPhotosAction;
+export type ProfileAction = InferActionsTypes<typeof profileActions>;

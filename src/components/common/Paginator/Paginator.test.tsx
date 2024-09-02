@@ -9,7 +9,7 @@ describe('Paginator', () => {
         totalItemsCount: 100,
         pageSize: 10,
         currentPage: 1,
-        onPageChanged: mockOnPageChanged,
+        handlePageChanged: mockOnPageChanged,
         portionSize: 10,
         firstLabel: '«First',
         prevLabel: '‹Prev',

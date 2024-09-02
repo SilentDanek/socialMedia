@@ -2,11 +2,11 @@ import {FC, memo, useMemo, useState} from 'react';
 import cn from "classnames";
 import s from "./Paginator.module.css";
 
-const createPaginationItems = (items: number[], currentItem: number, onPageChanged: (page: number) => void) => (
+const createPaginationItems = (items: number[], currentItem: number, handlePageChanged: (page: number) => void) => (
     items.map(item => (
         <span key={item}
               className={cn(s.pageButton, {[s.selectedPage]: currentItem === item})}
-              onClick={() => onPageChanged(item)}>
+              onClick={() => handlePageChanged(item)}>
                     {item}
         </span>
     ))
@@ -16,7 +16,7 @@ type PaginatorProps = {
     totalItemsCount: number;
     pageSize: number;
     currentPage: number;
-    onPageChanged: (page: number) => void;
+    handlePageChanged: (page: number) => void;
     portionSize?: number;
     firstLabel?: string;
     prevLabel?: string;
@@ -27,7 +27,7 @@ export const Paginator: FC<PaginatorProps> = memo(({
                                                                    totalItemsCount,
                                                                    pageSize,
                                                                    currentPage,
-                                                                   onPageChanged,
+                                                                   handlePageChanged,
                                                                    portionSize = 10,
                                                                    firstLabel = '«First',
                                                                    prevLabel = '‹Prev',
@@ -59,7 +59,7 @@ export const Paginator: FC<PaginatorProps> = memo(({
                 </>
             )}
 
-            {createPaginationItems(pages, currentPage, onPageChanged)}
+            {createPaginationItems(pages, currentPage, handlePageChanged)}
 
             {portionCount > portionNumber && (
                 <>
