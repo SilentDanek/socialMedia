@@ -1,25 +1,21 @@
 import s from "./ProfileInfo.module.css";
-import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
-import unknownUserSVG from "../../../../assets/images/unknown-user.svg"
-import {ChangeEvent, FC, memo, useState} from "react";
-import ProfileDataReduxForm from "./ProfileDataForm/ProfileDataForm";
-import {ProfileData} from "./ProfileData/ProfileData"
-import {bindedThunks, useAppSelector, getUserStatus,UserProfile} from "../../../../redux";
+import { ProfileStatus } from "./ProfileStatus/ProfileStatus";
+import unknownUserSVG from "../../../../assets/images/unknown-user.svg";
+import { ChangeEvent, FC, memo, useState } from "react";
+import { ProfileDataForm } from "./ProfileDataForm/ProfileDataForm";
+import { ProfileData } from "./ProfileData/ProfileData";
+import { bindedThunks, useAppSelector, getUserStatus, UserProfile } from "../../../../redux";
 
 type ProfileInfoProps = {
     profile: UserProfile;
     isOwner: boolean;
 }
-export const ProfileInfo:FC<ProfileInfoProps> = memo(({profile, isOwner}) => {
+export const ProfileInfo: FC<ProfileInfoProps> = memo(({ profile, isOwner }) => {
     const [editMode, setEditMode] = useState(false);
 
     const status = useAppSelector(getUserStatus);
-    const {updateStatus, updatePhoto, updateUserProfile} = bindedThunks.profileThunks;
+    const { updateStatus, updatePhoto } = bindedThunks.profileThunks;
 
-    const handleProfileSubmit = (formData: UserProfile) => {
-        updateUserProfile(formData);
-        setEditMode(false);
-    };
     const handleUpdatePhotoOnChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files || !e.target.files.length) return;
 
@@ -40,22 +36,18 @@ export const ProfileInfo:FC<ProfileInfoProps> = memo(({profile, isOwner}) => {
                         src={profile.photos.large || unknownUserSVG}
                         alt="Avatar"
                     />
-                    {isOwner && <input type={"file"} onChange={handleUpdatePhotoOnChange}/>}
+                    {isOwner && <input type={"file"} onChange={handleUpdatePhotoOnChange} />}
                 </div>
                 <div>
                     <div>
                         {profile.fullName}
                     </div>
-                    <ProfileStatus status={status} updateStatus={updateStatus}/>
-                { editMode
-                    //@ts-ignore
-                    ? <ProfileDataReduxForm initialValues={profile} profile={profile} onSubmit={handleProfileSubmit}/>
-                    : <ProfileData goToEditMode={goToEditMode} profile={profile} isOwner={isOwner}/> }
+                    <ProfileStatus status={status} updateStatus={updateStatus} />
+                    {editMode
+                        ? <ProfileDataForm profile={profile} setEditMode={setEditMode}  />
+                        : <ProfileData profile={profile} goToEditMode={goToEditMode}  isOwner={isOwner} />}
                 </div>
             </div>
         </div>
     );
-})
-
-
-
+});

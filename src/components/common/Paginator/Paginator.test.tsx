@@ -28,7 +28,6 @@ describe('Paginator', () => {
 
     test('calls onPageChanged with correct page number when a page button is clicked', () => {
         render(<Paginator {...defaultProps} />);
-        console.log(screen.getByText('2'))
         fireEvent.click(screen.getByText('2')); // Выбор страницы 2
         expect(mockOnPageChanged).toHaveBeenCalledWith(2);
     });

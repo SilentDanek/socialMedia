@@ -6,8 +6,8 @@ import {MainAction} from "./types";
 
 type MainThunk = ThunkAction<Promise<void>, State, unknown, MainAction>;
 const initialize = ():MainThunk => async (dispatch) =>{
-    dispatch(authThunks.getAuthUserData());
-    dispatch(mainActions.initialized());
+    await dispatch(authThunks.getAuthUserData());
+    await dispatch(mainActions.initialized());
 }
 
 export const mainThunks = {

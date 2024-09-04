@@ -9,7 +9,7 @@ import {
     getIsFetching,
     getPageSize,
     getTotalUsersCount,
-    getUsers,
+    getUsers
 } from "../../../redux";
 
 const Users: FC = () => {
@@ -25,13 +25,13 @@ const Users: FC = () => {
     //Preload users when the users page opens
     useEffect(() => {
         requestUsers(currentPage, pageSize);
-    }, [requestUsers]);
+    }, []);
 
     const handlePageChanged = useCallback(
         (pageNumber: number) => {
+            if (pageNumber === currentPage) return;
             requestUsers(pageNumber, pageSize);
-        },
-        [requestUsers]
+        }, [currentPage]
     );
 
     return (
@@ -42,10 +42,9 @@ const Users: FC = () => {
                 totalItemsCount={totalUsersCount}
                 pageSize={pageSize}
             />
-            {isFetching ? (
-                <Preloader />
-            ) : (
-                users.map((user) => (
+            {isFetching
+                ? <Preloader />
+                : users.map((user) => (
                     <User
                         key={user.id}
                         user={user}
@@ -53,8 +52,7 @@ const Users: FC = () => {
                         unfollow={unfollow}
                         followingInProgress={followingInProgress}
                     />
-                ))
-            )}
+                ))}
         </div>
     );
 };

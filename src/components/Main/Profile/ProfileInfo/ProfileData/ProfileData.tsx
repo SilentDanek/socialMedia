@@ -1,5 +1,5 @@
 import {FC, memo} from "react";
-import {UserProfile} from "../../../../../redux/ducks/profile/types"
+import {UserProfile} from "../../../../../redux"
 
 type ProfileDataProps = {
     profile:UserProfile;
@@ -7,7 +7,6 @@ type ProfileDataProps = {
     goToEditMode:() => void;
 }
 export const ProfileData:FC<ProfileDataProps> = memo(({profile, isOwner, goToEditMode}) => {
-
     return <div>
         {isOwner && <div>
             <button onClick={goToEditMode}>edit</button>
@@ -39,5 +38,5 @@ type ContactProps = {
     contactValue:string | null;
 }
 const Contact:FC<ContactProps> = ({contactTitle, contactValue}) => {
-    return <li /*className={s.contact}*/><b>{contactTitle}</b>: {contactValue}</li>
+    return <li key={contactTitle}><b>{contactTitle}</b>: {contactValue}</li>
 }

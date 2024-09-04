@@ -1,23 +1,20 @@
-import {profileActions} from "./actions";
-import {usersActions} from "../users/actions";
-import {ProfileAction, UserProfile} from "./types";
-import {FormAction, stopSubmit} from "redux-form";
-import {profileAPI} from "../../../api/profileAPI";
-import {State} from "../../types";
-import {ThunkAction} from "redux-thunk";
-import {Action} from "redux";
-import {UsersAction} from "../users/types";
-import {ResultCodes} from "../../../api/api";
+import { profileActions } from "./actions";
+import { usersActions } from "../users/actions";
+import { ProfileAction, UserProfile } from "./types";
+import { State } from "../../types";
+import { ThunkAction } from "redux-thunk";
+import { Action } from "redux";
+import { UsersAction } from "../users/types";
+import { ResultCodes, profileAPI } from "../../../api/api";
 import { deepNoRefEqual } from "../../../utils";
+import { ContactFormError, FormError } from "../../../api/Errors";
 
 // Определяем универсальный тип Thunk, который принимает типы экшенов как параметр
 type Thunk<ReturnType = void, ActionType extends Action = Action> = ThunkAction<Promise<ReturnType>, State, unknown, ActionType>;
 
 // Определяем типы Thunk для Profile
-type ProfileThunk = Thunk<void, ProfileAction>;
+type ProfileThunk = Thunk<void, ProfileAction | UsersAction>;
 
-// Определяем Thunk, который может принимать как ProfileAction, так и FormAction
-type Profile_FormThunk = Thunk<void, ProfileAction | FormAction>;
 
 // Определяем Thunk, который может принимать как ProfileAction, так и UsersAction
 type Profile_UsersThunk = Thunk<void, ProfileAction | UsersAction>;
@@ -41,7 +38,6 @@ const requestUserProfile = (userId: number): Profile_UsersThunk => async (dispat
 
     const response = await profileAPI.getUserProfile(userId);
     //if(response.resultCode === ResultCodes.InternalServerError){}
-    console.log(response)
     dispatch(profileActions.setUserProfile(response));
     dispatch(usersActions.toggleIsFetching(false));
 };
@@ -55,37 +51,27 @@ const updatePhoto = (photo: FormData): ProfileThunk => async (dispatch) => {
 };
 
 
-const updateUserProfile = (newProfile: UserProfile): Profile_FormThunk => async (dispatch, getState) => {
-    const response = await profileAPI.updateUserProfile(newProfile);
+const updateUserProfile = (newProfile: UserProfile): ProfileThunk => async (dispatch, getState) => {
     const userId = getState().auth.id;
     const profile = getState().profilePage.profile;
+    // Is new profile info equal to old
+    if (deepNoRefEqual(newProfile, profile)) return;
 
-    if(deepNoRefEqual(newProfile, profile)) return;
+
+    dispatch(usersActions.toggleIsFetching(true));
+    const response = await profileAPI.updateUserProfile(newProfile);
 
     if (response.resultCode === ResultCodes.Success && userId) {
         await dispatch(requestUserProfile(userId));
-        return;
-    }
+    } else if (response.resultCode === ResultCodes.Error) {
+        const errorMessage: string = response.messages.length
+            ? response.messages[0]
+            : "Some error";
 
-    const errorMessage: string = response.messages.length
-        ? response.messages[0]
-        : "Some error";
-    let badField;
-    if (errorMessage.includes("Contacts")) {
-        const match = errorMessage.match(/(\w+)->(\w+)/);
-        if (match) {
-            badField = {
-                [match[1].toLowerCase()]: {
-                    [match[2].toLowerCase()]: errorMessage
-                }
-            };
-        }
-    } else {
-        badField = {_error: errorMessage};
+        throw errorMessage.includes("Contacts")
+            ? new ContactFormError(errorMessage)
+            : new FormError(errorMessage);
     }
-
-    const action = stopSubmit("editProfile", badField);
-    dispatch(action);
 };
 
 export const profileThunks = {
@@ -93,5 +79,5 @@ export const profileThunks = {
     updateStatus,
     requestUserProfile,
     updatePhoto,
-    updateUserProfile,
-}
+    updateUserProfile
+};

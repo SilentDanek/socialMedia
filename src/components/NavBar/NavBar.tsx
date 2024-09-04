@@ -1,14 +1,15 @@
-import {NavLink} from "react-router-dom";
-import s from "./NavBar.module.css"
-import {FC} from "react";
-import {useAppSelector, getAuthUserId} from "../../redux/";
+import { NavLink } from "react-router-dom";
+import s from "./NavBar.module.css";
+import { FC } from "react";
+import { useAppSelector, getAuthUserId, getAuthStatus } from "../../redux/";
 
 
-export const NavBar:FC = () => {
+export const NavBar: FC = () => {
     const id = useAppSelector(getAuthUserId);
+    const isAuth = useAppSelector(getAuthStatus);
 
-    function active({isActive}: { isActive: boolean }) {
-        return isActive? {color: "#d1c324"} : {};
+    function active({ isActive }: { isActive: boolean }) {
+        return isActive ? { color: "#d1c324" } : {};
     }
 
     return (
@@ -44,12 +45,13 @@ export const NavBar:FC = () => {
                         Settings
                     </NavLink>
                 </li>
-                <li>
+                {!isAuth && <li>
                     <NavLink to={"/login"} style={active}>
                         Login
                     </NavLink>
                 </li>
+                }
             </ul>
         </nav>
-    )
-}
+    );
+};

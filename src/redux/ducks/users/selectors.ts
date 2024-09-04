@@ -11,3 +11,5 @@ export const getTotalUsersCount = (state:State) => state.usersPage.totalUsersCou
 export const getIsFetching = (state:State) => state.usersPage.isFetching;
 
 export const getFollowingInProgress = (state:State) => state.usersPage.followingInProgress;
+
+//export const getUsersFilter = (state:State) => state.usersPage.filter;

@@ -1,10 +1,10 @@
 import {authActions} from "./actions";
 import {AuthAction} from "./types";
-import {FormAction, stopSubmit} from "redux-form";
 import {authAPI, ResultCodeForCaptcha, ResultCodes, securityAPI} from "../../../api/api";
 import {ThunkAction} from "redux-thunk";
 import {State} from "../../types";
 import {Action} from "redux";
+import { FormError } from "../../../api/Errors";
 
 
 // Определяем универсальный тип Thunk, который принимает типы экшенов как параметр
@@ -21,9 +21,8 @@ const getAuthUserData = ():AuthThunk => async (dispatch) => {
         dispatch(authActions.setAuthUserData(id, login, true));
     }
 };
-// Определяем Thunk, который может принимать как AuthAction, так и FormAction
-type Auth_FormThunk = Thunk<void, AuthAction | FormAction>;
-const login = (login: string, password: string, rememberMe: boolean, captcha = ""):Auth_FormThunk => async (dispatch) => {
+
+const login = (login: string, password: string, rememberMe: boolean, captcha = ""):AuthThunk => async (dispatch) => {
     const response = await authAPI.login(login, password, rememberMe, captcha);
     if (response.resultCode === ResultCodes.Success) {
         await dispatch(getAuthUserData());
@@ -36,8 +35,8 @@ const login = (login: string, password: string, rememberMe: boolean, captcha = "
     const errorMessage = response.messages.length
         ? response.messages[0]
         : "Some error";
-    const action = stopSubmit("login", {_error: errorMessage});
-    dispatch(action);
+
+    throw new FormError(errorMessage);
 };
 
 const logout = ():AuthThunk => async (dispatch) => {

@@ -1,11 +1,11 @@
-import {FC, memo, useMemo, useState} from 'react';
+import { FC, memo, useMemo, useState } from "react";
 import cn from "classnames";
 import s from "./Paginator.module.css";
 
 const createPaginationItems = (items: number[], currentItem: number, handlePageChanged: (page: number) => void) => (
     items.map(item => (
         <span key={item}
-              className={cn(s.pageButton, {[s.selectedPage]: currentItem === item})}
+              className={cn(s.pageButton, { [s.selectedPage]: currentItem === item })}
               onClick={() => handlePageChanged(item)}>
                     {item}
         </span>
@@ -24,16 +24,16 @@ type PaginatorProps = {
     lastLabel?: string;
 }
 export const Paginator: FC<PaginatorProps> = memo(({
-                                                                   totalItemsCount,
-                                                                   pageSize,
-                                                                   currentPage,
-                                                                   handlePageChanged,
-                                                                   portionSize = 10,
-                                                                   firstLabel = '«First',
-                                                                   prevLabel = '‹Prev',
-                                                                   nextLabel = 'Next›',
-                                                                   lastLabel = 'Last»',
-                                                               }) => {
+                                                       totalItemsCount,
+                                                       pageSize,
+                                                       currentPage,
+                                                       handlePageChanged,
+                                                       portionSize = 10,
+                                                       firstLabel = "«First",
+                                                       prevLabel = "‹Prev",
+                                                       nextLabel = "Next›",
+                                                       lastLabel = "Last»"
+                                                   }) => {
     const pagesCount = Math.ceil(totalItemsCount / pageSize);
     const portionCount = Math.ceil(pagesCount / portionSize);
 

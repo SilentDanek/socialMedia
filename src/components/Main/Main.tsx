@@ -6,10 +6,10 @@ import {FC, lazy} from "react";
 import {bindedThunks, useAppSelector, getErrorPageMessage, getIsInitialized} from "../../redux";
 
 
-const LazyUsers = lazy(() => import("./Users/Users"));
+const LazyUsers   = lazy(() => import("./Users/Users"));
 const LazyDialogs = lazy(() => import("./Dialogs/Dialogs"));
 const LazyProfile = lazy(() => import("./Profile/Profile"));
-const LazyLogin = lazy(() => import("./Login/Login"));
+const LazyLogin   = lazy(() => import("./Login/Login"));
 
 
 export const Main:FC = () => {

@@ -13,4 +13,3 @@ export const Thunks = {
 }
 
 export const bindedThunks = bindAllActionCreators(Thunks, store.dispatch) as typeof Thunks;
-console.log(bindedThunks)

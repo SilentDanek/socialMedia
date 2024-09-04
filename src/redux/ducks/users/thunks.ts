@@ -7,10 +7,10 @@ import {usersActions} from "./actions";
 
 
 type UsersThunk = ThunkAction<Promise<void>, State, unknown, UsersAction>;
-const requestUsers = (currentPage: number, pageSize: number):UsersThunk => {
+const requestUsers = (currentPage: number, pageSize: number, term: string = '', friend: null | boolean = null):UsersThunk => {
     return async (dispatch) => {
         dispatch(usersActions.toggleIsFetching(true));
-        const response = await userAPI.getUsers(currentPage, pageSize);
+        const response = await userAPI.getUsers(currentPage, pageSize, term, friend);
         dispatch(usersActions.toggleIsFetching(false));
         dispatch(usersActions.setUsers(response.items));
         dispatch(usersActions.setTotalUsersCount(response.totalCount));

@@ -1,7 +1,6 @@
 import {useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {useAppSelector} from "../redux/store";
-import {getAuthStatus} from "../redux/ducks/auth/selectors";
+import {useAppSelector, getAuthStatus} from "../redux";
 
 // Типизация возвращаемого значения
 export const useAuthRedirect = () => {

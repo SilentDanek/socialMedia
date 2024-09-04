@@ -1,10 +1,10 @@
-import s from "./Dialogs.module.css"
-import {DialogItem} from "./DialogItem/DialogItem";
-import {Message} from "./Message/Message";
-import AddMessageForm from "./AddMessageForm/AddMessageForm";
-import {FC} from "react";
-import {useAuthRedirect} from "../../../hooks/useAuthRedirect";
-import {useAppSelector, bindedActions, getDialogsPage} from "../../../redux";
+import s from "./Dialogs.module.css";
+import { DialogItem } from "./DialogItem/DialogItem";
+import { Message } from "./Message/Message";
+import { MessageForm } from "./MessageForm/MessageForm";
+import { FC } from "react";
+import { useAuthRedirect } from "../../../hooks/useAuthRedirect";
+import { getDialogsPage, useAppSelector } from "../../../redux";
 
 type Users = {
     id: number;
@@ -27,14 +27,7 @@ const Dialogs: FC = () => {
     useAuthRedirect();
 
     const dialogsPage = useAppSelector(getDialogsPage);
-    const {sendMessage} = bindedActions.dialogsActions;
 
-    type formValues = {
-        newMessageBody: string;
-    }
-    const handleSubmit = (values: formValues) => {
-        sendMessage(values.newMessageBody)
-    };
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
@@ -45,7 +38,7 @@ const Dialogs: FC = () => {
                     {messagesElements(dialogsPage.messages)}
                 </div>
             </div>
-            <AddMessageForm onSubmit={handleSubmit}/>
+            <MessageForm/>
         </div>
     )
 };

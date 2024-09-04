@@ -1,15 +1,15 @@
-import s from "./FormControls.module.css"
-import {ElementType, FC} from "react";
-import {WrappedFieldProps} from "redux-form";
+import s from "./FormControls.module.css";
+import { ElementType, FC } from "react";
 
-type ValidatedElementType = (Element: ElementType) => FC<WrappedFieldProps>;
+type ValidatedElementType = (Element: ElementType) => FC;
 
 export const ValidatedElement: ValidatedElementType = (Element) =>
-    ({input, meta: {touched, error}, ...props}) => {
+    //@ts-ignore
+    ({ input, meta: { touched, error }, ...props }) => {
         const hasError = touched && error;
         return (
             <div className={s.formControl + " " + (hasError ? s.error : "")}>
-                <Element {...input} {...props}/>
+                <Element {...input} {...props} />
                 {hasError && <span className={s.errorText}> {error} </span>}
             </div>
         );
@@ -19,7 +19,7 @@ type FormErrorProps = {
     error: string;
     style?: string;
 }
-export const FormError: FC<FormErrorProps> = ({style, error}) => {
+export const FormError: FC<FormErrorProps> = ({ style, error }) => {
     return <div className={style || s.formError}>
         {error}
     </div>;
