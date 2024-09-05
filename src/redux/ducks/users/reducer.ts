@@ -1,7 +1,6 @@
-
-import {updateItemsByCondition} from "../../../utils/ultimates";
-import {UsersActionTypes} from "./actionTypes";
-import {UsersAction, UsersState} from "./types";
+import { updateItemsByCondition } from "../../../utils";
+import { UsersActionTypes } from "./actionTypes";
+import { UsersAction, UsersState } from "./types";
 
 
 const initialState: UsersState = {
@@ -10,8 +9,13 @@ const initialState: UsersState = {
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
-    followingInProgress: []
+    followingInProgress: [],
+    filter: {
+        term: '',
+        friend: null
+    }
 }
+
 
 
 export function usersReducer(state = initialState, action: UsersAction): UsersState {
@@ -47,6 +51,9 @@ export function usersReducer(state = initialState, action: UsersAction): UsersSt
                     state.followingInProgress.concat(action.payload.id) :
                     state.followingInProgress.filter((userId) => userId !== action.payload.id)
             };
+        }
+        case UsersActionTypes.SET_FILTER: {
+            return {...state, filter: action.payload}
         }
         default: {
             return state;

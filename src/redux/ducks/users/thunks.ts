@@ -1,4 +1,4 @@
-import {UsersAction} from "./types";
+import { UsersAction, UsersFilter } from "./types";
 import {Dispatch} from "react";
 import {ResultCodes, userAPI} from "../../../api/api";
 import {ThunkAction} from "redux-thunk";
@@ -7,14 +7,18 @@ import {usersActions} from "./actions";
 
 
 type UsersThunk = ThunkAction<Promise<void>, State, unknown, UsersAction>;
-const requestUsers = (currentPage: number, pageSize: number, term: string = '', friend: null | boolean = null):UsersThunk => {
+const requestUsers = (currentPage: number, pageSize: number, filter: UsersFilter):UsersThunk => {
     return async (dispatch) => {
         dispatch(usersActions.toggleIsFetching(true));
-        const response = await userAPI.getUsers(currentPage, pageSize, term, friend);
-        dispatch(usersActions.toggleIsFetching(false));
-        dispatch(usersActions.setUsers(response.items));
-        dispatch(usersActions.setTotalUsersCount(response.totalCount));
-        dispatch(usersActions.setCurrentPage(currentPage));
+        dispatch(usersActions.setFilter(filter));
+        try {
+            const response = await userAPI.getUsers(currentPage, pageSize, filter.term, filter.friend);
+
+            dispatch(usersActions.setUsers(response.items));
+            dispatch(usersActions.setTotalUsersCount(response.totalCount));
+            dispatch(usersActions.setCurrentPage(currentPage));
+            dispatch(usersActions.toggleIsFetching(false));
+        } catch {}
     }
 };
 

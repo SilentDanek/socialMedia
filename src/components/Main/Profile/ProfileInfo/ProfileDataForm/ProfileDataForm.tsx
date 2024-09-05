@@ -75,7 +75,6 @@ type ContactFormElement = {
 const ContactFormElement: FC<ContactFormElement> = ({ mediaName }) => {
     return <li key={mediaName}>
         <TextareaFL<FormFields>
-            type={"url"}
             name={`contacts.${mediaName}`}
             placeholder={mediaName}
             labelText={`${mediaName}:`}

@@ -13,14 +13,18 @@ export type TUser = {
     status: string | null;
     followed: boolean;
 };
+export type UsersFilter = {
+    term: string,
+    friend: null | boolean
+}
 export type UsersState = {
     users: TUser[];
     pageSize: number,
     totalUsersCount: number,
     currentPage: number,
     isFetching: boolean
-    followingInProgress: number[]
+    followingInProgress: number[],
+    filter: UsersFilter
 };
-
 
 export type UsersAction = InferActionsTypes<typeof usersActions>;

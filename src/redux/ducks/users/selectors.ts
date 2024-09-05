@@ -12,4 +12,4 @@ export const getIsFetching = (state:State) => state.usersPage.isFetching;
 
 export const getFollowingInProgress = (state:State) => state.usersPage.followingInProgress;
 
-//export const getUsersFilter = (state:State) => state.usersPage.filter;
+export const getUsersFilter = (state:State) => state.usersPage.filter;

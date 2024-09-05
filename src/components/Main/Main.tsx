@@ -28,7 +28,7 @@ export const Main:FC = () => {
                     <Route path="/" element={<HomePage/>}/>
                     <Route path="/dialogs" element={<LazyDialogs/>}/>
                     <Route path="/profile/:userID?" element={<LazyProfile/>}/>
-                    <Route path="/users" element={<LazyUsers/>}/>
+                    <Route path="/users/*" element={<LazyUsers/>}/>
                     <Route path="/login" element={<LazyLogin/>}/>
                     <Route path="*" element={<h2>{errorMessage}</h2>}/>
                 </Routes>

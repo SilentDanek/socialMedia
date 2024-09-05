@@ -36,12 +36,11 @@ export const Paginator: FC<PaginatorProps> = memo(({
                                                    }) => {
     const pagesCount = Math.ceil(totalItemsCount / pageSize);
     const portionCount = Math.ceil(pagesCount / portionSize);
-
     const [portionNumber, setPortionNumber] = useState(1);
 
     const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
     const rightPortionPageNumber = portionNumber * portionSize;
-
+    console.log("Paginator");
     const pages = useMemo(() => {
         let pagesArray = [];
         for (let i = leftPortionPageNumber; i <= Math.min(rightPortionPageNumber, pagesCount); i++) {

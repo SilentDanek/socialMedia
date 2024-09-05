@@ -5,9 +5,10 @@ type FieldProps<T extends FieldValues, TC> = {
     name: Path<T>;
     labelText?: string
     validateOptions?: RegisterOptions<T, Path<T>>;
-} & Partial<TC>;
+    children?: any;
+} & TC;
 
-export const getErrorByFieldPath = <T extends FieldValues>(pathToField: Path<T>, error: FieldErrors<T>):FieldError => {
+export const getErrorByFieldPath = <T extends FieldValues>(pathToField: Path<T>, error: FieldErrors<T>): FieldError => {
     const keys = pathToField.split(".");
 
     // Проходимся по массиву ключей и создаем вложенные объекты
@@ -16,18 +17,25 @@ export const getErrorByFieldPath = <T extends FieldValues>(pathToField: Path<T>,
         if (error && error[key]) {
             error = error[key] as FieldErrors<T>;
         } else {
-            return
+            return;
         }
     });
 
     return error as FieldError;
 };
 
-const createFormElement = <TC extends HTMLElement = any>(Component: ElementType) => {
+/*
+  This function creates a hoc for html tags that are passed as strings.
+  The component received after the call automatically displays an error near itself
+  Has protection against errors such as incorrect form name field and the tag itself that was passed.
+  When transferring labelText, a label appears that is attached to it
+*/
+const createFormElement = <TC, >(Component: ElementType) => {
     return <T extends FieldValues>({
                                        validateOptions,
                                        name,
                                        labelText,
+                                       children,
                                        ...props
                                    }: FieldProps<T, TC>) => {
         const id = useId();
@@ -36,17 +44,20 @@ const createFormElement = <TC extends HTMLElement = any>(Component: ElementType)
 
         return <div>
             {labelText && <label htmlFor={id} style={{ display: "block" }}>{labelText}</label>}
-            <Component
-                id={id}
-                {...props}
-                {...register(name, validateOptions)}
-                aria-invalid={Boolean(errors[name])}
-            />
+
+            <Component id={id}
+                       {...props}
+                       {...register(name, validateOptions)}
+                       aria-invalid={Boolean(errors[name])}>
+                {children}
+            </Component>
+
             {fieldError && <div>{fieldError.message}</div>}
         </div>;
     };
 };
 
 
-export const TextareaFL = createFormElement<HTMLTextAreaElement>("textarea");
-export const InputFL = createFormElement<HTMLInputElement>("input");
+export const TextareaFL = createFormElement<JSX.IntrinsicElements["textarea"]>("textarea");
+export const InputFL    = createFormElement<JSX.IntrinsicElements["input"]>("input");
+export const SelectFL   = createFormElement<JSX.IntrinsicElements["select"]>("select");
