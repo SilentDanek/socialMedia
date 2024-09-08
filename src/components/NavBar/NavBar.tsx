@@ -41,8 +41,8 @@ export const NavBar: FC = () => {
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to={"/settings"} style={active}>
-                        Settings
+                    <NavLink to={"/chat"} style={active}>
+                        Chat
                     </NavLink>
                 </li>
                 {!isAuth && <li>

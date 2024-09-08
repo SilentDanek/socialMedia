@@ -4,6 +4,7 @@ import HomePage from "./HomePage/HomePage";
 import {Preloader, SuspensePreload} from "../common";
 import {FC, lazy} from "react";
 import {bindedThunks, useAppSelector, getErrorPageMessage, getIsInitialized} from "../../redux";
+import Chat from "./Chat/Chat";
 
 
 const LazyUsers   = lazy(() => import("./Users/Users"));
@@ -29,6 +30,7 @@ export const Main:FC = () => {
                     <Route path="/dialogs" element={<LazyDialogs/>}/>
                     <Route path="/profile/:userID?" element={<LazyProfile/>}/>
                     <Route path="/users/*" element={<LazyUsers/>}/>
+                    <Route path="/chat" element={<Chat/>}/>
                     <Route path="/login" element={<LazyLogin/>}/>
                     <Route path="*" element={<h2>{errorMessage}</h2>}/>
                 </Routes>

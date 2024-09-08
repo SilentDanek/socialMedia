@@ -1,7 +1,10 @@
-@import 'styles/reset.css';
-
 body{
   background-color: aquamarine;
+}
+
+img{
+  display: block;
+  box-sizing: border-box;
 }
 
 .app-wrapper {
