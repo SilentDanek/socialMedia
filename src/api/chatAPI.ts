@@ -1,78 +1,109 @@
 
-const subscribers:Subscribers = {
-    'messages-received': [],
-    'status-changed': [],
-};
+class ChatWebSocket {
+    private ws: WebSocket | null = null;
+    private subscribers: Subscribers = {
+        'messages-received': [],
+        'status-changed': [],
+    };
 
-let ws:WebSocket | null = null;
+    constructor(private url: string) {}
 
-const closeHandler = () => {
-    notifySubscribersAboutStatus('pending');
-    setTimeout(createChannel, 5000);
-}
-const messageHandler = (e: MessageEvent) => {
-    const newMessages = JSON.parse(e.data);
-    subscribers['messages-received'].forEach(s => s(newMessages));
-}
-const openHandler = () => {
-    notifySubscribersAboutStatus('ready');
-}
-const errorHandler = () => {
-    notifySubscribersAboutStatus('error');
-    console.error('REFRESH PAGE');
-}
-const cleanUp = () => {
-    if(!ws) return;
+    public clearSubscribers() {
+        this.subscribers['messages-received'] = [];
+        this.subscribers['status-changed'] = [];
+    }
 
-    ws.removeEventListener('open', openHandler);
-    ws.removeEventListener('message', messageHandler);
-    ws.removeEventListener('error', errorHandler);
-    ws.removeEventListener('close', closeHandler);
-}
-const notifySubscribersAboutStatus = (status: StatusType) => {
-    subscribers['status-changed'].forEach(s => s(status));
-}
+    public createChannel() {
+        this.cleanUp();
+        this.ws?.close();
+        this.ws = new WebSocket(this.url);
+        this.notifySubscribersAboutStatus('pending');
+        this.ws.addEventListener('open', this.openHandler);
+        this.ws.addEventListener('message', this.messageHandler);
+        this.ws.addEventListener('error', this.errorHandler);
+        this.ws.addEventListener('close', this.closeHandler);
+    }
 
-function createChannel() {
-    cleanUp();
-    ws?.close();
-    ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx');
-    notifySubscribersAboutStatus('pending');
-    ws.addEventListener('open', openHandler);
-    ws.addEventListener('message', messageHandler);
-    ws.addEventListener('error', errorHandler);
-    ws.addEventListener('close', closeHandler);
+    public subscribe(eventName: keyof Subscribers, callback: (data: any) => void){
+        this.subscribers[eventName].push(callback);
+        return () => {this.subscribers[eventName] = this.subscribers[eventName].filter(s => s !== callback)};
+    }
+
+    public unsubscribe(eventName: keyof Subscribers, callback: (data: any) => void) {
+        console.log(this.subscribers[eventName]);
+        this.subscribers[eventName] = this.subscribers[eventName].filter(subscriber => subscriber !== callback);
+        console.log(this.subscribers[eventName]);
+    }
+
+    public sendMessage(message: string) {
+        this.ws?.send(message);
+    }
+
+    public closeConnection() {
+        this.cleanUp();
+        this.ws?.close();
+        this.ws = null;
+    }
+
+    private closeHandler = () => {
+        this.notifySubscribersAboutStatus('pending');
+        setTimeout(() => this.createChannel(), 5000);
+    }
+
+    private notifySubscribersAboutStatus(status: StatusType) {
+        this.subscribers['status-changed'].forEach(subscriber => subscriber(status));
+    }
+
+    private messageHandler = (e: MessageEvent) => {
+        const newMessages = JSON.parse(e.data);
+        this.subscribers['messages-received'].forEach(subscriber => subscriber(newMessages));
+    }
+
+    private openHandler = () => {
+        this.notifySubscribersAboutStatus('ready');
+    }
+
+    private errorHandler = () => {
+        this.notifySubscribersAboutStatus('error');
+        console.error('REFRESH PAGE');
+    }
+
+    private cleanUp() {
+        if (!this.ws) return;
+
+        this.ws.removeEventListener('open', this.openHandler);
+        this.ws.removeEventListener('message', this.messageHandler);
+        this.ws.removeEventListener('error', this.errorHandler);
+        this.ws.removeEventListener('close', this.closeHandler);
+    }
 }
 
 export const chatAPI = {
+    chatWebSocket: new ChatWebSocket("wss://social-network.samuraijs.com/handlers/ChatHandler.ashx"),
+
     start() {
-        createChannel()
+        this.chatWebSocket.createChannel();
     },
     stop() {
-        subscribers['messages-received'] = []
-        subscribers['status-changed'] = []
-        cleanUp()
-        ws?.close()
+        this.chatWebSocket.clearSubscribers();
+        this.chatWebSocket.closeConnection();
     },
     subscribe(eventName: EventsNamesType, callback: MessagesReceivedSubscriberType | StatusChangedSubscriberType) {
-        subscribers[eventName].push(callback)
-        return () => {
-            subscribers[eventName] = subscribers[eventName].filter(s => s !== callback);
-        }
+        return this.chatWebSocket.subscribe(eventName, callback);
     },
     unsubscribe(eventName: EventsNamesType, callback: MessagesReceivedSubscriberType | StatusChangedSubscriberType) {
-        subscribers[eventName] = subscribers[eventName].filter(s => s !== callback);
+        this.chatWebSocket.unsubscribe(eventName, callback);
     },
     sendMessage(message: string) {
-        ws?.send(message);
+        this.chatWebSocket.sendMessage(message);
     }
 }
 
 
 
 type Subscribers = {
-    'messages-received': ((...args:any) => void)[]
-    'status-changed': ((...args:any) => void)[],
+    'messages-received': ((...args:any) => void)[];
+    'status-changed': ((...args:any) => void)[];
 }
 
 export type ChatMessageAPIType = {

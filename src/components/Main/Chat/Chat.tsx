@@ -10,6 +10,7 @@ const Chat = () => {
     const { startMessagesListening, stopMessagesListening } = bindedThunks.chatThunks;
     const { clearMessages } = bindedActions.chatActions;
 
+    // Create connection by WebSocket and get messages
     useEffect(() => {
         startMessagesListening();
 
@@ -23,7 +24,7 @@ const Chat = () => {
         {status === 'error' && <div>Some error occurred. Please refresh the page</div>}
         <Messages />
         <AddNewMessageForm />
-    </div>;
+    </div>
 };
 
 const AddNewMessageForm:FC = () => {
@@ -51,9 +52,8 @@ const AddNewMessageForm:FC = () => {
 const Messages: FC = () => {
     const messages = useAppSelector(getChatMessages);
 
-    return <section>{
-        messages.map(m => <Message key={m.id} {...m} />)
-    }
+    return <section>
+        {messages.map(m => <Message key={m.id} {...m} />)}
     </section>;
 };
 
