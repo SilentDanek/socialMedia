@@ -4,9 +4,12 @@ import { sidebarReducer } from "./ducks/sidebar/reducer";
 import { usersReducer } from "./ducks/users/reducer";
 import { authReducer } from "./ducks/auth/reducer";
 import { mainReducer } from "./ducks/main/reducer";
+import { chatReducer } from "./ducks/chat/reducer";
+
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { AppDispatch, State } from "./types";
+
 
 
 export const rootReducer = combineReducers({
@@ -15,7 +18,8 @@ export const rootReducer = combineReducers({
     usersPage: usersReducer,
     sideBar: sidebarReducer,
     auth: authReducer,
-    main: mainReducer
+    main: mainReducer,
+    chat: chatReducer
 });
 
 export const store = configureStore({

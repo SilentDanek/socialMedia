@@ -3,16 +3,10 @@ import {AuthAction} from "./types";
 import {authAPI, ResultCodeForCaptcha, ResultCodes, securityAPI} from "../../../api/api";
 import {ThunkAction} from "redux-thunk";
 import {State} from "../../types";
-import {Action} from "redux";
 import { FormError } from "../../../api/Errors";
 
 
-// Определяем универсальный тип Thunk, который принимает типы экшенов как параметр
-type Thunk<ReturnType = void, ActionType extends Action = Action> = ThunkAction<Promise<ReturnType>, State, unknown, ActionType>;
-
-// Определяем типы Thunk для Auth
-export type AuthThunk = Thunk<void, AuthAction>;
-
+type AuthThunk = ThunkAction<Promise<void>, State, unknown, AuthAction>;
 
 const getAuthUserData = ():AuthThunk => async (dispatch) => {
     const response = await authAPI.getAuthUserData();
