@@ -28,7 +28,7 @@ export const NavBar: FC = () => {
             <Paper sx={{ height: { xs: "auto", sm: "100%" } }}>
                 <NavBarList>
                     {listItems.map((item, index) => (
-                        <NavItem item={item} index={index} selectedIndex={selectedIndex}
+                        <NavItem key={item.text} item={item} index={index} selectedIndex={selectedIndex}
                                  handleListItemClick={handleListItemClick} />
                     ))}
                     <SettingsBurger index={listItems.length} selectedIndex={selectedIndex} />
@@ -41,7 +41,7 @@ export const NavBar: FC = () => {
 
 const NavItem = ({ item, index, selectedIndex, handleListItemClick }: any) => {
     return (
-        <ListItem key={item.text} disablePadding sx={{ padding: "7px" }}>
+        <ListItem disablePadding sx={{ padding: "7px" }}>
             <NavLink to={item.route} onClick={handleListItemClick} style={{ width: "100%" }}>
                 <NavBarListItemButton selected={selectedIndex === index}>
                     <NavBarListItemIcon className="icon">

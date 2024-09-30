@@ -44,7 +44,7 @@ export const lightTheme = createTheme({
         },
     },
     typography: {
-        fontSize: 16, // Змінює базовий розмір шрифту та SVG-іконок
+        fontSize: 16,
     },
 });
 
@@ -57,13 +57,13 @@ export const darkTheme = createTheme({
             main:'#05050c'
         },
         primary: {
-            main: '#0d27be',
+            main: '#576df6',
         },
         secondary: {
             main: '#882a94',
         },
     },
     typography: {
-        fontSize: 16, // Змінює базовий розмір шрифту та SVG-іконок
+        fontSize: 16,
     },
 });
