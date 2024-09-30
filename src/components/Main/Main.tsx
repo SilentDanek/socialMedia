@@ -39,7 +39,7 @@ export const Main:FC = () => {
 };
 
 const StyledMain = styled('main')(({ theme }) => ({
-    backgroundImage: theme.palette.backgroundImg,
+    backgroundImage: `url(${theme.palette.backgroundImg}), ${theme.palette.backgroundGradient}`,
     flex:1,
     overflowY:"auto"
 }));
