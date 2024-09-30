@@ -1,57 +1,55 @@
+import { FC, useState } from "react";
+import { getAuthUserId, useAppSelector } from "../../redux/";
+import { ListItem, Paper } from "@mui/material";
+import { Chat, Group, Person } from "@mui/icons-material";
+import PublicIcon from "@mui/icons-material/Public";
 import { NavLink } from "react-router-dom";
-import s from "./NavBar.module.css";
-import { FC } from "react";
-import { useAppSelector, getAuthUserId, getAuthStatus } from "../../redux/";
-
+import { Nav, NavBarList, NavBarListItemButton, NavBarListItemIcon, NavBarListItemText } from "./NavItemComponents";
+import { SettingsBurger } from "./SettingMenu";
 
 export const NavBar: FC = () => {
     const id = useAppSelector(getAuthUserId);
-    const isAuth = useAppSelector(getAuthStatus);
 
-    function active({ isActive }: { isActive: boolean }) {
-        return isActive ? { color: "#d1c324" } : {};
-    }
+    const [selectedIndex, setSelectedIndex] = useState<number>();
+
+    const listItems = [
+        { text: "Users", icon: <Group />, route: "/users" },
+        { text: "Chat", icon: <PublicIcon />, route: "/chat" },
+        { text: "Dialogs", icon: <Chat />, route: `/dialogs` },
+        { text: "Profile", icon: <Person />, route: `/profile/${id}` }
+    ];
+
+    const handleListItemClick = (index: number) => {
+        setSelectedIndex(index);
+    };
 
     return (
-        <nav className={s.nav}>
-            <ul>
-                <li>
-                    <NavLink to={`/profile/${id}`} style={active}>
-                        Profile
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to={"/dialogs"} style={active}>
-                        Messages
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to={"/news"} style={active}>
-                        News
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to={"/music"} style={active}>
-                        Music
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to={"/users"} style={active}>
-                        Find users
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to={"/chat"} style={active}>
-                        Chat
-                    </NavLink>
-                </li>
-                {!isAuth && <li>
-                    <NavLink to={"/login"} style={active}>
-                        Login
-                    </NavLink>
-                </li>
-                }
-            </ul>
-        </nav>
+        <Nav>
+            <Paper sx={{ height: { xs: "auto", sm: "100%" } }}>
+                <NavBarList>
+                    {listItems.map((item, index) => (
+                        <NavItem item={item} index={index} selectedIndex={selectedIndex}
+                                 handleListItemClick={handleListItemClick} />
+                    ))}
+                    <SettingsBurger index={listItems.length} selectedIndex={selectedIndex} />
+                </NavBarList>
+            </Paper>
+        </Nav>
+    );
+};
+
+
+const NavItem = ({ item, index, selectedIndex, handleListItemClick }: any) => {
+    return (
+        <ListItem key={item.text} disablePadding sx={{ padding: "7px" }}>
+            <NavLink to={item.route} onClick={handleListItemClick} style={{ width: "100%" }}>
+                <NavBarListItemButton selected={selectedIndex === index}>
+                    <NavBarListItemIcon className="icon">
+                        {item.icon}
+                    </NavBarListItemIcon>
+                    <NavBarListItemText primary={item.text} />
+                </NavBarListItemButton>
+            </NavLink>
+        </ListItem>
     );
 };
