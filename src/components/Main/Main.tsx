@@ -1,11 +1,10 @@
 import {Route, Routes} from "react-router-dom"
-import s from "./Main.module.css"
 import HomePage from "./HomePage/HomePage";
 import {Preloader, SuspensePreload} from "../common";
 import {FC, lazy} from "react";
 import {bindedThunks, useAppSelector, getErrorPageMessage, getIsInitialized} from "../../redux";
 import Chat from "./Chat/Chat";
-
+import { styled } from '@mui/material/styles';
 
 const LazyUsers   = lazy(() => import("./Users/Users"));
 const LazyDialogs = lazy(() => import("./Dialogs/Dialogs"));
@@ -23,7 +22,7 @@ export const Main:FC = () => {
         return <Preloader/>;
     }
 
-    return (<main className={s.main}>
+    return (<StyledMain>
             <SuspensePreload>
                 <Routes>
                     <Route path="/" element={<HomePage/>}/>
@@ -35,6 +34,13 @@ export const Main:FC = () => {
                     <Route path="*" element={<h2>{errorMessage}</h2>}/>
                 </Routes>
             </SuspensePreload>
-        </main>
+        </StyledMain>
     )
 };
+
+const StyledMain = styled('main')(({ theme }) => ({
+    backgroundImage: theme.palette.backgroundImg,
+    flex:1,
+    overflowY:"auto"
+}));
+

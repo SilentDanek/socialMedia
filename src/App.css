@@ -1,21 +1,7 @@
-body{
-  background-color: aquamarine;
-}
+
 
 img{
   display: block;
   box-sizing: border-box;
 }
 
-.app-wrapper {
-  width: 90%;
-  min-height: 100vh;
-  margin: auto;
-  display: grid;
-  grid-template-areas:
-    "header header"
-    "nav main"
-    "footer footer";
-  grid-template-rows: 50px 1fr 50px;
-  grid-template-columns: 1fr 4fr;
-}
