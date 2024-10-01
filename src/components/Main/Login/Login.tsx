@@ -11,6 +11,7 @@ import { RememberMeCheckBox } from "./FormFields/RememberMeCheckBox";
 import { CaptchaField } from "./FormFields/CaptchaField";
 import { FormContainer } from "./styles";
 
+import { useTranslation } from 'react-i18next';
 
 export type LoginFieldValues = {
     captcha: string;
@@ -23,6 +24,7 @@ const Login: FC = () => {
     const isAuth = useAppSelector(getAuthStatus);
     const id = useAppSelector(getAuthUserId);
     const captchaUrl = useAppSelector(getCaptchaUrl);
+    const { t } = useTranslation("login");
 
     const { login } = bindedThunks.authThunks;
     const { setError, control, handleSubmit, reset } = useForm<LoginFieldValues>();
@@ -35,7 +37,6 @@ const Login: FC = () => {
             navigate(`/profile/${id}`);
         }
     }, [isAuth]);
-
 
     const handleLoginSubmit = async (formData: LoginFieldValues) => {
         try {
@@ -61,7 +62,7 @@ const Login: FC = () => {
             <FormContainer>
                 <form onSubmit={handleSubmit(handleLoginSubmit)} style={{ margin: "6px" }}>
                     <Typography variant={"h5"} component="h1" textAlign="center">
-                        Sign In
+                        {t("signin")}
                     </Typography>
 
                     <EmailField control={control} />
@@ -80,10 +81,10 @@ const Login: FC = () => {
 
                     <Box sx={{display:"flex", justifyContent:"space-between"}}>
                         <Button type="button" variant="contained"  color="secondary" onClick={() => reset()} sx={{width:"40%"}}>
-                            Reset
+                            {t("reset")}
                         </Button>
                         <LoadingButton type="submit" variant="contained" color="primary" loading={isSubmitting} sx={{width:"50%"}}>
-                            Sign In
+                            {t("signin")}
                         </LoadingButton>
                     </Box>
                 </form>
