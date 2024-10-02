@@ -13,7 +13,7 @@ export const SettingsMenu:FC = () => {
     const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-    const clickHandler = (event: React.MouseEvent<HTMLElement>) => {
+    const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
         setOpen(true);
     };
@@ -21,11 +21,11 @@ export const SettingsMenu:FC = () => {
     return (
         <ListItem disablePadding sx={{ padding: "7px" }}>
             <Box sx={{ width: "100%" }}>
-                <NavBarListItemButton onClick={clickHandler}>
+                <NavBarListItemButton onClick={handleMenuClick}>
                     <NavBarListItemIcon>
                         <SettingsIcon />
                     </NavBarListItemIcon>
-                    <NavBarListItemText primary={"Settings"} />
+                    <NavBarListItemText primary={t("settings")} />
                 </NavBarListItemButton>
             </Box>
             <Menu anchorEl={anchorEl} open={open} onClose={() => setOpen(false)}>

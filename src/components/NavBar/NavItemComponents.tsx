@@ -8,7 +8,7 @@ export const Nav = styled('nav')(({ theme }) => ({
         width:"auto",
     },
     [theme.breakpoints.up('lg')]: {
-        width:"200px",
+        width:"220px",
     },
 }));
 
@@ -39,7 +39,7 @@ export const NavBarListItemButton = styled(ListItemButton)(() => ({
 }));
 
 export const NavBarListItemText = styled(ListItemText)(({ theme }) => ({
-    marginLeft:"15%",
+    marginLeft:"10%",
     [theme.breakpoints.down('lg')]: {
         display: 'none',
     },
