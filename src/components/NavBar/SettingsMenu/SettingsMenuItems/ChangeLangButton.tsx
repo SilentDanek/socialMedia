@@ -40,8 +40,8 @@ export const ChangeLangButton: FC<Props> = ({ t, i18n }) => {
                 </Typography>
             </MenuItem>
             <Menu anchorEl={anchorEl} open={open} onClose={() => setOpen(false)}>
-                {languages.map((language) => <LanguageMenuItem
-                    handleLanguageChange ={handleLanguageChange } {...language} />)}
+                {languages.map((language) =>
+                    <LanguageMenuItem key={language.langTag} handleLanguageChange ={handleLanguageChange } {...language} />)}
             </Menu>
         </>
     );

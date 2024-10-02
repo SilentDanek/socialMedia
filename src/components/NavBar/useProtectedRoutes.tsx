@@ -24,7 +24,6 @@ export function useProtectedRoutes<T extends Namespace<string>>(isAuth:boolean, 
         }
     }, [isAuth, t("users")]);
 
-    console.log(listItems[0].text);
 
     return listItems;
 }

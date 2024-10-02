@@ -29,7 +29,7 @@ export const SettingsMenu:FC = () => {
                 </NavBarListItemButton>
             </Box>
             <Menu anchorEl={anchorEl} open={open} onClose={() => setOpen(false)}>
-                <ChangeThemeButton t={t} />
+                <ChangeThemeButton t={t}/>
                 <ChangeLangButton t={t} i18n={i18n}/>
                 {isAuth && <LogoutButton t={t} />}
             </Menu>

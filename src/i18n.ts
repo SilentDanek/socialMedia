@@ -6,6 +6,8 @@ import uaLogin from './locales/ua/login.json';
 import enNavbar from './locales/en/navbar.json';
 import uaNavbar from './locales/ua/navbar.json';
 
+const defaultLang = localStorage.getItem("language");
+
 i18n
     .use(initReactI18next)
     .init({
@@ -19,7 +21,7 @@ i18n
                 navbar: uaNavbar
             },
         },
-        lng: 'en',
+        lng: defaultLang || 'en',
         fallbackLng: 'en',
         interpolation: {
             escapeValue: false,

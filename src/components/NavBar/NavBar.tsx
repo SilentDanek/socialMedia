@@ -43,7 +43,7 @@ const NavItem:FC<NavItemProps> = ({ item, index, selectedIndex, handleListItemCl
     return (
         <ListItem disablePadding sx={{ padding: "7px"}}>
             <NavLink to={item.route} onClick={() => handleListItemClick(index)} style={{ width: "100%" }}>
-                <NavBarListItemButton selected={selectedIndex === index}>
+                <NavBarListItemButton selected={selectedIndex === index && !item.route.includes("/login")}>
                     <NavBarListItemIcon className="icon">
                         {item.icon}
                     </NavBarListItemIcon>
