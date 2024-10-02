@@ -1,22 +1,24 @@
-import { FC, useState } from "react";
+import { FC, ReactNode, useState } from "react";
 import { getAuthUserId, useAppSelector } from "../../redux/";
 import { ListItem, Paper } from "@mui/material";
 import { Chat, Group, Person } from "@mui/icons-material";
 import PublicIcon from "@mui/icons-material/Public";
 import { NavLink } from "react-router-dom";
 import { Nav, NavBarList, NavBarListItemButton, NavBarListItemIcon, NavBarListItemText } from "./NavItemComponents";
-import { SettingsBurger } from "./SettingMenu";
+import { SettingsMenu } from "./SettingsMenu";
+import { useTranslation } from "react-i18next";
 
 export const NavBar: FC = () => {
     const id = useAppSelector(getAuthUserId);
+    const { t } = useTranslation("navbar");
 
-    const [selectedIndex, setSelectedIndex] = useState<number>();
+    const [selectedIndex, setSelectedIndex] = useState<number>(-1);
 
     const listItems = [
-        { text: "Users", icon: <Group />, route: "/users" },
-        { text: "Chat", icon: <PublicIcon />, route: "/chat" },
-        { text: "Dialogs", icon: <Chat />, route: `/dialogs` },
-        { text: "Profile", icon: <Person />, route: `/profile/${id}` }
+        { text: t("users"), icon: <Group />, route: "/users" },
+        { text: t("chat"), icon: <PublicIcon />, route: "/chat" },
+        { text: t("dialogs"), icon: <Chat />, route: `/dialogs` },
+        { text: t("profile"), icon: <Person />, route: `/profile/${id}` }
     ];
 
     const handleListItemClick = (index: number) => {
@@ -28,21 +30,23 @@ export const NavBar: FC = () => {
             <Paper sx={{ height: { xs: "auto", sm: "100%" } }}>
                 <NavBarList>
                     {listItems.map((item, index) => (
-                        <NavItem key={item.text} item={item} index={index} selectedIndex={selectedIndex}
+                        <NavItem key={item.text}
+                                 item={item}
+                                 index={index}
+                                 selectedIndex={selectedIndex}
                                  handleListItemClick={handleListItemClick} />
                     ))}
-                    <SettingsBurger index={listItems.length} selectedIndex={selectedIndex} />
+                    <SettingsMenu/>
                 </NavBarList>
             </Paper>
         </Nav>
     );
 };
 
-
-const NavItem = ({ item, index, selectedIndex, handleListItemClick }: any) => {
+const NavItem:FC<NavItemProps> = ({ item, index, selectedIndex, handleListItemClick }) => {
     return (
         <ListItem disablePadding sx={{ padding: "7px" }}>
-            <NavLink to={item.route} onClick={handleListItemClick} style={{ width: "100%" }}>
+            <NavLink to={item.route} onClick={() => handleListItemClick(index)} style={{ width: "100%" }}>
                 <NavBarListItemButton selected={selectedIndex === index}>
                     <NavBarListItemIcon className="icon">
                         {item.icon}
@@ -53,3 +57,16 @@ const NavItem = ({ item, index, selectedIndex, handleListItemClick }: any) => {
         </ListItem>
     );
 };
+type ListItem = {
+    text: string
+    icon: ReactNode
+    route: string
+}
+
+
+type NavItemProps = {
+    item:ListItem
+    index:number
+    selectedIndex:number
+    handleListItemClick: (index:number) => void
+}

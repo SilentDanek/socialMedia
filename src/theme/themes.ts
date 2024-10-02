@@ -24,10 +24,6 @@ declare module '@mui/material/styles' {
     }
 }
 
-declare module '@emotion/react' {
-    export interface Theme extends MuiTheme {}
-}
-
 export const lightTheme = createTheme({
     palette: {
         mode: 'light',
