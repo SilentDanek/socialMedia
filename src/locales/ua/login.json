@@ -1,8 +1,8 @@
 {
-  "signin": "Увійти",
+  "sign-in": "Увійти",
   "reset": "Очистити",
   "emailRequire": "Необхідно вказати пошту",
   "password": "Пароль",
   "passwordRequire": "Необхідно вказати пароль",
-  "rememberMe": "Запам'ятати мене"
+  "rememberMe": "запам'ятати мене"
 }

@@ -5,10 +5,7 @@ import { useForm, useFormState } from "react-hook-form";
 import { FormError } from "../../../api/Errors";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { EmailField } from "./FormFields/EmailField";
-import { PasswordField } from "./FormFields/PasswordField";
-import { RememberMeCheckBox } from "./FormFields/RememberMeCheckBox";
-import { CaptchaField } from "./FormFields/CaptchaField";
+import { EmailField, PasswordField, RememberMeCheckBox, CaptchaField } from "./FormFields";
 import { FormContainer } from "./styles";
 
 import { useTranslation } from 'react-i18next';
@@ -60,9 +57,9 @@ const Login: FC = () => {
     return (
         <Stack direction="column" justifyContent="center" alignItems="center" height="100%">
             <FormContainer>
-                <form onSubmit={handleSubmit(handleLoginSubmit)} style={{ margin: "6px" }}>
+                <form onSubmit={handleSubmit(handleLoginSubmit)} style={{ margin: "6px" }} >
                     <Typography variant={"h5"} component="h1" textAlign="center">
-                        {t("signin")}
+                        {t("sign-in")}
                     </Typography>
 
                     <EmailField control={control} />
@@ -84,7 +81,7 @@ const Login: FC = () => {
                             {t("reset")}
                         </Button>
                         <LoadingButton type="submit" variant="contained" color="primary" loading={isSubmitting} sx={{width:"50%"}}>
-                            {t("signin")}
+                            {t("sign-in")}
                         </LoadingButton>
                     </Box>
                 </form>
