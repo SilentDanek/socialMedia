@@ -19,20 +19,21 @@ export const ChangeLangButton: FC<Props> = ({ t, i18n }) => {
         { flagSrc: UAFlagIcon, LangName: "Українська", langTag: "ua" }
     ];
 
-    const clickHandler = (event: React.MouseEvent<HTMLElement>) => {
+    const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
         setOpen(true);
     };
 
-    const changeLanguageHandler = (lng: string) => {
+    const handleLanguageChange  = (lng: string) => {
         if (i18n) {
+            localStorage.setItem("language", lng);
             i18n.changeLanguage(lng);
         }
     };
 
     return (
         <>
-            <MenuItem onClick={clickHandler}>
+            <MenuItem onClick={handleMenuClick}>
                 <LanguageIcon />
                 <Typography variant="body1" component="span" sx={{ ml: 1 }}>
                     {t("language")}
@@ -40,22 +41,21 @@ export const ChangeLangButton: FC<Props> = ({ t, i18n }) => {
             </MenuItem>
             <Menu anchorEl={anchorEl} open={open} onClose={() => setOpen(false)}>
                 {languages.map((language) => <LanguageMenuItem
-                    changeLanguageHandler={changeLanguageHandler} {...language} />)}
+                    handleLanguageChange ={handleLanguageChange } {...language} />)}
             </Menu>
         </>
     );
 };
 
-
-export const LanguageMenuItem: FC<LanguageMenuItemProps> = ({ changeLanguageHandler, flagSrc, LangName, langTag }) => {
-    return <MenuItem onClick={() => changeLanguageHandler(langTag)}>
+export const LanguageMenuItem: FC<LanguageMenuItemProps> = ({ handleLanguageChange , flagSrc, LangName, langTag }) => {
+    return <MenuItem onClick={() => handleLanguageChange (langTag)}>
         <img src={flagSrc} height="17px" alt={LangName + " flag"} />
-        <span style={{marginLeft:"8px"}}>{LangName}</span>
+        <span style={{ marginLeft: "8px" }}>{LangName}</span>
     </MenuItem>;
 };
 
 type LanguageMenuItemProps = {
-    changeLanguageHandler: (lng: string) => void
+    handleLanguageChange : (lng: string) => void
     flagSrc: string
     LangName: string
     langTag: string

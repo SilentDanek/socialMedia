@@ -30,9 +30,7 @@ class ChatWebSocket {
     }
 
     public unsubscribe(eventName: keyof Subscribers, callback: (data: any) => void) {
-        console.log(this.subscribers[eventName]);
         this.subscribers[eventName] = this.subscribers[eventName].filter(subscriber => subscriber !== callback);
-        console.log(this.subscribers[eventName]);
     }
 
     public sendMessage(message: string) {

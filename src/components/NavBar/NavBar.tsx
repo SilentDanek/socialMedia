@@ -1,25 +1,21 @@
 import { FC, ReactNode, useState } from "react";
-import { getAuthUserId, useAppSelector } from "../../redux/";
+import { getAuthStatus, getAuthUserId, useAppSelector } from "../../redux/";
 import { ListItem, Paper } from "@mui/material";
-import { Chat, Group, Person } from "@mui/icons-material";
-import PublicIcon from "@mui/icons-material/Public";
 import { NavLink } from "react-router-dom";
 import { Nav, NavBarList, NavBarListItemButton, NavBarListItemIcon, NavBarListItemText } from "./NavItemComponents";
 import { SettingsMenu } from "./SettingsMenu";
 import { useTranslation } from "react-i18next";
+import { useProtectedRoutes } from "./useProtectedRoutes";
 
 export const NavBar: FC = () => {
+    const isAuth = useAppSelector(getAuthStatus);
     const id = useAppSelector(getAuthUserId);
+
     const { t } = useTranslation("navbar");
 
     const [selectedIndex, setSelectedIndex] = useState<number>(-1);
 
-    const listItems = [
-        { text: t("users"), icon: <Group />, route: "/users" },
-        { text: t("chat"), icon: <PublicIcon />, route: "/chat" },
-        { text: t("dialogs"), icon: <Chat />, route: `/dialogs` },
-        { text: t("profile"), icon: <Person />, route: `/profile/${id}` }
-    ];
+    const navbarItems = useProtectedRoutes(isAuth, id, t);
 
     const handleListItemClick = (index: number) => {
         setSelectedIndex(index);
@@ -29,7 +25,7 @@ export const NavBar: FC = () => {
         <Nav>
             <Paper sx={{ height: { xs: "auto", sm: "100%" } }}>
                 <NavBarList>
-                    {listItems.map((item, index) => (
+                    {navbarItems.map((item, index) => (
                         <NavItem key={item.text}
                                  item={item}
                                  index={index}
@@ -45,7 +41,7 @@ export const NavBar: FC = () => {
 
 const NavItem:FC<NavItemProps> = ({ item, index, selectedIndex, handleListItemClick }) => {
     return (
-        <ListItem disablePadding sx={{ padding: "7px" }}>
+        <ListItem disablePadding sx={{ padding: "7px"}}>
             <NavLink to={item.route} onClick={() => handleListItemClick(index)} style={{ width: "100%" }}>
                 <NavBarListItemButton selected={selectedIndex === index}>
                     <NavBarListItemIcon className="icon">
@@ -57,13 +53,12 @@ const NavItem:FC<NavItemProps> = ({ item, index, selectedIndex, handleListItemCl
         </ListItem>
     );
 };
+
 type ListItem = {
     text: string
     icon: ReactNode
     route: string
 }
-
-
 type NavItemProps = {
     item:ListItem
     index:number

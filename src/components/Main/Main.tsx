@@ -41,6 +41,7 @@ export const Main:FC = () => {
 const StyledMain = styled('main')(({ theme }) => ({
     backgroundImage: `url(${theme.palette.backgroundImg}), ${theme.palette.backgroundGradient}`,
     flex:1,
-    overflowY:"auto"
+    overflow:"auto",
+    height:"100%"
 }));
 
