@@ -77,7 +77,7 @@ const Login: FC = () => {
                     </Typography>
 
                     <Box sx={{display:"flex", justifyContent:"space-between"}}>
-                        <Button type="button" variant="contained"  color="secondary" onClick={() => reset()} sx={{width:"40%"}}>
+                        <Button type="button" variant="contained" color="secondary" onClick={() => reset()} sx={{width:"40%"}}>
                             {t("reset")}
                         </Button>
                         <LoadingButton type="submit" variant="contained" color="primary" loading={isSubmitting} sx={{width:"50%"}}>

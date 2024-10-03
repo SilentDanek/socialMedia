@@ -8,7 +8,7 @@ export const Nav = styled('nav')(({ theme }) => ({
         width:"auto",
     },
     [theme.breakpoints.up('lg')]: {
-        width:"220px",
+        width:"260px",
     },
 }));
 

@@ -47,6 +47,9 @@ export const lightTheme = createTheme({
 export const darkTheme = createTheme({
     palette: {
         mode: 'dark',
+        background:{
+            default: "#212121"
+        },
         backgroundImg: mainBackgroundDark,
         backgroundGradient: "linear-gradient(aquamarine, #b507b5)",
         border:{

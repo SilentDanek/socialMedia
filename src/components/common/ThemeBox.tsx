@@ -7,3 +7,9 @@ export const ThemeBox = styled(Box)(({ theme }) => ({
     borderRadius: theme.shape.borderRadius,
     boxShadow: theme.shadows[1]
 }));
+
+export const BorderLessThemeBox = styled(Box)(({ theme }) => ({
+    backgroundColor: theme.palette.background.default,
+    borderRadius: theme.shape.borderRadius,
+    boxShadow: theme.shadows[3]
+}));

@@ -21,7 +21,7 @@ export const SettingsMenu:FC = () => {
     return (
         <ListItem disablePadding sx={{ padding: "7px" }}>
             <Box sx={{ width: "100%" }}>
-                <NavBarListItemButton onClick={handleMenuClick}>
+                <NavBarListItemButton onClick={handleMenuClick} sx={{paddingLeft:"15%"}}>
                     <NavBarListItemIcon>
                         <SettingsIcon />
                     </NavBarListItemIcon>

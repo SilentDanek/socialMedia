@@ -11,10 +11,8 @@ export const NavBar: FC = () => {
     const isAuth = useAppSelector(getAuthStatus);
     const id = useAppSelector(getAuthUserId);
 
-    const { t } = useTranslation("navbar");
-
     const [selectedIndex, setSelectedIndex] = useState<number>(-1);
-
+    const { t } = useTranslation("navbar");
     const navbarItems = useProtectedRoutes(isAuth, id, t);
 
     const handleListItemClick = (index: number) => {
@@ -43,7 +41,7 @@ const NavItem:FC<NavItemProps> = ({ item, index, selectedIndex, handleListItemCl
     return (
         <ListItem disablePadding sx={{ padding: "7px"}}>
             <NavLink to={item.route} onClick={() => handleListItemClick(index)} style={{ width: "100%" }}>
-                <NavBarListItemButton selected={selectedIndex === index && !item.route.includes("/login")}>
+                <NavBarListItemButton selected={selectedIndex === index && !item.route.includes("/login")} sx={{paddingLeft:"15%"}}>
                     <NavBarListItemIcon className="icon">
                         {item.icon}
                     </NavBarListItemIcon>
