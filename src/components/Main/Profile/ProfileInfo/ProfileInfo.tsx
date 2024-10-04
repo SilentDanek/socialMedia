@@ -1,10 +1,13 @@
-import s from "./ProfileInfo.module.css";
 import { ProfileStatus } from "./ProfileStatus/ProfileStatus";
 import unknownUserSVG from "../../../../assets/images/unknown-user.svg";
-import { ChangeEvent, FC, memo, useState } from "react";
+import { FC, memo, useState } from "react";
 import { ProfileDataForm } from "./ProfileDataForm/ProfileDataForm";
 import { ProfileData } from "./ProfileData/ProfileData";
-import { bindedThunks, useAppSelector, getUserStatus, UserProfile } from "../../../../redux";
+import { bindedThunks, getUserStatus, useAppSelector, UserProfile } from "../../../../redux";
+import { AvatarLoader } from "./AvatarLoader/AvatarLoader";
+import { Avatar, Box, Button, Stack, Typography } from "@mui/material";
+import { ThemeBox } from "../../../common/ThemeBox";
+
 
 type ProfileInfoProps = {
     profile: UserProfile;
@@ -12,42 +15,34 @@ type ProfileInfoProps = {
 }
 export const ProfileInfo: FC<ProfileInfoProps> = memo(({ profile, isOwner }) => {
     const [editMode, setEditMode] = useState(false);
-
     const status = useAppSelector(getUserStatus);
-    const { updateStatus, updatePhoto } = bindedThunks.profileThunks;
 
-    const handleUpdatePhotoOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-        if (!e.target.files || !e.target.files.length) return;
+    const { updateStatus } = bindedThunks.profileThunks;
 
-        const file = new FormData();
-        file.append("image", e.target.files[0]);
+    const goToEditMode = () => setEditMode(!editMode);
 
-        updatePhoto(file);
-    };
-
-    const goToEditMode = () => setEditMode(true);
+    const avatar = <Avatar src={profile.photos.large || unknownUserSVG} sx={{ width: 120, height: 120 } } />;
 
     return (
-        <div className={s.profile}>
-            <div className={s.profileInfo}>
-                <div>
-                    <img
-                        className={s.avatar}
-                        src={profile.photos.large || unknownUserSVG}
-                        alt="Avatar"
-                    />
-                    {isOwner && <input type={"file"} onChange={handleUpdatePhotoOnChange} />}
-                </div>
-                <div>
-                    <div>
-                        {profile.fullName}
-                    </div>
+        <ThemeBox sx={{ margin: {sm:0, md:"2px 22% 0 17%" }, padding: "2%" }}>
+            <Stack direction="row" alignItems="center" gap="4%">
+                <Box >
+                    {isOwner
+                        ? <AvatarLoader>{avatar}</AvatarLoader>
+                        : avatar
+                    }
+                </Box >
+                <Stack>
+                    <Typography variant={"h5"}>{profile.fullName}</Typography>
                     <ProfileStatus status={status} updateStatus={updateStatus} />
-                    {editMode
-                        ? <ProfileDataForm profile={profile} setEditMode={setEditMode}  />
-                        : <ProfileData profile={profile} goToEditMode={goToEditMode}  isOwner={isOwner} />}
-                </div>
-            </div>
-        </div>
+                    {!editMode && isOwner && <Button sx={{marginTop:2}} variant={"contained"} onClick={() => goToEditMode()}>
+                         Edit
+                    </Button>}
+                </Stack>
+            </Stack>
+            {editMode
+                ? <ProfileDataForm profile={profile} setEditMode={setEditMode} />
+                : <ProfileData profile={profile} goToEditMode={goToEditMode} isOwner={isOwner} />}
+        </ThemeBox>
     );
 });

@@ -9,10 +9,10 @@ export const MessagesWrapper = styled("section")(({ theme}) => ({
     gap:"6px",
     overflowY: "auto",
     [theme.breakpoints.up('md')]: {
-        margin: '0 25% 0 15%', // Для экранов шире md (960px по умолчанию)
+        padding: '0 25% 0 15%', // Для экранов шире md (960px по умолчанию)
     },
     [theme.breakpoints.down('md')]: {
-        margin: "0 1% 0 1%", // Для экранов шире md (960px по умолчанию)
+        padding: "0 1% 0 1%", // Для экранов шире md (960px по умолчанию)
     },
 }));
 
@@ -22,10 +22,11 @@ export const MessageContent:FC<MessageProps> = ({isMessageOwner, children}) => {
         <BorderLessThemeBox
             sx={{
                 position: 'relative',
-                zIndex:30,
                 p: 1,
                 borderRadius: "12px",
                 maxWidth: "70%",
+                height: "auto",
+                wordBreak:"break-word",
                 '&::before': {
                     content: '""',
                     position: 'absolute',
@@ -38,7 +39,6 @@ export const MessageContent:FC<MessageProps> = ({isMessageOwner, children}) => {
                     borderTopColor: theme.palette.background.default, // Цвет границы хвостика
                     borderBottom: 'none',
                     marginBottom: '-12px', // Поднимаем хвостик
-                    zIndex: 2, // Расположение под `::after`
                 },
             }}
         >

@@ -1,6 +1,6 @@
 import { FC, UIEventHandler, useEffect, useRef, useState } from "react";
 import { getAuthUserId, getChatMessages, useAppSelector } from "../../../../redux";
-import { Avatar, Stack, Typography } from "@mui/material";
+import { Avatar, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import unknownUserSVG from "../../../../assets/images/unknown-user.svg";
 import { MessageContent, MessagesWrapper, MessageWrapper } from "./styles";
@@ -36,26 +36,24 @@ export const Messages: FC = () => {
 const Message: FC<Message> = ({ message, photo, userId, userName, authUserId }) => {
     const isMessageOwner = userId === authUserId;
     return (
-        <MessageWrapper isMessageOwner={isMessageOwner} >
+        <MessageWrapper isMessageOwner={isMessageOwner}>
             <NavLink to={`/profile/${userId}`}>
                 <Avatar
                     src={photo || unknownUserSVG}
                     alt={userName}
-                    sx={{ width: 40, height: 40}}
+                    sx={{ width: 40, height: 40 }}
                 />
             </NavLink>
             <MessageContent isMessageOwner={isMessageOwner}>
-                <Stack alignItems="center">
-                    <Typography variant="subtitle1" sx={{ fontWeight: "bold", fontSize:"0.8rem", color:"#cb25cb"}}>
-                        {userName}
-                    </Typography>
-                </Stack>
+                <Typography variant="subtitle1" sx={{ fontWeight: "bold", fontSize: "0.8rem", color: "#cb25cb" }}>
+                    {userName}
+                </Typography>
                 <Typography variant="body1">
                     {message}
                 </Typography>
             </MessageContent>
         </MessageWrapper>
-    )
+    );
 };
 
 type Message = {
@@ -63,5 +61,5 @@ type Message = {
     photo: string,
     userId: number,
     userName: string
-    authUserId:number | null
+    authUserId: number | null
 }

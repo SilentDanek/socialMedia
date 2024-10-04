@@ -9,6 +9,11 @@ body {
   height: 100vh;
 }
 
+
+* {
+  transition: color 30ms;
+}
+
 img{
   display: block;
   box-sizing: border-box;

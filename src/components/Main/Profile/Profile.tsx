@@ -1,15 +1,7 @@
-import s from "./Profile.module.css";
-import { MyPosts } from "./MyPosts/MyPosts";
 import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
 import { Preloader } from "../../common";
 import { FC, useEffect } from "react";
-import {
-    getUserProfile,
-    getIsFetching,
-    getAuthUserId,
-    bindedThunks,
-    useAppSelector,
-} from "../../../redux";
+import { bindedThunks, getAuthUserId, getIsFetching, getUserProfile, useAppSelector } from "../../../redux";
 import { useNavigate, useParams } from "react-router-dom";
 
 export const Profile: FC = () => {
@@ -31,13 +23,7 @@ export const Profile: FC = () => {
     }, [params.userID]);
 
     return !isFetching && profile ? (
-        <div className={s.profileWrapper}>
-            <ProfileInfo
-                profile={profile}
-                isOwner={params.userID === `${authUserId}`}
-            />
-            <MyPosts />
-        </div>
+        <ProfileInfo profile={profile} isOwner={params.userID === `${authUserId}`} />
     ) : (
         <Preloader />
     );

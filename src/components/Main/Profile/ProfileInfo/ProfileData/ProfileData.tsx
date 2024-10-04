@@ -1,35 +1,37 @@
-import {FC, memo} from "react";
-import {UserProfile} from "../../../../../redux"
+import { FC, memo } from "react";
+import { UserProfile } from "../../../../../redux";
+import { Box, List, ListItem, Typography } from "@mui/material";
 
 type ProfileDataProps = {
     profile:UserProfile;
     isOwner:boolean;
     goToEditMode:() => void;
 }
-export const ProfileData:FC<ProfileDataProps> = memo(({profile, isOwner, goToEditMode}) => {
-    return <div>
-        {isOwner && <div>
-            <button onClick={goToEditMode}>edit</button>
-        </div>}
-        <div>
-            <b>Looking for a job</b>: {profile.lookingForAJob ? "yes" : "no"}
-        </div>
-        {profile.lookingForAJob &&
-        <div>
-            <b>My professional skills</b>: {profile.lookingForAJobDescription}
-        </div>}
-        <div>
-            <b>About me</b>: {profile.aboutMe}
-        </div>
-        <div>
-            <b>Contacts</b>:
-            <ul>
-                {Object.entries(profile.contacts).map(([key, value]) => {
-                    return <Contact key={key} contactTitle={key} contactValue={value}/>
-                })}
-            </ul>
-        </div>
-    </div>
+export const ProfileData:FC<ProfileDataProps> = memo(({profile}) => {
+    return (
+        <Box sx={{ mt:2, padding: 2, border: '1px solid #ccc', borderRadius: 2 }}>
+            <Typography variant="h6">
+                About me: <Typography variant="body1" component="span" style={{wordBreak: "break-word"}}>{profile.aboutMe}</Typography>
+            </Typography>
+
+            <Typography variant="h6">
+                Looking for a job: <Typography variant="body1" component="span">{profile.lookingForAJob ? 'Yes' : 'No'}</Typography>
+            </Typography>
+
+            {profile.lookingForAJob && (
+                <Typography variant="h6">
+                    My professional skills: <Typography variant="body1" component="span">{profile.lookingForAJobDescription}</Typography>
+                </Typography>
+            )}
+
+            <Typography variant="h6">Contacts:</Typography>
+            <List>
+                {Object.entries(profile.contacts).map(([contactTitle, url]) => (
+                    <Contact key={contactTitle} contactTitle={contactTitle} contactValue={url} />
+                ))}
+            </List>
+        </Box>
+    );
 })
 
 
@@ -38,5 +40,13 @@ type ContactProps = {
     contactValue:string | null;
 }
 const Contact:FC<ContactProps> = ({contactTitle, contactValue}) => {
-    return <li key={contactTitle}><b>{contactTitle}</b>: {contactValue}</li>
+    return <ListItem disablePadding>
+        <b>{contactTitle}</b>:{" "}
+        {contactValue
+         ? <a href={contactValue} target="_blank" rel="noopener">
+                {contactValue}
+           </a>
+         : contactValue || "..."
+        }
+    </ListItem>
 }
