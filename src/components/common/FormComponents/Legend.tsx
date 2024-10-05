@@ -9,7 +9,7 @@ export const Legend: FC<LegendProps> = ({ children }) => {
     return <Typography
         component="legend"
         variant="subtitle1"
-        sx={{ fontWeight: "bold", marginBottom: 1 }}
+        sx={{ fontWeight: "bold", marginBottom: 1}}
     >
         {children}
     </Typography>;

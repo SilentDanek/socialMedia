@@ -46,7 +46,7 @@ export const ProfileDataForm: FC<ProfileDataFormProps> = ({ profile, setEditMode
         <ControlledTextField control={control} name={"lookingForAJobDescription"} label="Skills" placeholder="Skills"/>
 
         <Fieldset>
-            <Legend><b>Contacts</b></Legend>
+            <Legend>Contacts</Legend>
 
             {(Object.keys(profile.contacts) as Array<keyof Contacts>).map(key => (
                 <ContactFormElement key={key} mediaName={key} control={control} />

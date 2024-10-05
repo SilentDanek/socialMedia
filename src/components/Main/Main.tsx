@@ -10,7 +10,7 @@ import {
     getIsInitialized,
     useAppSelector
 } from "../../redux";
-import { MainContent } from "./Main.style.js";
+import { MainContent } from "./Main.style";
 
 const LazyUsers = lazy(() => import("./Users/Users"));
 const LazyDialogs = lazy(() => import("./Dialogs/Dialogs"));
@@ -39,7 +39,7 @@ export const Main: FC = () => {
                 <SuspensePreload>
                     <Routes>
                         <Route path="/" element={<HomePage />} />
-                        <Route path="/profile/:userID?" element={<LazyProfile />} />
+                        <Route path="/profile/:userID" element={<LazyProfile />} />
                         <Route path="/users/*" element={<LazyUsers />} />
                         <Route element={<ProtectedRoute isAuth={isAuth} navigateTo={"/login"} />}>
                             <Route path="/dialogs" element={<LazyDialogs />} />

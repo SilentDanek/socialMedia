@@ -1,50 +1,77 @@
-import { FC, memo } from "react";
+import React, { FC } from "react";
 import { UserProfile } from "../../../../../redux";
-import { Box, Link, List, ListItem, Typography } from "@mui/material";
+import { Box, List, ListItem, Typography } from "@mui/material";
+import { FieldsetLike, FlexLink, LegendLike } from "./ProfileData.style";
+import {
+    Facebook,
+    GitHub,
+    Instagram,
+    Language,
+    Link as LinkIcon,
+    SvgIconComponent,
+    Twitter,
+    YouTube
+} from "@mui/icons-material";
 
-type ProfileDataProps = {
-    profile:UserProfile;
-}
-export const ProfileData:FC<ProfileDataProps> = memo(({profile}) => {
+
+export const ProfileData: FC<ProfileDataProps> = ({ profile }) => {
+    const MediaIcons = [ Facebook, Language, Twitter, Twitter, Instagram, YouTube, GitHub, LinkIcon];
     return (
-        <Box sx={{ mt:2, padding: 2, border: '1px solid #ccc', borderRadius: 2 }}>
-            <Typography variant="h6">
-                About me: <Typography variant="body1" component="span" style={{wordBreak: "break-word"}}>{profile.aboutMe}</Typography>
-            </Typography>
+        <Box sx={{ padding: 2  }}>
 
-            <Typography variant="h6">
-                Looking for a job: <Typography variant="body1" component="span">{profile.lookingForAJob ? 'Yes' : 'No'}</Typography>
-            </Typography>
+            <ProfileDetailItem label={"About me"} content={profile.aboutMe}/>
+            <ProfileDetailItem label={"Looking for a job"} content={profile.lookingForAJob? "Yes": "No"}/>
 
-            {profile.lookingForAJob && (
-                <Typography variant="h6">
-                    My professional skills: <Typography variant="body1" component="span">{profile.lookingForAJobDescription}</Typography>
-                </Typography>
-            )}
+            {profile.lookingForAJob
+                && <ProfileDetailItem label={"My professional skills"} content={profile.lookingForAJobDescription}/>
+            }
 
-            <Typography variant="h6">Contacts:</Typography>
-            <List>
-                {Object.entries(profile.contacts).map(([contactTitle, url]) => (
-                    <Contact key={contactTitle} contactTitle={contactTitle} contactValue={url} />
-                ))}
-            </List>
+            <FieldsetLike>
+                <LegendLike>Contacts</LegendLike>
+                <List disablePadding={true}>
+                    {Object.entries(profile.contacts).map(([contactTitle, url], index) => (
+                        <Contact key={contactTitle} contactTitle={contactTitle} contactValue={url} MediaIcon={MediaIcons[index]}/>
+                    ))}
+                </List>
+            </FieldsetLike>
         </Box>
     );
-})
+};
 
+const ProfileDetailItem: FC<ProfileDetailItemProps> = ({ label, content }) => (
+    <Typography
+        variant="body1"
+        component="div"
+        sx={{ wordBreak: "break-word", whiteSpace: "normal" }}
+    >
+        <b>{label}</b>: {content}
+    </Typography>
+);
 
-type ContactProps = {
-    contactTitle:string;
-    contactValue:string | null;
-}
-const Contact:FC<ContactProps> = ({contactTitle, contactValue}) => {
+const Contact: FC<ContactProps> = ({ contactTitle, contactValue, MediaIcon}) => {
     return <ListItem disablePadding>
         <b>{contactTitle}</b>:&nbsp;
         {contactValue
-         ? <Link href={contactValue} target="_blank" rel="noopener">
+            ? <FlexLink href={contactValue} target="_blank" rel="noopener">
                 {contactValue.replace("https://", "")}
-           </Link >
-         : "-"
+                <MediaIcon/>
+            </FlexLink>
+            : "-"
         }
-    </ListItem>
+    </ListItem>;
+};
+
+type ProfileDataProps = {
+    profile: UserProfile;
+}
+
+type ProfileDetailItemProps = {
+    label: string;
+    content: string;
+}
+
+type ContactProps = {
+    contactTitle: string;
+    contactValue: string | null;
+    MediaIcon: SvgIconComponent;
 }

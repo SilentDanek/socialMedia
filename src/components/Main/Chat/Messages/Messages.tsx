@@ -3,7 +3,7 @@ import { getAuthUserId, getChatMessages, useAppSelector } from "../../../../redu
 import { Avatar, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import unknownUserSVG from "../../../../assets/images/unknown-user.svg";
-import { MessageContent, MessagesWrapper, MessageWrapper } from "./styles";
+import { MessageContent, MessagesWrapper, MessageWrapper } from "./Messages.styles";
 
 export const Messages: FC = () => {
     const messages = useAppSelector(getChatMessages);

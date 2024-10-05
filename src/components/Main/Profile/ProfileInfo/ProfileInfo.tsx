@@ -22,7 +22,18 @@ export const ProfileInfo: FC<ProfileInfoProps> = ({ profile, isOwner }) => {
     const avatar = <Avatar src={profile.photos.large || unknownUserSVG} sx={{ width: 120, height: 120 } } />;
 
     return (
-        <ThemeBox sx={{ margin: {sm:0, md:"2px 22% 0 17%" }, padding: "2%" }}>
+        <ThemeBox
+            sx={{
+                margin: {
+                    xs: 0, // Для самых маленьких экранов убираем все отступы
+                    sm: 0, // Продолжаем держать отступы равными 0 на маленьких экранах
+                    md: "2px 15% 0 17%", // На средних и больших экранах возвращаем нужные отступы
+                    ld: "2px 20% 0 25%", // На средних и больших экранах возвращаем нужные отступы
+                },
+                padding: "2%",
+                maxWidth: "100%", // Гарантирует, что бокс не выйдет за пределы экрана
+            }}
+        >
             <Stack direction="row" alignItems="center" gap="4%">
                 <Box >
                     {isOwner
@@ -34,7 +45,7 @@ export const ProfileInfo: FC<ProfileInfoProps> = ({ profile, isOwner }) => {
                     <Typography variant={"h5"}>{profile.fullName}</Typography>
                     <ProfileStatus status={status} updateStatus={updateStatus} />
                     {!editMode && isOwner && <Button sx={{marginTop:2}} variant={"contained"} onClick={() => setEditMode(true)}>
-                         Edit
+                        Edit Profile
                     </Button>}
                 </Stack>
             </Stack>
