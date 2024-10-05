@@ -3,7 +3,6 @@ import { DialogItem } from "./DialogItem/DialogItem";
 import { Message } from "./Message/Message";
 import { MessageForm } from "./MessageForm/MessageForm";
 import { FC } from "react";
-import { useAuthRedirect } from "../../../hooks/useAuthRedirect";
 import { getDialogsPage, useAppSelector } from "../../../redux";
 
 type Users = {
@@ -24,7 +23,6 @@ const messagesElements = (messages: Messages[]) => {
 
 
 const Dialogs: FC = () => {
-    useAuthRedirect();
 
     const dialogsPage = useAppSelector(getDialogsPage);
 

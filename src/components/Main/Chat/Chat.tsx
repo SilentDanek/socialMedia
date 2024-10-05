@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { bindedActions, bindedThunks, getChatStatus, useAppSelector } from "../../../redux";
-import { useAuthRedirect } from "../../../hooks/useAuthRedirect";
 import { AddNewMessageForm } from "./AddNewMessageForm/AddNewMessageForm";
 import { Messages } from "./Messages/Messages";
 import { Stack } from "@mui/material";
@@ -9,8 +8,6 @@ const Chat = () => {
     const status = useAppSelector(getChatStatus);
     const { startMessagesListening, stopMessagesListening } = bindedThunks.chatThunks;
     const { clearMessages } = bindedActions.chatActions;
-
-    useAuthRedirect();
 
     useEffect(() => {
         startMessagesListening();

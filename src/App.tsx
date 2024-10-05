@@ -9,7 +9,6 @@ import { Stack } from "@mui/material";
 import { CustomThemeProvider } from "./theme";
 import './i18n';
 
-
 // @ts-ignore
 window.store = store;
 
