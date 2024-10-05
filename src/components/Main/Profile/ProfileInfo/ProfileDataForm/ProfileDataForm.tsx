@@ -6,6 +6,7 @@ import { LoadingButton } from "@mui/lab";
 import { Button } from "@mui/material";
 import { ControlledCheckbox, ControlledTextField, Fieldset, FormErrorMessage, Legend } from "../../../../common";
 import { ButtonGroupWrapper } from "./ProfileDataForm.style";
+import { useTranslation } from "react-i18next";
 
 export type FormFields = UserProfile & { formError: string };
 type ProfileDataFormProps = {
@@ -15,6 +16,7 @@ type ProfileDataFormProps = {
 
 export const ProfileDataForm: FC<ProfileDataFormProps> = ({ profile, setEditMode }) => {
     const { handleSubmit, setError, control } = useForm<FormFields>({ defaultValues: profile });
+    const {t} = useTranslation("profile");
     const { isSubmitting } = useFormState({ control });
     const [formErrorMessage, setFormErrorMessage] = useState("");
 
@@ -37,16 +39,16 @@ export const ProfileDataForm: FC<ProfileDataFormProps> = ({ profile, setEditMode
     };
 
     return <form onSubmit={handleSubmit(handleProfileSubmit)} noValidate={true}>
-        <ControlledTextField control={control} name={"fullName"} label="Full name" placeholder="Full name"/>
+        <ControlledTextField control={control} name={"fullName"} label={t("full name")}/>
 
-        <ControlledTextField control={control} name={"aboutMe"} label="About me" placeholder="About me" multiline={true}/>
+        <ControlledTextField control={control} name={"aboutMe"} label={t("about me")} multiline={true}/>
 
-        <ControlledCheckbox control={control} name={"lookingForAJob"} label="Looking for a job"/>
+        <ControlledCheckbox control={control} name={"lookingForAJob"} label={t("looking for a job")}/>
 
-        <ControlledTextField control={control} name={"lookingForAJobDescription"} label="Skills" placeholder="Skills"/>
+        <ControlledTextField control={control} name={"lookingForAJobDescription"} label={t("my professional skills")}/>
 
         <Fieldset>
-            <Legend>Contacts</Legend>
+            <Legend>{t("contacts")}</Legend>
 
             {(Object.keys(profile.contacts) as Array<keyof Contacts>).map(key => (
                 <ContactFormElement key={key} mediaName={key} control={control} />
@@ -57,10 +59,10 @@ export const ProfileDataForm: FC<ProfileDataFormProps> = ({ profile, setEditMode
 
         <ButtonGroupWrapper>
             <Button color="secondary" variant="contained" onClick={() => setEditMode(false)} sx={{width:"10%"}}>
-                Cancel
+                {t("cancel")}
             </Button>
             <LoadingButton type="submit" variant="contained" loading={isSubmitting} sx={{width:"15%"}}>
-                Save
+                {t("save")}
             </LoadingButton>
         </ButtonGroupWrapper>
     </form>;

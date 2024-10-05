@@ -28,7 +28,7 @@ export const ControlledTextField = <T extends FieldValues>({
             <TextField
                 {...field}
                 label={label}
-                placeholder={placeholder}
+                placeholder={placeholder? placeholder: label}
                 margin="dense"
                 multiline={multiline}
                 error={!!fieldState.error}
