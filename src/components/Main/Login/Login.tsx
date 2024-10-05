@@ -6,9 +6,9 @@ import { FormError } from "../../../api/Errors";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { EmailField, PasswordField, RememberMeCheckBox, CaptchaField } from "./FormFields";
-import { FormContainer } from "./styles";
-
+import { FormContainer } from "./Login.styles";
 import { useTranslation } from 'react-i18next';
+import { FormErrorMessage } from "../../common";
 
 export type LoginFieldValues = {
     captcha: string;
@@ -24,7 +24,12 @@ const Login: FC = () => {
     const { t } = useTranslation("login");
 
     const { login } = bindedThunks.authThunks;
-    const { setError, control, handleSubmit, reset } = useForm<LoginFieldValues>();
+    const { setError, control, handleSubmit, setValue, reset } = useForm<LoginFieldValues>({
+        defaultValues: {
+            email: '',
+            password: '',
+        },
+    });
     const { isSubmitting } = useFormState<LoginFieldValues>({ control });
     const [formErrorMessage, setFormErrorMessage] = useState("");
 
@@ -46,7 +51,7 @@ const Login: FC = () => {
                 } else {
                     setFormErrorMessage(error.message);
                 }
-                reset({ captcha: "" });
+                setValue("captcha", "" );
             } else {
                 throw error;
             }
@@ -57,7 +62,7 @@ const Login: FC = () => {
     return (
         <Stack direction="column" justifyContent="center" alignItems="center" height="100%">
             <FormContainer>
-                <form onSubmit={handleSubmit(handleLoginSubmit)} style={{ margin: "6px" }} >
+                <form onSubmit={handleSubmit(handleLoginSubmit)} style={{ margin: "6px" }} noValidate>
                     <Typography variant={"h5"} component="h1" textAlign="center">
                         {t("sign-in")}
                     </Typography>
@@ -66,15 +71,13 @@ const Login: FC = () => {
                     <PasswordField control={control} />
                     <RememberMeCheckBox control={control} />
 
-                    {captchaUrl && <Box>
+                    {captchaUrl && <Box >
                         <img src={captchaUrl} alt="captcha" width="100%" />
                         <CaptchaField control={control} />
                     </Box>
                     }
 
-                    <Typography color="red" borderColor="2px solid red">
-                        {formErrorMessage}
-                    </Typography>
+                    <FormErrorMessage>{formErrorMessage}</FormErrorMessage>
 
                     <Box sx={{display:"flex", justifyContent:"space-between"}}>
                         <Button type="button" variant="contained" color="secondary" onClick={() => reset()} sx={{width:"40%"}}>

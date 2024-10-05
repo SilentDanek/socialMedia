@@ -2,8 +2,8 @@ import { FC, useState } from "react";
 import { Menu, MenuItem, Typography } from "@mui/material";
 import LanguageIcon from "@mui/icons-material/Language";
 import { i18n as i18nType, TFunction } from "i18next";
-import GBFlagIcon from "../../../../assets/flags/gb.svg";
-import UAFlagIcon from "../../../../assets/flags/ua.svg";
+import GBFlagIcon from "../../../../assets/images/flags/gb.svg";
+import UAFlagIcon from "../../../../assets/images/flags/ua.svg";
 
 type Props = {
     t: TFunction<"translation", undefined>

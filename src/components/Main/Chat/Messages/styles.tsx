@@ -1,5 +1,5 @@
 import { styled } from "@mui/material/styles";
-import { BorderLessThemeBox } from "../../../common/ThemeBox";
+import { BorderLessThemeBox } from "../../../common/ThemeBox/ThemeBox";
 import { FC, ReactNode } from "react";
 import { Stack, useTheme } from "@mui/material";
 

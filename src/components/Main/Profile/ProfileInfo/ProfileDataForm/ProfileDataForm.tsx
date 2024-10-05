@@ -1,9 +1,11 @@
-import { Dispatch, FC, SetStateAction } from "react";
+import { Dispatch, FC, SetStateAction, useState } from "react";
 import { bindedThunks, Contacts, UserProfile } from "../../../../../redux";
-import { Control, Controller, useForm, useFormState } from "react-hook-form";
+import { Control, useForm, useFormState } from "react-hook-form";
 import { ContactFormError, FormError } from "../../../../../api/Errors";
 import { LoadingButton } from "@mui/lab";
-import { Box, Checkbox, FormControlLabel, TextField, Typography } from "@mui/material";
+import { Button } from "@mui/material";
+import { ControlledCheckbox, ControlledTextField, Fieldset, FormErrorMessage, Legend } from "../../../../common";
+import { ButtonGroupWrapper } from "./ProfileDataForm.style";
 
 export type FormFields = UserProfile & { formError: string };
 type ProfileDataFormProps = {
@@ -13,107 +15,54 @@ type ProfileDataFormProps = {
 
 export const ProfileDataForm: FC<ProfileDataFormProps> = ({ profile, setEditMode }) => {
     const { handleSubmit, setError, control } = useForm<FormFields>({ defaultValues: profile });
-    const { errors, isSubmitting } = useFormState({ control });
+    const { isSubmitting } = useFormState({ control });
+    const [formErrorMessage, setFormErrorMessage] = useState("");
 
     const { updateUserProfile } = bindedThunks.profileThunks;
     const handleProfileSubmit = async (formData: UserProfile) => {
         try {
             await updateUserProfile(formData);
             setEditMode(false);
-            console.log(formData);
+            setFormErrorMessage("");
         } catch (error) {
             if (error instanceof ContactFormError) {
-                const errorOption = { type: "manual", message: error.message };
-                setError(error.getInvalidField<FormFields>(), errorOption, { shouldFocus: true });
+                const errorOption = { message: error.message };
+                setError(error.getInvalidField(), errorOption, { shouldFocus: true });
             } else if (error instanceof FormError) {
-                const errorOption = { type: "manual", message: error.message };
-                setError("formError", errorOption);
+                setFormErrorMessage(error.message);
             } else {
                 throw error;
             }
         }
     };
 
-    return <form onSubmit={handleSubmit(handleProfileSubmit)}>
+    return <form onSubmit={handleSubmit(handleProfileSubmit)} noValidate={true}>
+        <ControlledTextField control={control} name={"fullName"} label="Full name" placeholder="Full name"/>
 
-        {errors.formError && <Typography color="error">{errors.formError.message}</Typography>}
+        <ControlledTextField control={control} name={"aboutMe"} label="About me" placeholder="About me" multiline={true}/>
 
-        <Controller
-            name="fullName"
-            control={control}
+        <ControlledCheckbox control={control} name={"lookingForAJob"} label="Looking for a job"/>
 
-            render={({ field }) => (
-                <TextField
-                    {...field}
-                    label="Full name"
-                    margin={"dense"}
-                    placeholder="Full name"
-                    error={!!errors.fullName}
-                    helperText={errors.fullName?.message}
-                    fullWidth
-                />
-            )}
-        />
+        <ControlledTextField control={control} name={"lookingForAJobDescription"} label="Skills" placeholder="Skills"/>
 
-        <Controller
-            name="lookingForAJob"
-            control={control}
-            render={({ field }) => (
-                <FormControlLabel
-                    control={<Checkbox {...field} checked={!!field.value} />}
-                    label="Looking for a job"
-                />
-            )}
-        />
+        <Fieldset>
+            <Legend><b>Contacts</b></Legend>
 
-        <Controller
-            name="lookingForAJobDescription"
-            control={control}
-            render={({ field }) => (
-                <TextField
-                    {...field}
-                    label="Skills"
-                    placeholder="Skills"
-                    margin={"dense"}
-                    error={!!errors.lookingForAJobDescription}
-                    helperText={errors.lookingForAJobDescription?.message}
-                    fullWidth
-                />
-            )}
-        />
-
-        <Controller
-            name="aboutMe"
-            control={control}
-            render={({ field }) => (
-                <TextField
-                    {...field}
-                    label="About me"
-                    placeholder="About me"
-                    margin={"dense"}
-                    multiline
-                    error={!!errors.aboutMe}
-                    helperText={errors.aboutMe?.message}
-                    fullWidth
-                />
-            )}
-        />
-
-        <Box component={"fieldset"} sx={{ listStyle: "none", padding: 0, margin: 0 }}>
-            <Typography
-                component="legend"
-                variant="subtitle1"
-                sx={{ fontWeight: "bold", marginBottom: 1 }}
-            >
-                <b>Contacts</b></Typography>
             {(Object.keys(profile.contacts) as Array<keyof Contacts>).map(key => (
                 <ContactFormElement key={key} mediaName={key} control={control} />
             ))}
-        </Box>
+        </Fieldset>
 
-        <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-            Edit
-        </LoadingButton>
+        <FormErrorMessage>{formErrorMessage}</FormErrorMessage>
+
+        <ButtonGroupWrapper>
+            <Button color="secondary" variant="contained" onClick={() => setEditMode(false)} sx={{width:"10%"}}>
+                Cancel
+            </Button>
+            <LoadingButton type="submit" variant="contained" loading={isSubmitting} sx={{width:"15%"}}>
+                Save
+            </LoadingButton>
+        </ButtonGroupWrapper>
     </form>;
 };
 
@@ -123,21 +72,10 @@ type ContactFormElement = {
 };
 
 const ContactFormElement: FC<ContactFormElement> = ({ mediaName, control }) => {
-    return <Controller
-        name={`contacts.${mediaName}`}
-        control={control}
-        render={({ field, fieldState }) => (
-            <TextField
-                {...field}
-                variant={"standard"}
-                label={`${mediaName}:`}
-                margin={"dense"}
-                placeholder={mediaName}
-                type={"url"}
-                error={!!fieldState.error}
-                helperText={fieldState.error?.message}
-                fullWidth
-            />
-        )}
-    />;
+    return <ControlledTextField control={control}
+                                name={`contacts.${mediaName}`}
+                                type={"url"}
+                                label={`${mediaName}:`}
+                                placeholder={mediaName}
+                                variant={"standard"}/>
 };

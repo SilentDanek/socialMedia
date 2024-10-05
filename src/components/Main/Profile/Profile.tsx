@@ -22,6 +22,8 @@ export const Profile: FC = () => {
         getStatus(userID);
     }, [params.userID]);
 
+    console.log("Profile" + Boolean(profile));
+
     return !isFetching && profile ? (
         <ProfileInfo profile={profile} isOwner={params.userID === `${authUserId}`} />
     ) : (

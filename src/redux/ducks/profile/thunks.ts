@@ -32,7 +32,6 @@ const updateStatus = (status: string): ProfileThunk => async (dispatch) => {
     }
 };
 
-
 const requestUserProfile = (userId: number): Profile_UsersThunk => async (dispatch) => {
     dispatch(usersActions.toggleIsFetching(true));
 
@@ -42,7 +41,6 @@ const requestUserProfile = (userId: number): Profile_UsersThunk => async (dispat
     dispatch(usersActions.toggleIsFetching(false));
 };
 
-
 const updatePhoto = (photo: FormData): ProfileThunk => async (dispatch) => {
     const response = await profileAPI.updatePhoto(photo);
     if (response.resultCode === ResultCodes.Success) {
@@ -50,15 +48,12 @@ const updatePhoto = (photo: FormData): ProfileThunk => async (dispatch) => {
     }
 };
 
-
 const updateUserProfile = (newProfile: UserProfile): ProfileThunk => async (dispatch, getState) => {
     const userId = getState().auth.id;
     const profile = getState().profilePage.profile;
-    // Is new profile info equal to old
+
     if (deepNoRefEqual(newProfile, profile)) return;
 
-
-    dispatch(usersActions.toggleIsFetching(true));
     const response = await profileAPI.updateUserProfile(newProfile);
 
     if (response.resultCode === ResultCodes.Success && userId) {

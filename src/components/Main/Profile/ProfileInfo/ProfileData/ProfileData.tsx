@@ -1,11 +1,9 @@
 import { FC, memo } from "react";
 import { UserProfile } from "../../../../../redux";
-import { Box, List, ListItem, Typography } from "@mui/material";
+import { Box, Link, List, ListItem, Typography } from "@mui/material";
 
 type ProfileDataProps = {
     profile:UserProfile;
-    isOwner:boolean;
-    goToEditMode:() => void;
 }
 export const ProfileData:FC<ProfileDataProps> = memo(({profile}) => {
     return (
@@ -41,12 +39,12 @@ type ContactProps = {
 }
 const Contact:FC<ContactProps> = ({contactTitle, contactValue}) => {
     return <ListItem disablePadding>
-        <b>{contactTitle}</b>:{" "}
+        <b>{contactTitle}</b>:&nbsp;
         {contactValue
-         ? <a href={contactValue} target="_blank" rel="noopener">
-                {contactValue}
-           </a>
-         : contactValue || "..."
+         ? <Link href={contactValue} target="_blank" rel="noopener">
+                {contactValue.replace("https://", "")}
+           </Link >
+         : "-"
         }
     </ListItem>
 }

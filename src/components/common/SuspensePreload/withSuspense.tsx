@@ -1,5 +1,5 @@
 import {FC, Suspense} from "react";
-import {Preloader} from "../Preloader";
+import {Preloader} from "../Preloader/Preloader";
 import {ReactNode} from "react/index";
 type SuspensePreloadProps = {
     children:ReactNode;
