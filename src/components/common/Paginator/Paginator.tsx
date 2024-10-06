@@ -1,71 +1,86 @@
-import { FC, memo, useMemo, useState } from "react";
-import cn from "classnames";
-import s from "./Paginator.module.css";
+import { FC, memo, useMemo } from "react";
+import { Box, Button, Stack, useMediaQuery, useTheme } from "@mui/material";
+import { FirstPage, ChevronLeft, ChevronRight, LastPage } from "@mui/icons-material";
+import { PaginatorButton } from "./Paginator.styles";
 
-const createPaginationItems = (items: number[], currentItem: number, handlePageChanged: (page: number) => void) => (
-    items.map(item => (
-        <span key={item}
-              className={cn(s.pageButton, { [s.selectedPage]: currentItem === item })}
-              onClick={() => handlePageChanged(item)}>
-                    {item}
-        </span>
-    ))
-);
 
-type PaginatorProps = {
-    totalItemsCount: number;
-    pageSize: number;
-    currentPage: number;
-    handlePageChanged: (page: number) => void;
-    portionSize?: number;
-    firstLabel?: string;
-    prevLabel?: string;
-    nextLabel?: string;
-    lastLabel?: string;
-}
 export const Paginator: FC<PaginatorProps> = memo(({
                                                        totalItemsCount,
-                                                       pageSize,
+                                                       itemsInPage,
                                                        currentPage,
                                                        handlePageChanged,
                                                        portionSize = 10,
-                                                       firstLabel = "«First",
-                                                       prevLabel = "‹Prev",
-                                                       nextLabel = "Next›",
-                                                       lastLabel = "Last»"
+                                                       responsive = false
                                                    }) => {
-    const pagesCount = Math.ceil(totalItemsCount / pageSize);
-    const portionCount = Math.ceil(pagesCount / portionSize);
-    const [portionNumber, setPortionNumber] = useState(1);
+    const theme = useTheme();
+    const isMd = useMediaQuery(theme.breakpoints.down('md'));
+    const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
-    const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
-    const rightPortionPageNumber = portionNumber * portionSize;
-    console.log("Paginator");
+    if(responsive){
+        if(isSm){
+            portionSize = 1;
+        } else if(isMd){
+            portionSize /= 2;
+        }
+    }
+
+    const pagesCount = Math.ceil(totalItemsCount / itemsInPage);
+
+    const halfPortionSize = Math.floor(portionSize / 2);
+
+    let leftPortionPageNumber = Math.max(1, currentPage - halfPortionSize);
+    let rightPortionPageNumber = leftPortionPageNumber + portionSize - 1;
+
+    if (rightPortionPageNumber > pagesCount) {
+        rightPortionPageNumber = pagesCount;
+        leftPortionPageNumber = Math.max(1, rightPortionPageNumber - portionSize + 1);
+    }
+
+    const blockLeftButton = currentPage <= 1;
+    const blockRightButton = currentPage >= pagesCount;
+
     const pages = useMemo(() => {
         let pagesArray = [];
-        for (let i = leftPortionPageNumber; i <= Math.min(rightPortionPageNumber, pagesCount); i++) {
+        for (let i = leftPortionPageNumber; i <= rightPortionPageNumber; i++) {
             pagesArray.push(i);
         }
         return pagesArray;
-    }, [leftPortionPageNumber, rightPortionPageNumber, pagesCount]);
+    }, [leftPortionPageNumber, rightPortionPageNumber]);
+
 
     return (
-        <div className={s.itemsSeqContainer}>
-            {portionNumber > 1 && (
-                <>
-                    <button onClick={() => setPortionNumber(1)}>{firstLabel}&nbsp;</button>
-                    <button onClick={() => setPortionNumber(portionNumber - 1)}>{prevLabel}</button>
-                </>
-            )}
+        <Stack direction={"row"} alignItems={"center"}>
+            <Button variant={"contained"} disabled={blockLeftButton} color={"secondary"}
+                    onClick={() => handlePageChanged(1)}><FirstPage /></Button>
+            <Button variant={"contained"} disabled={blockLeftButton} color={"secondary"}
+                    onClick={() => handlePageChanged(currentPage - 1)}><ChevronLeft /></Button>
 
-            {createPaginationItems(pages, currentPage, handlePageChanged)}
+            <Box>
+                {createPaginationItems(pages, currentPage, handlePageChanged)}
+            </Box>
 
-            {portionCount > portionNumber && (
-                <>
-                    <button onClick={() => setPortionNumber(portionNumber + 1)}>{nextLabel}&nbsp;</button>
-                    <button onClick={() => setPortionNumber(portionCount)}>{lastLabel}</button>
-                </>
-            )}
-        </div>
+            <Button variant={"contained"} disabled={blockRightButton} color={"secondary"}
+                    onClick={() => handlePageChanged(currentPage + 1)}><ChevronRight /></Button>
+            <Button variant={"contained"} disabled={blockRightButton} color={"secondary"}
+                    onClick={() => handlePageChanged(pagesCount)}><LastPage /></Button>
+        </Stack>
     );
 });
+
+const createPaginationItems = (items: number[], currentItem: number, handlePageChanged: (page: number) => void) => {
+    return items.map(item => (
+        <PaginatorButton key={item} variant={'contained'} onClick={() => handlePageChanged(item)} active={item === currentItem}>
+            {item}
+        </PaginatorButton>
+    ))
+};
+
+
+type PaginatorProps = {
+    totalItemsCount: number;
+    itemsInPage: number;
+    currentPage: number;
+    handlePageChanged: (page: number) => void;
+    portionSize?: number;
+    responsive?: boolean;
+}

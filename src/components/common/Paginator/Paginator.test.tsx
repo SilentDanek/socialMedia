@@ -7,14 +7,10 @@ describe('Paginator', () => {
 
     const defaultProps = {
         totalItemsCount: 100,
-        pageSize: 10,
+        itemsInPage: 10,
         currentPage: 1,
         handlePageChanged: mockOnPageChanged,
-        portionSize: 10,
-        firstLabel: '«First',
-        prevLabel: '‹Prev',
-        nextLabel: 'Next›',
-        lastLabel: 'Last»',
+        portionSize: 8,
     };
 
     test('renders correct number of page buttons', () => {
