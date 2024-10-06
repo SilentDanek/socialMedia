@@ -58,7 +58,6 @@ const Users: FC = () => {
                                 follow={follow}
                                 unfollow={unfollow}
                                 followingInProgress={followingInProgress}
-                                isLoading={isFetching}
                             />
                         ))
                 }

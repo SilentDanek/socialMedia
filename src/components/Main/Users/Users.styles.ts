@@ -13,6 +13,6 @@ export const UsersSection = styled(ThemeBox)(() => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    minWidth: "70%",
+    minWidth: "60%",
     padding: "1% 3%"
 }));
