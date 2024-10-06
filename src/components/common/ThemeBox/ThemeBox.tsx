@@ -1,7 +1,7 @@
 import { styled } from "@mui/material/styles";
-import { Box } from "@mui/material";
+import { Box, BoxProps } from "@mui/material";
 
-export const ThemeBox = styled(Box)(({ theme }) => ({
+export const ThemeBox = styled(Box)<BoxProps>(({ theme }) => ({
     backgroundColor: theme.palette.background.default,
     border: "2px solid gray",
     borderRadius: theme.shape.borderRadius,

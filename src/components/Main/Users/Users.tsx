@@ -1,6 +1,6 @@
-import { Paginator, Preloader } from "../../common";
-import { User } from "./User/User";
-import { FC, useCallback } from "react";
+import { Paginator } from "../../common";
+import { UserCard } from "./User/UserCard";
+import React, { FC, useCallback } from "react";
 import {
     bindedThunks,
     getCurrentPage,
@@ -15,12 +15,15 @@ import {
 } from "../../../redux";
 import { UsersSearchForm } from "./NewSearchForm/NewSearchForm";
 import { useUsersQueryParams } from "../../../hooks/useUsersQueryParams";
+import { UserCardSkeleton } from "./User/UserCardSkeleton";
+import { UsersSection, UsersWrapper } from "./Users.styles";
 
 const Users: FC = () => {
     const users = useAppSelector(getUsers);
     const pageSize = useAppSelector(getPageSize);
     const isFetching = useAppSelector(getIsFetching);
     const currentPage = useAppSelector(getCurrentPage);
+
     const totalUsersCount = useAppSelector(getTotalUsersCount);
     const followingInProgress = useAppSelector(getFollowingInProgress);
     const filter = useAppSelector(getUsersFilter);
@@ -33,37 +36,45 @@ const Users: FC = () => {
     const handlePageChanged = useCallback((pageNumber: number) => {
         if (pageNumber === currentPage) return;
         requestUsers(pageNumber, pageSize, filter);
-    },[pageSize, filter, currentPage]);
+    }, [pageSize, filter, currentPage]);
 
     const handleFilterChanged = useCallback((filter: UsersFilter) => {
         requestUsers(1, pageSize, filter);
-    },[pageSize]);
+    }, [pageSize]);
 
     return (
-        <div>
-            <Paginator
-                currentPage={currentPage}
-                handlePageChanged={handlePageChanged}
-                totalItemsCount={totalUsersCount}
-                itemsInPage={pageSize}
-                portionSize={7}
-                responsive={true}
-            />
-            <UsersSearchForm handleFilterChanged={handleFilterChanged} />
-            {isFetching
-                ? <Preloader />
-                : users.length
-                    ? users.map((user) => (<User
-                        key={user.id}
-                        user={user}
-                        follow={follow}
-                        unfollow={unfollow}
-                        followingInProgress={followingInProgress}
-                    />))
-                    : <img src="https://media.tenor.com/tVrkM5XhW-EAAAAM/flick-esfand.gif" alt="" />
-            }
-        </div>
+        <UsersWrapper>
+            <UsersSection>
+                <UsersSearchForm handleFilterChanged={handleFilterChanged} />
+                {
+                    isFetching
+                        ? new Array(pageSize).fill(0).map((_, index) => (
+                            <UserCardSkeleton key={index} />
+                        ))
+                        : users.map((user) => (
+                            <UserCard
+                                key={user.id}
+                                user={user}
+                                follow={follow}
+                                unfollow={unfollow}
+                                followingInProgress={followingInProgress}
+                                isLoading={isFetching}
+                            />
+                        ))
+                }
+                <Paginator
+                    currentPage={currentPage}
+                    handlePageChanged={handlePageChanged}
+                    totalItemsCount={totalUsersCount}
+                    itemsInPage={pageSize}
+                    portionSize={7}
+                    responsive={true}
+                />
+            </UsersSection>
+        </UsersWrapper>
     );
 };
+
+
 
 export default Users;

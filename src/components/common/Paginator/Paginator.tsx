@@ -13,14 +13,20 @@ export const Paginator: FC<PaginatorProps> = memo(({
                                                        responsive = false
                                                    }) => {
     const theme = useTheme();
-    const isMd = useMediaQuery(theme.breakpoints.down('md'));
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
+    const isMd = useMediaQuery(theme.breakpoints.down('md'));
+    const isLd = useMediaQuery(theme.breakpoints.down("lg"));
 
     if(responsive){
+        console.log(isSm + " " + isMd + " " + isLd + " ");
         if(isSm){
             portionSize = 1;
         } else if(isMd){
-            portionSize /= 2;
+            portionSize = Math.floor(portionSize/2);
+            console.log(portionSize);
+        } else if (isLd) {
+            portionSize = Math.ceil(portionSize * (1 - 0.33));
+            console.log(portionSize);
         }
     }
 

@@ -1,10 +1,10 @@
 import { styled } from "@mui/material/styles";
-import { Box, Button, ButtonProps } from "@mui/material";
+import { Button } from "@mui/material";
 
-type PaginatorButtonProps = ButtonProps & { active?: boolean; }
+type PaginatorButtonProps = { active?: boolean; }
 
 // Отдельный компонент для стилизованных кнопок пагинатора
-export const PaginatorButton = styled(Button)<PaginatorButtonProps>(({ theme, active }) => ({
+export const PaginatorButton = styled(Button)<PaginatorButtonProps>(({ active }) => ({
     margin: '0 3px',
     padding: '6px 8px',
     minWidth: '45px',

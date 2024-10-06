@@ -2,7 +2,7 @@ import { Control } from "react-hook-form";
 import { FC } from "react";
 import { LoginFieldValues } from "../Login";
 import { useTranslation } from "react-i18next";
-import { ControlledTextField } from "../../../common/ControlledElements/ControlledTextField";
+import { ControlledTextField } from "../../../common";
 
 type EmailField = {
     control: Control<LoginFieldValues, unknown>
