@@ -19,5 +19,5 @@ export const actions = {
 };
 
 bindActionCreators(actions.usersActions, store.dispatch);
-/*todo: Удалить as typeof actions после успешной типизации bindAllActionCreators*/
-export const bindedActions = bindAllActionCreators(actions, store.dispatch) as typeof actions;
+
+export const boundActions = bindAllActionCreators(actions, store.dispatch);

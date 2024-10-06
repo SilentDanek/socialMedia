@@ -1,14 +1,14 @@
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { TextareaFL } from "../../../../utils";
-import { bindedActions } from "../../../../redux";
+import { boundActions } from "../../../../redux";
 import { FormProvider } from "react-hook-form";
 
 type FormValues = {
     newMessageBody: string;
 }
 export const MessageForm: FC = () => {
-    const { sendMessage } = bindedActions.dialogsActions;
+    const { sendMessage } = boundActions.dialogsActions;
     const methods = useForm<FormValues>();
 
     const handleMessageSubmit = (values: FormValues) => {

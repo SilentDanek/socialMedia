@@ -1,17 +1,16 @@
-/*todo: Попробовать еще раз реализовать типизацию (проблема ключей)*/
 import { AppDispatch } from "./types";
 import { bindActionCreators } from "redux";
 
-export const bindAllActionCreators = (actionsBundle: any, dispatch: AppDispatch): any => {
-    const bindedActions: any = {};
-    for (const key of Reflect.ownKeys(actionsBundle) as string[]) {
+export const bindAllActionCreators = <T extends Record<string, any>>(actionsBundle: T, dispatch: AppDispatch): T => {
+    const boundActions: Partial<T> = {};
+    for (const key of Object.keys(actionsBundle) as Array<keyof T>) {
         if (typeof actionsBundle[key] === "object") {
             // Рекурсивный вызов для вложенных объектов
-            bindedActions[key] = bindAllActionCreators(actionsBundle[key], dispatch);
+            boundActions[key] = bindAllActionCreators(actionsBundle[key], dispatch);
         } else if (typeof actionsBundle[key] === "function") {
             // Привязываем только функции (экшен-криейторы)
-            bindedActions[key] = bindActionCreators(actionsBundle[key], dispatch);
+            boundActions[key] = bindActionCreators(actionsBundle[key], dispatch);
         }
     }
-    return bindedActions;
+    return boundActions as T;
 };

@@ -1,5 +1,5 @@
 export {useAppSelector} from "./store";
-export {bindedActions} from "./actions";
+export {boundActions} from "./actions";
 export {bindedThunks} from "./thunks";
 export {store} from "./store";
 export * from "./types";
