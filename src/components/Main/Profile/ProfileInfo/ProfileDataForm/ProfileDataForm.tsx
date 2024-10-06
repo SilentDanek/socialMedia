@@ -45,7 +45,7 @@ export const ProfileDataForm: FC<ProfileDataFormProps> = ({ profile, setEditMode
 
         <ControlledCheckbox control={control} name={"lookingForAJob"} label={t("looking for a job")}/>
 
-        <ControlledTextField control={control} name={"lookingForAJobDescription"} label={t("my professional skills")}/>
+        <ControlledTextField control={control} name={"lookingForAJobDescription"} label={t("my professional skills")} multiline={true}/>
 
         <Fieldset>
             <Legend>{t("contacts")}</Legend>
@@ -58,10 +58,10 @@ export const ProfileDataForm: FC<ProfileDataFormProps> = ({ profile, setEditMode
         <FormErrorMessage>{formErrorMessage}</FormErrorMessage>
 
         <ButtonGroupWrapper>
-            <Button color="secondary" variant="contained" onClick={() => setEditMode(false)} sx={{width:"10%"}}>
+            <Button color="secondary" variant="contained" onClick={() => setEditMode(false)} sx={{minWidth:"150px", maxWidth:"250px"}}>
                 {t("cancel")}
             </Button>
-            <LoadingButton type="submit" variant="contained" loading={isSubmitting} sx={{width:"15%"}}>
+            <LoadingButton type="submit" variant="contained" loading={isSubmitting} sx={{minWidth:"150px", maxWidth:"250px"}}>
                 {t("save")}
             </LoadingButton>
         </ButtonGroupWrapper>

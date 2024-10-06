@@ -45,7 +45,9 @@ const Users: FC = () => {
                 currentPage={currentPage}
                 handlePageChanged={handlePageChanged}
                 totalItemsCount={totalUsersCount}
-                pageSize={pageSize}
+                itemsInPage={pageSize}
+                portionSize={7}
+                responsive={true}
             />
             <UsersSearchForm handleFilterChanged={handleFilterChanged} />
             {isFetching
@@ -58,7 +60,7 @@ const Users: FC = () => {
                         unfollow={unfollow}
                         followingInProgress={followingInProgress}
                     />))
-                    : "Empty =("
+                    : <img src="https://media.tenor.com/tVrkM5XhW-EAAAAM/flick-esfand.gif" alt="" />
             }
         </div>
     );

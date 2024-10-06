@@ -6,8 +6,8 @@ import { ProfileData } from "./ProfileData/ProfileData";
 import { bindedThunks, getUserStatus, useAppSelector, UserProfile } from "../../../../redux";
 import { AvatarLoader } from "./AvatarLoader/AvatarLoader";
 import { Avatar, Box, Button, Stack, Typography } from "@mui/material";
-import { ThemeBox } from "../../../common";
 import { useTranslation } from "react-i18next";
+import { ProfileContainer } from "./ProfileInfo.style";
 
 
 type ProfileInfoProps = {
@@ -21,26 +21,15 @@ export const ProfileInfo: FC<ProfileInfoProps> = ({ profile, isOwner }) => {
 
     const { updateStatus } = bindedThunks.profileThunks;
 
-    const avatar = <Avatar src={profile.photos.large || unknownUserSVG} sx={{ width: 120, height: 120 } } />;
+    const AvatarComponent = <Avatar src={profile.photos.large || unknownUserSVG} sx={{ width: 120, height: 120 } } />;
 
     return (
-        <ThemeBox
-            sx={{
-                margin: {
-                    xs: 0,
-                    sm: 0,
-                    md: "2px 15% 0 17%",
-                    ld: "2px 20% 0 25%",
-                },
-                padding: "2%",
-                maxWidth: "100%",
-            }}
-        >
+        <ProfileContainer>
             <Stack direction="row" alignItems="center" gap="4%">
                 <Box >
                     {isOwner
-                        ? <AvatarLoader>{avatar}</AvatarLoader>
-                        : avatar
+                        ? <AvatarLoader>{AvatarComponent}</AvatarLoader>
+                        : AvatarComponent
                     }
                 </Box >
                 <Stack>
@@ -54,6 +43,6 @@ export const ProfileInfo: FC<ProfileInfoProps> = ({ profile, isOwner }) => {
             {editMode
                 ? <ProfileDataForm profile={profile} setEditMode={setEditMode} />
                 : <ProfileData profile={profile}/>}
-        </ThemeBox>
+        </ProfileContainer>
     );
 };
