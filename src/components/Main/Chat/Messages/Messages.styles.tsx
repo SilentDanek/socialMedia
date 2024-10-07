@@ -9,10 +9,10 @@ export const MessagesWrapper = styled("section")(({ theme}) => ({
     gap:"6px",
     overflowY: "auto",
     [theme.breakpoints.up('md')]: {
-        padding: '0 25% 0 15%', // Для экранов шире md (960px по умолчанию)
+        padding: '0 25% 0 15%',
     },
     [theme.breakpoints.down('md')]: {
-        padding: "0 1% 0 1%", // Для экранов шире md (960px по умолчанию)
+        padding: "0 1% 0 1%",
     },
 }));
 
@@ -31,14 +31,14 @@ export const MessageContent:FC<MessageProps> = ({isMessageOwner, children}) => {
                     content: '""',
                     position: 'absolute',
                     top: 0,
-                    left: isMessageOwner ? 'auto' : '-12px', // Позиционирование для не владельца
-                    right: isMessageOwner ? '-12px' : 'auto', // Позиционирование для владельца
+                    left: isMessageOwner ? 'auto' : '-12px',
+                    right: isMessageOwner ? '-12px' : 'auto',
                     width: 0,
                     height: 0,
-                    border: '12px solid transparent', // Расширенный треугольник для границы
-                    borderTopColor: theme.palette.background.default, // Цвет границы хвостика
+                    border: '12px solid transparent',
+                    borderTopColor: theme.palette.background.default,
                     borderBottom: 'none',
-                    marginBottom: '-12px', // Поднимаем хвостик
+                    marginBottom: '-12px',
                 },
             }}
         >

@@ -26,12 +26,12 @@ export const ProfileInfo: FC<ProfileInfoProps> = ({ profile, isOwner }) => {
     return (
         <ProfileContainer>
             <Stack direction="row" alignItems="center" gap="4%">
-                <Box >
+                <Box>
                     {isOwner
                         ? <AvatarLoader>{AvatarComponent}</AvatarLoader>
                         : AvatarComponent
                     }
-                </Box >
+                </Box>
                 <Stack>
                     <Typography variant={"h5"}>{profile.fullName}</Typography>
                     <ProfileStatus status={status} updateStatus={updateStatus} />

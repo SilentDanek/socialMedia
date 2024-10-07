@@ -24,14 +24,14 @@ export function App() {
 
     return (
         <CustomThemeProvider>
-            <BrowserRouter basename={process.env.PUBLIC_URL}>
+            <BrowserRouter>
                 <Provider store={store}>
                     <Stack sx={{
                         display: 'flex',
                         height:"100vh",
                         flexDirection: {
-                            xs: 'column-reverse', // Изменить направление на column-reverse для экрана xs
-                            sm: 'row', // Изменить направление на row для экрана sm и выше
+                            xs: 'column-reverse',
+                            sm: 'row',
                         },
                     }}>
                         <NavBar />

@@ -1,9 +1,18 @@
-import { FC, UIEventHandler, useEffect, useRef, useState } from "react";
-import { getAuthUserId, getChatMessages, useAppSelector } from "../../../../redux";
-import { Avatar, Typography } from "@mui/material";
-import { NavLink } from "react-router-dom";
-import unknownUserSVG from "../../../../assets/images/unknown-user.svg";
-import { MessageContent, MessagesWrapper, MessageWrapper } from "./Messages.styles";
+import { FC, UIEventHandler, useEffect, useRef, useState } from 'react';
+import {
+    getAuthUserId,
+    getChatMessages,
+    useAppSelector,
+} from '../../../../redux';
+import { Avatar, Typography } from '@mui/material';
+import { NavLink } from 'react-router-dom';
+import unknownUserSVG from '../../../../assets/images/unknown-user.svg';
+
+import {
+    MessageContent,
+    MessagesWrapper,
+    MessageWrapper,
+} from './Messages.styles';
 
 export const Messages: FC = () => {
     const messages = useAppSelector(getChatMessages);
@@ -14,7 +23,7 @@ export const Messages: FC = () => {
 
     useEffect(() => {
         if (isAutoScroll) {
-            autoScrollRef.current?.scrollIntoView({ behavior: "smooth" });
+            autoScrollRef.current?.scrollIntoView({ behavior: 'smooth' });
         }
     }, [messages]);
 
@@ -27,13 +36,23 @@ export const Messages: FC = () => {
         }
     };
 
-    return <MessagesWrapper onScroll={handleScroll}>
-        {messages.map(m => <Message key={m.id} authUserId={authUserId} {...m} />)}
-        <div ref={autoScrollRef} />
-    </MessagesWrapper>;
+    return (
+        <MessagesWrapper onScroll={handleScroll}>
+            {messages.map((m) => (
+                <Message key={m.id} authUserId={authUserId} {...m} />
+            ))}
+            <div ref={autoScrollRef} />
+        </MessagesWrapper>
+    );
 };
 
-const Message: FC<Message> = ({ message, photo, userId, userName, authUserId }) => {
+const Message: FC<Message> = ({
+    message,
+    photo,
+    userId,
+    userName,
+    authUserId,
+}) => {
     const isMessageOwner = userId === authUserId;
     return (
         <MessageWrapper isMessageOwner={isMessageOwner}>
@@ -45,21 +64,26 @@ const Message: FC<Message> = ({ message, photo, userId, userName, authUserId }) 
                 />
             </NavLink>
             <MessageContent isMessageOwner={isMessageOwner}>
-                <Typography variant="subtitle1" sx={{ fontWeight: "bold", fontSize: "0.8rem", color: "#cb25cb" }}>
+                <Typography
+                    variant="subtitle1"
+                    sx={{
+                        fontWeight: 'bold',
+                        fontSize: '0.8rem',
+                        color: '#cb25cb',
+                    }}
+                >
                     {userName}
                 </Typography>
-                <Typography variant="body1">
-                    {message}
-                </Typography>
+                <Typography variant="body1">{message}</Typography>
             </MessageContent>
         </MessageWrapper>
     );
 };
 
 type Message = {
-    message: string,
-    photo: string,
-    userId: number,
-    userName: string
-    authUserId: number | null
-}
+    message: string;
+    photo: string;
+    userId: number;
+    userName: string;
+    authUserId: number | null;
+};

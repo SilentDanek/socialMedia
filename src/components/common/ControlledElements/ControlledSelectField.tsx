@@ -7,7 +7,7 @@ type ControlledSelectFieldProps<T extends FieldValues> = {
     control: Control<T>;
     label?: string;
     rules?: RegisterOptions<T, Path<T>>;
-    children: React.ReactNode; // Дети - это опции для Select
+    children: React.ReactNode;
 } & SelectProps;
 
 

@@ -1,4 +1,3 @@
-// hooks/useQueryParams.ts
 import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 import { UsersFilter } from "../redux";

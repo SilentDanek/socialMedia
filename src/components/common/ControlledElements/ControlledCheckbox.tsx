@@ -1,7 +1,6 @@
 import { Controller, Control, FieldValues, Path } from 'react-hook-form';
 import { FormControlLabel, Checkbox, CheckboxProps } from '@mui/material';
 
-// Определяем пропсы для универсального чекбокса
 type ControlledCheckboxProps<T extends FieldValues> = {
     name: Path<T>;
     control: Control<T>;

@@ -54,7 +54,7 @@ export const AddNewMessageForm: FC = () => {
                         InputProps={{
                             sx: {
                                 '& fieldset': {
-                                    border: 'none', // Убираем рамку
+                                    border: 'none',
                                 },
                                 minWidth:"150px"
                             },
