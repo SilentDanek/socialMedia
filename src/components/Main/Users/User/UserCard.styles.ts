@@ -3,8 +3,8 @@ import { Card, CardActions, CardContent, CardContentProps } from "@mui/material"
 
 export const StyledUserCard = styled(Card)(() => ({
     width: "100%",
-    margin: "20px auto",
-    padding: 2,
+    margin: "15px auto",
+    padding: 5,
     display: "flex",
     flexWrap: "wrap",
     flexDirection: "row",

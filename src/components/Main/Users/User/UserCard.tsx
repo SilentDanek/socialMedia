@@ -4,6 +4,7 @@ import { TUser } from "../../../../redux";
 import { FC } from "react";
 import { Button, CardMedia, Typography } from "@mui/material";
 import { StyledUserCard, UserCardActions, UserCardContent } from "./UserCard.styles";
+import { useTranslation } from "react-i18next";
 
 
 type UserCardProps = {
@@ -18,7 +19,9 @@ export const UserCard: FC<UserCardProps> = ({
                                                 unfollow,
                                                 followingInProgress,
                                             }) => {
-    let status = user.status || "No status available";
+    const {t} = useTranslation("users");
+
+    let status = user.status || t("no status available");
 
     if(status.length > 80){
         status = status.slice(0, 50) + "...";
@@ -58,14 +61,14 @@ export const UserCard: FC<UserCardProps> = ({
                     variant="contained"
                     color={user.followed ? "error" : "primary"}
                     size="small"
-                    sx={{ width: "100px" }}
+                    sx={{ width: "130px" }}
                     onClick={handleFollow}
                     disabled={handleFollowBlock()}
                 >
-                    {user.followed ? "Unfollow" : "Follow"}
+                    {user.followed ? t("unfollow"): t("follow")}
                 </Button>
-                <Button variant="contained" color="secondary" size="small" sx={{ width: "100px" }}>
-                    Message
+                <Button variant="contained" color="secondary" size="small" sx={{ width: "130px" }}>
+                    {t("message")}
                 </Button>
             </UserCardActions>
         </StyledUserCard>

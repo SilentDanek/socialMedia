@@ -5,6 +5,7 @@ import { ControlledTextField } from "../../../common";
 import { Button, MenuItem } from "@mui/material";
 import { ControlledSelectField } from "../../../common/ControlledElements/ControlledSelectField";
 import { styled } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 
 type Friend = "true" | "false" | "null";
 type FieldValues = {
@@ -18,6 +19,7 @@ type UsersSearchFormProps = {
 
 export const UsersSearchForm: FC<UsersSearchFormProps> = memo(({ handleFilterChanged }) => {
     const filter = useAppSelector(getUsersFilter);
+    const {t} = useTranslation("users");
 
     const {control, reset, handleSubmit} = useForm<FieldValues>({ defaultValues: {term: "", friend: "null"} });
     const {isSubmitting} = useFormState<FieldValues>({control} );
@@ -42,21 +44,20 @@ export const UsersSearchForm: FC<UsersSearchFormProps> = memo(({ handleFilterCha
         <Form onSubmit={handleSubmit(handleFilterSubmit)}>
             <ControlledTextField
                 control={control}
-                label={"Search"}
+                label={t("search")}
                 name={"term"}
                 type={"text"}
                 margin={"none"}
-
             />
 
-            <ControlledSelectField control={control} name={"friend"} label={"Friend status"} sx={{width:"200px"}}>
-                <MenuItem value="null">All</MenuItem>
-                <MenuItem value="true">Only followed</MenuItem>
-                <MenuItem value="false">Only unfollowed</MenuItem>
+            <ControlledSelectField control={control} name={"friend"} sx={{width:"200px"}}>
+                <MenuItem value="null">{t("all")}</MenuItem>
+                <MenuItem value="true">{t("only followed")}</MenuItem>
+                <MenuItem value="false">{t("only unfollowed")}</MenuItem>
             </ControlledSelectField>
 
             <Button type="submit" variant="contained" color="primary" disabled={isSubmitting}>
-                Find
+                {t("find")}
             </Button>
         </Form>
     );

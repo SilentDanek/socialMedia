@@ -9,6 +9,8 @@ import enChat from './locales/en/chat.json';
 import uaChat from './locales/ua/chat.json';
 import enProfile from './locales/en/profile.json';
 import uaProfile from './locales/ua/profile.json';
+import enUsers from './locales/en/users.json';
+import uaUsers from './locales/ua/users.json';
 
 const defaultLang = localStorage.getItem("language");
 
@@ -21,12 +23,14 @@ i18n
                 navbar: enNavbar,
                 chat: enChat,
                 profile: enProfile,
+                users: enUsers,
             },
             ua: {
                 login: uaLogin,
                 navbar: uaNavbar,
                 chat: uaChat,
                 profile: uaProfile,
+                users: uaUsers
             },
         },
         lng: defaultLang || 'en',
