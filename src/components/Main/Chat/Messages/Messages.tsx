@@ -1,22 +1,17 @@
 import { FC, UIEventHandler, useEffect, useRef, useState } from 'react';
-import {
-    getAuthUserId,
-    getChatMessages,
-    useAppSelector,
-} from '../../../../redux';
+import { ChatMessageType } from '../../../../redux';
 import { Avatar, Typography } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import unknownUserSVG from '../../../../assets/images/unknown-user.svg';
 
-import {
-    MessageContent,
-    MessagesWrapper,
-    MessageWrapper,
-} from './Messages.styles';
+import { MessageContent, MessagesWrapper, MessageWrapper } from './Messages.styles';
 
-export const Messages: FC = () => {
-    const messages = useAppSelector(getChatMessages);
-    const authUserId = useAppSelector(getAuthUserId);
+type MessagesProps = {
+    messages:  ChatMessageType[];
+    authUserId: number | null;
+}
+
+export const Messages: FC<MessagesProps> = ({messages, authUserId}) => {
     const [isAutoScroll, setIsAutoScroll] = useState(true);
 
     const autoScrollRef = useRef<HTMLDivElement>(null);

@@ -3,17 +3,11 @@ import { BorderLessThemeBox } from "../../../common";
 import { FC, ReactNode } from "react";
 import { Stack, useTheme } from "@mui/material";
 
-export const MessagesWrapper = styled("section")(({ theme}) => ({
+export const MessagesWrapper = styled("section")(({ }) => ({
     display:"flex",
     flexDirection:"column",
     gap:"6px",
     overflowY: "auto",
-    [theme.breakpoints.up('md')]: {
-        padding: '0 25% 0 15%',
-    },
-    [theme.breakpoints.down('md')]: {
-        padding: "0 1% 0 1%",
-    },
 }));
 
 export const MessageContent:FC<MessageProps> = ({isMessageOwner, children}) => {
