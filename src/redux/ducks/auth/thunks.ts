@@ -9,11 +9,17 @@ import { FormError } from "../../../api/Errors";
 type AuthThunk = ThunkAction<Promise<void>, State, unknown, AuthAction>;
 
 const getAuthUserData = ():AuthThunk => async (dispatch) => {
-    const response = await authAPI.getAuthUserData();
-    if (response.resultCode === ResultCodes.Success) {
-        const {id, login} = response.data;
-        dispatch(authActions.setAuthUserData(id, login, true));
+    try {
+        const response = await authAPI.getAuthUserData();
+        if (response.resultCode === ResultCodes.Success) {
+            const {id, login} = response.data;
+            dispatch(authActions.setAuthUserData(id, login, true));
+        }
+    } catch (error){
+        console.log(err);
     }
+
+
 };
 
 const login = (login: string, password: string, rememberMe: boolean, captcha = ""):AuthThunk => async (dispatch) => {
