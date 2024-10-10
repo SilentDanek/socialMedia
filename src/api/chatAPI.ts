@@ -110,6 +110,7 @@ export type ChatMessageAPIType = {
     userId: number
     userName: string
 }
+
 export type StatusType = 'pending' | 'ready' | 'error';
 type EventsNamesType = 'messages-received' | 'status-changed';
 type MessagesReceivedSubscriberType = (messages: ChatMessageAPIType[]) => void;

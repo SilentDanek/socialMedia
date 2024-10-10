@@ -14,6 +14,23 @@ interface Dialog {
     newMessagesCount: number;
 }
 
+export type Message = {
+    id: string;
+    body: string;
+    addedAt: string;
+    recipientId: string;
+    senderId: string;
+    senderName: string;
+    translatedBody: unknown;
+    viewed: boolean;
+}
+
+export type Messages = {
+    error: string | null | undefined;
+    items:Message[];
+    totalCount: number;
+}
+
 
 // Базовий URL для API
 const BASE_URL = 'https://social-network.samuraijs.com/api/1.0/';
@@ -47,7 +64,7 @@ export const dialogsApi = createApi({
         }),
 
         // Получить сообщения с пользователем
-        getMessages: builder.query<any, { userId: number; page?: number; count?: number }>({
+        getMessages: builder.query<Messages, { userId: number; page?: number; count?: number }>({
             query: ({ userId, page = 1, count = 10 }) =>
                 `dialogs/${userId}/messages?page=${page}&count=${count}`,
             providesTags: (_result, _error, { userId }) => [{ type: 'Messages', id: userId }],

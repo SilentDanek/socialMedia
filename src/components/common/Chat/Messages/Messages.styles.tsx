@@ -1,5 +1,5 @@
 import { styled } from "@mui/material/styles";
-import { BorderLessThemeBox } from "../../../common";
+import { BorderLessThemeBox } from "../../index.ts";
 import { FC, ReactNode } from "react";
 import { Stack, useTheme } from "@mui/material";
 
@@ -7,7 +7,7 @@ export const MessagesWrapper = styled("section")(({ }) => ({
     display:"flex",
     flexDirection:"column",
     gap:"6px",
-    overflowY: "auto",
+    overflowY:"scroll",
 }));
 
 export const MessageContent:FC<MessageProps> = ({isMessageOwner, children}) => {
@@ -15,11 +15,11 @@ export const MessageContent:FC<MessageProps> = ({isMessageOwner, children}) => {
     return (
         <BorderLessThemeBox
             sx={{
+                margin:`0 ${isMessageOwner? "12px":0} 0 ${isMessageOwner? 0: "12px"}`,
                 position: 'relative',
                 p: 1,
                 borderRadius: "12px",
                 maxWidth: "70%",
-                height: "auto",
                 wordBreak:"break-word",
                 '&::before': {
                     content: '""',
