@@ -16,10 +16,8 @@ const getAuthUserData = ():AuthThunk => async (dispatch) => {
             dispatch(authActions.setAuthUserData(id, login, true));
         }
     } catch (error){
-        console.log(err);
+        console.log(error);
     }
-
-
 };
 
 const login = (login: string, password: string, rememberMe: boolean, captcha = ""):AuthThunk => async (dispatch) => {

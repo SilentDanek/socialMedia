@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { UserProfile } from "../../../../../redux";
 import { Box, List, ListItem, Typography } from "@mui/material";
 import { FieldsetLike, FlexLink, LegendLike } from "./ProfileData.style";

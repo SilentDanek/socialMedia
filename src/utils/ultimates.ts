@@ -1,3 +1,5 @@
+import { Messages } from '../api/dialogsAPI.ts';
+
 export const updateItemsByCondition = <T>(items:T[], fieldName:keyof T, conditionValue:T[keyof T], {...newValues}:Partial<T>) => {
     return items.map(
         (item) => {
@@ -27,6 +29,21 @@ declare global {
         testArr: typeof testArr;
     }
 }
+
+
+export const convertToCommonMessage = (messages:Messages) => {
+    return messages.items.map((message) => ({
+            viewed: message.viewed,
+            message: message.body,
+            userId: +message.senderId,
+            userName: message.senderName,
+            id: message.id,
+            addedAt: message.addedAt,
+            recipientId: message.recipientId,
+            translatedBody: message.translatedBody
+        }));
+}
+
 
 window.testArr = testArr;
 

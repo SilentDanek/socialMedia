@@ -14,7 +14,7 @@ export const chatReducer = (state = initialState, action: ChatActions): ChatStat
             return {
                 ...state,
                 messages: [...state.messages, ...action.payload.messages.map( m => ({...m, id: v1() }))]
-                    .filter((m, index, array) => index >= array.length - 100)
+                    .filter((_m, index, array) => index >= array.length - 100)
             }
         case ChatActionTypes.STATUS_CHANGED:
             return {

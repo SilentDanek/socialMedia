@@ -11,7 +11,7 @@ type DialogItemProps = {
     newMessagesCount: number;
     photos: Photos;
     userName: string;
-    setSelectedUser: Dispatch<SetStateAction<number | null>>;
+    setSelectedUser: Dispatch<SetStateAction<number | null>> | any;
 }
 
 export const DialogItem: FC<DialogItemProps> = ({

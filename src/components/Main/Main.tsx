@@ -16,7 +16,7 @@ const LazyUsers = lazy(() => import("./Users/Users"));
 const LazyDialogs = lazy(() => import("./Dialogs/Dialogs"));
 const LazyProfile = lazy(() => import("./Profile/Profile"));
 const LazyLogin = lazy(() => import("./Login/Login"));
-const LazyChat = lazy(() => import("./Chat/Chat"));
+const LazyChat = lazy(() => import("./Chat/GlobalChat.tsx"));
 
 const ProtectedRoute = ({ isAuth, navigateTo }: { isAuth: boolean, navigateTo: string }) => {
     return isAuth ? <Outlet /> : <Navigate to={navigateTo} />;
