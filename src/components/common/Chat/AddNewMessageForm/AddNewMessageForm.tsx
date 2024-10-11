@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { FC } from 'react';
 
 
-export const AddNewMessageForm: FC<AddNewMessageFormProps> = ({ sendMessage, blockSubmitButton, sx }) => {
+export const AddNewMessageForm: FC<AddNewMessageFormProps> = ({ sendMessage, blockSubmitButton }) => {
     const { handleSubmit, control, resetField } = useForm<FieldValues>({ defaultValues: { newMessage: '' } });
     const { t } = useTranslation('chat');
 
@@ -14,7 +14,7 @@ export const AddNewMessageForm: FC<AddNewMessageFormProps> = ({ sendMessage, blo
         resetField('newMessage');
     };
 
-    return <Paper elevation={3} sx={{ borderRadius: '25px', ...sx }}>
+    return <Paper elevation={3} sx={{ borderRadius: '25px'}}>
         <form onSubmit={handleSubmit(handleSendMessage)}
               style={{ width: '100%', display: 'flex' }}>
             <IconButton>

@@ -1,6 +1,6 @@
 import { Paginator } from "../../common";
 import { UserCard } from "./User/UserCard";
-import React, { FC, useCallback } from "react";
+import { FC, useCallback } from "react";
 import {
     bindedThunks,
     getCurrentPage,

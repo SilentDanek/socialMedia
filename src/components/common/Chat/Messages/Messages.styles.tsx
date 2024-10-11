@@ -5,9 +5,15 @@ import { Stack, useTheme } from "@mui/material";
 
 export const MessagesWrapper = styled("section")(({ }) => ({
     display:"flex",
+    flexGrow: 1,
     flexDirection:"column",
     gap:"6px",
     overflowY:"scroll",
+
+    // Используйте функцию для вложенных стилей
+    '& > :first-child': {
+        marginTop: 'auto !important', // Используйте кавычки для значения
+    }
 }));
 
 export const MessageContent:FC<MessageProps> = ({isMessageOwner, children}) => {

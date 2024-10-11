@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Photos } from '../redux';
 
 // Типи даних
-interface Dialog {
+export interface Dialog {
     id: number;
     photos: Photos;
     userName: string;

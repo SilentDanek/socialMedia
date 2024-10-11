@@ -1,5 +1,5 @@
 import { Dispatch, FC, SetStateAction } from 'react';
-import { Photos } from '../../../../redux';
+import { Dialog, Photos } from '../../../../redux';
 import { Avatar, Box, Card, CardContent, Chip, Stack, Typography, useTheme } from '@mui/material';
 import unknownUserSvg from '../../../../assets/images/unknown-user.svg';
 
@@ -11,7 +11,7 @@ type DialogItemProps = {
     newMessagesCount: number;
     photos: Photos;
     userName: string;
-    setSelectedUser: Dispatch<SetStateAction<number | null>> | any;
+    setSelectedUser: Dispatch<SetStateAction<Dialog | null>> | any;
 }
 
 export const DialogItem: FC<DialogItemProps> = ({
@@ -29,6 +29,7 @@ export const DialogItem: FC<DialogItemProps> = ({
 
     const theme = useTheme();
 
+
     return (<Card sx={{
             cursor: 'pointer',
             transition: 'background-color 0.4s',
@@ -38,9 +39,13 @@ export const DialogItem: FC<DialogItemProps> = ({
             }
         }}>
             <CardContent style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
-                         onClick={() => setSelectedUser(id)}>
+                         onClick={() => setSelectedUser({ id, photos, userName })}>
                 <Avatar alt={userName} src={photos.large || unknownUserSvg} sx={{ width: 75, height: 75 }} />
-                <Box sx={{ flexGrow: 1, paddingLeft: '16px' }}>
+                <Box sx={{ flexGrow: 1, paddingLeft: '16px', display: {
+                        xs:'none',
+                        md:'block'
+                    }
+                        }}>
                     <Stack direction={'row'} justifyContent={'space-between'}>
                         <Typography variant="body1" overflow={'clip'}>{userName}</Typography>
                         <Typography variant="subtitle2" color="textSecondary">
