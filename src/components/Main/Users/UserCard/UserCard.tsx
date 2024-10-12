@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import unknownUserSVG from '../../../../assets/images/unknown-user.svg';
 import { TUser } from '../../../../redux';
 import { FC } from 'react';
@@ -9,6 +9,7 @@ import {
     UserCardContent,
 } from './UserCard.styles';
 import { useTranslation } from 'react-i18next';
+import { useStartChatMutation } from '../../../../api/dialogsAPI.ts';
 
 type UserCardProps = {
     user: TUser;
@@ -30,8 +31,8 @@ export const UserCard: FC<UserCardProps> = ({
         status = status.slice(0, 50) + '...';
     }
 
-    const handleFollowBlock = () =>
-        followingInProgress.some((id: number) => id === user.id);
+    const handleFollowBlock = () => followingInProgress.some((id: number) => id === user.id);
+
     const handleFollow = () => {
         if (user.followed) {
             unfollow(user.id);
@@ -39,6 +40,13 @@ export const UserCard: FC<UserCardProps> = ({
             follow(user.id);
         }
     };
+
+    const [ startNewDialog ] = useStartChatMutation();
+    const navigate = useNavigate();
+    const handleToDialog = (id:number) => {
+        startNewDialog(id);
+        navigate(`/dialogs/${id}`);
+    }
 
     return (
         <StyledUserCard>
@@ -76,6 +84,7 @@ export const UserCard: FC<UserCardProps> = ({
                     color="secondary"
                     size="small"
                     sx={{ width: '130px' }}
+                    onClick={() => handleToDialog(user.id)}
                 >
                     {t('message')}
                 </Button>
