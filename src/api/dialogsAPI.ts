@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Photos } from '../redux';
 
 // Типи даних
-export interface Dialog {
+export interface DialogResponse {
     id: number;
     photos: Photos;
     userName: string;
@@ -14,7 +14,7 @@ export interface Dialog {
     newMessagesCount: number;
 }
 
-export type Message = {
+export type MessageResponse = {
     id: string;
     body: string;
     addedAt: string;
@@ -25,9 +25,9 @@ export type Message = {
     viewed: boolean;
 }
 
-export type Messages = {
+export type MessagesResponse = {
     error: string | null | undefined;
-    items:Message[];
+    items:MessageResponse[];
     totalCount: number;
 }
 
@@ -55,12 +55,12 @@ export const dialogsApi = createApi({
             invalidatesTags: ['Dialogs'],
         }),
 
-        getDialogs: builder.query<Dialog[], void>({
+        getDialogs: builder.query<DialogResponse[], void>({
             query: () => 'dialogs',
             providesTags: ['Dialogs'],
         }),
 
-        getMessages: builder.query<Messages, { userId: number; page?: number; count?: number }>({
+        getMessages: builder.query<MessagesResponse, { userId: number; page?: number; count?: number }>({
             query: ({ userId, page = 1, count = 10 }) =>
                 `dialogs/${userId}/messages?page=${page}&count=${count}`,
             providesTags: (_result, _error, { userId }) => [{ type: 'Messages', id: userId }],

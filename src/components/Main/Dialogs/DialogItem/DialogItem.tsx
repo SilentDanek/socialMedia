@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction } from 'react';
+import { FC } from 'react';
 import { Photos } from '../../../../redux';
 import { Avatar, Box, Card, CardContent, Chip, Stack, Typography, useTheme } from '@mui/material';
 import unknownUserSvg from '../../../../assets/images/unknown-user.svg';
@@ -11,7 +11,7 @@ type DialogItemProps = {
     newMessagesCount: number;
     photos: Photos;
     userName: string;
-    setSelectedUser: Dispatch<SetStateAction<any | null>>;
+    setSelectedUser: (selectedUserId:number) => void;
 }
 
 export const DialogItem: FC<DialogItemProps> = ({
@@ -39,7 +39,7 @@ export const DialogItem: FC<DialogItemProps> = ({
             }
         }}>
             <CardContent style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
-                         onClick={() => setSelectedUser({ id, photos, userName })}>
+                         onClick={() => setSelectedUser(id)}>
                 <Avatar alt={userName} src={photos.large || unknownUserSvg} sx={{ width: 60, height: 60 }} />
                 <Box sx={{ flexGrow: 1, paddingLeft: '16px', display: {
                         xs:'none',

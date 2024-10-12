@@ -1,4 +1,4 @@
-import { Messages } from '../api/dialogsAPI.ts';
+import { MessagesResponse } from '../api/dialogsAPI.ts';
 
 export const updateItemsByCondition = <T>(items:T[], fieldName:keyof T, conditionValue:T[keyof T], {...newValues}:Partial<T>) => {
     return items.map(
@@ -31,7 +31,7 @@ declare global {
 }
 
 
-export const convertToCommonMessage = (messages:Messages) => {
+export const convertToCommonMessage = (messages:MessagesResponse) => {
     return messages.items.map((message) => ({
             viewed: message.viewed,
             message: message.body,

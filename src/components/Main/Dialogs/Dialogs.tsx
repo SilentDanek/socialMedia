@@ -1,6 +1,6 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import {
-    Dialog as DialogType,
+    DialogResponse,
     useGetDialogsQuery,
     useGetMessagesQuery,
     useSendMessageMutation
@@ -10,37 +10,48 @@ import { Avatar, Stack } from '@mui/material';
 import { DialogItem } from './DialogItem';
 import { convertToCommonMessage } from '../../../utils';
 import unknownUserSvg from '../../../assets/images/unknown-user.svg';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 
-
-type SelectedUser = Pick<DialogType, 'id' | 'photos' | 'userName'>
 
 const Dialogs: FC = () => {
-    const [selectedUser, setSelectedUser] = useState<null | SelectedUser>(null);
+    const [selectedFriendId, setSelectedFriendId] = useState<null | number>(null);
     const { data: recentDialogs, isLoading, isFetching } = useGetDialogsQuery();
 
+    const { friendId } = useParams();
+    useEffect(() => {
+        if (friendId){
+            setSelectedFriendId(+friendId);
+        }
+    }, []);
+
+    const navigate = useNavigate();
+    const handleUserClick = (id:number) => {
+        setSelectedFriendId(id);
+        navigate(`/dialogs/${id}`);
+    };
 
     if (isLoading || isFetching) {
         return <Preloader />;
     }
 
+    const selectedFriendInfo = recentDialogs?.find((friend) => friend.id === selectedFriendId);
+
     return (
         <Stack direction={'row'} sx={{ height: '100%'}}>
             <ThemeBox sx={{ height: '100%', minWidth:{sm:'100px', md:"400px"}}}>
-                {recentDialogs?.map((d) => <DialogItem setSelectedUser={setSelectedUser} key={d.id} {...d} />)}
+                {recentDialogs?.map((d) => <DialogItem setSelectedUser={handleUserClick} key={d.id} {...d} />)}
             </ThemeBox>
 
-            {selectedUser && <Dialog key={selectedUser.id}
-                                     selectedUser={selectedUser}
-                                     setSelectedUser={setSelectedUser} />}
+            {selectedFriendInfo && <Dialog key={friendId}
+                                         selectedFriendInfo={selectedFriendInfo} />}
 
         </Stack>
     );
 };
 
 
-const Dialog: FC<DialogProps> = ({ selectedUser }) => {
-    const { data: messages, isSuccess, isError } = useGetMessagesQuery({ userId: selectedUser.id, count: 10 });
+const Dialog: FC<DialogProps> = ({ selectedFriendInfo:{id, photos, userName} }) => {
+    const { data: messages, isSuccess, isError } = useGetMessagesQuery({ userId: id, count: 10 });
     const [sendMessage, { isLoading: isMessageSending }] = useSendMessageMutation();
 
     if (!isSuccess) {
@@ -51,7 +62,7 @@ const Dialog: FC<DialogProps> = ({ selectedUser }) => {
     const convertedMessages = convertToCommonMessage(messages);
 
     const handleSendMessage = (newMessage: string) => {
-        sendMessage({ body: newMessage, userId: selectedUser.id || -1 });
+        sendMessage({ body: newMessage, userId: id || -1 });
     };
 
     return <Chat blockSubmitButton={isMessageSending}
@@ -60,10 +71,10 @@ const Dialog: FC<DialogProps> = ({ selectedUser }) => {
                  messages={convertedMessages}
                  chatHeader={
                      <ThemeBox sx={{ p:1}}>
-                         <NavLink to={`/profile/${selectedUser.id}`}
+                         <NavLink to={`/profile/${id}`}
                                   style={{ display: 'flex', alignItems: 'center', gap: 10, padding: 1 }}>
-                             <Avatar src={selectedUser.photos.large || unknownUserSvg}/>
-                             {selectedUser.userName}
+                             <Avatar src={photos.large || unknownUserSvg}/>
+                             {userName}
                          </NavLink>
                      </ThemeBox>
                  }
@@ -71,8 +82,7 @@ const Dialog: FC<DialogProps> = ({ selectedUser }) => {
 };
 
 type DialogProps = {
-    selectedUser: SelectedUser;
-    setSelectedUser: any;
+    selectedFriendInfo: DialogResponse;
 }
 
 
