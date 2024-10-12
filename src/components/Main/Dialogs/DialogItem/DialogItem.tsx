@@ -40,7 +40,7 @@ export const DialogItem: FC<DialogItemProps> = ({
         }}>
             <CardContent style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
                          onClick={() => setSelectedUser({ id, photos, userName })}>
-                <Avatar alt={userName} src={photos.large || unknownUserSvg} sx={{ width: 75, height: 75 }} />
+                <Avatar alt={userName} src={photos.large || unknownUserSvg} sx={{ width: 60, height: 60 }} />
                 <Box sx={{ flexGrow: 1, paddingLeft: '16px', display: {
                         xs:'none',
                         md:'block'

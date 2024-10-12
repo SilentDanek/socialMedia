@@ -51,7 +51,7 @@ export const UserCard: FC<UserCardProps> = ({
                 />
             </NavLink>
 
-            <UserCardContent sx={{ flexGrow: 1, flexBasis: '200px' }}>
+            <UserCardContent sx={{  flexBasis: '200px' }}>
                 <Typography variant="h6" component="div">
                     {user.name}
                 </Typography>
@@ -60,7 +60,7 @@ export const UserCard: FC<UserCardProps> = ({
                 </Typography>
             </UserCardContent>
 
-            <UserCardActions>
+            <UserCardActions disableSpacing>
                 <Button
                     variant="contained"
                     color={user.followed ? 'error' : 'primary'}

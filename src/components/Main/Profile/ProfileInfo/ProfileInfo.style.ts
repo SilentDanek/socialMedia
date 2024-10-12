@@ -6,12 +6,10 @@ export const ProfileContainer = styled(ThemeBox)(({ theme }) => ({
     [theme.breakpoints.down('md')]: {
         margin: 0,
     },
-    [theme.breakpoints.up('md')]: {
-        margin: "2px 15% 0 17%",
-    },
-    [theme.breakpoints.up('lg')]: {
-        margin: "2px 20% 0 25%",
-    },
+    margin:'auto',
     padding: "2%",
-    maxWidth: "100%",
+
+    maxHeight:'100%',
+    overflowY:'auto',
+    maxWidth: "750px",
 }));

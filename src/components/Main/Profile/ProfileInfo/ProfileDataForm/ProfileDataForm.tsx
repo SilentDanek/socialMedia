@@ -38,7 +38,7 @@ export const ProfileDataForm: FC<ProfileDataFormProps> = ({ profile, setEditMode
         }
     };
 
-    return <form onSubmit={handleSubmit(handleProfileSubmit)} noValidate={true}>
+    return <form onSubmit={handleSubmit(handleProfileSubmit)} noValidate={true} >
         <ControlledTextField control={control} name={"fullName"} label={t("full name")}/>
 
         <ControlledTextField control={control} name={"aboutMe"} label={t("about me")} multiline={true}/>
