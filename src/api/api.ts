@@ -8,7 +8,6 @@ export { userAPI } from './userAPI';
 export enum ResultCodes {
   Success = 0,
   Error = 1,
-  InternalServerError = 500
 }
 
 export enum ResultCodeForCaptcha {

@@ -2,6 +2,7 @@ import { ChangeEvent, FC, useEffect, useState } from "react";
 import { Typography } from "@mui/material";
 
 
+
 type ProfileStatusProps = {
     status: string;
     updateStatus: (newStatus: string) => void;

@@ -3,7 +3,7 @@ import HomePage from "./HomePage/HomePage";
 import { Preloader, SuspensePreload } from "../common";
 import { FC, lazy, useEffect } from "react";
 import {
-    bindedThunks,
+    boundThunks,
     getAuthStatus,
     getAuthUserId,
     getErrorPageMessage,
@@ -28,7 +28,7 @@ export const Main: FC = () => {
     const isInitialized = useAppSelector(getIsInitialized);
     const id = useAppSelector(getAuthUserId);
 
-    const { initialize } = bindedThunks.mainThunks;
+    const { initialize } = boundThunks.mainThunks;
 
     useEffect(() => {
         initialize();
@@ -42,7 +42,7 @@ export const Main: FC = () => {
                         <Route path="/profile/:userID" element={<LazyProfile />} />
                         <Route path="/users/*" element={<LazyUsers />} />
                         <Route element={<ProtectedRoute isAuth={isAuth} navigateTo={"/login"} />}>
-                            <Route path="/dialogs" element={<LazyDialogs />} />
+                            <Route path="/dialogs/:friendId?" element={<LazyDialogs />} />
                             <Route path="/chat" element={<LazyChat />} />
                         </Route>
                         <Route element={<ProtectedRoute isAuth={!isAuth} navigateTo={`/profile/${id}`} />}>

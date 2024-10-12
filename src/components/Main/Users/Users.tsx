@@ -1,8 +1,8 @@
 import { Paginator } from "../../common";
-import { UserCard } from "./User/UserCard";
+import { UserCard, UserCardSkeleton } from "./UserCard";
 import { FC, useCallback } from "react";
 import {
-    bindedThunks,
+    boundThunks,
     getCurrentPage,
     getFollowingInProgress,
     getIsFetching,
@@ -13,9 +13,8 @@ import {
     useAppSelector,
     UsersFilter
 } from "../../../redux";
-import { UsersSearchForm } from "./NewSearchForm/NewSearchForm";
+import { UsersSearchForm } from "./NewSearchForm";
 import { useUsersQueryParams } from "../../../hooks/useUsersQueryParams";
-import { UserCardSkeleton } from "./User/UserCardSkeleton";
 import { UsersSection, UsersWrapper } from "./Users.styles";
 
 const Users: FC = () => {
@@ -28,7 +27,7 @@ const Users: FC = () => {
     const followingInProgress = useAppSelector(getFollowingInProgress);
     const filter = useAppSelector(getUsersFilter);
 
-    const { requestUsers, follow, unfollow } = bindedThunks.usersThunks;
+    const { requestUsers, follow, unfollow } = boundThunks.usersThunks;
 
     //Synchronization of query params and filters
     useUsersQueryParams(currentPage, filter, requestUsers, pageSize);

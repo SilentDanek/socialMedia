@@ -3,14 +3,6 @@ import {Photos, UserProfile} from "./types";
 
 
 export const profileActions = {
-    addPost: (text: string) => ({
-        type: ProfileActionTypes.ADD_POST,
-        payload: {text}
-    } as const),
-    deletePost: (id: number) => ({
-        type: ProfileActionTypes.DELETE_POST,
-        payload: {id}
-    } as const),
     setUserProfile: (profile: UserProfile) => ({
         type: ProfileActionTypes.SET_USER_PROFILE,
         payload: {profile}

@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { bindedThunks, getAuthStatus, getAuthUserId, getCaptchaUrl, useAppSelector } from "../../../redux";
+import { boundThunks, getAuthStatus, getAuthUserId, getCaptchaUrl, useAppSelector } from "../../../redux";
 import { useNavigate } from "react-router-dom";
 import { useForm, useFormState } from "react-hook-form";
 import { FormError } from "../../../api/Errors";
@@ -23,7 +23,7 @@ const Login: FC = () => {
     const captchaUrl = useAppSelector(getCaptchaUrl);
     const { t } = useTranslation("login");
 
-    const { login } = bindedThunks.authThunks;
+    const { login } = boundThunks.authThunks;
     const { setError, control, handleSubmit, setValue, reset } = useForm<LoginFieldValues>({
         defaultValues: {
             email: '',

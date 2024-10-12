@@ -1,4 +1,4 @@
-import {Photos, UserProfile} from "../redux/ducks/profile/types";
+import {Photos, UserProfile} from "../redux";
 import {DefaultResponse, instance} from "./api";
 
 
@@ -6,25 +6,31 @@ type GetStatusResponse = string;
 type GetUserProfileResponse = DefaultResponse & UserProfile;
 type UpdateUserProfileResponse = DefaultResponse & UserProfile;
 type UpdatePhotoResponse = DefaultResponse & { data: { photos: Photos } };
+
 export const profileAPI = {
-    getStatus(userID: number) {
-        return instance.get<GetStatusResponse>(`profile/status/${userID}`).then(response => response.data);
+    async getStatus(userID: number) {
+        const response = await instance.get<GetStatusResponse>(`profile/status/${userID}`);
+        return response.data;
     },
-    updateStatus(status: string) {
-        return instance.put<DefaultResponse>("profile/status", {status}).then(response => response.data);
+    async updateStatus(status: string) {
+        const response = await instance.put<DefaultResponse>('profile/status', { status });
+        return response.data;
     },
-    getUserProfile(userID: number) {
-        return instance.get<GetUserProfileResponse>(`profile/${userID}`).then(response => response.data);
+    async getUserProfile(userID: number) {
+        const response = await instance.get<GetUserProfileResponse>(`profile/${userID}`);
+        return response.data;
     },
-    updateUserProfile(newProfile: UserProfile) {
-        return instance.put<UpdateUserProfileResponse>("profile", newProfile).then(response => response.data);
+    async updateUserProfile(newProfile: UserProfile) {
+        const response = await instance.put<UpdateUserProfileResponse>('profile', newProfile);
+        return response.data;
     },
-    updatePhoto(file: FormData) {
-        return instance.put<UpdatePhotoResponse>("profile/photo", file, {
+    async updatePhoto(file: FormData) {
+        const response = await instance.put<UpdatePhotoResponse>('profile/photo', file, {
                 headers: {
-                    "Content-Type": "multipart/form-data"
+                    'Content-Type': 'multipart/form-data'
                 }
             }
-        ).then(response => response.data);
+        );
+        return response.data;
     },
 }

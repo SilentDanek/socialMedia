@@ -7,7 +7,7 @@ import {
 } from '../../../api/dialogsAPI.ts';
 import { Chat, Preloader, ThemeBox } from '../../common';
 import { Avatar, Stack } from '@mui/material';
-import { DialogItem } from './DialogItem/DialogItem.tsx';
+import { DialogItem } from './DialogItem';
 import { convertToCommonMessage } from '../../../utils';
 import unknownUserSvg from '../../../assets/images/unknown-user.svg';
 import { NavLink } from 'react-router-dom';
@@ -18,6 +18,7 @@ type SelectedUser = Pick<DialogType, 'id' | 'photos' | 'userName'>
 const Dialogs: FC = () => {
     const [selectedUser, setSelectedUser] = useState<null | SelectedUser>(null);
     const { data: recentDialogs, isLoading, isFetching } = useGetDialogsQuery();
+
 
     if (isLoading || isFetching) {
         return <Preloader />;

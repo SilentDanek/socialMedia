@@ -1,5 +1,5 @@
 import { Dispatch, FC, SetStateAction, useState } from "react";
-import { bindedThunks, Contacts, UserProfile } from "../../../../../redux";
+import { boundThunks, Contacts, UserProfile } from "../../../../../redux";
 import { Control, useForm, useFormState } from "react-hook-form";
 import { ContactFormError, FormError } from "../../../../../api/Errors";
 import { LoadingButton } from "@mui/lab";
@@ -20,7 +20,7 @@ export const ProfileDataForm: FC<ProfileDataFormProps> = ({ profile, setEditMode
     const { isSubmitting } = useFormState({ control });
     const [formErrorMessage, setFormErrorMessage] = useState("");
 
-    const { updateUserProfile } = bindedThunks.profileThunks;
+    const { updateUserProfile } = boundThunks.profileThunks;
     const handleProfileSubmit = async (formData: UserProfile) => {
         try {
             await updateUserProfile(formData);
@@ -70,7 +70,7 @@ export const ProfileDataForm: FC<ProfileDataFormProps> = ({ profile, setEditMode
 
 type ContactFormElement = {
     mediaName: keyof Contacts;
-    control: Control<FormFields, any>
+    control: Control<FormFields, unknown>
 };
 
 const ContactFormElement: FC<ContactFormElement> = ({ mediaName, control }) => {

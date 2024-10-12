@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import {
-    bindedThunks,
+    boundThunks,
     boundActions,
     getChatMessages,
     getChatStatus,
@@ -12,10 +12,10 @@ const GlobalChat = () => {
     const status = useAppSelector(getChatStatus);
     const messages = useAppSelector(getChatMessages);
 
-    const { startMessagesListening, stopMessagesListening } = bindedThunks.chatThunks;
+    const { startMessagesListening, stopMessagesListening } = boundThunks.chatThunks;
     const { clearMessages } = boundActions.chatActions;
 
-    const { sendMessage } = bindedThunks.chatThunks;
+    const { sendMessage } = boundThunks.chatThunks;
 
     useEffect(() => {
         startMessagesListening();

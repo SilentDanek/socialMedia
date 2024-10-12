@@ -1,13 +1,13 @@
-import { ProfileStatus } from "./ProfileStatus/ProfileStatus";
-import unknownUserSVG from "../../../../assets/images/unknown-user.svg";
-import { FC, useState } from "react";
-import { ProfileDataForm } from "./ProfileDataForm/ProfileDataForm";
-import { ProfileData } from "./ProfileData/ProfileData";
-import { bindedThunks, getUserStatus, useAppSelector, UserProfile } from "../../../../redux";
-import { AvatarLoader } from "./AvatarLoader/AvatarLoader";
-import { Avatar, Box, Button, Stack, Typography } from "@mui/material";
-import { useTranslation } from "react-i18next";
-import { ProfileContainer } from "./ProfileInfo.style";
+import unknownUserSVG from '../../../../assets/images/unknown-user.svg';
+import { FC, useState } from 'react';
+import { ProfileDataForm } from './ProfileDataForm';
+import { ProfileData } from './ProfileData'
+import { ProfileStatus } from './ProfileStatus';
+import { AvatarLoader } from './AvatarLoader';
+import { boundThunks, getUserStatus, useAppSelector, UserProfile } from '../../../../redux';
+import { Avatar, Box, Button, Stack, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { ProfileContainer } from './ProfileInfo.style';
 
 
 type ProfileInfoProps = {
@@ -19,7 +19,7 @@ export const ProfileInfo: FC<ProfileInfoProps> = ({ profile, isOwner }) => {
     const status = useAppSelector(getUserStatus);
     const {t} = useTranslation("profile");
 
-    const { updateStatus } = bindedThunks.profileThunks;
+    const { updateStatus } = boundThunks.profileThunks;
 
     const AvatarComponent = <Avatar src={profile.photos.large || unknownUserSVG} sx={{ width: 120, height: 120 } } />;
 

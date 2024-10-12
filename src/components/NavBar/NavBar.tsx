@@ -2,7 +2,7 @@ import { FC, ReactNode, useState } from "react";
 import { getAuthStatus, getAuthUserId, useAppSelector } from "../../redux/";
 import { ListItem, Paper } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import { Nav, NavBarList, NavBarListItemButton, NavBarListItemIcon, NavBarListItemText } from "./NavItemComponents";
+import { Nav, NavBarList, NavBarListItemButton, NavBarListItemIcon, NavBarListItemText } from "./NavBar.styles.tsx";
 import { SettingsMenu } from "./SettingsMenu";
 import { useTranslation } from "react-i18next";
 import { useProtectedRoutes } from "./useProtectedRoutes";

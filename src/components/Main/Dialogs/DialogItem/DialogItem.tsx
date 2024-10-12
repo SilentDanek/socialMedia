@@ -1,5 +1,5 @@
 import { Dispatch, FC, SetStateAction } from 'react';
-import { Dialog, Photos } from '../../../../redux';
+import { Photos } from '../../../../redux';
 import { Avatar, Box, Card, CardContent, Chip, Stack, Typography, useTheme } from '@mui/material';
 import unknownUserSvg from '../../../../assets/images/unknown-user.svg';
 
@@ -11,7 +11,7 @@ type DialogItemProps = {
     newMessagesCount: number;
     photos: Photos;
     userName: string;
-    setSelectedUser: Dispatch<SetStateAction<Dialog | null>> | any;
+    setSelectedUser: Dispatch<SetStateAction<any | null>>;
 }
 
 export const DialogItem: FC<DialogItemProps> = ({

@@ -3,12 +3,15 @@ import { styled } from "@mui/material/styles";
 
 export const Nav = styled('nav')(({ theme }) => ({
     background: "#512da8",
-    borderRight: "gray 3px solid",
     [theme.breakpoints.down('lg')]: {
         width:"auto",
+        borderRight: "none",
+        borderTop: "gray 2px solid"
     },
     [theme.breakpoints.up('lg')]: {
         width:"260px",
+        borderRight: "gray 2px solid",
+        borderTop: "none"
     },
 }));
 

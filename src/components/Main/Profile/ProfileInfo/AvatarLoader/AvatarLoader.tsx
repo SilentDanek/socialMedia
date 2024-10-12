@@ -1,7 +1,7 @@
 import { Box, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { ChangeEvent, FC, ReactNode, useRef } from "react";
-import { bindedThunks } from "../../../../../redux";
+import { boundThunks } from "../../../../../redux";
 
 type AvatarLoaderProps = {
     children: ReactNode
@@ -9,7 +9,7 @@ type AvatarLoaderProps = {
 
 export const AvatarLoader: FC<AvatarLoaderProps> = ({ children }) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const { updatePhoto } = bindedThunks.profileThunks;
+    const { updatePhoto } = boundThunks.profileThunks;
 
 
     const handleAvatarClick = () => {

@@ -1,13 +1,13 @@
 import { Select, SelectProps } from "@mui/material";
 import { Control, Controller, FieldValues, Path, RegisterOptions } from "react-hook-form";
-import { useId } from "react";
+import { ReactNode, useId } from 'react';
 
 type ControlledSelectFieldProps<T extends FieldValues> = {
     name: Path<T>;
     control: Control<T>;
     label?: string;
     rules?: RegisterOptions<T, Path<T>>;
-    children: React.ReactNode;
+    children: ReactNode;
 } & SelectProps;
 
 

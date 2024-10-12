@@ -1,17 +1,6 @@
 import {profileActions} from "./actions";
 import {InferActionsTypes} from "../../types";
 
-export type User = {
-    avatarURL: string;
-    nickName: string;
-};
-export type TPost = {
-    id: number;
-    user: User;
-    likes: number;
-    dislikes: number;
-    message: string;
-};
 export type Contacts = {
     facebook: string | null;
     website: string | null;
@@ -37,7 +26,6 @@ export type UserProfile = {
 };
 export type ProfileState = {
     profile: UserProfile | null;
-    posts: TPost[];
     status: string;
 };
 

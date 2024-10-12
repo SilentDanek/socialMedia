@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Menu, MenuItem, Typography } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
 import { i18n as i18nType, TFunction } from 'i18next';
@@ -27,7 +27,7 @@ export const ChangeLangButton: FC<Props> = ({ t, i18n }) => {
     const handleLanguageChange = (lng: string) => {
         if (i18n) {
             localStorage.setItem('language', lng);
-            i18n.changeLanguage(lng);
+            i18n.changeLanguage(lng).then();
         }
     };
 

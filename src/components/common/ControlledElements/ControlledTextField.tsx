@@ -4,7 +4,7 @@ import { TextField, TextFieldProps } from '@mui/material';
 
 type ControlledTextFieldProps<T extends FieldValues> = {
     name: Path<T>;
-    control: Control<T, any>;
+    control: Control<T, unknown>;
     label?: string;
     placeholder?: string;
     multiline?: boolean;

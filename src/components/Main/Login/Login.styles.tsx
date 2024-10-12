@@ -1,5 +1,5 @@
 import { styled } from "@mui/material/styles";
-import { ThemeBox } from "../../common/ThemeBox/ThemeBox";
+import { ThemeBox } from "../../common";
 
 export const FormContainer = styled(ThemeBox)(({  }) => ({
     minWidth: "300px",

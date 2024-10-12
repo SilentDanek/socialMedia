@@ -32,7 +32,6 @@ export type Messages = {
 }
 
 
-// Базовий URL для API
 const BASE_URL = 'https://social-network.samuraijs.com/api/1.0/';
 
 export const dialogsApi = createApi({
@@ -41,14 +40,13 @@ export const dialogsApi = createApi({
         baseUrl: BASE_URL,
         prepareHeaders: (headers) => {
             headers.set('Content-Type', 'application/json');
-            headers.set('API-KEY', '8535baf1-4bf0-4155-a641-cd65532bc347'); // Замінити на реальний API ключ
+            headers.set('API-KEY', '8535baf1-4bf0-4155-a641-cd65532bc347');
             return headers;
         },
-        credentials: 'include', // Для роботи з cookies
+        credentials: 'include',
     }),
-    tagTypes: ['Dialogs', 'Messages'],  // Теги для кешування
+    tagTypes: ['Dialogs', 'Messages'],
     endpoints: (builder) => ({
-        // Начать чат с пользователем
         startChat: builder.mutation<void, number>({
             query: (userId) => ({
                 url: `dialogs/${userId}`,
@@ -57,20 +55,17 @@ export const dialogsApi = createApi({
             invalidatesTags: ['Dialogs'],
         }),
 
-        // Получить все диалоги
         getDialogs: builder.query<Dialog[], void>({
             query: () => 'dialogs',
             providesTags: ['Dialogs'],
         }),
 
-        // Получить сообщения с пользователем
         getMessages: builder.query<Messages, { userId: number; page?: number; count?: number }>({
             query: ({ userId, page = 1, count = 10 }) =>
                 `dialogs/${userId}/messages?page=${page}&count=${count}`,
             providesTags: (_result, _error, { userId }) => [{ type: 'Messages', id: userId }],
         }),
 
-        // Отправить сообщение пользователю
         sendMessage: builder.mutation<any, { userId: number; body: string }>({
             query: ({ userId, body }) => ({
                 url: `dialogs/${userId}/messages`,

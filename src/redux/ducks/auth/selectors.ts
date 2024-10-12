@@ -12,7 +12,3 @@ export const getAuthUserId = (state:State) => {
 export const getCaptchaUrl = (state:State) => {
     return state.auth.captchaUrl;
 };
-
-export const getLogin = (state:State) => {
-    return state.auth.login;
-};

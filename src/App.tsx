@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./redux";
 import { useEffect } from "react";
-import { NavBar } from "./components/NavBar/NavBar";
+import { NavBar } from "./components/NavBar";
 import { Main } from "./components/Main/Main";
 import { Stack } from "@mui/material";
 import { CustomThemeProvider } from "./theme";

@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { createTheme } from '@mui/material/styles';
 
 import mainBackgroundDark from '../assets/images/main_background_dark.png';

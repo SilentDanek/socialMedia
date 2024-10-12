@@ -1,14 +1,13 @@
-import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
-import { Preloader } from "../../common";
+import { ProfileInfo, ProfileInfoSkeleton } from "./ProfileInfo";
 import { FC, useEffect } from "react";
-import { bindedThunks, getAuthUserId, getIsFetching, getUserProfile, useAppSelector } from "../../../redux";
+import { boundThunks, getAuthUserId, getIsFetching, getUserProfile, useAppSelector } from "../../../redux";
 import { useParams } from "react-router-dom";
 
 export const Profile: FC = () => {
     const profile = useAppSelector(getUserProfile);
     const isFetching = useAppSelector(getIsFetching);
     const authUserId = useAppSelector(getAuthUserId);
-    const { requestUserProfile, getStatus } = bindedThunks.profileThunks;
+    const { requestUserProfile, getStatus } = boundThunks.profileThunks;
 
     const params = useParams();
     useEffect(() => {
@@ -18,10 +17,10 @@ export const Profile: FC = () => {
     }, [params.userID]);
 
 
-    return !isFetching && profile ? (
+  return   !isFetching && profile ? (
         <ProfileInfo profile={profile} isOwner={params.userID === `${authUserId}`} />
     ) : (
-        <Preloader />
+        <ProfileInfoSkeleton />
     );
 };
 

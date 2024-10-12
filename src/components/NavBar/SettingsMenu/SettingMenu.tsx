@@ -1,7 +1,7 @@
-import { FC, useState } from "react";
+import React, { FC, useState } from "react";
 import { getAuthStatus, useAppSelector } from "../../../redux";
 import { Box, ListItem, Menu } from "@mui/material";
-import { NavBarListItemButton, NavBarListItemIcon, NavBarListItemText } from "../NavItemComponents";
+import { NavBarListItemButton, NavBarListItemIcon, NavBarListItemText } from "../NavBar.styles.tsx";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useTranslation } from "react-i18next";
 import { ChangeLangButton, ChangeThemeButton, LogoutButton } from "./SettingsMenuItems";

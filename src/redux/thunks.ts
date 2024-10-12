@@ -14,4 +14,4 @@ export const Thunks = {
     chatThunks,
 }
 
-export const bindedThunks = bindAllActionCreators(Thunks, store.dispatch);
+export const boundThunks = bindAllActionCreators(Thunks, store.dispatch);
