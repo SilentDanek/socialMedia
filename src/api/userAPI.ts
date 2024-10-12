@@ -1,5 +1,5 @@
-import { DefaultResponse, instance } from "./api";
-import { TUser } from "../redux";
+import { DefaultResponse, instance } from './api';
+import { TUser } from '../redux';
 
 type GetUsersResponse = DefaultResponse & {
     items: TUser[];
@@ -7,16 +7,20 @@ type GetUsersResponse = DefaultResponse & {
 };
 type FollowResponse = DefaultResponse;
 type UnfollowResponse = DefaultResponse;
+
 export const userAPI = {
-    getUsers(currentPage = 1, pageSize = 10, term: string = '', friend: null | boolean = null) {
-        return instance.get<GetUsersResponse>(
+    async getUsers(currentPage = 1, pageSize = 10, term: string = '', friend: null | boolean = null) {
+        const response = await instance.get<GetUsersResponse>(
             `users?page=${currentPage}&count=${pageSize}&term=${term}` + (friend === null ? '' : `&friend=${friend}`)
-        ).then(response => response.data);
+        );
+        return response.data;
     },
-    follow(userId: number) {
-        return instance.post<FollowResponse>(`follow/${userId}`).then(response => response.data);
+    async follow(userId: number) {
+        const response = await instance.post<FollowResponse>(`follow/${userId}`);
+        return response.data;
     },
-    unfollow(userId: number) {
-        return instance.delete<UnfollowResponse>(`follow/${userId}`).then(response => response.data);
-    }
+    async unfollow(userId: number) {
+        const response = await instance.delete<UnfollowResponse>(`follow/${userId}`);
+        return response.data;
+    },
 }

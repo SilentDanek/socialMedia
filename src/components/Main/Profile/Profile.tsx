@@ -17,7 +17,7 @@ export const Profile: FC = () => {
     }, [params.userID]);
 
 
-  return   !isFetching && profile ? (
+  return !isFetching && profile ? (
         <ProfileInfo profile={profile} isOwner={params.userID === `${authUserId}`} />
     ) : (
         <ProfileInfoSkeleton />

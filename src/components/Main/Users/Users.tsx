@@ -1,10 +1,9 @@
-import { Paginator } from "../../common";
-import { UserCard, UserCardSkeleton } from "./UserCard";
-import { FC, useCallback } from "react";
+import { Paginator } from '../../common';
+import { UserCard, UserCardSkeleton } from './UserCard';
+import { FC, useCallback } from 'react';
 import {
     boundThunks,
     getCurrentPage,
-    getFollowingInProgress,
     getIsFetching,
     getPageSize,
     getTotalUsersCount,
@@ -12,10 +11,10 @@ import {
     getUsersFilter,
     useAppSelector,
     UsersFilter
-} from "../../../redux";
-import { UsersSearchForm } from "./NewSearchForm";
-import { useUsersQueryParams } from "../../../hooks/useUsersQueryParams";
-import { UsersSection, UsersWrapper } from "./Users.styles";
+} from '../../../redux';
+import { UsersSearchForm } from './NewSearchForm';
+import { useUsersQueryParams } from '../../../hooks/useUsersQueryParams';
+import { UsersSection, UsersWrapper } from './Users.styles';
 
 const Users: FC = () => {
     const users = useAppSelector(getUsers);
@@ -24,10 +23,9 @@ const Users: FC = () => {
     const currentPage = useAppSelector(getCurrentPage);
 
     const totalUsersCount = useAppSelector(getTotalUsersCount);
-    const followingInProgress = useAppSelector(getFollowingInProgress);
     const filter = useAppSelector(getUsersFilter);
 
-    const { requestUsers, follow, unfollow } = boundThunks.usersThunks;
+    const { requestUsers } = boundThunks.usersThunks;
 
     //Synchronization of query params and filters
     useUsersQueryParams(currentPage, filter, requestUsers, pageSize);
@@ -51,12 +49,7 @@ const Users: FC = () => {
                             <UserCardSkeleton key={index} />
                         ))
                         : users.map((user) => (
-                            <UserCard
-                                key={user.id}
-                                user={user}
-                                follow={follow}
-                                unfollow={unfollow}
-                                followingInProgress={followingInProgress}
+                            <UserCard key={user.id} user={user}
                             />
                         ))
                 }

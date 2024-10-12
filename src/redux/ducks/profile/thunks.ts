@@ -1,13 +1,13 @@
-import { profileActions } from "./actions";
-import { usersActions } from "../users/actions";
-import { ProfileAction, UserProfile } from "./types";
-import { State } from "../../types";
-import { ThunkAction } from "redux-thunk";
-import { Action } from "redux";
-import { UsersAction } from "../users/types";
-import { ResultCodes, profileAPI } from "../../../api/api";
-import { deepNoRefEqual } from "../../../utils";
-import { ContactFormError, FormError } from "../../../api/Errors";
+import { profileActions } from './actions';
+import { usersActions } from '../users/actions';
+import { ProfileAction, UserProfile } from './types';
+import { State } from '../../types';
+import { ThunkAction } from 'redux-thunk';
+import { Action } from 'redux';
+import { UsersAction } from '../users/types';
+import { profileAPI, ResultCodes } from '../../../api/api';
+import { deepNoRefEqual } from '../../../utils';
+import { ContactFormError, FormError } from '../../../api/Errors';
 
 // Определяем универсальный тип Thunk, который принимает типы экшенов как параметр
 type Thunk<ReturnType = void, ActionType extends Action = Action> = ThunkAction<Promise<ReturnType>, State, unknown, ActionType>;
@@ -69,10 +69,22 @@ const updateUserProfile = (newProfile: UserProfile): ProfileThunk => async (disp
     }
 };
 
+const checkIsFollow = (userId: number):ProfileThunk => {
+    return async (dispatch) => {
+        try {
+            const response = await profileAPI.checkIsFollow(userId);
+            dispatch(profileActions.setIsFollowed(response));
+            console.log(response);
+        } catch {}
+    }
+};
+
+
 export const profileThunks = {
     getStatus,
     updateStatus,
     requestUserProfile,
     updatePhoto,
-    updateUserProfile
+    updateUserProfile,
+    checkIsFollow
 };

@@ -1,13 +1,21 @@
 import unknownUserSVG from '../../../../assets/images/unknown-user.svg';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { ProfileDataForm } from './ProfileDataForm';
 import { ProfileData } from './ProfileData'
 import { ProfileStatus } from './ProfileStatus';
 import { AvatarLoader } from './AvatarLoader';
-import { boundThunks, getUserStatus, useAppSelector, UserProfile } from '../../../../redux';
+import {
+    boundActions,
+    boundThunks,
+    getIsFollowed,
+    getUserStatus,
+    useAppSelector,
+    UserProfile
+} from '../../../../redux';
 import { Avatar, Box, Button, Stack, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { ProfileContainer } from './ProfileInfo.style';
+import { FollowButton, MessageButton } from '../../../common';
 
 
 type ProfileInfoProps = {
@@ -17,9 +25,19 @@ type ProfileInfoProps = {
 export const ProfileInfo: FC<ProfileInfoProps> = ({ profile, isOwner }) => {
     const [editMode, setEditMode] = useState(false);
     const status = useAppSelector(getUserStatus);
+    const isFollowed = useAppSelector(getIsFollowed);
     const {t} = useTranslation("profile");
 
-    const { updateStatus } = boundThunks.profileThunks;
+    const {checkIsFollow, updateStatus} = boundThunks.profileThunks;
+    useEffect(() => {
+        if(!isOwner){
+            checkIsFollow(profile.userId);
+        }
+    }, []);
+    const { setIsFollowed } = boundActions.profileActions;
+
+    const handleFollowStatusChange = () => setIsFollowed(!isFollowed);
+
 
     const AvatarComponent = <Avatar src={profile.photos.large || unknownUserSVG} sx={{ width: 120, height: 120 } } />;
 
@@ -35,9 +53,18 @@ export const ProfileInfo: FC<ProfileInfoProps> = ({ profile, isOwner }) => {
                 <Stack>
                     <Typography variant={"h5"}>{profile.fullName}</Typography>
                     <ProfileStatus status={status} updateStatus={updateStatus} />
+
                     {!editMode && isOwner && <Button sx={{marginTop:2}} variant={"contained"} onClick={() => setEditMode(true)}>
                         {t("edit profile")}
                     </Button>}
+
+                    {
+                        !isOwner && <Stack sx={{marginTop:2}} direction={'row'} flexWrap={'wrap'}>
+                            <MessageButton userId={profile.userId}/>
+                            <FollowButton onClick={handleFollowStatusChange} userId={profile.userId} isFollow={isFollowed}/>
+                        </Stack>
+                    }
+
                 </Stack>
             </Stack>
             {editMode

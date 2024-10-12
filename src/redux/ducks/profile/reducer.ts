@@ -1,10 +1,10 @@
 import {ProfileActionTypes} from "./actionTypes";
 import {ProfileAction, ProfileState, UserProfile} from "./types";
 
-
 let initialState: ProfileState = {
     profile: null,
     status: "",
+    isFollowed: false,
 };
 
 export function profileReducer(state = initialState, action: ProfileAction): ProfileState {
@@ -26,6 +26,9 @@ export function profileReducer(state = initialState, action: ProfileAction): Pro
                 ...state,
                 profile: {...state.profile, photos: action.payload.photos} as UserProfile
             };
+        }
+        case ProfileActionTypes.SET_IS_FOLLOWED: {
+            return {...state, isFollowed: action.payload.isFollowed}
         }
         default: {
             return state;

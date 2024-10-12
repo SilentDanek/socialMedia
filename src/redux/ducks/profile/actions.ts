@@ -14,5 +14,9 @@ export const profileActions = {
     setNewPhotos: (photos: Photos) => ({
         type: ProfileActionTypes.SET_NEW_PHOTO,
         payload: {photos}
+    } as const),
+    setIsFollowed: (isFollowed: boolean) => ({
+        type: ProfileActionTypes.SET_IS_FOLLOWED,
+        payload: { isFollowed }
     } as const)
 }

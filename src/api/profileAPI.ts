@@ -33,4 +33,9 @@ export const profileAPI = {
         );
         return response.data;
     },
+    async checkIsFollow(userId: number) {
+        const response = await instance.get<boolean>(`follow/${userId}`);
+        console.log(response.data);
+        return response.data;
+    }
 }

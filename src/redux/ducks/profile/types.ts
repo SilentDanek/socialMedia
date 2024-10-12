@@ -25,6 +25,7 @@ export type UserProfile = {
     photos: Photos;
 };
 export type ProfileState = {
+    isFollowed: boolean;
     profile: UserProfile | null;
     status: string;
 };
