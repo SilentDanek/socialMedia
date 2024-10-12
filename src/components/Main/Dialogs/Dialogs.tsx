@@ -38,7 +38,7 @@ const Dialogs: FC = () => {
 
     return (
         <Stack direction={'row'} sx={{ height: '100%'}}>
-            <ThemeBox sx={{ height: '100%', minWidth:{sm:'100px', md:"400px"}}}>
+            <ThemeBox sx={{ height: '100%', overflowY:'auto', minWidth:{xs:'100px', smDown:'100px', md:"400px"}}}>
                 {recentDialogs?.map((d) => <DialogItem setSelectedUser={handleUserClick} key={d.id} {...d} />)}
             </ThemeBox>
 

@@ -10,9 +10,8 @@ export const MessagesWrapper = styled("section")(({ }) => ({
     gap:"6px",
     overflowY:"scroll",
 
-    // Используйте функцию для вложенных стилей
-    '& > :first-child': {
-        marginTop: 'auto !important', // Используйте кавычки для значения
+    '& > :first-of-type:not(div)': {
+        marginTop: 'auto',
     }
 }));
 

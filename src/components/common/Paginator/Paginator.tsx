@@ -18,15 +18,12 @@ export const Paginator: FC<PaginatorProps> = memo(({
     const isLd = useMediaQuery(theme.breakpoints.down("lg"));
 
     if(responsive){
-        console.log(isSm + " " + isMd + " " + isLd + " ");
         if(isSm){
             portionSize = 1;
         } else if(isMd){
             portionSize = Math.floor(portionSize/2);
-            console.log(portionSize);
         } else if (isLd) {
             portionSize = Math.ceil(portionSize * (1 - 0.33));
-            console.log(portionSize);
         }
     }
 
@@ -75,7 +72,7 @@ export const Paginator: FC<PaginatorProps> = memo(({
 
 const createPaginationItems = (items: number[], currentItem: number, handlePageChanged: (page: number) => void) => {
     return items.map(item => (
-        <PaginatorButton key={item} variant={'contained'} onClick={() => handlePageChanged(item)} active={item === currentItem}>
+        <PaginatorButton key={item} variant={'contained'} onClick={() => handlePageChanged(item)} active={item === currentItem? 'true': 'false'}>
             {item}
         </PaginatorButton>
     ))

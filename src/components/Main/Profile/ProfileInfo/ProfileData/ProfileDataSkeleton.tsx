@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Box, List, ListItem } from '@mui/material';
 import { FieldsetLike, LegendLike } from './ProfileData.style.ts';
-import { Skeleton } from '@mui/lab';
+import { Skeleton } from '@mui/material';
 
 export const ProfileDataSkeleton: FC = ( ) => {
 
@@ -15,8 +15,8 @@ export const ProfileDataSkeleton: FC = ( ) => {
                 <LegendLike><Skeleton variant="text" width={80} height={40} /></LegendLike>
                 <List disablePadding={true}>
                     {
-                        Array(8).fill(0).map(() => (
-                            <ListItem disablePadding><Skeleton variant="text" width={270} height={40} /></ListItem>
+                        Array(8).fill(0).map((_, i) => (
+                            <ListItem disablePadding key={i}><Skeleton variant="text" width={270} height={40} /></ListItem>
                         ))
                     }
                 </List>

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Skeleton } from "@mui/lab";
+import { Skeleton } from "@mui/material";
 import { StyledUserCard, UserCardActions, UserCardContent } from "./UserCard.styles";
 
 export const UserCardSkeleton: FC = () => {
