@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { Photos } from '../../../../redux';
 import { Avatar, Box, Card, CardContent, Chip, Stack, Typography, useTheme } from '@mui/material';
 import unknownUserSvg from '../../../../assets/images/unknown-user.svg';
@@ -14,7 +14,7 @@ type DialogItemProps = {
     setSelectedUser: (selectedUserId:number) => void;
 }
 
-export const DialogItem: FC<DialogItemProps> = ({
+export const DialogItem: FC<DialogItemProps> = memo(({
                                                     id,
                                                     photos,
                                                     userName,
@@ -26,10 +26,7 @@ export const DialogItem: FC<DialogItemProps> = ({
                                                 }) => {
     const lastMessageData = formatDate(lastDialogActivityDate);
     const lastUserData = formatDate(lastUserActivityDate);
-
     const theme = useTheme();
-
-
     return (<Card sx={{
             cursor: 'pointer',
             transition: 'background-color 0.4s',
@@ -62,19 +59,22 @@ export const DialogItem: FC<DialogItemProps> = ({
             </CardContent>
         </Card>
     );
-};
+});
 
 
 function formatDate(dateString: string, locale: string = 'uk-UA'): string {
     const date = new Date(dateString);
+    date.setMinutes(date.getMinutes() + date.getTimezoneOffset()*-1);
     const now = new Date();
-    const diffMs = now.getTime() - date.getTime();
-    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
+    const diffMs = now.getTime() - date.getTime();
+
+
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
     if (diffDays < 1) {
         const hours = date.getHours().toString().padStart(2, '0');
         const minutes = date.getMinutes().toString().padStart(2, '0');
-        return `${hours}:${minutes}`;
+        return `${hours}:${minutes.toString().padStart(2, '0')}`;
     }
 
     if (diffDays < 7) {
@@ -85,11 +85,19 @@ function formatDate(dateString: string, locale: string = 'uk-UA'): string {
     }
 
     if (diffDays < 365) {
-        const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long' };
-        return date.toLocaleDateString(locale, options);
+        return date.toLocaleDateString(locale, { day: 'numeric', month: 'short' });
     }
 
 
-    const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric' };
-    return date.toLocaleDateString(locale, options);
+    const options: Intl.DateTimeFormatOptions = {
+        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        hour: '2-digit',
+        minute: '2-digit',
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+    };
+
+
+    return date.toLocaleString(locale, options);
 }

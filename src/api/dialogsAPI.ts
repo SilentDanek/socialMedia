@@ -27,7 +27,7 @@ export const dialogsApi = createApi({
             invalidatesTags: ['Dialogs']
         }),
 
-        getDialogs: builder.query<DialogResponse[], void>({
+        getDialogs: builder.query<DialogResponse[], void | {}>({
             query: () => 'dialogs',
             providesTags: ['Dialogs']
         }),
@@ -61,11 +61,11 @@ export const dialogsApi = createApi({
                 method: 'POST',
                 body: { body }
             }),
-            invalidatesTags: (_result, _error, { userId }) => [{ type: 'Messages', userId }]
+            invalidatesTags: (_result, _error, { userId }) => [{ type: 'Messages', userId }, {type: 'Dialogs'}]
         }),
 
         // Проверить, прочитано ли сообщение
-        isMessageViewed: builder.query<any, number>({
+        isMessageViewed: builder.query<boolean, number>({
             query: (messageId) => `dialogs/messages/${messageId}/viewed`
         }),
 

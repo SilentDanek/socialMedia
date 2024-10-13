@@ -38,7 +38,7 @@ export const ChatMessage: FC<MessageProps> = ({
 
                 {addedAt && <Typography variant="body1" fontSize={12}>
                     {date.getHours() + ':' + date.getMinutes()}
-                    {viewed ? <DoneAllIcon sx={{ height: 20 }} /> : <DoneIcon sx={{ height: 20 }} />}
+                    {viewed || !isMessageOwner ? <DoneAllIcon sx={{ height: 20 }} /> : <DoneIcon sx={{ height: 20 }} />}
                 </Typography>}
             </MessageContent>
         </MessageWrapper>

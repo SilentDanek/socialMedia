@@ -22,7 +22,10 @@ export const useChatMessages = (userId: number) => {
     const [sendMessage, { isLoading: isMessageSending }] = useSendMessageMutation();
 
     // Periodically fetches the latest messages every 10 seconds using polling
-    const { data: messages, isSuccess, isError } = useGetMessagesQuery({ userId, count: 20 }, { pollingInterval: 5000 });
+    const { data: messages, isSuccess, isError } = useGetMessagesQuery({
+        userId,
+        count: 20
+    }, { pollingInterval: 5000 });
 
     // Manually reset old messages to avoid component flickering
     // Clear the chat messages state as the component does not rerender automatically
@@ -34,15 +37,17 @@ export const useChatMessages = (userId: number) => {
         setPage(1);
     }, [userId]);
 
-    // Add old messages
+    // Add new messages
     useEffect(() => {
         if (messages) {
-            // Find only old messages
-            const newMessages: TransformedMessage[] = messages.items.filter((message) => (
-                !chatMessages.find((m) => m.id === message.id)
-            ));
+            // Find index where new messages equal to chatMessages and have actual info
+            const index = chatMessages.findIndex((message) => (
+                messages.items.some((m) => (m.id === message.id))
+            ))
 
-            setChatMessages([...chatMessages, ...newMessages]);
+            // Cut messages witch don't contain in new messages
+            const oldActualMessages = chatMessages.slice(0, index);
+            setChatMessages([...oldActualMessages, ...messages.items]);
         }
     }, [messages]);
 
@@ -55,13 +60,11 @@ export const useChatMessages = (userId: number) => {
     }, [oldMessages]);
 
 
-
     // Fetching more old messages when scroll almost equal to element scroll height
     // and after when the newest messages loaded
     const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
         const target = e.target as HTMLElement;
-
-        if (target.scrollTop < 300
+        if (target.scrollTop < 400
             && isSuccess
             && !isFetchingOldMessages
             && (oldMessages?.totalCount || 0) > page * 20) {
@@ -72,7 +75,7 @@ export const useChatMessages = (userId: number) => {
 
 
     const handleSendMessage = (newMessage: string) => {
-        sendMessage({ body: newMessage, userId: userId});
+        sendMessage({ body: newMessage, userId: userId });
     };
 
     return {

@@ -45,12 +45,11 @@ const Users: FC = () => {
                 <UsersSearchForm handleFilterChanged={handleFilterChanged} />
                 {
                     isFetching
-                        ? new Array(pageSize).fill(0).map((_, index) => (
+                        ? Array(pageSize).fill(0).map((_, index) => (
                             <UserCardSkeleton key={index} />
                         ))
                         : users.map((user) => (
-                            <UserCard key={user.id} user={user}
-                            />
+                            <UserCard key={user.id} user={user} />
                         ))
                 }
                 <Paginator
