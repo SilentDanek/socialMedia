@@ -7,7 +7,7 @@ export const useAutoScroll = (observedObject: any) => {
 
     useEffect(() => {
         if (isAutoScroll) {
-            autoScrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+            autoScrollRef.current?.scrollIntoView({ behavior: 'instant' });
         }
     }, [observedObject]);
 

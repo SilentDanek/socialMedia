@@ -1,14 +1,11 @@
 import { Stack } from '@mui/material';
 import { AddNewMessageForm } from './AddNewMessageForm/AddNewMessageForm.tsx';
-import { FC, ReactElement } from 'react';
+import React, { FC, ReactElement } from 'react';
 import { Messages } from './Messages/Messages.tsx';
 
-export const Chat: FC<ChatProps> = ({ blockSubmitButton, sendMessage, error, messages, chatHeader }) => {
+export const Chat: FC<ChatProps> = ({ blockSubmitButton, sendMessage, error, messages, chatHeader, onScroll }) => {
     return (
-
-    <Stack flexDirection="column" height={'100%'}
-               sx={{ maxWidth: 1000, width:"100%", margin: 'auto'}}>
-
+    <Stack flexDirection="column" height={'100%'} onScrollCapture={onScroll} sx={{ maxWidth: 1000, width:"100%", margin: 'auto'}}>
             {error && <div>Some error occurred. Please refresh the page</div>}
             {chatHeader}
 
@@ -23,6 +20,7 @@ type ChatProps = {
     error: boolean;
     messages: Message[];
     chatHeader?: ReactElement;
+    onScroll?:(e: React.UIEvent<HTMLDivElement>) => void;
 }
 
 export type Message = {

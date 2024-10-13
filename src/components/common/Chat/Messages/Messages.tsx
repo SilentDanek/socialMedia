@@ -9,7 +9,6 @@ import { ChatMessage } from './Message/Message.tsx';
 export const Messages: FC<MessagesProps> = ({ messages }) => {
     const authId = useAppSelector(getAuthUserId);
     const { handleScroll, autoScrollRef } = useAutoScroll(messages);
-
     return (
         <MessagesWrapper onScroll={handleScroll}>
             {messages.map((m) => (
