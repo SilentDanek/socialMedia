@@ -1,7 +1,7 @@
 import { Stack } from '@mui/material';
 import { AddNewMessageForm } from './AddNewMessageForm/AddNewMessageForm.tsx';
 import React, { FC, ReactElement } from 'react';
-import { Messages } from './Messages/Messages.tsx';
+import { ChatMessages } from './Messages';
 
 export const Chat: FC<ChatProps> = ({ blockSubmitButton, sendMessage, error, messages, chatHeader, onScroll }) => {
     return (
@@ -9,7 +9,7 @@ export const Chat: FC<ChatProps> = ({ blockSubmitButton, sendMessage, error, mes
             {error && <div>Some error occurred. Please refresh the page</div>}
             {chatHeader}
 
-            <Messages messages={messages} />
+            <ChatMessages messages={messages} />
             <AddNewMessageForm sendMessage={sendMessage} blockSubmitButton={blockSubmitButton} />
         </Stack>);
 };

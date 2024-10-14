@@ -1,12 +1,12 @@
 import { FC } from 'react';
 import { getAuthUserId, useAppSelector } from '../../../../redux';
 import { useAutoScroll } from '../../../../hooks/useAutoScroll.ts';
-import { MessagesWrapper } from './Messages.styles.tsx';
+import { MessagesWrapper } from './ChatMessages.styles.tsx';
 import { TextFieldProps } from '@mui/material';
 import { Message } from '../Chat.tsx';
-import { ChatMessage } from './Message/Message.tsx';
+import { ChatMessage } from './Message';
 
-export const Messages: FC<MessagesProps> = ({ messages }) => {
+export const ChatMessages: FC<MessagesProps> = ({ messages }) => {
     const authId = useAppSelector(getAuthUserId);
     const { handleScroll, autoScrollRef } = useAutoScroll(messages);
     return (

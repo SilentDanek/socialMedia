@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { Avatar } from '@mui/material';
 import unknownUserSvg from '../../../../assets/images/unknown-user.svg';
 import { DialogResponse } from '../../../../api/dialogsAPI.ts';
+import { ChatSkeleton } from '../../../common/Chat/ChatSkeleton.tsx';
 
 export const Dialog: FC<DialogProps> = ({ selectedFriendInfo: { id, photos, userName } }) => {
     const {
@@ -16,9 +17,8 @@ export const Dialog: FC<DialogProps> = ({ selectedFriendInfo: { id, photos, user
         handleSendMessage
     } = useChatMessages(id);
 
-    if (!isSuccess) {
-        //todo return skeleton before success
-        return null;
+    if(!isSuccess){
+        return <ChatSkeleton withAvatar={false} withHeader={true}/>;
     }
 
     return <Chat blockSubmitButton={isMessageSending}

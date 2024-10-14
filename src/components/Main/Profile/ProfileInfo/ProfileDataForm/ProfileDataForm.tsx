@@ -40,11 +40,8 @@ export const ProfileDataForm: FC<ProfileDataFormProps> = ({ profile, setEditMode
 
     return <form onSubmit={handleSubmit(handleProfileSubmit)} noValidate={true} >
         <ControlledTextField control={control} name={"fullName"} label={t("full name")}/>
-
         <ControlledTextField control={control} name={"aboutMe"} label={t("about me")} multiline={true}/>
-
-        <ControlledCheckbox control={control} name={"lookingForAJob"} label={t("looking for a job")}/>
-
+        <ControlledCheckbox  control={control} name={"lookingForAJob"} label={t("looking for a job")}/>
         <ControlledTextField control={control} name={"lookingForAJobDescription"} label={t("my professional skills")} multiline={true}/>
 
         <Fieldset>
@@ -77,6 +74,12 @@ const ContactFormElement: FC<ContactFormElement> = ({ mediaName, control }) => {
     return <ControlledTextField control={control}
                                 name={`contacts.${mediaName}`}
                                 type={"url"}
+                                rules={{
+                                    pattern: {
+                                        value:/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/,
+                                        message:'Invalid url'
+                                    }
+                                }}
                                 label={`${mediaName}:`}
                                 placeholder={mediaName}
                                 variant={"standard"}/>

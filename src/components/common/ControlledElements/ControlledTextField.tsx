@@ -27,6 +27,7 @@ export const ControlledTextField = <T extends FieldValues>({
         render={({ field, fieldState }) => (
             <TextField
                 {...field}
+                value={field.value || ""}
                 label={label}
                 placeholder={placeholder? placeholder: label}
                 margin="dense"

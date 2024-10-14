@@ -22,6 +22,13 @@ export const testArr = new Proxy([], {
     }
 })
 
+export const generateRandomPercentage = (min:number, max:number) => {
+    const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+
+    return randomNumber + '%';
+}
+
+
 declare global {
     interface Window {
         testArr: typeof testArr;

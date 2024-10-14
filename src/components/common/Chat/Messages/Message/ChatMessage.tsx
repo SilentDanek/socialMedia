@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { MessageContent, MessageWrapper } from '../Messages.styles.tsx';
+import { MessageContent, MessageWrapper } from '../ChatMessages.styles.tsx';
 import { NavLink } from 'react-router-dom';
 import { Avatar, Typography } from '@mui/material';
 import unknownUserSVG from '../../../../../assets/images/unknown-user.svg';
@@ -37,7 +37,7 @@ export const ChatMessage: FC<MessageProps> = ({
                 <Typography variant="body1">{message}</Typography>
 
                 {addedAt && <Typography variant="body1" fontSize={12}>
-                    {date.getHours() + ':' + date.getMinutes()}
+                    {date.getHours() + ':' + date.getMinutes().toString().padStart(2,'0')}
                     {viewed || !isMessageOwner ? <DoneAllIcon sx={{ height: 20 }} /> : <DoneIcon sx={{ height: 20 }} />}
                 </Typography>}
             </MessageContent>

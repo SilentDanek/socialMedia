@@ -24,7 +24,6 @@ export const PasswordField:FC<EmailField> = ({control}) => {
     return <Controller
         name="password"
         control={control}
-        defaultValue=""
         rules={{
             minLength: { value: 4, message: "Min password length is 4" },
             required: t('passwordRequire')

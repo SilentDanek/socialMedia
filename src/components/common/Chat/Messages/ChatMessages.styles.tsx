@@ -1,7 +1,7 @@
 import { styled } from "@mui/material/styles";
 import { BorderLessThemeBox } from "../../index.ts";
 import { FC, ReactNode } from "react";
-import { Stack, useTheme } from "@mui/material";
+import { Stack, StackProps, useTheme } from '@mui/material';
 
 export const MessagesWrapper = styled("section")(({ }) => ({
     display:"flex",
@@ -9,13 +9,12 @@ export const MessagesWrapper = styled("section")(({ }) => ({
     flexDirection:"column",
     gap:"6px",
     overflowY:"scroll",
-
     '& > :first-of-type:not(div)': {
         marginTop: 'auto',
     }
 }));
 
-export const MessageContent:FC<MessageProps> = ({isMessageOwner, children}) => {
+export const MessageContent:FC<MessageProps> = ({isMessageOwner, children, sx}) => {
     const theme = useTheme();
     return (
         <BorderLessThemeBox
@@ -39,6 +38,7 @@ export const MessageContent:FC<MessageProps> = ({isMessageOwner, children}) => {
                     borderBottom: 'none',
                     marginBottom: '-12px',
                 },
+                ...sx
             }}
         >
             {children}
@@ -46,10 +46,10 @@ export const MessageContent:FC<MessageProps> = ({isMessageOwner, children}) => {
     )
 };
 
-export const MessageWrapper:FC<MessageProps> = ({isMessageOwner, children}) => {
+export const MessageWrapper:FC<MessageProps> = ({isMessageOwner, children, sx}) => {
     const flexDirection = isMessageOwner? "row-reverse": "row";
     return (
-        <Stack direction={flexDirection} alignItems={"flex-start"} component={"article"} gap={"8px"}>
+        <Stack direction={flexDirection} alignItems={"flex-start"} component={"article"} gap={"8px"} sx={sx}>
             {children}
         </Stack>
     )
@@ -59,4 +59,4 @@ export const MessageWrapper:FC<MessageProps> = ({isMessageOwner, children}) => {
 type MessageProps = {
     isMessageOwner:boolean;
     children:ReactNode;
-}
+} & StackProps;

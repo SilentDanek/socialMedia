@@ -38,7 +38,6 @@ const Dialogs: FC = () => {
             </ThemeBox>
 
             {selectedFriendInfo && <Dialog selectedFriendInfo={selectedFriendInfo} />}
-
         </Stack>
     );
 };
