@@ -5,7 +5,6 @@ import { ReactNode, useId } from 'react';
 type ControlledSelectFieldProps<T extends FieldValues> = {
     name: Path<T>;
     control: Control<T>;
-    label?: string;
     rules?: RegisterOptions<T, Path<T>>;
     children: ReactNode;
 } & SelectProps;
@@ -13,7 +12,6 @@ type ControlledSelectFieldProps<T extends FieldValues> = {
 export const ControlledSelectField = <T extends FieldValues>({
     control,
     name,
-    label,
     children,
     rules,
     ...props
@@ -23,6 +21,7 @@ export const ControlledSelectField = <T extends FieldValues>({
         <Controller
             control={control}
             name={name}
+            {...rules}
             render={({ field }) => (
                 <Select labelId={id} {...field} margin="dense" fullWidth {...props}>
                     {children}

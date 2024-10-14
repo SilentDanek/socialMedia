@@ -1,5 +1,4 @@
 import { profileReducer } from './ducks/profile/reducer';
-import { sidebarReducer } from './ducks/sidebar/reducer';
 import { usersReducer } from './ducks/users/reducer';
 import { authReducer } from './ducks/auth/reducer';
 import { mainReducer } from './ducks/main/reducer';
@@ -13,7 +12,6 @@ import { dialogsApi } from '../api/dialogsAPI.ts';
 export const rootReducer = combineReducers({
     profilePage: profileReducer,
     usersPage: usersReducer,
-    sideBar: sidebarReducer,
     auth: authReducer,
     main: mainReducer,
     chat: chatReducer,

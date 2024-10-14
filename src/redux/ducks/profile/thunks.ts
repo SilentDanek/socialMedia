@@ -87,8 +87,9 @@ const checkIsFollow = (userId: number): ProfileThunk => {
         try {
             const response = await profileAPI.checkIsFollow(userId);
             dispatch(profileActions.setIsFollowed(response));
-            console.log(response);
-        } catch {}
+        } catch {
+            /* empty */
+        }
     };
 };
 

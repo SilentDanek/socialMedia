@@ -3,7 +3,6 @@ export const updateItemsByCondition = <T>(
     fieldName: keyof T,
     conditionValue: T[keyof T],
     { ...newValues }: Partial<T>
-    // eslint-disable-next-line max-params
 ) => {
     return items.map((item) => {
         if (item[fieldName] === conditionValue) {

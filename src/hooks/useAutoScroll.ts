@@ -1,6 +1,6 @@
 import { UIEventHandler, useEffect, useRef, useState } from 'react';
 
-export const useAutoScroll = (observedObject: any) => {
+export const useAutoScroll = <T extends object>(observedObject: T) => {
     const [isAutoScroll, setIsAutoScroll] = useState(true);
 
     const autoScrollRef = useRef<HTMLDivElement>(null);

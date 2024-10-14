@@ -1,18 +1,10 @@
-import { createContext, FC, ReactNode, useContext, useState } from 'react';
+import { createContext, FC, ReactNode, useState } from 'react';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { darkTheme, lightTheme } from './themes';
 
-const ThemeContext = createContext<{ toggleTheme: () => void; themeMode: string } | undefined>(
-    undefined
-);
-
-export const useCustomTheme = () => {
-    const context = useContext(ThemeContext);
-    if (!context) {
-        throw new Error('useCustomTheme must be used within a CustomThemeProvider');
-    }
-    return context;
-};
+export const ThemeContext = createContext<
+    { toggleTheme: () => void; themeMode: string } | undefined
+>(undefined);
 
 export const CustomThemeProvider: FC<CustomThemeProviderProps> = ({ children }) => {
     let themeFromStorage = localStorage.getItem('theme');

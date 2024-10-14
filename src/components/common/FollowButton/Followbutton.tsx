@@ -39,5 +39,5 @@ export const FollowButton: FC<FollowButtonProps> = ({ isFollow, userId, onClick 
 type FollowButtonProps = {
     userId: number;
     isFollow: boolean;
-    onClick?: any;
+    onClick?: () => void;
 };

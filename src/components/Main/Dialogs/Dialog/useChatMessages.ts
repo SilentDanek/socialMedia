@@ -11,6 +11,7 @@ export const useChatMessages = (userId: number) => {
     const [page, setPage] = useState(1);
 
     // Container to all messages like new and old
+    // eslint-disable-next-line prefer-const
     let [chatMessages, setChatMessages] = useState<TransformedMessage[]>([]);
 
     const { data: oldMessages, isFetching: isFetchingOldMessages } = useGetOlderMessagesQuery({

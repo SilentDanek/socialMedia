@@ -1,8 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Photos } from '../redux';
 
-// Типи даних
-
 const BASE_URL = 'https://social-network.samuraijs.com/api/1.0/';
 
 export const dialogsApi = createApi({
@@ -26,7 +24,7 @@ export const dialogsApi = createApi({
             invalidatesTags: ['Dialogs']
         }),
 
-        getDialogs: builder.query<DialogResponse[], void | {}>({
+        getDialogs: builder.query<DialogResponse[], void | object>({
             query: () => 'dialogs',
             providesTags: ['Dialogs']
         }),
@@ -59,7 +57,7 @@ export const dialogsApi = createApi({
             })
         }),
 
-        sendMessage: builder.mutation<any, { userId: number; body: string }>({
+        sendMessage: builder.mutation<void, { userId: number; body: string }>({
             query: ({ userId, body }) => ({
                 url: `dialogs/${userId}/messages`,
                 method: 'POST',
@@ -71,45 +69,8 @@ export const dialogsApi = createApi({
             ]
         }),
 
-        // Проверить, прочитано ли сообщение
-        isMessageViewed: builder.query<boolean, number>({
-            query: (messageId) => `dialogs/messages/${messageId}/viewed`
-        }),
-
-        // Пометить сообщение как спам
-        markAsSpam: builder.mutation<void, number>({
-            query: (messageId) => ({
-                url: `dialogs/messages/${messageId}/spam`,
-                method: 'POST'
-            })
-        }),
-
-        // Удалить сообщение только для себя
-        deleteMessage: builder.mutation<any, number>({
-            query: (messageId) => ({
-                url: `dialogs/messages/${messageId}`,
-                method: 'DELETE'
-            }),
-            invalidatesTags: (_result, _error, messageId) => [{ type: 'Messages', id: messageId }]
-        }),
-
-        // Восстановить сообщение из спама или удаленных
-        restoreMessage: builder.mutation<any, number>({
-            query: (messageId) => ({
-                url: `dialogs/messages/${messageId}/restore`,
-                method: 'PUT'
-            }),
-            invalidatesTags: (_result, _error, messageId) => [{ type: 'Messages', id: messageId }]
-        }),
-
-        // Получить сообщения, новее чем определенная дата
-        getNewMessagesSince: builder.query<any, { userId: number; date: string }>({
-            query: ({ userId, date }) => `dialogs/${userId}/messages/new?newerThen=${date}`,
-            providesTags: (_result, _error, { userId }) => [{ type: 'Messages', id: userId }]
-        }),
-
         // Получить количество новых сообщений
-        getNewMessagesCount: builder.query<any, void>({
+        getNewMessagesCount: builder.query<number, void>({
             query: () => 'dialogs/messages/new/count'
         })
     })
@@ -157,7 +118,7 @@ export type MessagesResponse = {
     totalCount: number;
 };
 
-export interface TransformedMessage {
+export type TransformedMessage = {
     viewed: boolean;
     message: string;
     userId: number;
@@ -166,13 +127,13 @@ export interface TransformedMessage {
     addedAt: string;
     recipientId: string;
     translatedBody: unknown;
-}
+};
 
-export interface TransformedMessagesResponse {
+export type TransformedMessagesResponse = {
     error: string | null | undefined;
     items: TransformedMessage[];
     totalCount: number;
-}
+};
 
 export const {
     useStartChatMutation,
@@ -180,10 +141,5 @@ export const {
     useGetMessagesQuery,
     useGetOlderMessagesQuery,
     useSendMessageMutation,
-    useIsMessageViewedQuery,
-    useMarkAsSpamMutation,
-    useDeleteMessageMutation,
-    useRestoreMessageMutation,
-    useGetNewMessagesSinceQuery,
     useGetNewMessagesCountQuery
 } = dialogsApi;

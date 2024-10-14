@@ -15,7 +15,7 @@ type LoginResponse = {
     messages: string[];
 };
 type LogoutResponse = DefaultResponse & {
-    data: {};
+    data: object;
 };
 export const authAPI = {
     getAuthUserData() {

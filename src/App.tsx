@@ -9,7 +9,12 @@ import { Stack } from '@mui/material';
 import { CustomThemeProvider } from './theme';
 import './i18n';
 
-// @ts-ignore
+declare global {
+    interface Window {
+        store: typeof store;
+    }
+}
+
 window.store = store;
 
 export const App = () => {
