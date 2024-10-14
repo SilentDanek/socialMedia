@@ -1,6 +1,5 @@
-import { Controller, Control, FieldValues, Path, RegisterOptions } from "react-hook-form";
+import { Controller, Control, FieldValues, Path, RegisterOptions } from 'react-hook-form';
 import { TextField, TextFieldProps } from '@mui/material';
-
 
 type ControlledTextFieldProps<T extends FieldValues> = {
     name: Path<T>;
@@ -12,14 +11,14 @@ type ControlledTextFieldProps<T extends FieldValues> = {
 } & TextFieldProps;
 
 export const ControlledTextField = <T extends FieldValues>({
-                                                        name,
-                                                        control,
-                                                        label,
-                                                        placeholder,
-                                                        rules,
-                                                        multiline = false,
-                                                        ...props
-                                                    }: ControlledTextFieldProps<T>) => (
+    name,
+    control,
+    label,
+    placeholder,
+    rules,
+    multiline = false,
+    ...props
+}: ControlledTextFieldProps<T>) => (
     <Controller
         name={name}
         control={control}
@@ -27,9 +26,9 @@ export const ControlledTextField = <T extends FieldValues>({
         render={({ field, fieldState }) => (
             <TextField
                 {...field}
-                value={field.value || ""}
+                value={field.value || ''}
                 label={label}
-                placeholder={placeholder? placeholder: label}
+                placeholder={placeholder ? placeholder : label}
                 margin="dense"
                 multiline={multiline}
                 error={!!fieldState.error}

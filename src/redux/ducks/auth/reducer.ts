@@ -1,12 +1,11 @@
-import {AuthActionTypes} from "./actionTypes";
-import {AuthAction, AuthState} from "./types";
-
+import { AuthActionTypes } from './actionTypes';
+import { AuthAction, AuthState } from './types';
 
 const initialState: AuthState = {
     login: null,
     id: null,
     isAuth: false,
-    captchaUrl: null,
+    captchaUrl: null
 };
 
 export const authReducer = (state = initialState, action: AuthAction): AuthState => {

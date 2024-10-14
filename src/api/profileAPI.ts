@@ -1,6 +1,5 @@
-import {Photos, UserProfile} from "../redux";
-import {DefaultResponse, instance} from "./api";
-
+import { Photos, UserProfile } from '../redux';
+import { DefaultResponse, instance } from './api';
 
 type GetStatusResponse = string;
 type GetUserProfileResponse = DefaultResponse & UserProfile;
@@ -26,11 +25,10 @@ export const profileAPI = {
     },
     async updatePhoto(file: FormData) {
         const response = await instance.put<UpdatePhotoResponse>('profile/photo', file, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
+            headers: {
+                'Content-Type': 'multipart/form-data'
             }
-        );
+        });
         return response.data;
     },
     async checkIsFollow(userId: number) {
@@ -38,4 +36,4 @@ export const profileAPI = {
         console.log(response.data);
         return response.data;
     }
-}
+};

@@ -1,83 +1,113 @@
-import { FC, memo, useMemo } from "react";
-import { Box, Button, Stack, useMediaQuery, useTheme } from "@mui/material";
-import { FirstPage, ChevronLeft, ChevronRight, LastPage } from "@mui/icons-material";
-import { PaginatorButton } from "./Paginator.styles";
+import { FC, memo, useMemo } from 'react';
+import { Box, Button, Stack, useMediaQuery, useTheme } from '@mui/material';
+import { FirstPage, ChevronLeft, ChevronRight, LastPage } from '@mui/icons-material';
+import { PaginatorButton } from './Paginator.styles';
 
+export const Paginator: FC<PaginatorProps> = memo(
+    ({
+        totalItemsCount,
+        itemsInPage,
+        currentPage,
+        handlePageChanged,
+        portionSize = 10,
+        responsive = false
+    }) => {
+        const theme = useTheme();
+        const isSm = useMediaQuery(theme.breakpoints.down('sm'));
+        const isMd = useMediaQuery(theme.breakpoints.down('md'));
+        const isLd = useMediaQuery(theme.breakpoints.down('lg'));
 
-export const Paginator: FC<PaginatorProps> = memo(({
-                                                       totalItemsCount,
-                                                       itemsInPage,
-                                                       currentPage,
-                                                       handlePageChanged,
-                                                       portionSize = 10,
-                                                       responsive = false
-                                                   }) => {
-    const theme = useTheme();
-    const isSm = useMediaQuery(theme.breakpoints.down('sm'));
-    const isMd = useMediaQuery(theme.breakpoints.down('md'));
-    const isLd = useMediaQuery(theme.breakpoints.down("lg"));
-
-    if(responsive){
-        if(isSm){
-            portionSize = 1;
-        } else if(isMd){
-            portionSize = Math.floor(portionSize/2);
-        } else if (isLd) {
-            portionSize = Math.ceil(portionSize * (1 - 0.33));
+        if (responsive) {
+            if (isSm) {
+                portionSize = 1;
+            } else if (isMd) {
+                portionSize = Math.floor(portionSize / 2);
+            } else if (isLd) {
+                portionSize = Math.ceil(portionSize * (1 - 0.33));
+            }
         }
-    }
 
-    const pagesCount = Math.ceil(totalItemsCount / itemsInPage);
+        const pagesCount = Math.ceil(totalItemsCount / itemsInPage);
 
-    const halfPortionSize = Math.floor(portionSize / 2);
+        const halfPortionSize = Math.floor(portionSize / 2);
 
-    let leftPortionPageNumber = Math.max(1, currentPage - halfPortionSize);
-    let rightPortionPageNumber = leftPortionPageNumber + portionSize - 1;
+        let leftPortionPageNumber = Math.max(1, currentPage - halfPortionSize);
+        let rightPortionPageNumber = leftPortionPageNumber + portionSize - 1;
 
-    if (rightPortionPageNumber > pagesCount) {
-        rightPortionPageNumber = pagesCount;
-        leftPortionPageNumber = Math.max(1, rightPortionPageNumber - portionSize + 1);
-    }
-
-    const blockLeftButton = currentPage <= 1;
-    const blockRightButton = currentPage >= pagesCount;
-
-    const pages = useMemo(() => {
-        let pagesArray = [];
-        for (let i = leftPortionPageNumber; i <= rightPortionPageNumber; i++) {
-            pagesArray.push(i);
+        if (rightPortionPageNumber > pagesCount) {
+            rightPortionPageNumber = pagesCount;
+            leftPortionPageNumber = Math.max(1, rightPortionPageNumber - portionSize + 1);
         }
-        return pagesArray;
-    }, [leftPortionPageNumber, rightPortionPageNumber]);
 
+        const blockLeftButton = currentPage <= 1;
+        const blockRightButton = currentPage >= pagesCount;
 
-    return (
-        <Stack direction={"row"} alignItems={"center"}>
-            <Button variant={"contained"} disabled={blockLeftButton} color={"secondary"}
-                    onClick={() => handlePageChanged(1)}><FirstPage /></Button>
-            <Button variant={"contained"} disabled={blockLeftButton} color={"secondary"}
-                    onClick={() => handlePageChanged(currentPage - 1)}><ChevronLeft /></Button>
+        const pages = useMemo(() => {
+            const pagesArray = [];
+            for (let i = leftPortionPageNumber; i <= rightPortionPageNumber; i++) {
+                pagesArray.push(i);
+            }
+            return pagesArray;
+        }, [leftPortionPageNumber, rightPortionPageNumber]);
 
-            <Box>
-                {createPaginationItems(pages, currentPage, handlePageChanged)}
-            </Box>
+        return (
+            <Stack direction="row" alignItems="center">
+                <Button
+                    variant="contained"
+                    disabled={blockLeftButton}
+                    color="secondary"
+                    onClick={() => handlePageChanged(1)}
+                >
+                    <FirstPage />
+                </Button>
+                <Button
+                    variant="contained"
+                    disabled={blockLeftButton}
+                    color="secondary"
+                    onClick={() => handlePageChanged(currentPage - 1)}
+                >
+                    <ChevronLeft />
+                </Button>
 
-            <Button variant={"contained"} disabled={blockRightButton} color={"secondary"}
-                    onClick={() => handlePageChanged(currentPage + 1)}><ChevronRight /></Button>
-            <Button variant={"contained"} disabled={blockRightButton} color={"secondary"}
-                    onClick={() => handlePageChanged(pagesCount)}><LastPage /></Button>
-        </Stack>
-    );
-});
+                <Box>{createPaginationItems(pages, currentPage, handlePageChanged)}</Box>
 
-const createPaginationItems = (items: number[], currentItem: number, handlePageChanged: (page: number) => void) => {
-    return items.map(item => (
-        <PaginatorButton key={item} variant={'contained'} onClick={() => handlePageChanged(item)} active={item === currentItem? 'true': 'false'}>
+                <Button
+                    variant="contained"
+                    disabled={blockRightButton}
+                    color="secondary"
+                    onClick={() => handlePageChanged(currentPage + 1)}
+                >
+                    <ChevronRight />
+                </Button>
+                <Button
+                    variant="contained"
+                    disabled={blockRightButton}
+                    color="secondary"
+                    onClick={() => handlePageChanged(pagesCount)}
+                >
+                    <LastPage />
+                </Button>
+            </Stack>
+        );
+    }
+);
+
+const createPaginationItems = (
+    items: number[],
+    currentItem: number,
+    handlePageChanged: (page: number) => void
+) => {
+    return items.map((item) => (
+        <PaginatorButton
+            key={item}
+            variant="contained"
+            onClick={() => handlePageChanged(item)}
+            active={item === currentItem ? 'true' : 'false'}
+        >
             {item}
         </PaginatorButton>
-    ))
+    ));
 };
-
 
 type PaginatorProps = {
     totalItemsCount: number;
@@ -86,4 +116,4 @@ type PaginatorProps = {
     handlePageChanged: (page: number) => void;
     portionSize?: number;
     responsive?: boolean;
-}
+};

@@ -1,1 +1,1 @@
-export * from './ProfileStatus'
+export * from './ProfileStatus';

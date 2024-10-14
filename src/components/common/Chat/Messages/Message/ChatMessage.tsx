@@ -8,26 +8,27 @@ import DoneIcon from '@mui/icons-material/Done';
 import { Message } from '../../Chat.tsx';
 
 export const ChatMessage: FC<MessageProps> = ({
-                                             message,
-                                             photo = '',
-                                             userId,
-                                             userName,
-                                             isMessageOwner,
-                                             addedAt,
-                                             viewed
-                                         }) => {
+    message,
+    photo = '',
+    userId,
+    userName,
+    isMessageOwner,
+    addedAt,
+    viewed
+}) => {
     const date = new Date(addedAt || '');
 
     return (
         <MessageWrapper isMessageOwner={isMessageOwner}>
-
-            {photo !== '' && <NavLink to={`/profile/${userId}`}>
-                <Avatar
-                    src={photo || unknownUserSVG}
-                    alt={userName}
-                    sx={{ width: 40, height: 40 }}
-                />
-            </NavLink>}
+            {photo !== '' && (
+                <NavLink to={`/profile/${userId}`}>
+                    <Avatar
+                        src={photo || unknownUserSVG}
+                        alt={userName}
+                        sx={{ width: 40, height: 40 }}
+                    />
+                </NavLink>
+            )}
 
             <MessageContent isMessageOwner={isMessageOwner}>
                 <Typography variant="subtitle1" fontWeight="bold" fontSize="0.8rem" color="#cb25cb">
@@ -36,14 +37,19 @@ export const ChatMessage: FC<MessageProps> = ({
 
                 <Typography variant="body1">{message}</Typography>
 
-                {addedAt && <Typography variant="body1" fontSize={12}>
-                    {date.getHours() + ':' + date.getMinutes().toString().padStart(2,'0')}
-                    {viewed || !isMessageOwner ? <DoneAllIcon sx={{ height: 20 }} /> : <DoneIcon sx={{ height: 20 }} />}
-                </Typography>}
+                {addedAt && (
+                    <Typography variant="body1" fontSize={12}>
+                        {date.getHours() + ':' + date.getMinutes().toString().padStart(2, '0')}
+                        {viewed || !isMessageOwner ? (
+                            <DoneAllIcon sx={{ height: 20 }} />
+                        ) : (
+                            <DoneIcon sx={{ height: 20 }} />
+                        )}
+                    </Typography>
+                )}
             </MessageContent>
         </MessageWrapper>
     );
 };
-
 
 type MessageProps = Message & { isMessageOwner: boolean };

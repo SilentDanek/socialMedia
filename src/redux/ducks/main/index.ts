@@ -1,2 +1,2 @@
-export {mainActions} from "./actions";
-export {mainThunks} from "./thunks";
+export { mainActions } from './actions';
+export { mainThunks } from './thunks';

@@ -8,36 +8,40 @@ import { DialogResponse } from '../../../../api/dialogsAPI.ts';
 import { ChatSkeleton } from '../../../common/Chat/ChatSkeleton.tsx';
 
 export const Dialog: FC<DialogProps> = ({ selectedFriendInfo: { id, photos, userName } }) => {
-    const {
-        chatMessages,
-        isError,
-        isSuccess,
-        isMessageSending,
-        handleScroll,
-        handleSendMessage
-    } = useChatMessages(id);
+    const { chatMessages, isError, isSuccess, isMessageSending, handleScroll, handleSendMessage } =
+        useChatMessages(id);
 
-    if(!isSuccess){
-        return <ChatSkeleton withAvatar={false} withHeader={true}/>;
+    if (!isSuccess) {
+        return <ChatSkeleton withAvatar={false} withHeader={true} />;
     }
 
-    return <Chat blockSubmitButton={isMessageSending}
-                 sendMessage={handleSendMessage}
-                 error={isError}
-                 messages={chatMessages}
-                 onScroll={handleScroll}
-                 chatHeader={
-                     <ThemeBox sx={{ p: 1 }}>
-                         <NavLink to={`/profile/${id}`}
-                                  style={{ display: 'flex', alignItems: 'center', gap: 10, padding: 1 }}>
-                             <Avatar src={photos.large || unknownUserSvg} />
-                             {userName}
-                         </NavLink>
-                     </ThemeBox>
-                 }
-    />;
+    return (
+        <Chat
+            blockSubmitButton={isMessageSending}
+            sendMessage={handleSendMessage}
+            error={isError}
+            messages={chatMessages}
+            onScroll={handleScroll}
+            chatHeader={
+                <ThemeBox sx={{ p: 1 }}>
+                    <NavLink
+                        to={`/profile/${id}`}
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 10,
+                            padding: 1
+                        }}
+                    >
+                        <Avatar src={photos.large || unknownUserSvg} />
+                        {userName}
+                    </NavLink>
+                </ThemeBox>
+            }
+        />
+    );
 };
 
 type DialogProps = {
     selectedFriendInfo: DialogResponse;
-}
+};

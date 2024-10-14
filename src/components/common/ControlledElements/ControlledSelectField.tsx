@@ -1,5 +1,5 @@
-import { Select, SelectProps } from "@mui/material";
-import { Control, Controller, FieldValues, Path, RegisterOptions } from "react-hook-form";
+import { Select, SelectProps } from '@mui/material';
+import { Control, Controller, FieldValues, Path, RegisterOptions } from 'react-hook-form';
 import { ReactNode, useId } from 'react';
 
 type ControlledSelectFieldProps<T extends FieldValues> = {
@@ -10,31 +10,24 @@ type ControlledSelectFieldProps<T extends FieldValues> = {
     children: ReactNode;
 } & SelectProps;
 
-
 export const ControlledSelectField = <T extends FieldValues>({
-                                                                 control,
-                                                                 name,
-                                                                 label,
-                                                                 children,
-                                                                 rules,
-                                                                 ...props
-                                                             }: ControlledSelectFieldProps<T>) => {
+    control,
+    name,
+    label,
+    children,
+    rules,
+    ...props
+}: ControlledSelectFieldProps<T>) => {
     const id = useId();
-    return <
-        Controller
-        control={control}
-        name={name}
-        render={({ field }) => (
-            <Select
-                labelId={id}
-                {...field}
-                margin={"dense"}
-                fullWidth
-                {...props}
-            >
-                {children}
-            </Select>
-        )
-        }
-    />;
+    return (
+        <Controller
+            control={control}
+            name={name}
+            render={({ field }) => (
+                <Select labelId={id} {...field} margin="dense" fullWidth {...props}>
+                    {children}
+                </Select>
+            )}
+        />
+    );
 };

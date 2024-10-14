@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
-
 export const MessageButton: FC<MessageButtonProps> = ({ userId }) => {
     const [startNewDialog] = useStartChatMutation();
     const { t } = useTranslation('users');
@@ -15,17 +14,19 @@ export const MessageButton: FC<MessageButtonProps> = ({ userId }) => {
         navigate(`/dialogs/${id}`);
     };
 
-    return <Button
-        variant="contained"
-        color="secondary"
-        size="small"
-        sx={{ width: '130px' }}
-        onClick={() => handleToDialog(userId)}
-    >
-        {t('message')}
-    </Button>;
+    return (
+        <Button
+            variant="contained"
+            color="secondary"
+            size="small"
+            sx={{ width: '130px' }}
+            onClick={() => handleToDialog(userId)}
+        >
+            {t('message')}
+        </Button>
+    );
 };
 
 type MessageButtonProps = {
     userId: number;
-}
+};

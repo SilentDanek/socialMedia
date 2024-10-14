@@ -1,13 +1,13 @@
-import {State} from "../../types";
+import { State } from '../../types';
 
-export const getUserProfile = (state:State) => {
+export const getUserProfile = (state: State) => {
     return state.profilePage.profile;
 };
 
-export const getUserStatus = (state:State) => {
+export const getUserStatus = (state: State) => {
     return state.profilePage.status;
 };
 
-export const getIsFollowed = (state:State) => {
+export const getIsFollowed = (state: State) => {
     return state.profilePage.isFollowed;
 };

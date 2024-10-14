@@ -6,10 +6,9 @@ import { DialogItem } from './DialogItem';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Dialog } from './Dialog';
 
-
 const Dialogs: FC = () => {
     const [selectedFriendId, setSelectedFriendId] = useState<null | number>(null);
-    const { data: recentDialogs } = useGetDialogsQuery({}, {pollingInterval:2000});
+    const { data: recentDialogs } = useGetDialogsQuery({}, { pollingInterval: 2000 });
     const { friendId } = useParams();
 
     useEffect(() => {
@@ -27,21 +26,25 @@ const Dialogs: FC = () => {
     const handleUserClick = useCallback((id: number) => {
         setSelectedFriendId(id);
         navigate(`/dialogs/${id}`);
-    },[]);
-
+    }, []);
 
     return (
-        <Stack direction={'row'} sx={{ height: '100%' }}>
+        <Stack direction="row" sx={{ height: '100%' }}>
             <ThemeBox
-                sx={{ height: '100%', overflowY: 'auto', minWidth: { xs: '100px', smDown: '100px', md: '400px' } }}>
-                {recentDialogs?.map((d) => <DialogItem key={d.id} setSelectedUser={handleUserClick} {...d} />)}
+                sx={{
+                    height: '100%',
+                    overflowY: 'auto',
+                    minWidth: { xs: '100px', smDown: '100px', md: '400px' }
+                }}
+            >
+                {recentDialogs?.map((d) => (
+                    <DialogItem key={d.id} setSelectedUser={handleUserClick} {...d} />
+                ))}
             </ThemeBox>
 
             {selectedFriendInfo && <Dialog selectedFriendInfo={selectedFriendInfo} />}
         </Stack>
     );
 };
-
-
 
 export default Dialogs;

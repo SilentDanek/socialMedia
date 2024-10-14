@@ -1,2 +1,2 @@
-export * from './ProfileDataSkeleton'
-export * from './ProfileData'
+export * from './ProfileDataSkeleton';
+export * from './ProfileData';

@@ -1,11 +1,16 @@
-export const updateItemsByCondition = <T>(items:T[], fieldName:keyof T, conditionValue:T[keyof T], {...newValues}:Partial<T>) => {
-    return items.map(
-        (item) => {
-            if (item[fieldName] === conditionValue) {
-                return {...item, ...newValues};
-            }
-            return item;
-        })
+export const updateItemsByCondition = <T>(
+    items: T[],
+    fieldName: keyof T,
+    conditionValue: T[keyof T],
+    { ...newValues }: Partial<T>
+    // eslint-disable-next-line max-params
+) => {
+    return items.map((item) => {
+        if (item[fieldName] === conditionValue) {
+            return { ...item, ...newValues };
+        }
+        return item;
+    });
 };
 
 // Quick way to check calls and props
@@ -13,30 +18,26 @@ export const testArr = new Proxy([], {
     get(target, prop, receiver) {
         // Перехватываем методы массива
         if (prop === 'push') {
-            return function(...args:any) {
-                console.log(args[0])
+            return function (...args: never) {
+                console.log(args[0]);
                 Reflect.apply(target[prop], target, args);
             };
         }
         return Reflect.get(target, prop, receiver);
     }
-})
+});
 
-export const generateRandomPercentage = (min:number, max:number) => {
+export const generateRandomPercentage = (min: number, max: number) => {
     const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
 
     return randomNumber + '%';
-}
-
+};
 
 declare global {
     interface Window {
         testArr: typeof testArr;
     }
 }
-
-
-
 
 window.testArr = testArr;
 
@@ -66,4 +67,4 @@ export const deepNoRefEqual = <T>(obj1: T, obj2: T): boolean => {
     }
 
     return true;
-}
+};

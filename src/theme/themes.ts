@@ -34,39 +34,39 @@ export const lightTheme = createTheme({
         backgroundImg: mainBackgroundLight,
         backgroundGradient: 'linear-gradient(aquamarine, #b507b5)',
         border: {
-            main: '#ebecff',
+            main: '#ebecff'
         },
         primary: {
-            main: '#1b52b0',
+            main: '#1b52b0'
         },
         secondary: {
-            main: '#e91e63',
-        },
+            main: '#e91e63'
+        }
     },
     typography: {
-        fontSize: 16,
-    },
+        fontSize: 16
+    }
 });
 
 export const darkTheme = createTheme({
     palette: {
         mode: 'dark',
         background: {
-            default: '#212121',
+            default: '#212121'
         },
         backgroundImg: mainBackgroundDark,
         backgroundGradient: 'linear-gradient(aquamarine, #b507b5)',
         border: {
-            main: '#05050c',
+            main: '#05050c'
         },
         primary: {
-            main: '#576df6',
+            main: '#576df6'
         },
         secondary: {
-            main: '#882a94',
-        },
+            main: '#882a94'
+        }
     },
     typography: {
-        fontSize: 16,
-    },
+        fontSize: 16
+    }
 });

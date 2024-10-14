@@ -7,7 +7,6 @@ import { StyledUserCard, UserCardActions, UserCardContent } from './UserCard.sty
 import { useTranslation } from 'react-i18next';
 import { FollowButton, MessageButton } from '../../../common';
 
-
 export const UserCard: FC<UserCardProps> = ({ user }) => {
     const { t } = useTranslation('users');
 
@@ -38,12 +37,11 @@ export const UserCard: FC<UserCardProps> = ({ user }) => {
             </UserCardContent>
 
             <UserCardActions disableSpacing>
-                <FollowButton userId={user.id} isFollow={user.followed}/>
-                <MessageButton userId={user.id}/>
+                <FollowButton userId={user.id} isFollow={user.followed} />
+                <MessageButton userId={user.id} />
             </UserCardActions>
         </StyledUserCard>
     );
 };
-
 
 type UserCardProps = { user: TUser };

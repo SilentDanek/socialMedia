@@ -3,7 +3,6 @@ import { Photos } from '../redux';
 
 // Типи даних
 
-
 const BASE_URL = 'https://social-network.samuraijs.com/api/1.0/';
 
 export const dialogsApi = createApi({
@@ -32,17 +31,22 @@ export const dialogsApi = createApi({
             providesTags: ['Dialogs']
         }),
 
-        getMessages: builder.query<TransformedMessagesResponse, { userId: number; count?: number }>({
-            query: ({ userId, count = 20 }) =>
-                `dialogs/${userId}/messages?page=${1}&count=${count}`,
-            transformResponse: (response: MessagesResponse) => ({
-                error: response.error,
-                items: convertToCommonMessage(response),
-                totalCount: response.totalCount
-            }),
-            providesTags: (_result, _error, { userId }) => [{ type: 'Messages', id: userId }]
-        }),
-        getOlderMessages: builder.query<TransformedMessagesResponse, { userId: number; page: number; count?: number }>({
+        getMessages: builder.query<TransformedMessagesResponse, { userId: number; count?: number }>(
+            {
+                query: ({ userId, count = 20 }) =>
+                    `dialogs/${userId}/messages?page=${1}&count=${count}`,
+                transformResponse: (response: MessagesResponse) => ({
+                    error: response.error,
+                    items: convertToCommonMessage(response),
+                    totalCount: response.totalCount
+                }),
+                providesTags: (_result, _error, { userId }) => [{ type: 'Messages', id: userId }]
+            }
+        ),
+        getOlderMessages: builder.query<
+            TransformedMessagesResponse,
+            { userId: number; page: number; count?: number }
+        >({
             query: ({ userId, page, count = 20 }) => {
                 console.log(page);
 
@@ -52,7 +56,7 @@ export const dialogsApi = createApi({
                 error: response.error,
                 items: convertToCommonMessage(response),
                 totalCount: response.totalCount
-            }),
+            })
         }),
 
         sendMessage: builder.mutation<any, { userId: number; body: string }>({
@@ -61,7 +65,10 @@ export const dialogsApi = createApi({
                 method: 'POST',
                 body: { body }
             }),
-            invalidatesTags: (_result, _error, { userId }) => [{ type: 'Messages', userId }, {type: 'Dialogs'}]
+            invalidatesTags: (_result, _error, { userId }) => [
+                { type: 'Messages', userId },
+                { type: 'Dialogs' }
+            ]
         }),
 
         // Проверить, прочитано ли сообщение
@@ -97,8 +104,7 @@ export const dialogsApi = createApi({
 
         // Получить сообщения, новее чем определенная дата
         getNewMessagesSince: builder.query<any, { userId: number; date: string }>({
-            query: ({ userId, date }) =>
-                `dialogs/${userId}/messages/new?newerThen=${date}`,
+            query: ({ userId, date }) => `dialogs/${userId}/messages/new?newerThen=${date}`,
             providesTags: (_result, _error, { userId }) => [{ type: 'Messages', id: userId }]
         }),
 
@@ -122,7 +128,6 @@ export const convertToCommonMessage = (messages: MessagesResponse): TransformedM
     }));
 };
 
-
 export interface DialogResponse {
     id: number;
     photos: Photos;
@@ -144,14 +149,13 @@ export type MessageResponse = {
     senderName: string;
     translatedBody: unknown;
     viewed: boolean;
-}
+};
 
 export type MessagesResponse = {
     error: string | null | undefined;
     items: MessageResponse[];
     totalCount: number;
-}
-
+};
 
 export interface TransformedMessage {
     viewed: boolean;
@@ -170,7 +174,6 @@ export interface TransformedMessagesResponse {
     totalCount: number;
 }
 
-
 export const {
     useStartChatMutation,
     useGetDialogsQuery,
@@ -184,5 +187,3 @@ export const {
     useGetNewMessagesSinceQuery,
     useGetNewMessagesCountQuery
 } = dialogsApi;
-
-

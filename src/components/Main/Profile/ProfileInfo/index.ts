@@ -1,2 +1,2 @@
-export * from "./ProfileInfo";
-export * from "./ProfileInfoSkeleton";
+export * from './ProfileInfo';
+export * from './ProfileInfoSkeleton';

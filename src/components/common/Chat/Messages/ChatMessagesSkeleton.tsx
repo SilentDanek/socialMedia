@@ -4,12 +4,15 @@ import { ChatMessageSkeleton } from './Message';
 import { generateRandomPercentage } from '../../../../utils';
 import { useAutoScroll } from '../../../../hooks/useAutoScroll.ts';
 
-export const ChatMessagesSkeleton: FC<{withAvatar:boolean}> = ({withAvatar}) => {
-    const [randMessages] = useState<RandMessage[]>(Array(15).fill(0).map(() => ({
-            userName: generateRandomPercentage(20, 50),
-            isMessageOwnerRand: Boolean(Math.random() < 0.5)
-        })
-    ));
+export const ChatMessagesSkeleton: FC<{ withAvatar: boolean }> = ({ withAvatar }) => {
+    const [randMessages] = useState<RandMessage[]>(
+        Array(15)
+            .fill(0)
+            .map(() => ({
+                userName: generateRandomPercentage(20, 50),
+                isMessageOwnerRand: Boolean(Math.random() < 0.5)
+            }))
+    );
     const { handleScroll, autoScrollRef } = useAutoScroll(randMessages);
 
     return (
@@ -22,8 +25,7 @@ export const ChatMessagesSkeleton: FC<{withAvatar:boolean}> = ({withAvatar}) => 
     );
 };
 
-
 export type RandMessage = {
-    userName:string;
+    userName: string;
     isMessageOwnerRand: boolean;
-}
+};

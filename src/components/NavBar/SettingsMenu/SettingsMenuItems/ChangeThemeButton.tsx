@@ -1,25 +1,22 @@
-import { FC } from "react";
-import { MenuItem, Typography } from "@mui/material";
-import { TFunction } from "i18next";
-import { useCustomTheme } from "../../../../theme";
-import WbSunnyIcon from "@mui/icons-material/WbSunny";
-import NightsStayIcon from "@mui/icons-material/NightsStay";
+import { FC } from 'react';
+import { MenuItem, Typography } from '@mui/material';
+import { TFunction } from 'i18next';
+import { useCustomTheme } from '../../../../theme';
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import NightsStayIcon from '@mui/icons-material/NightsStay';
 
 type Props = {
-    t: TFunction<"translation", undefined>
-}
+    t: TFunction<'translation', undefined>;
+};
 
 export const ChangeThemeButton: FC<Props> = ({ t }) => {
     const { toggleTheme, themeMode } = useCustomTheme();
 
-    return (<MenuItem onClick={() => toggleTheme()}>
-            {
-                themeMode === "light"
-                    ? <WbSunnyIcon />
-                    : <NightsStayIcon />
-            }
+    return (
+        <MenuItem onClick={() => toggleTheme()}>
+            {themeMode === 'light' ? <WbSunnyIcon /> : <NightsStayIcon />}
             <Typography variant="body1" component="span" sx={{ ml: 1 }}>
-                {t("theme")}
+                {t('theme')}
             </Typography>
         </MenuItem>
     );

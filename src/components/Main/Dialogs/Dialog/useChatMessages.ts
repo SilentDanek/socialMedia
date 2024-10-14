@@ -22,10 +22,17 @@ export const useChatMessages = (userId: number) => {
     const [sendMessage, { isLoading: isMessageSending }] = useSendMessageMutation();
 
     // Periodically fetches the latest messages every 10 seconds using polling
-    const { data: messages, isSuccess, isError } = useGetMessagesQuery({
-        userId,
-        count: 20
-    }, { pollingInterval: 5000 });
+    const {
+        data: messages,
+        isSuccess,
+        isError
+    } = useGetMessagesQuery(
+        {
+            userId,
+            count: 20
+        },
+        { pollingInterval: 5000 }
+    );
 
     // Manually reset old messages to avoid component flickering
     // Clear the chat messages state as the component does not rerender automatically
@@ -41,9 +48,9 @@ export const useChatMessages = (userId: number) => {
     useEffect(() => {
         if (messages) {
             // Find index where new messages equal to chatMessages and have actual info
-            const index = chatMessages.findIndex((message) => (
-                messages.items.some((m) => (m.id === message.id))
-            ))
+            const index = chatMessages.findIndex((message) =>
+                messages.items.some((m) => m.id === message.id)
+            );
 
             // Cut messages witch don't contain in new messages
             const oldActualMessages = chatMessages.slice(0, index);
@@ -51,28 +58,26 @@ export const useChatMessages = (userId: number) => {
         }
     }, [messages]);
 
-
     // Add new messages
     useEffect(() => {
         if (oldMessages && page !== 1) {
-            setChatMessages([ ...oldMessages.items, ...chatMessages, ]);
+            setChatMessages([...oldMessages.items, ...chatMessages]);
         }
     }, [oldMessages]);
-
 
     // Fetching more old messages when scroll almost equal to element scroll height
     // and after when the newest messages loaded
     const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
         const target = e.target as HTMLElement;
-        if (target.scrollTop < 400
-            && isSuccess
-            && !isFetchingOldMessages
-            && (oldMessages?.totalCount || 0) > page * 20) {
-
+        if (
+            target.scrollTop < 400 &&
+            isSuccess &&
+            !isFetchingOldMessages &&
+            (oldMessages?.totalCount || 0) > page * 20
+        ) {
             setPage((prevPage) => prevPage + 1);
         }
     };
-
 
     const handleSendMessage = (newMessage: string) => {
         sendMessage({ body: newMessage, userId: userId });

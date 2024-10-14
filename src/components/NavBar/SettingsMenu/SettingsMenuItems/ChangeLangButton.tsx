@@ -16,7 +16,7 @@ export const ChangeLangButton: FC<Props> = ({ t, i18n }) => {
 
     const languages = [
         { flagSrc: GBFlagIcon, LangName: 'English', langTag: 'en' },
-        { flagSrc: UAFlagIcon, LangName: 'Українська', langTag: 'ua' },
+        { flagSrc: UAFlagIcon, LangName: 'Українська', langTag: 'ua' }
     ];
 
     const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -39,11 +39,7 @@ export const ChangeLangButton: FC<Props> = ({ t, i18n }) => {
                     {t('language')}
                 </Typography>
             </MenuItem>
-            <Menu
-                anchorEl={anchorEl}
-                open={open}
-                onClose={() => setOpen(false)}
-            >
+            <Menu anchorEl={anchorEl} open={open} onClose={() => setOpen(false)}>
                 {languages.map((language) => (
                     <LanguageMenuItem
                         key={language.langTag}
@@ -60,7 +56,7 @@ export const LanguageMenuItem: FC<LanguageMenuItemProps> = ({
     handleLanguageChange,
     flagSrc,
     LangName,
-    langTag,
+    langTag
 }) => {
     return (
         <MenuItem onClick={() => handleLanguageChange(langTag)}>

@@ -1,1 +1,1 @@
-export * from './ProfileDataForm.tsx'
+export * from './ProfileDataForm.tsx';

@@ -20,5 +20,5 @@ export const useAutoScroll = (observedObject: any) => {
         }
     };
 
-    return {handleScroll, autoScrollRef}
-}
+    return { handleScroll, autoScrollRef };
+};

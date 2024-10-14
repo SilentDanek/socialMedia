@@ -1,1 +1,1 @@
-export * from "./ultimates";
+export * from './ultimates';

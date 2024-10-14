@@ -1,8 +1,8 @@
-import { useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
-import { UsersFilter } from "../redux";
+import { useSearchParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { UsersFilter } from '../redux';
 
-type Friend = "true" | "false" | "null";
+type Friend = 'true' | 'false' | 'null';
 
 type Params = {
     term: string | null;
@@ -21,9 +21,9 @@ export const useUsersQueryParams = (
     //Preload users when the users page opens
     useEffect(() => {
         const parsed: Params = {
-            term: searchParams.get("term"),
-            friend: String(searchParams.get("friend")) as Friend,
-            page: searchParams.get("page")
+            term: searchParams.get('term'),
+            friend: String(searchParams.get('friend')) as Friend,
+            page: searchParams.get('page')
         };
 
         const actualPage = parsed.page ? Number(parsed.page) : currentPage;
@@ -32,13 +32,13 @@ export const useUsersQueryParams = (
         if (parsed.term) actualFilter = { ...actualFilter, term: parsed.term };
 
         switch (parsed.friend) {
-            case "null":
+            case 'null':
                 actualFilter = { ...actualFilter, friend: null };
                 break;
-            case "true":
+            case 'true':
                 actualFilter = { ...actualFilter, friend: true };
                 break;
-            case "false":
+            case 'false':
                 actualFilter = { ...actualFilter, friend: false };
                 break;
         }

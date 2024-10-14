@@ -1,13 +1,10 @@
-import {Sidebar, SidebarAction} from "./types";
+import { Sidebar, SidebarAction } from './types';
 
+const initialState: Sidebar = {};
 
-const initialState:Sidebar = {
-
-};
-
-export function sidebarReducer(state = initialState, action: SidebarAction):Sidebar {
+export function sidebarReducer(state = initialState, action: SidebarAction): Sidebar {
     switch (action.type) {
-        default:{
+        default: {
             return state;
         }
     }

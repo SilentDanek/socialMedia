@@ -1,8 +1,8 @@
-import { styled } from "@mui/material/styles";
+import { styled } from '@mui/material/styles';
 
-export const MainContent = styled("main")(({ theme }) => ({
+export const MainContent = styled('main')(({ theme }) => ({
     backgroundImage: `url(${theme.palette.backgroundImg}), ${theme.palette.backgroundGradient}`,
     flex: 1,
-    overflow: "hidden",
+    overflow: 'hidden',
     height: '100%'
 }));

@@ -1,16 +1,15 @@
-import { Box, IconButton } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import { ChangeEvent, FC, ReactNode, useRef } from "react";
-import { boundThunks } from "../../../../../redux";
+import { Box, IconButton } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import { ChangeEvent, FC, ReactNode, useRef } from 'react';
+import { boundThunks } from '../../../../../redux';
 
 type AvatarLoaderProps = {
-    children: ReactNode
-}
+    children: ReactNode;
+};
 
 export const AvatarLoader: FC<AvatarLoaderProps> = ({ children }) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { updatePhoto } = boundThunks.profileThunks;
-
 
     const handleAvatarClick = () => {
         fileInputRef.current?.click();
@@ -20,14 +19,13 @@ export const AvatarLoader: FC<AvatarLoaderProps> = ({ children }) => {
         if (!e.target.files || !e.target.files.length) return;
 
         const file = new FormData();
-        file.append("image", e.target.files[0]);
+        file.append('image', e.target.files[0]);
 
         updatePhoto(file);
     };
 
-
     return (
-        <Box sx={{ position: "relative"}}>
+        <Box sx={{ position: 'relative' }}>
             {children}
 
             <input
@@ -35,21 +33,22 @@ export const AvatarLoader: FC<AvatarLoaderProps> = ({ children }) => {
                 accept="image/*"
                 ref={fileInputRef}
                 onChange={handleUpdatePhotoOnChange}
-                style={{ display: "none" }}
+                style={{ display: 'none' }}
             />
 
             <IconButton
                 sx={{
-                    position: "absolute",
+                    position: 'absolute',
                     bottom: 0,
-                    right: "36%",
-                    backgroundColor: "rgba(0, 0, 0, 0.5)",
-                    color: "#fff",
-                    cursor: "pointer"
+                    right: '36%',
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    color: '#fff',
+                    cursor: 'pointer'
                 }}
                 onClick={handleAvatarClick}
             >
                 <EditIcon />
             </IconButton>
-        </Box>);
+        </Box>
+    );
 };

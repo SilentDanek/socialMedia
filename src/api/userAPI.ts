@@ -9,9 +9,15 @@ type FollowResponse = DefaultResponse;
 type UnfollowResponse = DefaultResponse;
 
 export const userAPI = {
-    async getUsers(currentPage = 1, pageSize = 10, term: string = '', friend: null | boolean = null) {
+    async getUsers(
+        currentPage = 1,
+        pageSize = 10,
+        term: string = '',
+        friend: null | boolean = null
+    ) {
         const response = await instance.get<GetUsersResponse>(
-            `users?page=${currentPage}&count=${pageSize}&term=${term}` + (friend === null ? '' : `&friend=${friend}`)
+            `users?page=${currentPage}&count=${pageSize}&term=${term}` +
+                (friend === null ? '' : `&friend=${friend}`)
         );
         return response.data;
     },
@@ -22,5 +28,5 @@ export const userAPI = {
     async unfollow(userId: number) {
         const response = await instance.delete<UnfollowResponse>(`follow/${userId}`);
         return response.data;
-    },
-}
+    }
+};

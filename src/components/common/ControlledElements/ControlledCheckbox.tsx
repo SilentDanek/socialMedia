@@ -8,11 +8,11 @@ type ControlledCheckboxProps<T extends FieldValues> = {
 } & CheckboxProps;
 
 export const ControlledCheckbox = <T extends FieldValues>({
-                                                       name,
-                                                       control,
-                                                       label,
-                                                       ...props
-                                                   }: ControlledCheckboxProps<T>) => (
+    name,
+    control,
+    label,
+    ...props
+}: ControlledCheckboxProps<T>) => (
     <Controller
         name={name}
         control={control}

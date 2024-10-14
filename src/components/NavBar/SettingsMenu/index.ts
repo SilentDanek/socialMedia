@@ -1,1 +1,1 @@
-export * from "./SettingMenu"
+export * from './SettingMenu';

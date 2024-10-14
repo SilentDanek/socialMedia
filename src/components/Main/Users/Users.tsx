@@ -30,28 +30,30 @@ const Users: FC = () => {
     //Synchronization of query params and filters
     useUsersQueryParams(currentPage, filter, requestUsers, pageSize);
 
-    const handlePageChanged = useCallback((pageNumber: number) => {
-        if (pageNumber === currentPage) return;
-        requestUsers(pageNumber, pageSize, filter);
-    }, [pageSize, filter, currentPage]);
+    const handlePageChanged = useCallback(
+        (pageNumber: number) => {
+            if (pageNumber === currentPage) return;
+            requestUsers(pageNumber, pageSize, filter);
+        },
+        [pageSize, filter, currentPage]
+    );
 
-    const handleFilterChanged = useCallback((filter: UsersFilter) => {
-        requestUsers(1, pageSize, filter);
-    }, [pageSize]);
+    const handleFilterChanged = useCallback(
+        (filter: UsersFilter) => {
+            requestUsers(1, pageSize, filter);
+        },
+        [pageSize]
+    );
 
     return (
         <UsersWrapper>
             <UsersSection>
                 <UsersSearchForm handleFilterChanged={handleFilterChanged} />
-                {
-                    isFetching
-                        ? Array(pageSize).fill(0).map((_, index) => (
-                            <UserCardSkeleton key={index} />
-                        ))
-                        : users.map((user) => (
-                            <UserCard key={user.id} user={user} />
-                        ))
-                }
+                {isFetching
+                    ? Array(pageSize)
+                          .fill(0)
+                          .map((_, index) => <UserCardSkeleton key={index} />)
+                    : users.map((user) => <UserCard key={user.id} user={user} />)}
                 <Paginator
                     currentPage={currentPage}
                     handlePageChanged={handlePageChanged}
@@ -64,7 +66,5 @@ const Users: FC = () => {
         </UsersWrapper>
     );
 };
-
-
 
 export default Users;

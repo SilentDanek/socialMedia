@@ -10,7 +10,7 @@ describe('Paginator', () => {
         itemsInPage: 10,
         currentPage: 1,
         handlePageChanged: mockOnPageChanged,
-        portionSize: 8,
+        portionSize: 8
     };
 
     test('renders correct number of page buttons', () => {
@@ -20,11 +20,9 @@ describe('Paginator', () => {
         expect(pageButtons.length).toBe(10); // 100/10 = 10 страниц
     });
 
-
-
     test('calls onPageChanged with correct page number when a page button is clicked', () => {
         render(<Paginator {...defaultProps} />);
         fireEvent.click(screen.getByText('2')); // Выбор страницы 2
         expect(mockOnPageChanged).toHaveBeenCalledWith(2);
     });
-})
+});

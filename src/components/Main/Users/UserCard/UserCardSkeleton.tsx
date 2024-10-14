@@ -1,13 +1,13 @@
-import { FC } from "react";
-import { Skeleton } from "@mui/material";
-import { StyledUserCard, UserCardActions, UserCardContent } from "./UserCard.styles";
+import { FC } from 'react';
+import { Skeleton } from '@mui/material';
+import { StyledUserCard, UserCardActions, UserCardContent } from './UserCard.styles';
 
 export const UserCardSkeleton: FC = () => {
     return (
         <StyledUserCard>
             <Skeleton variant="circular" width={100} height={100} />
 
-            <UserCardContent sx={{ flexGrow: 1, flexBasis: "200px" }}>
+            <UserCardContent sx={{ flexGrow: 1, flexBasis: '200px' }}>
                 <Skeleton width="60%" />
                 <Skeleton width="80%" />
             </UserCardContent>
@@ -19,4 +19,3 @@ export const UserCardSkeleton: FC = () => {
         </StyledUserCard>
     );
 };
-

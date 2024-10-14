@@ -1,5 +1,5 @@
-import {profileActions} from "./actions";
-import {InferActionsTypes} from "../../types";
+import { profileActions } from './actions';
+import { InferActionsTypes } from '../../types';
 
 export type Contacts = {
     facebook: string | null;

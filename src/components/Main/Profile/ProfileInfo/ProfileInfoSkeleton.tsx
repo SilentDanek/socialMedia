@@ -4,7 +4,6 @@ import { ProfileContainer } from './ProfileInfo.style';
 import { Skeleton } from '@mui/material';
 import { ProfileDataSkeleton } from './ProfileData';
 
-
 export const ProfileInfoSkeleton: FC = () => {
     return (
         <ProfileContainer>
@@ -12,13 +11,13 @@ export const ProfileInfoSkeleton: FC = () => {
                 <Box>
                     <Skeleton variant="circular" width={120} height={120} />
                 </Box>
-                <Stack width={"100%"}>
-                    <Skeleton variant="text" height={50} sx={{width:'90%', maxWidth:'300px'}}/>
-                    <Skeleton variant="text" height={25} sx={{width:'80%', maxWidth:'270px'}}/>
-                    <Skeleton variant="rounded" width={150} height={40} sx={{marginTop:2}}/>
+                <Stack width="100%">
+                    <Skeleton variant="text" height={50} sx={{ width: '90%', maxWidth: '300px' }} />
+                    <Skeleton variant="text" height={25} sx={{ width: '80%', maxWidth: '270px' }} />
+                    <Skeleton variant="rounded" width={150} height={40} sx={{ marginTop: 2 }} />
                 </Stack>
             </Stack>
-            <ProfileDataSkeleton/>
+            <ProfileDataSkeleton />
         </ProfileContainer>
     );
 };

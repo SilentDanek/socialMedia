@@ -26,12 +26,14 @@ const GlobalChat = () => {
         };
     }, []);
 
-    return <Chat blockSubmitButton={status !== 'ready'}
-                 sendMessage={sendMessage}
-                 error={status === "error"}
-                 messages={messages}
-    />;
+    return (
+        <Chat
+            blockSubmitButton={status !== 'ready'}
+            sendMessage={sendMessage}
+            error={status === 'error'}
+            messages={messages}
+        />
+    );
 };
-
 
 export default GlobalChat;

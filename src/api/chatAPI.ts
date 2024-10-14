@@ -1,9 +1,8 @@
-
 class ChatWebSocket {
     private ws: WebSocket | null = null;
     private subscribers: Subscribers = {
         'messages-received': [],
-        'status-changed': [],
+        'status-changed': []
     };
 
     constructor(private url: string) {}
@@ -24,13 +23,17 @@ class ChatWebSocket {
         this.ws.addEventListener('close', this.closeHandler);
     }
 
-    public subscribe(eventName: keyof Subscribers, callback: (data: any) => void){
+    public subscribe(eventName: keyof Subscribers, callback: (data: any) => void) {
         this.subscribers[eventName].push(callback);
-        return () => {this.subscribers[eventName] = this.subscribers[eventName].filter(s => s !== callback)};
+        return () => {
+            this.subscribers[eventName] = this.subscribers[eventName].filter((s) => s !== callback);
+        };
     }
 
     public unsubscribe(eventName: keyof Subscribers, callback: (data: any) => void) {
-        this.subscribers[eventName] = this.subscribers[eventName].filter(subscriber => subscriber !== callback);
+        this.subscribers[eventName] = this.subscribers[eventName].filter(
+            (subscriber) => subscriber !== callback
+        );
     }
 
     public sendMessage(message: string) {
@@ -46,25 +49,25 @@ class ChatWebSocket {
     private closeHandler = () => {
         this.notifySubscribersAboutStatus('pending');
         setTimeout(() => this.createChannel(), 5000);
-    }
+    };
 
     private notifySubscribersAboutStatus(status: StatusType) {
-        this.subscribers['status-changed'].forEach(subscriber => subscriber(status));
+        this.subscribers['status-changed'].forEach((subscriber) => subscriber(status));
     }
 
     private messageHandler = (e: MessageEvent) => {
         const newMessages = JSON.parse(e.data);
-        this.subscribers['messages-received'].forEach(subscriber => subscriber(newMessages));
-    }
+        this.subscribers['messages-received'].forEach((subscriber) => subscriber(newMessages));
+    };
 
     private openHandler = () => {
         this.notifySubscribersAboutStatus('ready');
-    }
+    };
 
     private errorHandler = () => {
         this.notifySubscribersAboutStatus('error');
         console.error('REFRESH PAGE');
-    }
+    };
 
     private cleanUp() {
         if (!this.ws) return;
@@ -77,7 +80,9 @@ class ChatWebSocket {
 }
 
 export const chatAPI = {
-    chatWebSocket: new ChatWebSocket("wss://social-network.samuraijs.com/handlers/ChatHandler.ashx"),
+    chatWebSocket: new ChatWebSocket(
+        'wss://social-network.samuraijs.com/handlers/ChatHandler.ashx'
+    ),
 
     start() {
         this.chatWebSocket.createChannel();
@@ -86,30 +91,34 @@ export const chatAPI = {
         this.chatWebSocket.clearSubscribers();
         this.chatWebSocket.closeConnection();
     },
-    subscribe(eventName: EventsNamesType, callback: MessagesReceivedSubscriberType | StatusChangedSubscriberType) {
+    subscribe(
+        eventName: EventsNamesType,
+        callback: MessagesReceivedSubscriberType | StatusChangedSubscriberType
+    ) {
         return this.chatWebSocket.subscribe(eventName, callback);
     },
-    unsubscribe(eventName: EventsNamesType, callback: MessagesReceivedSubscriberType | StatusChangedSubscriberType) {
+    unsubscribe(
+        eventName: EventsNamesType,
+        callback: MessagesReceivedSubscriberType | StatusChangedSubscriberType
+    ) {
         this.chatWebSocket.unsubscribe(eventName, callback);
     },
     sendMessage(message: string) {
         this.chatWebSocket.sendMessage(message);
     }
-}
-
-
+};
 
 type Subscribers = {
-    'messages-received': ((...args:any) => void)[];
-    'status-changed': ((...args:any) => void)[];
-}
+    'messages-received': ((...args: any) => void)[];
+    'status-changed': ((...args: any) => void)[];
+};
 
 export type ChatMessageAPIType = {
-    message: string
-    photo: string
-    userId: number
-    userName: string
-}
+    message: string;
+    photo: string;
+    userId: number;
+    userName: string;
+};
 
 export type StatusType = 'pending' | 'ready' | 'error';
 type EventsNamesType = 'messages-received' | 'status-changed';

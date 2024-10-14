@@ -1,1 +1,1 @@
-export * from './AvatarLoader'
+export * from './AvatarLoader';

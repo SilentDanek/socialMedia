@@ -1,4 +1,4 @@
-import {DefaultResponse, instance, ResultCodeForCaptcha, ResultCodes} from "./api";
+import { DefaultResponse, instance, ResultCodeForCaptcha, ResultCodes } from './api';
 
 type MeResponse = DefaultResponse & {
     data: {
@@ -19,12 +19,14 @@ type LogoutResponse = DefaultResponse & {
 };
 export const authAPI = {
     getAuthUserData() {
-        return instance.get<MeResponse>("auth/me").then(response => response.data);
+        return instance.get<MeResponse>('auth/me').then((response) => response.data);
     },
-    login(email: string, password: string, rememberMe = false, captcha = "") {
-        return instance.post<LoginResponse>("auth/login", {email, password, rememberMe, captcha}).then(response => response.data);
+    login(email: string, password: string, rememberMe = false, captcha = '') {
+        return instance
+            .post<LoginResponse>('auth/login', { email, password, rememberMe, captcha })
+            .then((response) => response.data);
     },
     logout() {
-        return instance.delete<LogoutResponse>("auth/login").then(response => response.data);
-    },
-}
+        return instance.delete<LogoutResponse>('auth/login').then((response) => response.data);
+    }
+};

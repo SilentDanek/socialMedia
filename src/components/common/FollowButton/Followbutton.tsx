@@ -3,8 +3,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { boundThunks, getFollowingInProgress, useAppSelector } from '../../../redux';
 
-
-export const FollowButton:FC<FollowButtonProps> = ({ isFollow, userId, onClick }) => {
+export const FollowButton: FC<FollowButtonProps> = ({ isFollow, userId, onClick }) => {
     const followingInProgress = useAppSelector(getFollowingInProgress);
 
     const { follow, unfollow } = boundThunks.usersThunks;
@@ -18,26 +17,27 @@ export const FollowButton:FC<FollowButtonProps> = ({ isFollow, userId, onClick }
         } else {
             follow(userId);
         }
-        if(onClick){
+        if (onClick) {
             onClick();
         }
     };
 
-    return <Button
-        variant="contained"
-        color={isFollow ? 'error' : 'primary'}
-        size="small"
-        sx={{ width: '130px' }}
-        onClick={handleFollow}
-        disabled={handleFollowBlock()}
-    >
-        {isFollow ? t('unfollow') : t('follow')}
-    </Button>
-}
-
+    return (
+        <Button
+            variant="contained"
+            color={isFollow ? 'error' : 'primary'}
+            size="small"
+            sx={{ width: '130px' }}
+            onClick={handleFollow}
+            disabled={handleFollowBlock()}
+        >
+            {isFollow ? t('unfollow') : t('follow')}
+        </Button>
+    );
+};
 
 type FollowButtonProps = {
     userId: number;
     isFollow: boolean;
-    onClick?:any;
-}
+    onClick?: any;
+};

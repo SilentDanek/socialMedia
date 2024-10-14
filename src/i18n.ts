@@ -12,10 +12,9 @@ import uaProfile from './locales/ua/profile.json';
 import enUsers from './locales/en/users.json';
 import uaUsers from './locales/ua/users.json';
 
-const defaultLang = localStorage.getItem("language");
+const defaultLang = localStorage.getItem('language');
 
-i18n
-    .use(initReactI18next)
+i18n.use(initReactI18next)
     .init({
         resources: {
             en: {
@@ -23,7 +22,7 @@ i18n
                 navbar: enNavbar,
                 chat: enChat,
                 profile: enProfile,
-                users: enUsers,
+                users: enUsers
             },
             ua: {
                 login: uaLogin,
@@ -31,13 +30,14 @@ i18n
                 chat: uaChat,
                 profile: uaProfile,
                 users: uaUsers
-            },
+            }
         },
         lng: defaultLang || 'en',
         fallbackLng: 'en',
         interpolation: {
-            escapeValue: false,
+            escapeValue: false
         }
-    }).then();
+    })
+    .then();
 
 export default i18n;
