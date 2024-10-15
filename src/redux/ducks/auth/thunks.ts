@@ -15,7 +15,7 @@ const getAuthUserData = (): AuthThunk => async (dispatch) => {
             dispatch(authActions.setAuthUserData(id, login, true));
         }
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 };
 

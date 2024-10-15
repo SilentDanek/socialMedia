@@ -23,7 +23,7 @@ const requestUsers = (currentPage: number, pageSize: number, filter: UsersFilter
             dispatch(usersActions.setCurrentPage(currentPage));
             dispatch(usersActions.toggleIsFetching(false));
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     };
 };

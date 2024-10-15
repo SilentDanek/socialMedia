@@ -24,7 +24,7 @@ export const dialogsApi = createApi({
             invalidatesTags: ['Dialogs']
         }),
 
-        getDialogs: builder.query<DialogResponse[], void | object>({
+        getDialogs: builder.query<DialogResponse[], void>({
             query: () => 'dialogs',
             providesTags: ['Dialogs']
         }),
@@ -45,11 +45,8 @@ export const dialogsApi = createApi({
             TransformedMessagesResponse,
             { userId: number; page: number; count?: number }
         >({
-            query: ({ userId, page, count = 20 }) => {
-                console.log(page);
-
-                return `dialogs/${userId}/messages?page=${page}&count=${count}`;
-            },
+            query: ({ userId, page, count = 20 }) =>
+                `dialogs/${userId}/messages?page=${page}&count=${count}`,
             transformResponse: (response: MessagesResponse) => ({
                 error: response.error,
                 items: convertToCommonMessage(response),
@@ -70,7 +67,7 @@ export const dialogsApi = createApi({
         }),
 
         // Получить количество новых сообщений
-        getNewMessagesCount: builder.query<number, void>({
+        getNewMessagesCount: builder.query<number, object>({
             query: () => 'dialogs/messages/new/count'
         })
     })
