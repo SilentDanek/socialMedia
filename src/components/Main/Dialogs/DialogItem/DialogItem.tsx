@@ -2,11 +2,13 @@ import { FC, memo } from 'react';
 import { Photos } from '../../../../redux';
 import { Avatar, Box, Card, CardContent, Chip, Stack, Typography, useTheme } from '@mui/material';
 import unknownUserSvg from '../../../../assets/images/unknown-user.svg';
+import { formatDate } from '../../../../utils';
 
 type DialogItemProps = {
     hasNewMessages: boolean;
     id: number;
     lastDialogActivityDate: string;
+    selectedFriendId: number | null;
     lastUserActivityDate: string;
     newMessagesCount: number;
     photos: Photos;
@@ -23,10 +25,12 @@ export const DialogItem: FC<DialogItemProps> = memo(
         lastUserActivityDate,
         newMessagesCount,
         hasNewMessages,
-        setSelectedUser
+        setSelectedUser,
+        selectedFriendId
     }) => {
         const lastMessageData = formatDate(lastDialogActivityDate);
-        const lastUserData = formatDate(lastUserActivityDate);
+        const lastUserActivity = formatDate(lastUserActivityDate);
+        const isSelected = selectedFriendId === id;
         const theme = useTheme();
         return (
             <Card
@@ -34,8 +38,11 @@ export const DialogItem: FC<DialogItemProps> = memo(
                     cursor: 'pointer',
                     transition: 'background-color 0.4s',
                     borderRadius: '12px',
+                    backgroundColor: isSelected
+                        ? theme.palette.backgroundColors?.main
+                        : theme.palette.background.default,
                     '&:hover': {
-                        backgroundColor: theme.palette.mode === 'light' ? '#e8e8e8' : '#333333'
+                        backgroundColor: isSelected ? 'auto' : theme.palette.backgroundColors.hover
                     }
                 }}
             >
@@ -68,7 +75,7 @@ export const DialogItem: FC<DialogItemProps> = memo(
                         </Stack>
                         <Stack direction="row" justifyContent="space-between" alignItems="center">
                             <Typography variant="subtitle2" color="textSecondary">
-                                {lastUserData}
+                                {lastUserActivity}
                             </Typography>
                             {hasNewMessages && <Chip label={newMessagesCount} color="primary" />}
                         </Stack>
@@ -78,41 +85,3 @@ export const DialogItem: FC<DialogItemProps> = memo(
         );
     }
 );
-
-function formatDate(dateString: string, locale: string = 'uk-UA'): string {
-    const date = new Date(dateString);
-    date.setMinutes(date.getMinutes() + date.getTimezoneOffset() * -1);
-    const now = new Date();
-
-    const diffMs = now.getTime() - date.getTime();
-
-    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-    if (diffDays < 1) {
-        const hours = date.getHours().toString().padStart(2, '0');
-        const minutes = date.getMinutes().toString().padStart(2, '0');
-        return `${hours}:${minutes.toString().padStart(2, '0')}`;
-    }
-
-    if (diffDays < 7) {
-        const shortDaysOfWeek =
-            locale === 'uk-UA'
-                ? ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб']
-                : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        return shortDaysOfWeek[date.getDay()];
-    }
-
-    if (diffDays < 365) {
-        return date.toLocaleDateString(locale, { day: 'numeric', month: 'short' });
-    }
-
-    const options: Intl.DateTimeFormatOptions = {
-        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-        hour: '2-digit',
-        minute: '2-digit',
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric'
-    };
-
-    return date.toLocaleString(locale, options);
-}

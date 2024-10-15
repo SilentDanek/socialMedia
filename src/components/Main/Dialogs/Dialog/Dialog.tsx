@@ -1,46 +1,61 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { useChatMessages } from './useChatMessages.ts';
-import { Chat, ThemeBox } from '../../../common';
+import { Chat, ChatSkeleton, ThemeBox } from '../../../common';
 import { NavLink } from 'react-router-dom';
-import { Avatar } from '@mui/material';
+import { Avatar, Stack, Typography } from '@mui/material';
 import unknownUserSvg from '../../../../assets/images/unknown-user.svg';
 import { DialogResponse } from '../../../../api/dialogsAPI.ts';
-import { ChatSkeleton } from '../../../common/Chat/ChatSkeleton.tsx';
+import { formatDate } from '../../../../utils';
 
-export const Dialog: FC<DialogProps> = ({ selectedFriendInfo: { id, photos, userName } }) => {
-    const { chatMessages, isError, isSuccess, isMessageSending, handleScroll, handleSendMessage } =
-        useChatMessages(id);
+export const Dialog: FC<DialogProps> = memo(
+    ({ selectedFriendInfo: { id, photos, userName, lastUserActivityDate } }) => {
+        const {
+            chatMessages,
+            isError,
+            isLoadedDialog,
+            isMessageSending,
+            handleScroll,
+            handleSendMessage
+        } = useChatMessages(id);
 
-    if (!isSuccess) {
-        return <ChatSkeleton withAvatar={false} withHeader={true} />;
+        const lastUserActivityDateParsed = formatDate(lastUserActivityDate);
+
+        if (!isLoadedDialog) {
+            return <ChatSkeleton withAvatar={false} withHeader={true} />;
+        }
+
+        return (
+            <Chat
+                blockSubmitButton={isMessageSending}
+                sendMessage={handleSendMessage}
+                error={isError}
+                messages={chatMessages}
+                onScroll={handleScroll}
+                chatHeader={
+                    <ThemeBox sx={{ p: 1 }}>
+                        <NavLink
+                            to={`/profile/${id}`}
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 10,
+                                padding: 1
+                            }}
+                        >
+                            <Avatar src={photos.large || unknownUserSvg} />
+                            <Stack direction="column">
+                                <Typography variant="body1">{userName}</Typography>
+                                <Typography variant="subtitle2">
+                                    {lastUserActivityDateParsed}
+                                </Typography>
+                            </Stack>
+                        </NavLink>
+                    </ThemeBox>
+                }
+            />
+        );
     }
-
-    return (
-        <Chat
-            blockSubmitButton={isMessageSending}
-            sendMessage={handleSendMessage}
-            error={isError}
-            messages={chatMessages}
-            onScroll={handleScroll}
-            chatHeader={
-                <ThemeBox sx={{ p: 1 }}>
-                    <NavLink
-                        to={`/profile/${id}`}
-                        style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: 10,
-                            padding: 1
-                        }}
-                    >
-                        <Avatar src={photos.large || unknownUserSvg} />
-                        {userName}
-                    </NavLink>
-                </ThemeBox>
-            }
-        />
-    );
-};
+);
 
 type DialogProps = {
     selectedFriendInfo: DialogResponse;

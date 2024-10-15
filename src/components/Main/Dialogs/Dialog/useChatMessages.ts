@@ -9,8 +9,9 @@ import {
 export const useChatMessages = (userId: number) => {
     // To preload old messages, we store the last loaded page
     const [page, setPage] = useState(1);
+    const [isLoadedDialog, setIsLoadedDialog] = useState(false);
 
-    // Container to all messages like new and old
+    // Container for all new and old messages
     // eslint-disable-next-line prefer-const
     let [chatMessages, setChatMessages] = useState<TransformedMessage[]>([]);
 
@@ -22,7 +23,7 @@ export const useChatMessages = (userId: number) => {
 
     const [sendMessage, { isLoading: isMessageSending }] = useSendMessageMutation();
 
-    // Periodically fetches the latest messages every 10 seconds using polling
+    // Periodically fetches the latest messages every 5 seconds using polling
     const {
         data: messages,
         isSuccess,
@@ -34,6 +35,10 @@ export const useChatMessages = (userId: number) => {
         },
         { pollingInterval: 5000 }
     );
+
+    if (!isLoadedDialog && isSuccess) {
+        setIsLoadedDialog(true);
+    }
 
     // Manually reset old messages to avoid component flickering
     // Clear the chat messages state as the component does not rerender automatically
@@ -86,7 +91,7 @@ export const useChatMessages = (userId: number) => {
 
     return {
         chatMessages,
-        isSuccess,
+        isLoadedDialog,
         isError,
         isMessageSending,
         handleScroll,

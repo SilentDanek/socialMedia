@@ -18,11 +18,13 @@ export const Chat: FC<ChatProps> = ({
             onScrollCapture={onScroll}
             sx={{ maxWidth: 1000, width: '100%', margin: 'auto' }}
         >
-            {error && <div>Some error occurred. Please refresh the page</div>}
             {chatHeader}
 
             <ChatMessages messages={messages} />
-            <AddNewMessageForm sendMessage={sendMessage} blockSubmitButton={blockSubmitButton} />
+            <AddNewMessageForm
+                sendMessage={sendMessage}
+                blockSubmitButton={blockSubmitButton || !!error}
+            />
         </Stack>
     );
 };
@@ -30,7 +32,7 @@ export const Chat: FC<ChatProps> = ({
 type ChatProps = {
     sendMessage: (newMessage: string) => void;
     blockSubmitButton: boolean;
-    error: boolean;
+    error?: boolean;
     messages: Message[];
     chatHeader?: ReactElement;
     onScroll?: (e: React.UIEvent<HTMLDivElement>) => void;

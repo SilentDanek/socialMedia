@@ -1,4 +1,4 @@
-import { IconButton, Paper, TextField, TextFieldProps } from '@mui/material';
+import { CircularProgress, IconButton, Paper, TextField, TextFieldProps } from '@mui/material';
 import { EmojiEmotions, Send } from '@mui/icons-material';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -57,7 +57,7 @@ export const AddNewMessageForm: FC<AddNewMessageFormProps> = ({
                     )}
                 />
                 <IconButton type="submit" disabled={blockSubmitButton}>
-                    <Send />
+                    {blockSubmitButton ? <CircularProgress /> : <Send />}
                 </IconButton>
             </form>
         </Paper>

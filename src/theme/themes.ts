@@ -1,5 +1,3 @@
-// noinspection JSUnusedGlobalSymbols
-
 import { createTheme } from '@mui/material/styles';
 
 import mainBackgroundDark from '../assets/images/main_background_dark.png';
@@ -12,25 +10,34 @@ declare module '@emotion/react' {
 
 declare module '@mui/material/styles' {
     interface PaletteOptions {
-        backgroundImg?: string;
-        backgroundGradient?: string;
-        border?: {
+        backgroundImg: string;
+        backgroundGradient: string;
+        border: {
             main: string;
+        };
+        backgroundColors: {
+            main: string;
+            hover: string;
         };
     }
 
     interface Palette {
-        backgroundImg?: string;
-    }
-
-    interface Palette {
-        backgroundGradient?: string;
+        backgroundImg: string;
+        backgroundGradient: string;
+        backgroundColors: {
+            main: string;
+            hover: string;
+        };
     }
 }
 
 export const lightTheme = createTheme({
     palette: {
         mode: 'light',
+        backgroundColors: {
+            main: '#2c75ef',
+            hover: '#e8e8e8'
+        },
         backgroundImg: mainBackgroundLight,
         backgroundGradient: 'linear-gradient(aquamarine, #b507b5)',
         border: {
@@ -53,6 +60,10 @@ export const darkTheme = createTheme({
         mode: 'dark',
         background: {
             default: '#212121'
+        },
+        backgroundColors: {
+            main: '#0c44b2',
+            hover: '#333333'
         },
         backgroundImg: mainBackgroundDark,
         backgroundGradient: 'linear-gradient(aquamarine, #b507b5)',

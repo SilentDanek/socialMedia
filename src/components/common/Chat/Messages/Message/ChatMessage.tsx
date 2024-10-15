@@ -17,6 +17,8 @@ export const ChatMessage: FC<MessageProps> = ({
     viewed
 }) => {
     const date = new Date(addedAt || '');
+    date.setMinutes(date.getMinutes() + date.getTimezoneOffset() * -1);
+    const messageTime = date.getHours() + ':' + date.getMinutes().toString().padStart(2, '0');
 
     return (
         <MessageWrapper isMessageOwner={isMessageOwner}>
@@ -39,7 +41,7 @@ export const ChatMessage: FC<MessageProps> = ({
 
                 {addedAt && (
                     <Typography variant="body1" fontSize={12}>
-                        {date.getHours() + ':' + date.getMinutes().toString().padStart(2, '0')}
+                        {messageTime}
                         {viewed || !isMessageOwner ? (
                             <DoneAllIcon sx={{ height: 20 }} />
                         ) : (
