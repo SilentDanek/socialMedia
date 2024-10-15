@@ -1,21 +1,28 @@
 import { useEffect, useState } from 'react';
 import { Chat, Group, Person } from '@mui/icons-material';
 import PublicIcon from '@mui/icons-material/Public';
-import { Namespace, TFunction } from 'i18next';
+import { useGetNewMessagesCountQuery } from '../../api/dialogsAPI.ts';
+import { useLocation } from 'react-router-dom';
+import { getAuthStatus, getAuthUserId, useAppSelector } from '../../redux';
+import { useTranslation } from 'react-i18next';
 
-export function useProtectedRoutes<T extends Namespace<string>>(
-    isAuth: boolean,
-    id: number | null,
-    t: TFunction<T, undefined>
-) {
+export function useProtectedRoutes() {
+    const isAuth = useAppSelector(getAuthStatus);
+    const id = useAppSelector(getAuthUserId);
+    const { t } = useTranslation('navbar');
+
+    const [selectedIndex, setSelectedIndex] = useState<number>(-1);
+
+    const { data: newMessagesCount } = useGetNewMessagesCountQuery({}, { pollingInterval: 15000 });
+
     const initialListItems = [
         { text: t('users'), icon: <Group />, route: '/users' },
         { text: t('chat'), icon: <PublicIcon />, route: '/chat' },
-        { text: t('dialogs'), icon: <Chat />, route: `/dialogs` },
+        { text: t('dialogs'), icon: <Chat />, route: `/dialogs`, badge: newMessagesCount },
         { text: t('profile'), icon: <Person />, route: `/profile/${id}` }
     ];
 
-    const [listItems, setListItems] = useState(initialListItems);
+    const [navbarItems, setListItems] = useState(initialListItems);
 
     useEffect(() => {
         if (!isAuth) {
@@ -26,7 +33,16 @@ export function useProtectedRoutes<T extends Namespace<string>>(
         } else {
             setListItems(initialListItems);
         }
-    }, [isAuth, t('users')]);
+    }, [isAuth, newMessagesCount]);
 
-    return listItems;
+    const location = useLocation();
+    useEffect(() => {
+        const pathParts = location.pathname.split('/').filter(Boolean);
+        if (pathParts.length > 0) {
+            const selectedPage = initialListItems.findIndex((b) => b.route.includes(pathParts[0]));
+            setSelectedIndex(selectedPage);
+        }
+    }, [location]);
+
+    return { selectedIndex, setSelectedIndex, navbarItems };
 }

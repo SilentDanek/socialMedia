@@ -1,6 +1,5 @@
-import { FC, ReactNode, useState } from 'react';
-import { getAuthStatus, getAuthUserId, useAppSelector } from '../../redux/';
-import { ListItem, Paper } from '@mui/material';
+import { FC, ReactNode } from 'react';
+import { Badge, ListItem, Paper } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import {
     Nav,
@@ -10,33 +9,17 @@ import {
     NavBarListItemText
 } from './NavBar.styles.tsx';
 import { SettingsMenu } from './SettingsMenu';
-import { useTranslation } from 'react-i18next';
 import { useProtectedRoutes } from './useProtectedRoutes';
 
 export const NavBar: FC = () => {
-    const isAuth = useAppSelector(getAuthStatus);
-    const id = useAppSelector(getAuthUserId);
-
-    const [selectedIndex, setSelectedIndex] = useState<number>(-1);
-    const { t } = useTranslation('navbar');
-    const navbarItems = useProtectedRoutes(isAuth, id, t);
-
-    const handleListItemClick = (index: number) => {
-        setSelectedIndex(index);
-    };
+    const { selectedIndex, navbarItems } = useProtectedRoutes();
 
     return (
         <Nav>
             <Paper sx={{ height: { xs: 'auto', sm: '100%' } }}>
                 <NavBarList>
                     {navbarItems.map((item, index) => (
-                        <NavItem
-                            key={item.text}
-                            item={item}
-                            index={index}
-                            selectedIndex={selectedIndex}
-                            handleListItemClick={handleListItemClick}
-                        />
+                        <NavItem item={item} index={index} selectedIndex={selectedIndex} />
                     ))}
                     <SettingsMenu />
                 </NavBarList>
@@ -45,19 +28,16 @@ export const NavBar: FC = () => {
     );
 };
 
-const NavItem: FC<NavItemProps> = ({ item, index, selectedIndex, handleListItemClick }) => {
+const NavItem: FC<NavItemProps> = ({ item, index, selectedIndex }) => {
+    const badgeCount = item.badge || 0;
+
     return (
-        <ListItem disablePadding sx={{ padding: '7px' }}>
-            <NavLink
-                to={item.route}
-                onClick={() => handleListItemClick(index)}
-                style={{ width: '100%' }}
-            >
-                <NavBarListItemButton
-                    selected={selectedIndex === index && !item.route.includes('/login')}
-                    sx={{ paddingLeft: { lg: '15%', md: '16px' } }}
-                >
-                    <NavBarListItemIcon className="icon">{item.icon}</NavBarListItemIcon>
+        <ListItem sx={{ padding: '7px' }}>
+            <NavLink to={item.route} style={{ width: '100%' }}>
+                <NavBarListItemButton selected={selectedIndex === index}>
+                    <Badge badgeContent={badgeCount >= 10 ? '+9' : badgeCount} color="error">
+                        <NavBarListItemIcon className="icon">{item.icon}</NavBarListItemIcon>
+                    </Badge>
                     <NavBarListItemText primary={item.text} />
                 </NavBarListItemButton>
             </NavLink>
@@ -69,10 +49,10 @@ type ListItem = {
     text: string;
     icon: ReactNode;
     route: string;
+    badge?: number;
 };
 type NavItemProps = {
     item: ListItem;
     index: number;
     selectedIndex: number;
-    handleListItemClick: (index: number) => void;
 };
