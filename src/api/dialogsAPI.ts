@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { Photos } from '../redux';
+import { boundActions, Photos } from '../redux';
 
 const BASE_URL = 'https://social-network.samuraijs.com/api/1.0/';
 
@@ -66,9 +66,16 @@ export const dialogsApi = createApi({
             ]
         }),
 
-        // Получить количество новых сообщений
-        getNewMessagesCount: builder.query<number, object>({
-            query: () => 'dialogs/messages/new/count'
+        getNewMessagesCount: builder.query<number, void>({
+            query: () => `dialogs/messages/new/count`,
+            onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+                try {
+                    const { data } = await queryFulfilled;
+                    dispatch(boundActions.navbarActions.setNewMessagesCount(data || 0));
+                } catch (error) {
+                    console.error(error);
+                }
+            }
         })
     })
 });

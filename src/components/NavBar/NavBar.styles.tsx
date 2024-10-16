@@ -7,7 +7,9 @@ export const Nav = styled('nav')(({ theme }) => ({
     borderRight: 'gray 2px solid',
     borderTop: 'none',
     [theme.breakpoints.down('lg')]: {
-        width: 'auto',
+        width: 'auto'
+    },
+    [theme.breakpoints.down('sm')]: {
         borderRight: 'none',
         borderTop: 'gray 2px solid'
     }

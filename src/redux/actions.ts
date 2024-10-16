@@ -6,13 +6,15 @@ import { store } from './store';
 import { bindAllActionCreators } from './helpers';
 import { bindActionCreators } from 'redux';
 import { chatActions } from './ducks/chat/actions';
+import { navbarActions } from './ducks/navbar/actions.ts';
 
 export const actions = {
     usersActions,
     mainActions,
     profileActions,
     authActions,
-    chatActions
+    chatActions,
+    navbarActions
 };
 
 bindActionCreators(actions.usersActions, store.dispatch);

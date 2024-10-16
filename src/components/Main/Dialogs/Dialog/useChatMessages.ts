@@ -26,7 +26,7 @@ export const useChatMessages = (userId: number) => {
     // Periodically fetches the latest messages every 5 seconds using polling
     const {
         data: messages,
-        isSuccess,
+        isFetching,
         isError
     } = useGetMessagesQuery(
         {
@@ -36,7 +36,7 @@ export const useChatMessages = (userId: number) => {
         { pollingInterval: 5000 }
     );
 
-    if (!isLoadedDialog && isSuccess) {
+    if (!isLoadedDialog && !isFetching) {
         setIsLoadedDialog(true);
     }
 
@@ -46,8 +46,9 @@ export const useChatMessages = (userId: number) => {
     // If we don't want to use this effect, we need to add a key to the Dialog component
     useEffect(() => {
         setChatMessages([]);
-        chatMessages = [];
         setPage(1);
+        setIsLoadedDialog(false);
+        chatMessages = [];
     }, [userId]);
 
     // Add new messages
@@ -77,7 +78,6 @@ export const useChatMessages = (userId: number) => {
         const target = e.target as HTMLElement;
         if (
             target.scrollTop < 400 &&
-            isSuccess &&
             !isFetchingOldMessages &&
             (oldMessages?.totalCount || 0) > page * 20
         ) {

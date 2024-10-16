@@ -3,6 +3,7 @@ import { usersReducer } from './ducks/users/reducer';
 import { authReducer } from './ducks/auth/reducer';
 import { mainReducer } from './ducks/main/reducer';
 import { chatReducer } from './ducks/chat/reducer';
+import { navbarReducer } from './ducks/navbar/reducer';
 
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
@@ -15,6 +16,7 @@ export const rootReducer = combineReducers({
     auth: authReducer,
     main: mainReducer,
     chat: chatReducer,
+    navbar: navbarReducer,
     [dialogsApi.reducerPath]: dialogsApi.reducer
 });
 
