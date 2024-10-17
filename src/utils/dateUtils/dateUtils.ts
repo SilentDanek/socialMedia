@@ -1,5 +1,10 @@
 export const formatDate = (dateString: string, locale: string = 'uk-UA'): string => {
     const date = new Date(dateString);
+
+    if (isNaN(date.getTime())) {
+        throw new Error('Incorrect date format');
+    }
+
     const diffMs = Date.now() - date.getTime();
 
     date.setMinutes(date.getMinutes() + date.getTimezoneOffset() * -1);
@@ -23,14 +28,9 @@ export const formatDate = (dateString: string, locale: string = 'uk-UA'): string
         return date.toLocaleDateString(locale, { day: 'numeric', month: 'short' });
     }
 
-    const options: Intl.DateTimeFormatOptions = {
-        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-        hour: '2-digit',
-        minute: '2-digit',
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric'
-    };
+    const diffYears = Math.floor(diffDays / 365);
 
-    return date.toLocaleString(locale, options);
+    return diffYears === 1
+        ? 'рік тому'
+        : `${diffYears} ${diffYears < 5 ? 'роки тому' : 'років тому'}`;
 };

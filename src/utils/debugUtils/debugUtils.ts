@@ -1,9 +1,9 @@
 // Quick way to check calls and props
 export const testArr = new Proxy([], {
-    get(target, prop, receiver) {
+    get(target: any, prop, receiver) {
         // Перехватываем методы массива
         if (prop === 'push') {
-            return function (...args: never) {
+            return function (...args: any) {
                 console.log(args[0]);
                 Reflect.apply(target[prop], target, args);
             };
@@ -17,5 +17,3 @@ declare global {
         testArr: typeof testArr;
     }
 }
-
-window.testArr = testArr;
