@@ -13,13 +13,15 @@ export const authReducer = (state = initialState, action: AuthAction): AuthState
         case AuthActionTypes.SET_AUTH_USER_DATA: {
             return {
                 ...state,
-                ...action.payload
+                login: action.payload.login,
+                id: action.payload.id,
+                isAuth: action.payload.isAuth
             };
         }
         case AuthActionTypes.SET_CAPTCHA_URL: {
             return {
                 ...state,
-                ...action.payload
+                captchaUrl: action.payload.captchaUrl
             };
         }
         default: {
