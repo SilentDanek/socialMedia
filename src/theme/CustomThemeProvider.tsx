@@ -10,9 +10,13 @@ export const CustomThemeProvider: FC<CustomThemeProviderProps> = ({ children }) 
     let themeFromStorage = localStorage.getItem('theme');
 
     if (!themeFromStorage) {
-        themeFromStorage = window.matchMedia('(prefers-color-scheme: dark)').matches
-            ? 'dark'
-            : 'light';
+        if (typeof window.matchMedia === 'function') {
+            themeFromStorage = window.matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'dark'
+                : 'light';
+        } else {
+            themeFromStorage = 'light';
+        }
     }
 
     const [themeMode, setThemeMode] = useState(themeFromStorage);

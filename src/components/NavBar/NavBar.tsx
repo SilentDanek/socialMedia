@@ -36,7 +36,6 @@ export const NavBar: FC = () => {
 };
 
 const NavItem: FC<NavItemProps> = ({ item, index, selectedIndex }) => {
-    console.log('NavItem');
     const { t } = useTranslation('navbar');
     const iconMap = {
         users: <Group />,
