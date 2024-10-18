@@ -3,25 +3,12 @@ import { usersActions } from '../users/actions';
 import { ProfileAction, UserProfile } from './types';
 import { State } from '../../types';
 import { ThunkAction } from 'redux-thunk';
-import { Action } from 'redux';
-import { UsersAction } from '../users/types';
 import { profileAPI, ResultCodes } from '../../../api/api';
 import { deepNoRefEqual } from '../../../utils';
 import { ContactFormError, FormError } from '../../../api/Errors';
+import { UsersAction } from '../users/types.ts';
 
-// Определяем универсальный тип Thunk, который принимает типы экшенов как параметр
-type Thunk<ReturnType = void, ActionType extends Action = Action> = ThunkAction<
-    Promise<ReturnType>,
-    State,
-    unknown,
-    ActionType
->;
-
-// Определяем типы Thunk для Profile
-type ProfileThunk = Thunk<void, ProfileAction | UsersAction>;
-
-// Определяем Thunk, который может принимать как ProfileAction, так и UsersAction
-type Profile_UsersThunk = Thunk<void, ProfileAction | UsersAction>;
+type ProfileThunk = ThunkAction<Promise<void>, State, unknown, ProfileAction | UsersAction>;
 
 const getStatus =
     (userId: number): ProfileThunk =>
@@ -40,7 +27,7 @@ const updateStatus =
     };
 
 const requestUserProfile =
-    (userId: number): Profile_UsersThunk =>
+    (userId: number): ProfileThunk =>
     async (dispatch) => {
         dispatch(usersActions.toggleIsFetching(true));
 
