@@ -1,8 +1,9 @@
-import { CircularProgress, IconButton, Paper, TextField, TextFieldProps } from '@mui/material';
+import { CircularProgress, IconButton, Paper, TextFieldProps } from '@mui/material';
 import { EmojiEmotions, Send } from '@mui/icons-material';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { FC } from 'react';
+import React, { FC } from 'react';
+import { ControlledTextField } from '../../ControlledElements';
 
 export const AddNewMessageForm: FC<AddNewMessageFormProps> = ({
     sendMessage,
@@ -18,6 +19,13 @@ export const AddNewMessageForm: FC<AddNewMessageFormProps> = ({
         resetField('newMessage');
     };
 
+    const handleSendMessageByEnter = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleSubmit(handleSendMessage)();
+        }
+    };
+
     return (
         <Paper elevation={3} sx={{ borderRadius: '25px' }}>
             <form
@@ -27,34 +35,19 @@ export const AddNewMessageForm: FC<AddNewMessageFormProps> = ({
                 <IconButton>
                     <EmojiEmotions />
                 </IconButton>
-                <Controller
+
+                <ControlledTextField
                     name="newMessage"
                     control={control}
                     rules={{ required: true }}
-                    render={({ field }) => (
-                        <TextField
-                            {...field}
-                            multiline
-                            maxRows={6}
-                            autoComplete="off"
-                            placeholder={t('message')}
-                            fullWidth
-                            slotProps={{
-                                input: {
-                                    sx: {
-                                        '& fieldset': { border: 'none' },
-                                        minWidth: '150px'
-                                    }
-                                }
-                            }}
-                            onKeyDown={(e) => {
-                                if (e.key === 'Enter' && !e.shiftKey) {
-                                    e.preventDefault();
-                                    handleSubmit(handleSendMessage)();
-                                }
-                            }}
-                        />
-                    )}
+                    multiline
+                    maxRows={6}
+                    placeholder={t('message')}
+                    autoComplete="off"
+                    slotProps={{
+                        input: { sx: { '& fieldset': { border: 'none' } } }
+                    }}
+                    onKeyDown={handleSendMessageByEnter}
                 />
                 <IconButton type="submit" disabled={blockSubmitButton}>
                     {blockSubmitButton ? <CircularProgress /> : <Send />}
