@@ -15,14 +15,14 @@ export const Paginator: FC<PaginatorProps> = memo(
         const theme = useTheme();
         const isSm = useMediaQuery(theme.breakpoints.down('sm'));
         const isMd = useMediaQuery(theme.breakpoints.down('md'));
-        const isLd = useMediaQuery(theme.breakpoints.down('lg'));
+        const isLg = useMediaQuery(theme.breakpoints.down('lg'));
 
         if (responsive) {
             if (isSm) {
                 portionSize = 1;
             } else if (isMd) {
                 portionSize = Math.floor(portionSize / 2);
-            } else if (isLd) {
+            } else if (isLg) {
                 portionSize = Math.ceil(portionSize * (1 - 0.33));
             }
         }
@@ -56,6 +56,7 @@ export const Paginator: FC<PaginatorProps> = memo(
                     variant="contained"
                     disabled={blockLeftButton}
                     color="secondary"
+                    data-testid="FirstPageButton"
                     onClick={() => handlePageChanged(1)}
                 >
                     <FirstPage />
@@ -64,6 +65,7 @@ export const Paginator: FC<PaginatorProps> = memo(
                     variant="contained"
                     disabled={blockLeftButton}
                     color="secondary"
+                    data-testid="PrevPageButton"
                     onClick={() => handlePageChanged(currentPage - 1)}
                 >
                     <ChevronLeft />
@@ -75,6 +77,7 @@ export const Paginator: FC<PaginatorProps> = memo(
                     variant="contained"
                     disabled={blockRightButton}
                     color="secondary"
+                    data-testid="NextPageButton"
                     onClick={() => handlePageChanged(currentPage + 1)}
                 >
                     <ChevronRight />
@@ -83,6 +86,7 @@ export const Paginator: FC<PaginatorProps> = memo(
                     variant="contained"
                     disabled={blockRightButton}
                     color="secondary"
+                    data-testid="LastPageButton"
                     onClick={() => handlePageChanged(pagesCount)}
                 >
                     <LastPage />

@@ -15,5 +15,5 @@ export const UsersSection = styled(ThemeBox)(() => ({
     flexDirection: 'column',
     alignItems: 'center',
     minWidth: '60%',
-    padding: 15
+    padding: 13
 }));
