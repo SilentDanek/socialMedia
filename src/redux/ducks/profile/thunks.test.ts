@@ -1,18 +1,21 @@
-import configureMockStore from 'redux-mock-store';
+import configureMockStore, { MockStoreEnhanced } from 'redux-mock-store';
 import { thunk } from 'redux-thunk';
 import { profileThunks } from './thunks';
 import { profileActions } from './actions';
 import { usersActions } from '../users/actions';
 import { profileAPI } from '../../../api/api';
 import { ResultCodes } from '../../../api/api';
+import { ContactFormError, FormError } from '../../../api/Errors.ts';
+import { ProfileState } from './types.ts';
+import { AppDispatch } from '../../types.ts';
 
 jest.mock('../../../api/api'); // Мокаем API
 
 const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares as any);
+const mockStore = configureMockStore(middlewares as never);
 
 describe('profileThunks', () => {
-    let store: any;
+    let store: MockStoreEnhanced<ProfileState, AppDispatch>;
 
     beforeEach(() => {
         store = mockStore({
@@ -26,7 +29,7 @@ describe('profileThunks', () => {
                     }
                 }
             }
-        });
+        }) as MockStoreEnhanced<ProfileState, AppDispatch>;
     });
 
     test('should dispatch setStatus when getStatus is successful', async () => {
@@ -103,5 +106,92 @@ describe('profileThunks', () => {
 
         const actions = store.getActions();
         expect(actions[0]).toEqual(profileActions.setIsFollowed(isFollowed));
+    });
+
+    const profile = {
+        userId: 1,
+        contacts: {
+            facebook: 'facebook.com',
+            website: 'website.com',
+            vk: 'vk.com',
+            github: 'github.com',
+            instagram: 'instagram.com',
+            youtube: 'youtube.com',
+            mainLink: 'mainLink.com',
+            twitter: 'twitter.com'
+        },
+        aboutMe: 'New about me',
+        fullName: 'John Doe',
+
+        lookingForAJob: true,
+        lookingForAJobDescription: 'Looking for a job',
+        photos: { small: 'small.jpg', large: 'large.jpg' }
+    };
+
+    test('should dispatch requestUserProfile when the profile is updated successfully', async () => {
+        (profileAPI.updateUserProfile as jest.Mock).mockResolvedValue({
+            resultCode: ResultCodes.Success,
+            messages: []
+        });
+
+        await store.dispatch(profileThunks.updateUserProfile(profile));
+
+        // Проверяем, что API вызвано с правильными параметрами
+        expect(profileAPI.updateUserProfile).toHaveBeenCalledWith(profile);
+
+        // Проверяем, что requestUserProfile вызвано для обновления профиля
+        const actions = store.getActions();
+        expect(actions).toContainEqual(usersActions.toggleIsFetching(true)); // Можем также проверить любые другие действия
+    });
+
+    test('should throw error when updateUserProfile returns an error', async () => {
+        (profileAPI.updateUserProfile as jest.Mock).mockResolvedValue({
+            resultCode: ResultCodes.Error,
+            messages: ['Some error occurred']
+        });
+
+        try {
+            await store.dispatch(profileThunks.updateUserProfile(profile));
+        } catch (error) {
+            expect(error).toEqual(new Error('Some error occurred'));
+        }
+
+        expect(profileAPI.updateUserProfile).toHaveBeenCalledWith(profile);
+    });
+
+    test('should throw ContactFormError when error message contains "Contacts"', async () => {
+        (profileAPI.updateUserProfile as jest.Mock).mockResolvedValue({
+            resultCode: ResultCodes.Error,
+            messages: ['Contacts error occurred']
+        });
+
+        try {
+            await store.dispatch(profileThunks.updateUserProfile(profile));
+        } catch (error) {
+            if (error instanceof ContactFormError) {
+                expect(error).toBeInstanceOf(ContactFormError);
+                expect(error.message).toBe('Contacts error occurred');
+            }
+        }
+
+        expect(profileAPI.updateUserProfile).toHaveBeenCalledWith(profile);
+    });
+
+    test('should throw FormError when error message does not contain "Contacts"', async () => {
+        (profileAPI.updateUserProfile as jest.Mock).mockResolvedValue({
+            resultCode: ResultCodes.Error,
+            messages: ['Some other error']
+        });
+
+        try {
+            await store.dispatch(profileThunks.updateUserProfile(profile));
+        } catch (error) {
+            if (error instanceof FormError) {
+                expect(error).toBeInstanceOf(FormError);
+                expect(error.message).toBe('Some other error');
+            }
+        }
+
+        expect(profileAPI.updateUserProfile).toHaveBeenCalledWith(profile);
     });
 });

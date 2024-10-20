@@ -1,9 +1,8 @@
 import { FC, memo, useEffect } from 'react';
 import { getUsersFilter, useAppSelector, UsersFilter } from '../../../../redux';
 import { useForm, useFormState } from 'react-hook-form';
-import { ControlledTextField } from '../../../common';
+import { ControlledTextField, ControlledSelectField } from '../../../common';
 import { Button, MenuItem } from '@mui/material';
-import { ControlledSelectField } from '../../../common/ControlledElements/ControlledSelectField';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
