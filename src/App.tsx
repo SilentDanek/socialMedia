@@ -7,7 +7,8 @@ import { NavBar } from './components/NavBar';
 import { Main } from './components/Main/Main';
 import { Stack } from '@mui/material';
 import { CustomThemeProvider } from './theme';
-import './i18n';
+import i18n from './locales/i18n.ts';
+import { I18nextProvider } from 'react-i18next';
 
 declare global {
     interface Window {
@@ -29,23 +30,24 @@ export const App = () => {
 
     return (
         <CustomThemeProvider>
-            <BrowserRouter>
-                <Provider store={store}>
-                    <Stack
-                        sx={{
-                            display: 'flex',
-                            height: '100vh',
-                            flexDirection: {
-                                xs: 'column-reverse',
-                                sm: 'row'
-                            }
-                        }}
-                    >
-                        <NavBar />
-                        <Main />
-                    </Stack>
-                </Provider>
-            </BrowserRouter>
+            <I18nextProvider i18n={i18n}>
+                <BrowserRouter>
+                    <Provider store={store}>
+                        <Stack
+                            height="100vh"
+                            sx={{
+                                flexDirection: {
+                                    xs: 'column-reverse',
+                                    sm: 'row'
+                                }
+                            }}
+                        >
+                            <NavBar />
+                            <Main />
+                        </Stack>
+                    </Provider>
+                </BrowserRouter>
+            </I18nextProvider>
         </CustomThemeProvider>
     );
 };

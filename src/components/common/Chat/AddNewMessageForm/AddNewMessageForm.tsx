@@ -29,6 +29,7 @@ export const AddNewMessageForm: FC<AddNewMessageFormProps> = ({
     return (
         <Paper elevation={3} sx={{ borderRadius: '25px' }}>
             <form
+                aria-label="Message form"
                 onSubmit={handleSubmit(handleSendMessage)}
                 style={{ width: '100%', display: 'flex' }}
             >
@@ -49,7 +50,7 @@ export const AddNewMessageForm: FC<AddNewMessageFormProps> = ({
                     }}
                     onKeyDown={handleSendMessageByEnter}
                 />
-                <IconButton type="submit" disabled={blockSubmitButton}>
+                <IconButton type="submit" disabled={blockSubmitButton} aria-label="Send message">
                     {blockSubmitButton ? <CircularProgress /> : <Send />}
                 </IconButton>
             </form>
