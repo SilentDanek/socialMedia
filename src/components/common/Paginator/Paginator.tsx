@@ -1,7 +1,8 @@
-import { FC, memo, useMemo } from 'react';
-import { Box, Button, Stack, useMediaQuery, useTheme } from '@mui/material';
-import { FirstPage, ChevronLeft, ChevronRight, LastPage } from '@mui/icons-material';
+import { FC, memo } from 'react';
+import { Box, Button, Stack } from '@mui/material';
+import { ChevronLeft, ChevronRight, FirstPage, LastPage } from '@mui/icons-material';
 import { PaginatorButton } from './Paginator.styles';
+import { usePagination } from './usePagination.ts';
 
 export const Paginator: FC<PaginatorProps> = memo(
     ({
@@ -12,43 +13,14 @@ export const Paginator: FC<PaginatorProps> = memo(
         portionSize = 10,
         responsive = false
     }) => {
-        const theme = useTheme();
-        const isSm = useMediaQuery(theme.breakpoints.down('sm'));
-        const isMd = useMediaQuery(theme.breakpoints.down('md'));
-        const isLg = useMediaQuery(theme.breakpoints.down('lg'));
-
-        if (responsive) {
-            if (isSm) {
-                portionSize = 1;
-            } else if (isMd) {
-                portionSize = Math.floor(portionSize / 2);
-            } else if (isLg) {
-                portionSize = Math.ceil(portionSize * (1 - 0.33));
-            }
-        }
-
-        const pagesCount = Math.ceil(totalItemsCount / itemsInPage);
-
-        const halfPortionSize = Math.floor(portionSize / 2);
-
-        let leftPortionPageNumber = Math.max(1, currentPage - halfPortionSize);
-        let rightPortionPageNumber = leftPortionPageNumber + portionSize - 1;
-
-        if (rightPortionPageNumber > pagesCount) {
-            rightPortionPageNumber = pagesCount;
-            leftPortionPageNumber = Math.max(1, rightPortionPageNumber - portionSize + 1);
-        }
-
-        const blockLeftButton = currentPage <= 1;
-        const blockRightButton = currentPage >= pagesCount;
-
-        const pages = useMemo(() => {
-            const pagesArray = [];
-            for (let i = leftPortionPageNumber; i <= rightPortionPageNumber; i++) {
-                pagesArray.push(i);
-            }
-            return pagesArray;
-        }, [leftPortionPageNumber, rightPortionPageNumber]);
+        const { pages, pagesCount, blockRightButton, blockLeftButton } = usePagination({
+            totalItemsCount,
+            itemsInPage,
+            currentPage,
+            handlePageChanged,
+            portionSize,
+            responsive
+        });
 
         return (
             <Stack direction="row" alignItems="center">
@@ -113,7 +85,7 @@ const createPaginationItems = (
     ));
 };
 
-type PaginatorProps = {
+export type PaginatorProps = {
     totalItemsCount: number;
     itemsInPage: number;
     currentPage: number;
