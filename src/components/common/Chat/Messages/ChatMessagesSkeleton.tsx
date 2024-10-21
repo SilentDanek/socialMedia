@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import { MessagesWrapper } from './ChatMessages.styles.tsx';
 import { ChatMessageSkeleton } from './Message';
 import { generateRandomPercentage } from '../../../../utils';
-import { useAutoScroll } from '../../../../hooks/useAutoScroll.ts';
+import { useAutoScroll } from '../../../../hooks';
 
 export const ChatMessagesSkeleton: FC<{ withAvatar: boolean }> = ({ withAvatar }) => {
     const [randMessages] = useState<RandMessage[]>(

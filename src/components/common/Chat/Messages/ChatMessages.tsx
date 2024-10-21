@@ -1,8 +1,7 @@
 import { FC } from 'react';
 import { getAuthUserId, useAppSelector } from '../../../../redux';
-import { useAutoScroll } from '../../../../hooks/useAutoScroll.ts';
+import { useAutoScroll } from '../../../../hooks';
 import { MessagesWrapper } from './ChatMessages.styles.tsx';
-import { TextFieldProps } from '@mui/material';
 import { Message } from '../Chat.tsx';
 import { ChatMessage } from './Message';
 
@@ -19,4 +18,4 @@ export const ChatMessages: FC<MessagesProps> = ({ messages }) => {
     );
 };
 
-type MessagesProps = { messages: Message[] } & TextFieldProps;
+type MessagesProps = { messages: Message[] };
