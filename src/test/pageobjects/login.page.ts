@@ -43,10 +43,6 @@ class LoginPage {
     async resetForm() {
         await this.resetButton.click();
     }
-
-    async getErrorMessage() {
-        return this.errorMessage;
-    }
 }
 
 export default new LoginPage();

@@ -19,7 +19,6 @@ export const EmailField: FC<EmailField> = ({ control }) => {
                 required: t('emailRequire')
             }}
             label="Email"
-            placeholder="Email"
             name="email"
             type="email"
             margin="normal"

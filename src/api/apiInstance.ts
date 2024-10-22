@@ -1,8 +1,4 @@
 import axios from 'axios';
-export { authAPI } from './authAPI';
-export { profileAPI } from './profileAPI';
-export { securityAPI } from './securityAPI';
-export { userAPI } from './userAPI';
 
 export enum ResultCodes {
     Success = 0,

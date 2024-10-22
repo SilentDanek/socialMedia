@@ -1,4 +1,4 @@
-import { DefaultResponse, instance } from './api';
+import { DefaultResponse, instance } from './index.ts';
 import { TUser } from '../redux';
 
 type GetUsersResponse = DefaultResponse & {

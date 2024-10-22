@@ -1,7 +1,7 @@
 import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { boundThunks, Contacts, UserProfile } from '../../../../../redux';
 import { Control, useForm, useFormState } from 'react-hook-form';
-import { ContactFormError, FormError } from '../../../../../api/Errors';
+import { ContactFormError, FormError } from '../../../../../api/APIErrors.ts';
 import { LoadingButton } from '@mui/lab';
 import { Button } from '@mui/material';
 import {

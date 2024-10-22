@@ -7,7 +7,14 @@ type FormErrorMessageProps = {
 
 export const FormErrorMessage: FC<FormErrorMessageProps> = ({ children }) => {
     return (
-        <Typography color="error" borderColor="2px solid red">
+        <Typography
+            color="error"
+            border={children ? '2px solid red' : ''}
+            borderRadius="5px"
+            textAlign="center"
+            m={1}
+            data-testid="form-error-text"
+        >
             {children}
         </Typography>
     );

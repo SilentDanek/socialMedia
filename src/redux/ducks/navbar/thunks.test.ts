@@ -1,18 +1,15 @@
-import configureMockStore from 'redux-mock-store';
-import { thunk } from 'redux-thunk';
 import { navbarThunks } from './thunks';
 import { navbarActions } from './actions';
-import { profileAPI } from '../../../api/api';
+import { profileAPI } from '../../../api';
+import { configureMockStoreTyped } from '../../../test';
+import { State } from '../../types.ts';
 
-// Создаем mockStore для тестов
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares as any);
+jest.mock('../../../api');
 
-// Мокаем API
-jest.mock('../../../api/api');
+const mockStore = configureMockStoreTyped<State>();
 
 describe('navbarThunks', () => {
-    let store: any;
+    let store: ReturnType<typeof mockStore>;
 
     beforeEach(() => {
         store = mockStore({

@@ -1,21 +1,16 @@
 import { authThunks } from './thunks';
-import { authAPI, ResultCodes, securityAPI } from '../../../api/api';
+import { authAPI, ResultCodes, securityAPI } from '../../../api';
 import { authActions } from './actions';
-import configureMockStore from 'redux-mock-store';
-import { thunk } from 'redux-thunk';
-import { FormError } from '../../../api/Errors';
-import { AuthState } from './types.ts';
-import { ThunkDispatch, UnknownAction } from '@reduxjs/toolkit';
+import { FormError } from '../../../api/APIErrors.ts';
 import { State } from '../../types.ts';
+import { configureMockStoreTyped } from '../../../test';
 
-jest.mock('../../../api/authAPI.ts');
-jest.mock('../../../api/securityAPI.ts');
+jest.mock('../../../api');
 
 const mockedAuthAPI = authAPI as jest.Mocked<typeof authAPI>;
 const mockedSecurityAPI = securityAPI as jest.Mocked<typeof securityAPI>;
 
-type AppDispatch = ThunkDispatch<State, unknown, UnknownAction>;
-const mockStore = configureMockStore<Partial<AuthState>, AppDispatch>([thunk as any]);
+const mockStore = configureMockStoreTyped<State>();
 
 describe('authThunks', () => {
     let store: ReturnType<typeof mockStore>;

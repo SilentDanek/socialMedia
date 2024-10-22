@@ -1,5 +1,5 @@
 import { Photos, UserProfile } from '../redux';
-import { DefaultResponse, instance } from './api';
+import { DefaultResponse, instance } from './index.ts';
 
 type GetStatusResponse = string;
 type GetUserProfileResponse = DefaultResponse & UserProfile;

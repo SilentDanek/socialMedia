@@ -1,9 +1,9 @@
 import { authActions } from './actions';
 import { AuthAction } from './types';
-import { authAPI, ResultCodeForCaptcha, ResultCodes, securityAPI } from '../../../api/api';
+import { authAPI, ResultCodeForCaptcha, ResultCodes, securityAPI } from '../../../api';
 import { ThunkAction } from 'redux-thunk';
 import { State } from '../../types';
-import { FormError } from '../../../api/Errors';
+import { FormError } from '../../../api/APIErrors.ts';
 
 type AuthThunk = ThunkAction<Promise<void>, State, unknown, AuthAction>;
 

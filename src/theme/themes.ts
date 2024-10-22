@@ -2,11 +2,6 @@ import { createTheme } from '@mui/material/styles';
 
 import mainBackgroundDark from '../assets/images/main_background_dark.png';
 import mainBackgroundLight from '../assets/images/main_background_light.png';
-import { Theme as MuiTheme } from '@mui/material/styles';
-
-declare module '@emotion/react' {
-    interface Theme extends MuiTheme {}
-}
 
 declare module '@mui/material/styles' {
     interface PaletteOptions {

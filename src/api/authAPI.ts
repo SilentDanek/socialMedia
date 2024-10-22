@@ -1,4 +1,4 @@
-import { DefaultResponse, instance, ResultCodeForCaptcha, ResultCodes } from './api';
+import { DefaultResponse, instance, ResultCodeForCaptcha, ResultCodes } from './index.ts';
 
 type MeResponse = DefaultResponse & {
     data: {

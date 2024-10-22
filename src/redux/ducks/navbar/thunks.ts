@@ -1,6 +1,6 @@
 import { ThunkAction } from 'redux-thunk';
 import { State } from '../../types.ts';
-import { profileAPI } from '../../../api/api.ts';
+import { profileAPI } from '../../../api';
 import { NavbarActions } from './types.ts';
 import { navbarActions } from './actions.ts';
 

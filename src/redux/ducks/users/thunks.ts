@@ -1,6 +1,6 @@
 import { UsersAction, UsersFilter } from './types';
 import { Dispatch } from 'react';
-import { ResultCodes, userAPI } from '../../../api/api';
+import { ResultCodes, userAPI } from '../../../api';
 import { ThunkAction } from 'redux-thunk';
 import { State } from '../../types';
 import { usersActions } from './actions';

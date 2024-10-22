@@ -3,9 +3,9 @@ import { usersActions } from '../users/actions';
 import { ProfileAction, UserProfile } from './types';
 import { State } from '../../types';
 import { ThunkAction } from 'redux-thunk';
-import { profileAPI, ResultCodes } from '../../../api/api';
+import { profileAPI, ResultCodes } from '../../../api';
 import { deepNoRefEqual } from '../../../utils';
-import { ContactFormError, FormError } from '../../../api/Errors';
+import { ContactFormError, FormError } from '../../../api/APIErrors.ts';
 import { UsersAction } from '../users/types.ts';
 
 type ProfileThunk = ThunkAction<Promise<void>, State, unknown, ProfileAction | UsersAction>;

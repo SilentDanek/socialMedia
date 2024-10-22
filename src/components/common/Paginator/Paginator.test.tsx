@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { Paginator } from './Paginator';
+import { Paginator, PaginatorProps } from './Paginator';
 import { ThemeProvider, useMediaQuery, useTheme } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 
@@ -22,7 +22,7 @@ const defaultProps = {
     portionSize: 7
 };
 
-const setup = (paginatorProps: any, isSm = false, isMd = false, isLg = false) => {
+const setup = (paginatorProps: PaginatorProps, isSm = false, isMd = false, isLg = false) => {
     const mockTheme = {
         breakpoints: {
             down: jest.fn((type) => {

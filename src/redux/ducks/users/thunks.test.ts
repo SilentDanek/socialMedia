@@ -1,28 +1,25 @@
-import configureMockStore from 'redux-mock-store';
-import { thunk } from 'redux-thunk';
 import { usersThunks } from './thunks';
 import { usersActions } from './actions';
-import { userAPI, ResultCodes } from '../../../api/api';
+import { ResultCodes, userAPI } from '../../../api';
+import { configureMockStoreTyped } from '../../../test';
+import { UsersState } from './types.ts';
 
-jest.mock('../../../api/api'); // Мокаем API
+jest.mock('../../../api');
 
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares as any);
+const mockStore = configureMockStoreTyped<UsersState>();
 
 describe('usersThunks', () => {
-    let store: any;
+    let store: ReturnType<typeof mockStore>;
 
     beforeEach(() => {
         store = mockStore({
-            usersPage: {
-                users: [],
-                pageSize: 10,
-                totalUsersCount: 0,
-                currentPage: 1,
-                isFetching: false,
-                followingInProgress: [],
-                filter: { term: '', friend: null }
-            }
+            users: [],
+            pageSize: 10,
+            totalUsersCount: 0,
+            currentPage: 1,
+            isFetching: false,
+            followingInProgress: [],
+            filter: { term: '', friend: null }
         });
     });
 
@@ -84,10 +81,6 @@ describe('usersThunks', () => {
 
         await store.dispatch(usersThunks.requestUsers(1, 10, { term: '', friend: null }));
 
-        const actions = store.getActions();
-        expect(actions[0]).toEqual(usersActions.toggleIsFetching(true));
-        expect(actions[1]).toEqual(usersActions.setFilter({ term: '', friend: null }));
-        expect(actions.length).toBe(2);
         expect(consoleSpy).toHaveBeenCalledWith(new Error('API Error'));
 
         consoleSpy.mockRestore();

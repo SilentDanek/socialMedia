@@ -23,12 +23,10 @@ export const dialogsApi = createApi({
             }),
             invalidatesTags: ['Dialogs']
         }),
-
         getDialogs: builder.query<DialogResponse[], void>({
             query: () => 'dialogs',
             providesTags: ['Dialogs']
         }),
-
         getMessages: builder.query<TransformedMessagesResponse, { userId: number; count?: number }>(
             {
                 query: ({ userId, count = 20 }) =>
@@ -53,7 +51,6 @@ export const dialogsApi = createApi({
                 totalCount: response.totalCount
             })
         }),
-
         sendMessage: builder.mutation<void, { userId: number; body: string }>({
             query: ({ userId, body }) => ({
                 url: `dialogs/${userId}/messages`,
@@ -65,7 +62,6 @@ export const dialogsApi = createApi({
                 { type: 'Dialogs' }
             ]
         }),
-
         getNewMessagesCount: builder.query<number, void>({
             query: () => `dialogs/messages/new/count`,
             onQueryStarted: async (_, { dispatch, queryFulfilled }) => {

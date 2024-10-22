@@ -1,5 +1,5 @@
 import { Skeleton, Stack } from '@mui/material';
-import { AddNewMessageForm } from './AddNewMessageForm/AddNewMessageForm.tsx';
+import { AddNewMessageForm } from './AddNewMessageForm';
 import { FC } from 'react';
 import { ChatMessagesSkeleton } from './Messages';
 import { ThemeBox } from '../ThemeBox/ThemeBox.tsx';

@@ -1,5 +1,5 @@
 import { Stack } from '@mui/material';
-import { AddNewMessageForm } from './AddNewMessageForm/AddNewMessageForm.tsx';
+import { AddNewMessageForm } from './AddNewMessageForm';
 import React, { FC, ReactElement } from 'react';
 import { ChatMessages } from './Messages';
 

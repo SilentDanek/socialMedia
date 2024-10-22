@@ -1,6 +1,6 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { AddNewMessageForm } from './AddNewMessageForm';
-import { renderWithTranslation } from '../../../../tests';
+import { renderWithTranslation } from '../../../../test';
 
 describe('AddNewMessageForm', () => {
     const sendMessageMock = jest.fn();
@@ -11,7 +11,6 @@ describe('AddNewMessageForm', () => {
         );
         expect(await screen.findByPlaceholderText('Message')).toBeInTheDocument();
         expect(await screen.findByTestId('SendIcon')).toBeInTheDocument();
-        screen.debug();
     });
 
     test('submits a message when form is submitted', async () => {
