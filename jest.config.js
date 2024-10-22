@@ -28,7 +28,7 @@ export default {
         "^.+\\.tsx?$": [
             "ts-jest",
             {
-                // Get settings from tsconfig.app.json
+
                 tsconfig: 'tsconfig.app.json',
             },
         ],
