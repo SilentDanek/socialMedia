@@ -11,9 +11,9 @@ import {
     getUsersFilter,
     useAppSelector,
     UsersFilter
-} from '../../../redux';
+} from '@/redux';
 import { UsersSearchForm } from './NewSearchForm';
-import { useUsersQueryParams } from '../../../hooks';
+import { useUsersQueryParams } from '@/hooks';
 import { UsersSection, UsersWrapper } from './Users.styles';
 
 const Users: FC = () => {

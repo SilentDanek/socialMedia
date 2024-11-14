@@ -1,4 +1,4 @@
-import svgPreloader from '../../../assets/images/bouncing-circles.svg';
+import svgPreloader from '@/assets/images/bouncing-circles.svg';
 import { FC } from 'react';
 import { Stack } from '@mui/material';
 

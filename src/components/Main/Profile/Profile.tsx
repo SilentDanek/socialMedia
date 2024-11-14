@@ -1,12 +1,6 @@
 import { ProfileInfo, ProfileInfoSkeleton } from './ProfileInfo';
 import { FC, useEffect } from 'react';
-import {
-    boundThunks,
-    getAuthUserId,
-    getIsFetching,
-    getUserProfile,
-    useAppSelector
-} from '../../../redux';
+import { boundThunks, getAuthUserId, getIsFetching, getUserProfile, useAppSelector } from '@/redux';
 import { useParams } from 'react-router-dom';
 
 export const Profile: FC = () => {

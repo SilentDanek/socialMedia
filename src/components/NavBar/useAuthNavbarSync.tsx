@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import { useGetNewMessagesCountQuery } from '../../api/dialogsAPI.ts';
+import { useGetNewMessagesCountQuery } from '@api/dialogsAPI.ts';
 import { useLocation } from 'react-router-dom';
-import { boundThunks, boundActions, getAuthUserId, useAppSelector } from '../../redux';
-import { selectActiveButtonIndex, selectNavbarItems } from '../../redux/ducks/navbar/selectors.ts';
+import { boundThunks, boundActions, getAuthUserId, useAppSelector } from '@/redux';
+import { selectActiveButtonIndex, selectNavbarItems } from '@redux/ducks/navbar/selectors.ts';
 
 export function useAuthNavbarSync() {
     const id = useAppSelector(getAuthUserId);

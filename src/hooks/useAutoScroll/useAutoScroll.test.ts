@@ -1,4 +1,4 @@
-import { useAutoScroll } from './useAutoScroll';
+import { useAutoScroll } from '@/hooks';
 import { renderHook } from '@testing-library/react';
 import React from 'react';
 

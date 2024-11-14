@@ -1,5 +1,5 @@
 import { FC, useCallback, useEffect, useState } from 'react';
-import { useGetDialogsQuery } from '../../../api/dialogsAPI.ts';
+import { useGetDialogsQuery } from '@api/dialogsAPI.ts';
 import { ThemeBox } from '../../common';
 import { Stack } from '@mui/material';
 import { DialogItem } from './DialogItem';

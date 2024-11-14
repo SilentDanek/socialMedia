@@ -4,7 +4,7 @@ import {
     useGetMessagesQuery,
     useGetOlderMessagesQuery,
     useSendMessageMutation
-} from '../../../../api/dialogsAPI.ts';
+} from '@api/dialogsAPI.ts';
 
 export const useChatMessages = (userId: number) => {
     // To preload old messages, we store the last loaded page

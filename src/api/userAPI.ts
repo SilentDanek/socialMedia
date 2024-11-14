@@ -1,5 +1,5 @@
 import { DefaultResponse, instance } from './index.ts';
-import { TUser } from '../redux';
+import { TUser } from '@/redux';
 
 type GetUsersResponse = DefaultResponse & {
     items: TUser[];

@@ -28,7 +28,6 @@ export default {
         "^.+\\.tsx?$": [
             "ts-jest",
             {
-
                 tsconfig: 'tsconfig.app.json',
             },
         ],

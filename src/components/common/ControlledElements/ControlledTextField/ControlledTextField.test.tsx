@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { useForm } from 'react-hook-form';
 import userEvent from '@testing-library/user-event';
-import { ControlledTextField } from './ControlledTextField';
+import { ControlledTextField } from '@components/common';
 
 describe('ControlledTextField', () => {
     const onSubmitMock = jest.fn();

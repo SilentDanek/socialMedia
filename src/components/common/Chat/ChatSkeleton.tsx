@@ -2,7 +2,7 @@ import { Skeleton, Stack } from '@mui/material';
 import { AddNewMessageForm } from './AddNewMessageForm';
 import { FC } from 'react';
 import { ChatMessagesSkeleton } from './Messages';
-import { ThemeBox } from '../ThemeBox/ThemeBox.tsx';
+import { ThemeBox } from '@components/common';
 
 export const ChatSkeleton: FC<{ withAvatar: boolean; withHeader: boolean }> = ({
     withAvatar,

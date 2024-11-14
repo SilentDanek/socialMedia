@@ -1,8 +1,8 @@
 import { FC, memo } from 'react';
-import { Photos } from '../../../../redux';
+import { Photos } from '@/redux';
 import { Avatar, Box, Card, CardContent, Chip, Stack, Typography, useTheme } from '@mui/material';
 import unknownUserSvg from '../../../../assets/images/unknown-user.svg';
-import { formatDate } from '../../../../utils';
+import { formatDate } from '@/utils';
 
 type DialogItemProps = {
     hasNewMessages: boolean;

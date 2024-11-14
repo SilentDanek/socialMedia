@@ -1,11 +1,5 @@
 import { useEffect } from 'react';
-import {
-    boundThunks,
-    boundActions,
-    getChatMessages,
-    getChatStatus,
-    useAppSelector
-} from '../../../redux';
+import { boundThunks, boundActions, getChatMessages, getChatStatus, useAppSelector } from '@/redux';
 import { Chat } from '../../common';
 
 const GlobalChat = () => {

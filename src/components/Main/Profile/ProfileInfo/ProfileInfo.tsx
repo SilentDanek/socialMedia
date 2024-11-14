@@ -1,4 +1,4 @@
-import unknownUserSVG from '../../../../assets/images/unknown-user.svg';
+import unknownUserSVG from '@/assets/images/unknown-user.svg';
 import { FC, useEffect, useState } from 'react';
 import { ProfileDataForm } from './ProfileDataForm';
 import { ProfileData } from './ProfileData';
@@ -11,7 +11,7 @@ import {
     getUserStatus,
     useAppSelector,
     UserProfile
-} from '../../../../redux';
+} from '@/redux';
 import { Avatar, Box, Button, Stack, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { ProfileContainer } from './ProfileInfo.style';

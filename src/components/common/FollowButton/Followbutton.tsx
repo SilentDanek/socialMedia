@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { boundThunks, getFollowingInProgress, useAppSelector } from '../../../redux';
+import { boundThunks, getFollowingInProgress, useAppSelector } from '@/redux';
 
 export const FollowButton: FC<FollowButtonProps> = ({ isFollow, userId, onClick }) => {
     const followingInProgress = useAppSelector(getFollowingInProgress);

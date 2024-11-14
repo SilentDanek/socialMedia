@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MessageButton } from './MessageButton';
-import { useStartChatMutation } from '../../../api/dialogsAPI.ts';
+import { useStartChatMutation } from '@api/dialogsAPI.ts';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 

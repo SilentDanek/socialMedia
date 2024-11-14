@@ -1,14 +1,8 @@
 import { FC, useEffect, useState } from 'react';
-import {
-    boundThunks,
-    getAuthStatus,
-    getAuthUserId,
-    getCaptchaUrl,
-    useAppSelector
-} from '../../../redux';
+import { boundThunks, getAuthStatus, getAuthUserId, getCaptchaUrl, useAppSelector } from '@/redux';
 import { useNavigate } from 'react-router-dom';
 import { useForm, useFormState } from 'react-hook-form';
-import { FormError } from '../../../api/APIErrors.ts';
+import { FormError } from '@/api/APIErrors.ts';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { EmailField, PasswordField, RememberMeCheckBox, CaptchaField } from './FormFields';

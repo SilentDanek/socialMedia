@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { UsersFilter } from '../../redux';
+import { UsersFilter } from '@/redux';
 
 type Friend = 'true' | 'false' | 'null';
 

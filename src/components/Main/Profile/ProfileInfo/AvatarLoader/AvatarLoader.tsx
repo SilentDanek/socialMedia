@@ -1,7 +1,7 @@
 import { Box, IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { ChangeEvent, FC, ReactNode, useRef } from 'react';
-import { boundThunks } from '../../../../../redux';
+import { boundThunks } from '@/redux';
 
 type AvatarLoaderProps = {
     children: ReactNode;

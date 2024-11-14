@@ -11,9 +11,3 @@ export const testArr = new Proxy([], {
         return Reflect.get(target, prop, receiver);
     }
 });
-
-declare global {
-    interface Window {
-        testArr: typeof testArr;
-    }
-}

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { MenuItem, Typography } from '@mui/material';
 import { TFunction } from 'i18next';
-import { boundThunks } from '../../../../redux';
+import { boundThunks } from '@/redux';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 type Props = {

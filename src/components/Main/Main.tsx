@@ -9,7 +9,7 @@ import {
     getErrorPageMessage,
     getIsInitialized,
     useAppSelector
-} from '../../redux';
+} from '@/redux';
 import { MainContent } from './Main.style';
 
 const LazyUsers = lazy(() => import('./Users/Users'));

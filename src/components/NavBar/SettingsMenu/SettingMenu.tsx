@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { getAuthStatus, useAppSelector } from '../../../redux';
+import { getAuthStatus, useAppSelector } from '@/redux';
 import { Box, ListItem, Menu } from '@mui/material';
 import { NavBarListItemButton, NavBarListItemIcon, NavBarListItemText } from '../NavBar.styles.tsx';
 import SettingsIcon from '@mui/icons-material/Settings';

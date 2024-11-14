@@ -1,5 +1,5 @@
 import { FC, memo, useEffect } from 'react';
-import { getUsersFilter, useAppSelector, UsersFilter } from '../../../../redux';
+import { getUsersFilter, useAppSelector, UsersFilter } from '@/redux';
 import { useForm, useFormState } from 'react-hook-form';
 import { ControlledTextField, ControlledSelectField } from '../../../common';
 import { Button, MenuItem } from '@mui/material';

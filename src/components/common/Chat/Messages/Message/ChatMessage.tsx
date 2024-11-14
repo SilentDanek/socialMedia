@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { MessageContent, MessageWrapper } from '../ChatMessages.styles.tsx';
 import { NavLink } from 'react-router-dom';
 import { Avatar, Typography } from '@mui/material';
-import unknownUserSVG from '../../../../../assets/images/unknown-user.svg';
+import unknownUserSVG from '@assets/images/unknown-user.svg';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import DoneIcon from '@mui/icons-material/Done';
 import { Message } from '../../Chat.tsx';

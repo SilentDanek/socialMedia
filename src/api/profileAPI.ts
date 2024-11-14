@@ -1,4 +1,4 @@
-import { Photos, UserProfile } from '../redux';
+import { Photos, UserProfile } from '@/redux';
 import { DefaultResponse, instance } from './index.ts';
 
 type GetStatusResponse = string;

@@ -3,9 +3,9 @@ import { useChatMessages } from './useChatMessages.ts';
 import { Chat, ChatSkeleton, ThemeBox } from '../../../common';
 import { NavLink } from 'react-router-dom';
 import { Avatar, Stack, Typography } from '@mui/material';
-import unknownUserSvg from '../../../../assets/images/unknown-user.svg';
-import { DialogResponse } from '../../../../api/dialogsAPI.ts';
-import { formatDate } from '../../../../utils';
+import unknownUserSvg from '@/assets/images/unknown-user.svg';
+import { DialogResponse } from '@api/dialogsAPI.ts';
+import { formatDate } from '@/utils';
 
 export const Dialog: FC<DialogProps> = memo(
     ({ selectedFriendInfo: { id, photos, userName, lastUserActivityDate } }) => {

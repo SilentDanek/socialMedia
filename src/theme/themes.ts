@@ -3,29 +3,6 @@ import { createTheme } from '@mui/material/styles';
 import mainBackgroundDark from '../assets/images/main_background_dark.png';
 import mainBackgroundLight from '../assets/images/main_background_light.png';
 
-declare module '@mui/material/styles' {
-    interface PaletteOptions {
-        backgroundImg: string;
-        backgroundGradient: string;
-        border: {
-            main: string;
-        };
-        backgroundColors: {
-            main: string;
-            hover: string;
-        };
-    }
-
-    interface Palette {
-        backgroundImg: string;
-        backgroundGradient: string;
-        backgroundColors: {
-            main: string;
-            hover: string;
-        };
-    }
-}
-
 export const lightTheme = createTheme({
     palette: {
         mode: 'light',

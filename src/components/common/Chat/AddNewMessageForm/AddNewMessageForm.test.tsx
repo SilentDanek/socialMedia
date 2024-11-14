@@ -1,6 +1,6 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { AddNewMessageForm } from './AddNewMessageForm';
-import { renderWithTranslation } from '../../../../test';
+import { renderWithTranslation } from '@/test';
 
 describe('AddNewMessageForm', () => {
     const sendMessageMock = jest.fn();

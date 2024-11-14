@@ -1,5 +1,5 @@
 import { Button } from '@mui/material';
-import { useStartChatMutation } from '../../../api/dialogsAPI.ts';
+import { useStartChatMutation } from '@api/dialogsAPI.ts';
 import { useNavigate } from 'react-router-dom';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';

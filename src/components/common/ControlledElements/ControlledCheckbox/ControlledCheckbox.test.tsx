@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { useForm } from 'react-hook-form';
-import { ControlledCheckbox } from './ControlledCheckbox.tsx';
+import { ControlledCheckbox } from '@components/common';
 
 describe('ControlledTextField', () => {
     const onSubmitMock = jest.fn();

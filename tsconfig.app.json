@@ -17,12 +17,24 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@utils/*": ["src/utils/*"],
+      "@api/*": ["src/api/*"],
+      "@hook/*": ["src/hook/*"],
+      "@theme/*": ["src/theme/*"],
+      "@redux/*": ["src/redux/*"],
+      "@assets/*": ["src/assets/*"]
+    },
+
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "setup-test.ts"],
+  "include": ["src", "setup-test.ts", "global.d.ts"],
   "exclude": ["src/test"]
 }

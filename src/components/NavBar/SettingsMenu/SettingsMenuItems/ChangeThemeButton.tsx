@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { MenuItem, Typography } from '@mui/material';
 import { TFunction } from 'i18next';
-import { useCustomTheme } from '../../../../hooks';
+import { useCustomTheme } from '@/hooks';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 

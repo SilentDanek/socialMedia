@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { useForm } from 'react-hook-form';
-import { ControlledSelectField } from './ControlledSelectField';
+import { ControlledSelectField } from '@components/common';
 import { MenuItem } from '@mui/material';
 
 describe('ControlledSelectField', () => {

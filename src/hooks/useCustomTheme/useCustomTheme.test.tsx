@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react';
-import { useCustomTheme } from './useCustomTheme';
+import { useCustomTheme } from '@/hooks';
 import React from 'react';
-import { ThemeContext } from '../../theme';
+import { ThemeContext } from '@/theme';
 
 describe('useCustomTheme', () => {
     test('should return context value when used within ThemeContext provider', () => {

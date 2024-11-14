@@ -1,7 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { FollowButton } from './Followbutton.tsx';
-import { useAppSelector } from '../../../redux';
-import { boundThunks } from '../../../redux';
+import { useAppSelector, boundThunks } from '@/redux';
 import { useTranslation } from 'react-i18next';
 
 // Мокаем необходимые хуки и функции

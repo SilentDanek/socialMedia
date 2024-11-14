@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { ChatMessages } from './ChatMessages';
-import { useAppSelector } from '../../../../redux';
+import { useAppSelector } from '@/redux';
 import { Message } from '../Chat.tsx';
 
 jest.mock('../../../../redux', () => ({

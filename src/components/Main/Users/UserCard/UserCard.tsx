@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import unknownUserSVG from '../../../../assets/images/unknown-user.svg';
-import { TUser } from '../../../../redux';
+import { TUser } from '@/redux';
 import { FC } from 'react';
 import { CardMedia, Typography } from '@mui/material';
 import { StyledUserCard, UserCardActions, UserCardContent } from './UserCard.styles';

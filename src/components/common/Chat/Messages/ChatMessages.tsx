@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { getAuthUserId, useAppSelector } from '../../../../redux';
-import { useAutoScroll } from '../../../../hooks';
+import { getAuthUserId, useAppSelector } from '@/redux';
+import { useAutoScroll } from '@/hooks';
 import { MessagesWrapper } from './ChatMessages.styles.tsx';
 import { Message } from '../Chat.tsx';
 import { ChatMessage } from './Message';

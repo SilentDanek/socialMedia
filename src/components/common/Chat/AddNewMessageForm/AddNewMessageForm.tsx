@@ -3,7 +3,7 @@ import { EmojiEmotions, Send } from '@mui/icons-material';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import React, { FC } from 'react';
-import { ControlledTextField } from '../../ControlledElements';
+import { ControlledTextField } from '@components/common';
 
 export const AddNewMessageForm: FC<AddNewMessageFormProps> = ({
     sendMessage,
