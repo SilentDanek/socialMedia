@@ -1,7 +1,8 @@
-import { Box, IconButton } from '@mui/material';
+import { Box } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { ChangeEvent, FC, ReactNode, useRef } from 'react';
 import { boundThunks } from '@/redux';
+import { LoadNewAvatarButton } from '@components/Main/Profile/ProfileInfo/AvatarLoader/AvatarLoader.styles.tsx';
 
 type AvatarLoaderProps = {
     children: ReactNode;
@@ -27,7 +28,6 @@ export const AvatarLoader: FC<AvatarLoaderProps> = ({ children }) => {
     return (
         <Box sx={{ position: 'relative' }}>
             {children}
-
             <input
                 type="file"
                 accept="image/*"
@@ -36,19 +36,9 @@ export const AvatarLoader: FC<AvatarLoaderProps> = ({ children }) => {
                 style={{ display: 'none' }}
             />
 
-            <IconButton
-                sx={{
-                    position: 'absolute',
-                    bottom: 0,
-                    right: '36%',
-                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                    color: '#fff',
-                    cursor: 'pointer'
-                }}
-                onClick={handleAvatarClick}
-            >
+            <LoadNewAvatarButton onClick={handleAvatarClick}>
                 <EditIcon />
-            </IconButton>
+            </LoadNewAvatarButton>
         </Box>
     );
 };

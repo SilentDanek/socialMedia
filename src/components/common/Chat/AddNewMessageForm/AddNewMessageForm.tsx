@@ -1,9 +1,10 @@
-import { CircularProgress, IconButton, Paper, TextFieldProps } from '@mui/material';
+import { CircularProgress, IconButton, TextFieldProps } from '@mui/material';
 import { EmojiEmotions, Send } from '@mui/icons-material';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import React, { FC } from 'react';
 import { ControlledTextField } from '@components/common';
+import { MessageForm, MessageFormWrapper } from './AddNewMessageForm.styles.ts';
 
 export const AddNewMessageForm: FC<AddNewMessageFormProps> = ({
     sendMessage,
@@ -27,12 +28,8 @@ export const AddNewMessageForm: FC<AddNewMessageFormProps> = ({
     };
 
     return (
-        <Paper elevation={3} sx={{ borderRadius: '25px' }}>
-            <form
-                aria-label="Message form"
-                onSubmit={handleSubmit(handleSendMessage)}
-                style={{ width: '100%', display: 'flex' }}
-            >
+        <MessageFormWrapper>
+            <MessageForm onSubmit={handleSubmit(handleSendMessage)}>
                 <IconButton>
                     <EmojiEmotions />
                 </IconButton>
@@ -53,8 +50,8 @@ export const AddNewMessageForm: FC<AddNewMessageFormProps> = ({
                 <IconButton type="submit" disabled={blockSubmitButton} aria-label="Send message">
                     {blockSubmitButton ? <CircularProgress /> : <Send />}
                 </IconButton>
-            </form>
-        </Paper>
+            </MessageForm>
+        </MessageFormWrapper>
     );
 };
 

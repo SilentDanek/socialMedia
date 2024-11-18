@@ -19,7 +19,7 @@ export const ProfileData: FC<ProfileDataProps> = ({ profile }) => {
     const { t } = useTranslation('profile');
 
     return (
-        <Box sx={{ padding: 2 }}>
+        <Box pt={1} component="ul">
             <ProfileDetailItem label={t('about me')} content={profile.aboutMe} />
             <ProfileDetailItem
                 label={t('looking for a job')}
@@ -33,9 +33,9 @@ export const ProfileData: FC<ProfileDataProps> = ({ profile }) => {
                 />
             )}
 
-            <FieldsetLike>
+            <FieldsetLike component="li">
                 <LegendLike>{t('contacts')}</LegendLike>
-                <List disablePadding={true}>
+                <List disablePadding>
                     {Object.entries(profile.contacts).map(([contactTitle, url], index) => (
                         <Contact
                             key={contactTitle}
@@ -53,7 +53,7 @@ export const ProfileData: FC<ProfileDataProps> = ({ profile }) => {
 const ProfileDetailItem: FC<ProfileDetailItemProps> = ({ label, content }) => (
     <Typography
         variant="body1"
-        component="div"
+        component="li"
         sx={{ wordBreak: 'break-word', whiteSpace: 'normal' }}
     >
         <b>{label}</b>: {content}

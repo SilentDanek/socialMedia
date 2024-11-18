@@ -1,7 +1,14 @@
 import { styled } from '@mui/material/styles';
-import { Card, CardActions, CardActionsProps, CardContent, CardContentProps } from '@mui/material';
+import {
+    Card,
+    CardActions,
+    CardActionsProps,
+    CardContent,
+    CardContentProps,
+    CardProps
+} from '@mui/material';
 
-export const StyledUserCard = styled(Card)(() => ({
+export const StyledUserCard = styled(Card)<CardProps>(() => ({
     width: '100%',
     margin: '15px auto',
     padding: 5,

@@ -1,11 +1,11 @@
 import { FC } from 'react';
-import { MessageContent, MessageWrapper } from '../ChatMessages.styles.tsx';
 import { NavLink } from 'react-router-dom';
 import { Avatar, Typography } from '@mui/material';
 import unknownUserSVG from '@assets/images/unknown-user.svg';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import DoneIcon from '@mui/icons-material/Done';
 import { Message } from '../../Chat.tsx';
+import { MessageContent, MessageOwnerWrapper, MessageWrapper } from './ChatMessage.styles.tsx';
 
 export const ChatMessage: FC<MessageProps> = ({
     message,
@@ -33,15 +33,13 @@ export const ChatMessage: FC<MessageProps> = ({
             )}
 
             <MessageContent isMessageOwner={isMessageOwner}>
-                <Typography variant="subtitle1" fontWeight="bold" fontSize="0.8rem" color="#cb25cb">
-                    {isMessageOwner ? 'You' : userName}
-                </Typography>
+                <MessageOwnerWrapper>{isMessageOwner ? 'You' : userName}</MessageOwnerWrapper>
 
                 <Typography variant="body1">{message}</Typography>
 
                 {addedAt && (
                     <Typography variant="body1" fontSize={12}>
-                        {messageTime}
+                        <time>{messageTime}</time>
                         {viewed || !isMessageOwner ? (
                             <DoneAllIcon sx={{ height: 20 }} />
                         ) : (

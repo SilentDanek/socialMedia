@@ -1,7 +1,8 @@
 import { styled } from '@mui/material/styles';
 import { Box, BoxProps } from '@mui/material';
+import React from 'react';
 
-export const ThemeBox = styled(Box)<BoxProps>(({ theme }) => ({
+export const ThemeBox = styled(Box)<BoxProps & { component?: React.ElementType }>(({ theme }) => ({
     backgroundColor: theme.palette.background.default,
     border: '2px solid gray',
     borderRadius: theme.shape.borderRadius,

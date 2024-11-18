@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import unknownUserSVG from '../../../../assets/images/unknown-user.svg';
+import unknownUserSVG from '@/assets/images/unknown-user.svg';
 import { TUser } from '@/redux';
 import { FC } from 'react';
 import { CardMedia, Typography } from '@mui/material';
@@ -17,7 +17,7 @@ export const UserCard: FC<UserCardProps> = ({ user }) => {
     }
 
     return (
-        <StyledUserCard>
+        <StyledUserCard component="article">
             <NavLink to={`/profile/${user.id}`}>
                 <CardMedia
                     component="img"
@@ -28,7 +28,7 @@ export const UserCard: FC<UserCardProps> = ({ user }) => {
             </NavLink>
 
             <UserCardContent sx={{ flexBasis: '200px' }}>
-                <Typography variant="h6" component="div">
+                <Typography variant="h6" component="h3">
                     {user.name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">

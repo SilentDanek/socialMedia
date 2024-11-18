@@ -1,7 +1,7 @@
-import { Stack } from '@mui/material';
 import { AddNewMessageForm } from './AddNewMessageForm';
 import React, { FC, ReactElement } from 'react';
 import { ChatMessages } from './Messages';
+import { ChatWrapper } from './Chat.styles.ts';
 
 export const Chat: FC<ChatProps> = ({
     blockSubmitButton,
@@ -12,20 +12,14 @@ export const Chat: FC<ChatProps> = ({
     onScroll
 }) => {
     return (
-        <Stack
-            flexDirection="column"
-            height="100%"
-            onScrollCapture={onScroll}
-            sx={{ maxWidth: 1000, width: '100%', margin: 'auto' }}
-        >
-            {chatHeader}
-
+        <ChatWrapper onScrollCapture={onScroll}>
+            {chatHeader && <header>{chatHeader}</header>}
             <ChatMessages messages={messages} />
             <AddNewMessageForm
                 sendMessage={sendMessage}
                 blockSubmitButton={blockSubmitButton || !!error}
             />
-        </Stack>
+        </ChatWrapper>
     );
 };
 

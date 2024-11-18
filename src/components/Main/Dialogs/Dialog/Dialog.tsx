@@ -1,11 +1,11 @@
 import { FC, memo } from 'react';
 import { useChatMessages } from './useChatMessages.ts';
-import { Chat, ChatSkeleton, ThemeBox } from '../../../common';
-import { NavLink } from 'react-router-dom';
+import { Chat, ChatSkeleton } from '@/components/common';
 import { Avatar, Stack, Typography } from '@mui/material';
 import unknownUserSvg from '@/assets/images/unknown-user.svg';
 import { DialogResponse } from '@api/dialogsAPI.ts';
 import { formatDate } from '@/utils';
+import { ChatHeader, ProfileNavLink } from './Dialog.styles.ts';
 
 export const Dialog: FC<DialogProps> = memo(
     ({ selectedFriendInfo: { id, photos, userName, lastUserActivityDate } }) => {
@@ -32,25 +32,19 @@ export const Dialog: FC<DialogProps> = memo(
                 messages={chatMessages}
                 onScroll={handleScroll}
                 chatHeader={
-                    <ThemeBox sx={{ p: 1 }}>
-                        <NavLink
-                            to={`/profile/${id}`}
-                            style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: 10,
-                                padding: 1
-                            }}
-                        >
+                    <ChatHeader aria-label={`Chat with ${userName}`}>
+                        <ProfileNavLink to={`/profile/${id}`}>
                             <Avatar src={photos.large || unknownUserSvg} />
                             <Stack direction="column">
-                                <Typography variant="body1">{userName}</Typography>
+                                <Typography variant="body1" component="h2">
+                                    {userName}
+                                </Typography>
                                 <Typography variant="subtitle2">
                                     {lastUserActivityDateParsed}
                                 </Typography>
                             </Stack>
-                        </NavLink>
-                    </ThemeBox>
+                        </ProfileNavLink>
+                    </ChatHeader>
                 }
             />
         );

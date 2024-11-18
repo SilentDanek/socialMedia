@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Avatar, Badge, ListItem, Paper } from '@mui/material';
+import { Avatar, Badge, ListItem } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import {
     Nav,
@@ -17,8 +17,8 @@ export const NavBar: FC = () => {
     const { selectedIndex, navbarItems } = useAuthNavbarSync();
 
     return (
-        <Nav>
-            <Paper sx={{ height: { xs: 'auto', sm: '100%' } }}>
+        <aside>
+            <Nav>
                 <NavBarList>
                     {navbarItems.map((item, index) => (
                         <NavItem
@@ -30,8 +30,8 @@ export const NavBar: FC = () => {
                     ))}
                     <SettingsMenu />
                 </NavBarList>
-            </Paper>
-        </Nav>
+            </Nav>
+        </aside>
     );
 };
 

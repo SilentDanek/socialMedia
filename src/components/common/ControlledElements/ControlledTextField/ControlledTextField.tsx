@@ -28,6 +28,8 @@ export const ControlledTextField = <T extends FieldValues>({
                 {...field}
                 value={field.value || ''}
                 label={label}
+                aria-label={label}
+                aria-placeholder={placeholder}
                 placeholder={placeholder ? placeholder : label}
                 margin="dense"
                 multiline={multiline}

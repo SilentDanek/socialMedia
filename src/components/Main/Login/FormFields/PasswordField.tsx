@@ -1,17 +1,17 @@
-import { Control, Controller, useFormState } from 'react-hook-form';
+import { Control } from 'react-hook-form';
 import { LoginFieldValues } from '../Login';
 import React, { FC, useState } from 'react';
-import { IconButton, InputAdornment, TextField } from '@mui/material';
+import { IconButton, InputAdornment } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useTranslation } from 'react-i18next';
+import { ControlledTextField } from '@components/common';
 
 type EmailField = {
     control: Control<LoginFieldValues, unknown>;
 };
 
 export const PasswordField: FC<EmailField> = ({ control }) => {
-    const { errors } = useFormState({ control });
     const [showPassword, setShowPassword] = useState(false);
     const { t } = useTranslation('login');
 
@@ -22,39 +22,31 @@ export const PasswordField: FC<EmailField> = ({ control }) => {
     };
 
     return (
-        <Controller
-            name="password"
+        <ControlledTextField
             control={control}
             rules={{
                 minLength: { value: 4, message: 'Min password length is 4' },
                 required: t('passwordRequire')
             }}
-            render={({ field }) => (
-                <TextField
-                    {...field}
-                    label={t('password')}
-                    type={showPassword ? 'text' : 'password'}
-                    error={!!errors.password}
-                    helperText={errors.password?.message}
-                    variant="outlined"
-                    fullWidth
-                    slotProps={{
-                        input: {
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        onClick={handleClickShowPassword}
-                                        onMouseDown={handleMouseDownPassword}
-                                        edge="end"
-                                    >
-                                        {showPassword ? <Visibility /> : <VisibilityOff />}
-                                    </IconButton>
-                                </InputAdornment>
-                            )
-                        }
-                    }}
-                />
-            )}
+            label={t('password')}
+            name="password"
+            type={showPassword ? 'text' : 'password'}
+            margin="normal"
+            slotProps={{
+                input: {
+                    endAdornment: (
+                        <InputAdornment position="end">
+                            <IconButton
+                                onClick={handleClickShowPassword}
+                                onMouseDown={handleMouseDownPassword}
+                                edge="end"
+                            >
+                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                            </IconButton>
+                        </InputAdornment>
+                    )
+                }
+            }}
         />
     );
 };

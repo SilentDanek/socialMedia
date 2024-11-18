@@ -1,7 +1,8 @@
 import { styled } from '@mui/system';
-import { Typography, Box, Theme, Link } from '@mui/material';
+import { Box, Link, Theme, Typography } from '@mui/material';
+import React from 'react';
 
-export const FieldsetLike = styled(Box)(({ theme }) => ({
+export const FieldsetLike = styled(Box)<{ component?: React.ElementType }>(({ theme }) => ({
     border: `1px solid gray`,
     borderRadius: theme.shape.borderRadius,
     padding: theme.spacing(2),

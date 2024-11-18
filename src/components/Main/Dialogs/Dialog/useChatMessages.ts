@@ -43,7 +43,7 @@ export const useChatMessages = (userId: number) => {
     // Manually reset old messages to avoid component flickering
     // Clear the chat messages state as the component does not rerender automatically
     // This helps prevent the immediate disappearance and reappearance of new data
-    // If we don't want to use this effect, we need to add a key to the Dialog component
+    // If we don't want to use this effect, we need to remove a key to the Dialog component
     useEffect(() => {
         setChatMessages([]);
         setPage(1);

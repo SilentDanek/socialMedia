@@ -1,19 +1,30 @@
-import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { List, ListItemButton, ListItemIcon, ListItemText, Paper, useTheme } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { FC, PropsWithChildren } from 'react';
 
-export const Nav = styled('nav')(({ theme }) => ({
-    background: '#512da8',
-    width: '260px',
-    borderRight: 'gray 2px solid',
-    borderTop: 'none',
-    [theme.breakpoints.down('lg')]: {
-        width: 'auto'
-    },
-    [theme.breakpoints.down('sm')]: {
-        borderRight: 'none',
-        borderTop: 'gray 2px solid'
-    }
-}));
+export const Nav: FC<PropsWithChildren> = ({ children }) => {
+    const theme = useTheme();
+    return (
+        <Paper
+            component="nav"
+            sx={{
+                width: '260px',
+                borderRight: 'gray 2px solid',
+                borderTop: 'none',
+                height: '100%',
+                [theme.breakpoints.down('lg')]: {
+                    width: 'auto'
+                },
+                [theme.breakpoints.down('sm')]: {
+                    borderRight: 'none',
+                    borderTop: 'gray 2px solid'
+                }
+            }}
+        >
+            {children}
+        </Paper>
+    );
+};
 
 export const NavBarList = styled(List)(({ theme }) => ({
     display: 'flex',

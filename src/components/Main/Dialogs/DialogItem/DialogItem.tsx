@@ -1,8 +1,13 @@
 import { FC, memo } from 'react';
 import { Photos } from '@/redux';
-import { Avatar, Box, Card, CardContent, Chip, Stack, Typography, useTheme } from '@mui/material';
+import { Avatar, Chip, Stack, Typography } from '@mui/material';
 import unknownUserSvg from '../../../../assets/images/unknown-user.svg';
 import { formatDate } from '@/utils';
+import {
+    DialogItemCard,
+    DialogItemContent,
+    DialogItemUserData
+} from '@components/Main/Dialogs/DialogItem/DialogItem.styles.tsx';
 
 type DialogItemProps = {
     hasNewMessages: boolean;
@@ -31,57 +36,32 @@ export const DialogItem: FC<DialogItemProps> = memo(
         const lastMessageData = formatDate(lastDialogActivityDate);
         const lastUserActivity = formatDate(lastUserActivityDate);
         const isSelected = selectedFriendId === id;
-        const theme = useTheme();
         return (
-            <Card
-                sx={{
-                    cursor: 'pointer',
-                    transition: 'background-color 0.4s',
-                    borderRadius: '12px',
-                    backgroundColor: isSelected
-                        ? theme.palette.backgroundColors?.main
-                        : theme.palette.background.default,
-                    '&:hover': {
-                        backgroundColor: isSelected ? 'auto' : theme.palette.backgroundColors.hover
-                    }
-                }}
-            >
-                <CardContent
-                    style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
-                    onClick={() => setSelectedUser(id)}
-                >
+            <DialogItemCard isSelected={isSelected}>
+                <DialogItemContent onClick={() => setSelectedUser(id)}>
                     <Avatar
                         alt={userName}
                         src={photos.large || unknownUserSvg}
                         sx={{ width: 60, height: 60 }}
                     />
-                    <Box
-                        sx={{
-                            flexGrow: 1,
-                            paddingLeft: '16px',
-                            display: {
-                                xs: 'none',
-                                md: 'block'
-                            }
-                        }}
-                    >
+                    <DialogItemUserData>
                         <Stack direction="row" justifyContent="space-between">
-                            <Typography variant="body1" overflow="clip">
+                            <Typography variant="body1" overflow="clip" component="h3">
                                 {userName}
                             </Typography>
-                            <Typography variant="subtitle2" color="textSecondary">
+                            <Typography variant="subtitle2" color="textSecondary" component="time">
                                 {lastMessageData}
                             </Typography>
                         </Stack>
                         <Stack direction="row" justifyContent="space-between" alignItems="center">
-                            <Typography variant="subtitle2" color="textSecondary">
+                            <Typography variant="subtitle2" color="textSecondary" component="time">
                                 {lastUserActivity}
                             </Typography>
                             {hasNewMessages && <Chip label={newMessagesCount} color="primary" />}
                         </Stack>
-                    </Box>
-                </CardContent>
-            </Card>
+                    </DialogItemUserData>
+                </DialogItemContent>
+            </DialogItemCard>
         );
     }
 );

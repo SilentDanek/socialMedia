@@ -4,7 +4,7 @@ import { Stack } from '@mui/material';
 
 export const Preloader: FC = () => {
     return (
-        <Stack height="100%" justifyContent="center" alignItems="center">
+        <Stack height="100%" width="100%" justifyContent="center" alignItems="center">
             <img src={svgPreloader} alt="preloader" style={{ height: '50%' }} />;
         </Stack>
     );

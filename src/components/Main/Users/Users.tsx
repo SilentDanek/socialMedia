@@ -14,7 +14,7 @@ import {
 } from '@/redux';
 import { UsersSearchForm } from './NewSearchForm';
 import { useUsersQueryParams } from '@/hooks';
-import { UsersSection, UsersWrapper } from './Users.styles';
+import { UsersSection, UsersWrapper, UserTable } from './Users.styles';
 
 const Users: FC = () => {
     const users = useAppSelector(getUsers);
@@ -47,13 +47,15 @@ const Users: FC = () => {
 
     return (
         <UsersWrapper>
-            <UsersSection>
+            <UserTable>
                 <UsersSearchForm handleFilterChanged={handleFilterChanged} />
-                {isFetching
-                    ? Array(pageSize)
-                          .fill(0)
-                          .map((_, index) => <UserCardSkeleton key={index} />)
-                    : users.map((user) => <UserCard key={user.id} user={user} />)}
+                <UsersSection>
+                    {isFetching
+                        ? Array(pageSize)
+                              .fill(0)
+                              .map((_, index) => <UserCardSkeleton key={index} />)
+                        : users.map((user) => <UserCard key={user.id} user={user} />)}
+                </UsersSection>
                 <Paginator
                     currentPage={currentPage}
                     handlePageChanged={handlePageChanged}
@@ -62,7 +64,7 @@ const Users: FC = () => {
                     portionSize={7}
                     responsive={true}
                 />
-            </UsersSection>
+            </UserTable>
         </UsersWrapper>
     );
 };

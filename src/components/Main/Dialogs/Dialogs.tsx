@@ -1,10 +1,9 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 import { useGetDialogsQuery } from '@api/dialogsAPI.ts';
-import { ThemeBox } from '../../common';
-import { Stack } from '@mui/material';
 import { DialogItem } from './DialogItem';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Dialog } from './Dialog';
+import { DialogItemsWrapper, DialogWrapper } from '@components/Main/Dialogs/Dialogs.styles.tsx';
 
 const Dialogs: FC = () => {
     const [selectedFriendId, setSelectedFriendId] = useState<null | number>(null);
@@ -35,14 +34,8 @@ const Dialogs: FC = () => {
     }, []);
 
     return (
-        <Stack direction="row" sx={{ height: '100%' }}>
-            <ThemeBox
-                sx={{
-                    height: '100%',
-                    overflowY: 'auto',
-                    minWidth: { xs: '100px', smDown: '100px', md: '400px' }
-                }}
-            >
+        <DialogWrapper>
+            <DialogItemsWrapper>
                 {recentDialogs?.map((d) => (
                     <DialogItem
                         key={d.id}
@@ -51,10 +44,10 @@ const Dialogs: FC = () => {
                         {...d}
                     />
                 ))}
-            </ThemeBox>
+            </DialogItemsWrapper>
 
             {selectedFriendInfo && <Dialog selectedFriendInfo={selectedFriendInfo} />}
-        </Stack>
+        </DialogWrapper>
     );
 };
 

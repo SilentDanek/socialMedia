@@ -2,16 +2,14 @@ import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { boundThunks, Contacts, UserProfile } from '@/redux';
 import { Control, useForm, useFormState } from 'react-hook-form';
 import { ContactFormError, FormError } from '@api/APIErrors.ts';
-import { LoadingButton } from '@mui/lab';
-import { Button } from '@mui/material';
 import {
     ControlledCheckbox,
     ControlledTextField,
     Fieldset,
     FormErrorMessage,
     Legend
-} from '../../../../common';
-import { ButtonGroupWrapper } from './ProfileDataForm.style';
+} from '@/components/common';
+import { ButtonGroupWrapper, FormButton } from './ProfileDataForm.style';
 import { useTranslation } from 'react-i18next';
 
 export type FormFields = UserProfile & { formError: string };
@@ -76,22 +74,12 @@ export const ProfileDataForm: FC<ProfileDataFormProps> = ({ profile, setEditMode
             <FormErrorMessage>{formErrorMessage}</FormErrorMessage>
 
             <ButtonGroupWrapper>
-                <Button
-                    color="secondary"
-                    variant="contained"
-                    onClick={() => setEditMode(false)}
-                    sx={{ minWidth: '150px', maxWidth: '250px' }}
-                >
+                <FormButton color="secondary" onClick={() => setEditMode(false)}>
                     {t('cancel')}
-                </Button>
-                <LoadingButton
-                    type="submit"
-                    variant="contained"
-                    loading={isSubmitting}
-                    sx={{ minWidth: '150px', maxWidth: '250px' }}
-                >
+                </FormButton>
+                <FormButton type="submit" loading={isSubmitting}>
                     {t('save')}
-                </LoadingButton>
+                </FormButton>
             </ButtonGroupWrapper>
         </form>
     );
