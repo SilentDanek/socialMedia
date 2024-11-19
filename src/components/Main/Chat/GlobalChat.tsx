@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { boundThunks, boundActions, getChatMessages, getChatStatus, useAppSelector } from '@/redux';
 import { Chat } from '../../common';
+import { GlobalChatMeta } from './GlobalChat.meta.tsx';
 
 const GlobalChat = () => {
     const status = useAppSelector(getChatStatus);
@@ -21,12 +22,15 @@ const GlobalChat = () => {
     }, []);
 
     return (
-        <Chat
-            blockSubmitButton={status !== 'ready'}
-            sendMessage={sendMessage}
-            error={status === 'error'}
-            messages={messages}
-        />
+        <>
+            <GlobalChatMeta />
+            <Chat
+                blockSubmitButton={status !== 'ready'}
+                sendMessage={sendMessage}
+                error={status === 'error'}
+                messages={messages}
+            />
+        </>
     );
 };
 

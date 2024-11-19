@@ -5,7 +5,8 @@ import { Avatar, Stack, Typography } from '@mui/material';
 import unknownUserSvg from '@/assets/images/unknown-user.svg';
 import { DialogResponse } from '@api/dialogsAPI.ts';
 import { formatDate } from '@/utils';
-import { ChatHeader, ProfileNavLink } from './Dialog.styles.ts';
+import { ChatHeader, ProfileNavLink } from './Dialog.styles.tsx';
+import { DialogMeta } from './Dialog.meta.tsx';
 
 export const Dialog: FC<DialogProps> = memo(
     ({ selectedFriendInfo: { id, photos, userName, lastUserActivityDate } }) => {
@@ -25,28 +26,32 @@ export const Dialog: FC<DialogProps> = memo(
         }
 
         return (
-            <Chat
-                blockSubmitButton={isMessageSending}
-                sendMessage={handleSendMessage}
-                error={isError}
-                messages={chatMessages}
-                onScroll={handleScroll}
-                chatHeader={
-                    <ChatHeader aria-label={`Chat with ${userName}`}>
-                        <ProfileNavLink to={`/profile/${id}`}>
-                            <Avatar src={photos.large || unknownUserSvg} />
-                            <Stack direction="column">
-                                <Typography variant="body1" component="h2">
-                                    {userName}
-                                </Typography>
-                                <Typography variant="subtitle2">
-                                    {lastUserActivityDateParsed}
-                                </Typography>
-                            </Stack>
-                        </ProfileNavLink>
-                    </ChatHeader>
-                }
-            />
+            <>
+                <DialogMeta userName={userName} />
+
+                <Chat
+                    blockSubmitButton={isMessageSending}
+                    sendMessage={handleSendMessage}
+                    error={isError}
+                    messages={chatMessages}
+                    onScroll={handleScroll}
+                    chatHeader={
+                        <ChatHeader aria-label={`Chat with ${userName}`}>
+                            <ProfileNavLink to={`/profile/${id}`}>
+                                <Avatar src={photos.large || unknownUserSvg} />
+                                <Stack direction="column">
+                                    <Typography variant="body1" component="h2">
+                                        {userName}
+                                    </Typography>
+                                    <Typography variant="subtitle2">
+                                        {lastUserActivityDateParsed}
+                                    </Typography>
+                                </Stack>
+                            </ProfileNavLink>
+                        </ChatHeader>
+                    }
+                />
+            </>
         );
     }
 );

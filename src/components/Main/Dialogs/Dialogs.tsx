@@ -4,6 +4,7 @@ import { DialogItem } from './DialogItem';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Dialog } from './Dialog';
 import { DialogItemsWrapper, DialogWrapper } from '@components/Main/Dialogs/Dialogs.styles.tsx';
+import { DialogsMeta } from '@components/Main/Dialogs/Dialogs.meta.tsx';
 
 const Dialogs: FC = () => {
     const [selectedFriendId, setSelectedFriendId] = useState<null | number>(null);
@@ -34,20 +35,24 @@ const Dialogs: FC = () => {
     }, []);
 
     return (
-        <DialogWrapper>
-            <DialogItemsWrapper>
-                {recentDialogs?.map((d) => (
-                    <DialogItem
-                        key={d.id}
-                        setSelectedUser={handleUserClick}
-                        selectedFriendId={selectedFriendId}
-                        {...d}
-                    />
-                ))}
-            </DialogItemsWrapper>
+        <>
+            <DialogsMeta />
 
-            {selectedFriendInfo && <Dialog selectedFriendInfo={selectedFriendInfo} />}
-        </DialogWrapper>
+            <DialogWrapper>
+                <DialogItemsWrapper>
+                    {recentDialogs?.map((d) => (
+                        <DialogItem
+                            key={d.id}
+                            setSelectedUser={handleUserClick}
+                            selectedFriendId={selectedFriendId}
+                            {...d}
+                        />
+                    ))}
+                </DialogItemsWrapper>
+
+                {selectedFriendInfo && <Dialog selectedFriendInfo={selectedFriendInfo} />}
+            </DialogWrapper>
+        </>
     );
 };
 

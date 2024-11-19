@@ -11,6 +11,7 @@ import {
     useAppSelector
 } from '@/redux';
 import { MainContent } from './Main.style';
+import { Helmet } from 'react-helmet-async';
 
 const LazyUsers = lazy(() => import('./Users/Users'));
 const LazyDialogs = lazy(() => import('./Dialogs/Dialogs'));
@@ -40,6 +41,10 @@ export const Main: FC = () => {
 
     return (
         <MainContent>
+            <Helmet>
+                <title>Social network</title>
+            </Helmet>
+
             <SuspensePreload>
                 <Routes>
                     <Route path="/" element={<HomePage />} />
