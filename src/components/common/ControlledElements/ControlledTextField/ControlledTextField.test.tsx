@@ -23,7 +23,8 @@ describe('ControlledTextField', () => {
 
     test('renders correctly with provided control', () => {
         render(<TestComponent />);
-        expect(screen.getByLabelText('Test Label')).toBeInTheDocument();
+
+        expect(screen.getAllByText('Test Label')).toHaveLength(2);
     });
 
     test('displays error message when fieldState contains an error', async () => {
@@ -38,17 +39,14 @@ describe('ControlledTextField', () => {
     test('submits correct value when form is filled and submitted', async () => {
         render(<TestComponent />);
 
-        const input = screen.getByLabelText('Test Label');
+        const input = screen.getByLabelText('Test Label', { selector: 'input' });
         const btn = screen.getByText('Submit');
 
-        await userEvent.type(input, 'Test Value'); // Ввод значения в поле
-        fireEvent.click(btn); // Отправка формы
+        await userEvent.type(input, 'Test Value');
+        fireEvent.click(btn);
 
         await waitFor(() =>
-            expect(onSubmitMock).toHaveBeenCalledWith(
-                { test: 'Test Value' }, // Проверяем переданное значение
-                expect.anything()
-            )
+            expect(onSubmitMock).toHaveBeenCalledWith({ test: 'Test Value' }, expect.anything())
         );
     });
 });

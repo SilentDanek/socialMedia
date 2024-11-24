@@ -78,8 +78,16 @@ describe('Paginator', () => {
             ...defaultProps,
             currentPage: 10
         });
-        const nextPage = screen.getByText('10').nextElementSibling;
-        expect(nextPage?.textContent?.includes('11')).toBeTruthy();
+
+        const button10 = screen.getByText('10');
+
+        const parentLi = button10.closest('li');
+        expect(parentLi).toBeInTheDocument();
+        const nextLi = parentLi?.nextElementSibling;
+        expect(nextLi).toBeInTheDocument();
+
+        const button11 = nextLi?.querySelector('button');
+        expect(button11).toHaveTextContent('11');
     });
     test("shouldn't contain more pages then totalItemsCount/itemsInPage", () => {
         setup({
