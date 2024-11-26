@@ -1,7 +1,7 @@
 import { AddNewMessageForm } from './AddNewMessageForm';
 import React, { FC, ReactElement } from 'react';
 import { ChatMessages } from './Messages';
-import { ChatWrapper } from './Chat.styles.ts';
+import { ChatWrapper } from './Chat.styles.tsx';
 
 export const Chat: FC<ChatProps> = ({
     blockSubmitButton,

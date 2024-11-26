@@ -14,7 +14,7 @@ import {
 } from '@/redux';
 import { UsersSearchForm } from './NewSearchForm';
 import { useUsersQueryParams } from '@/hooks';
-import { UsersSection, UsersWrapper, UserTable } from './Users.styles';
+import { UsersSection, UsersWrapper, UserTable } from './Users.styles.tsx';
 
 const Users: FC = () => {
     const users = useAppSelector(getUsers);

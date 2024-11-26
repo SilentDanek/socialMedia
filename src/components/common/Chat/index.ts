@@ -1,2 +1,2 @@
 export * from './Chat';
-export * from './ChatSkeleton';
+export * from './Chat.skeleton.tsx';

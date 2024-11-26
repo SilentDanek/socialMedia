@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import React, { FC } from 'react';
 import { ControlledTextField } from '@components/common';
-import { MessageForm, MessageFormWrapper } from './AddNewMessageForm.styles.ts';
+import { MessageForm, MessageFormWrapper } from './AddNewMessageForm.styles.tsx';
 
 export const AddNewMessageForm: FC<AddNewMessageFormProps> = ({
     sendMessage,

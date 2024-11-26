@@ -3,7 +3,7 @@ import unknownUserSVG from '@/assets/images/unknown-user.svg';
 import { TUser } from '@/redux';
 import { FC } from 'react';
 import { CardMedia, Typography } from '@mui/material';
-import { StyledUserCard, UserCardActions, UserCardContent } from './UserCard.styles';
+import { StyledUserCard, UserCardActions, UserCardContent } from './UserCard.styles.tsx';
 import { useTranslation } from 'react-i18next';
 import { FollowButton, MessageButton } from '../../../common';
 

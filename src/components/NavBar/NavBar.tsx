@@ -9,7 +9,7 @@ import {
     NavBarListItemText
 } from './NavBar.styles.tsx';
 import { SettingsMenu } from './SettingsMenu';
-import { useAuthNavbarSync } from './useAuthNavbarSync';
+import { useAuthNavbarSync } from './useAuthNavbarSync.ts';
 import { useTranslation } from 'react-i18next';
 import { Chat, Group, Person, Public } from '@mui/icons-material';
 

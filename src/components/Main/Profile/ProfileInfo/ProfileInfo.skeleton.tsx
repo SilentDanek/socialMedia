@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Box, Stack } from '@mui/material';
-import { ProfileContainer } from './ProfileInfo.style';
+import { ProfileContainer } from './ProfileInfo.style.tsx';
 import { Skeleton } from '@mui/material';
 import { ProfileDataSkeleton } from './ProfileData';
 

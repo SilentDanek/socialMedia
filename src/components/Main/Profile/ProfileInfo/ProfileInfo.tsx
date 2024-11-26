@@ -14,7 +14,7 @@ import {
 } from '@/redux';
 import { Avatar, Box, Button, Stack, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { ProfileContainer } from './ProfileInfo.style';
+import { ProfileContainer } from './ProfileInfo.style.tsx';
 import { FollowButton, MessageButton } from '../../../common';
 import { ProfileInfoMeta } from './ProfileInfo.meta.tsx';
 

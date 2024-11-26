@@ -1,2 +1,2 @@
 export * from './UserCard';
-export * from './UserCardSkeleton';
+export * from './UserCard.skeleton.tsx';

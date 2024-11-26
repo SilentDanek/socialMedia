@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Box, List, ListItem } from '@mui/material';
-import { FieldsetLike, LegendLike } from './ProfileData.style.ts';
+import { FieldsetLike, LegendLike } from './ProfileData.style.tsx';
 import { Skeleton } from '@mui/material';
 
 export const ProfileDataSkeleton: FC = () => {

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Skeleton } from '@mui/material';
-import { RandMessage } from '../ChatMessagesSkeleton.tsx';
+import { RandMessage } from '../ChatMessages.skeleton.tsx';
 import { MessageContent, MessageWrapper } from './ChatMessage.styles.tsx';
 
 export const ChatMessageSkeleton: FC<ChatMessageSkeletonProps> = ({

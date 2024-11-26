@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { UserProfile } from '@/redux';
 import { Box, List, ListItem, Typography } from '@mui/material';
-import { FieldsetLike, FlexLink, LegendLike } from './ProfileData.style';
+import { FieldsetLike, FlexLink, LegendLike } from './ProfileData.style.tsx';
 import {
     Facebook,
     GitHub,

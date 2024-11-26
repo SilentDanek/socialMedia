@@ -10,7 +10,7 @@ import {
     getIsInitialized,
     useAppSelector
 } from '@/redux';
-import { MainContent } from './Main.style';
+import { MainContent } from './Main.style.tsx';
 import { Helmet } from 'react-helmet-async';
 
 const LazyUsers = lazy(() => import('./Users/Users'));

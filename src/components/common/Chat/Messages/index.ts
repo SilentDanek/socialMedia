@@ -1,2 +1,2 @@
 export { ChatMessages } from './ChatMessages.tsx';
-export { ChatMessagesSkeleton } from './ChatMessagesSkeleton.tsx';
+export { ChatMessagesSkeleton } from './ChatMessages.skeleton.tsx';
