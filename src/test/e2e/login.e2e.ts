@@ -7,7 +7,7 @@ describe('Login Form E2E Test', () => {
 
         const currentUrl = await browser.getUrl();
 
-        expect(currentUrl).toContain('/login');
+        expect(currentUrl).toContain('/');
         expect(LoginPage.errorMessage).toBeDefined();
     });
     it('should allow the user to login with valid credentials', async () => {

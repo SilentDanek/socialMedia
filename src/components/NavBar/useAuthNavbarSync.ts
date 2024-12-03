@@ -20,7 +20,7 @@ export function useAuthNavbarSync() {
             boundThunks.navbarThunks.loadProfilePhoto(id);
         } else {
             const updatedListItems = navbarItems.map((item) =>
-                item.route.includes('/users') ? item : { ...item, route: '/login' }
+                item.route.includes('/users') ? item : { ...item, route: '/' }
             );
             boundActions.navbarActions.setNavbarItems(updatedListItems);
             boundActions.navbarActions.setProfilePhoto(null);

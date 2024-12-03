@@ -24,7 +24,7 @@ class LoginPage {
     }
 
     async open() {
-        await browser.url('/login');
+        await browser.url('/');
     }
 
     async login(email: string, password: string, rememberMe: boolean, captcha?: string) {
