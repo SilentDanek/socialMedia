@@ -8,7 +8,7 @@ import { MessageForm, MessageFormWrapper } from './AddNewMessageForm.styles.tsx'
 
 export const AddNewMessageForm: FC<AddNewMessageFormProps> = ({
     sendMessage,
-    blockSubmitButton
+    blockSubmitButton = false
 }) => {
     const { handleSubmit, control, resetField } = useForm<FieldValues>({
         defaultValues: { newMessage: '' }
@@ -57,7 +57,7 @@ export const AddNewMessageForm: FC<AddNewMessageFormProps> = ({
 
 type AddNewMessageFormProps = {
     sendMessage: (newMessage: string) => void;
-    blockSubmitButton: boolean;
+    blockSubmitButton?: boolean;
 } & TextFieldProps;
 
 type FieldValues = {
