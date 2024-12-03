@@ -2,6 +2,8 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { FollowButton } from './Followbutton.tsx';
 import { useAppSelector, boundThunks } from '@/redux';
 import { useTranslation } from 'react-i18next';
+import { BrowserRouter } from 'react-router-dom';
+import { ReactJSX } from '@emotion/react/types/jsx-namespace';
 
 // Мокаем необходимые хуки и функции
 jest.mock('../../../redux', () => ({
@@ -20,7 +22,7 @@ jest.mock('react-i18next', () => ({
 describe('FollowButton component', () => {
     const mockFollow = jest.fn();
     const mockUnfollow = jest.fn();
-    const mockT = jest.fn((key) => key); // Мокаем функцию перевода
+    const mockT = jest.fn((key) => key);
 
     const mockOnClick = jest.fn();
 
@@ -35,8 +37,10 @@ describe('FollowButton component', () => {
         jest.clearAllMocks();
     });
 
+    const renderWithBrowserRouter = (ui: ReactJSX) => render(<BrowserRouter>{ui}</BrowserRouter>);
+
     test('renders follow button correctly when user is not followed', () => {
-        render(<FollowButton isFollow={false} userId={1} />);
+        renderWithBrowserRouter(<FollowButton isFollow={false} userId={1} />);
 
         const button = screen.getByRole('button', { name: 'follow' });
         expect(button).toBeInTheDocument();
@@ -45,7 +49,7 @@ describe('FollowButton component', () => {
     });
 
     test('renders unfollow button correctly when user is followed', () => {
-        render(<FollowButton isFollow={true} userId={1} />);
+        renderWithBrowserRouter(<FollowButton isFollow={true} userId={1} />);
 
         const button = screen.getByRole('button', { name: 'unfollow' });
         expect(button).toBeInTheDocument();
@@ -54,7 +58,7 @@ describe('FollowButton component', () => {
     });
 
     test('calls follow thunk when user is not followed', () => {
-        render(<FollowButton isFollow={false} userId={1} />);
+        renderWithBrowserRouter(<FollowButton isFollow={false} userId={1} />);
 
         const button = screen.getByRole('button', { name: 'follow' });
 
@@ -63,7 +67,7 @@ describe('FollowButton component', () => {
     });
 
     test('calls unfollow thunk when user is followed', () => {
-        render(<FollowButton isFollow={true} userId={1} />);
+        renderWithBrowserRouter(<FollowButton isFollow={true} userId={1} />);
 
         const button = screen.getByRole('button', { name: 'unfollow' });
 
@@ -74,14 +78,14 @@ describe('FollowButton component', () => {
     test('disables button when following is in progress', () => {
         (useAppSelector as jest.Mock).mockReturnValue([1]);
 
-        render(<FollowButton isFollow={false} userId={1} />);
+        renderWithBrowserRouter(<FollowButton isFollow={false} userId={1} />);
 
         const button = screen.getByRole('button', { name: 'follow' });
         expect(button).toBeDisabled();
     });
 
     test('calls onClick callback when provided', () => {
-        render(<FollowButton isFollow={false} userId={1} onClick={mockOnClick} />);
+        renderWithBrowserRouter(<FollowButton isFollow={false} userId={1} onClick={mockOnClick} />);
 
         const button = screen.getByRole('button', { name: 'follow' });
 

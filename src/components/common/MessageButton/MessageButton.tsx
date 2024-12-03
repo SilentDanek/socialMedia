@@ -3,15 +3,21 @@ import { useStartChatMutation } from '@api/dialogsAPI.ts';
 import { useNavigate } from 'react-router-dom';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { getAuthStatus, useAppSelector } from '@/redux';
 
 export const MessageButton: FC<MessageButtonProps> = ({ userId }) => {
     const [startNewDialog] = useStartChatMutation();
+    const isAuth = useAppSelector(getAuthStatus);
     const { t } = useTranslation('users');
 
     const navigate = useNavigate();
     const handleToDialog = (id: number) => {
-        startNewDialog(id);
-        navigate(`/dialogs/${id}`);
+        if (!isAuth) {
+            navigate(`/`);
+        } else {
+            startNewDialog(id);
+            navigate(`/dialogs/${id}`);
+        }
     };
 
     return (

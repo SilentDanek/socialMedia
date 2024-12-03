@@ -1,24 +1,30 @@
 import { Button } from '@mui/material';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { boundThunks, getFollowingInProgress, useAppSelector } from '@/redux';
+import { boundThunks, getAuthStatus, getFollowingInProgress, useAppSelector } from '@/redux';
+import { useNavigate } from 'react-router-dom';
 
 export const FollowButton: FC<FollowButtonProps> = ({ isFollow, userId, onClick }) => {
     const followingInProgress = useAppSelector(getFollowingInProgress);
 
     const { follow, unfollow } = boundThunks.usersThunks;
     const { t } = useTranslation('users');
-
+    const isAuth = useAppSelector(getAuthStatus);
     const handleFollowBlock = () => followingInProgress.some((id: number) => id === userId);
 
+    const navigate = useNavigate();
     const handleFollow = () => {
-        if (isFollow) {
-            unfollow(userId);
+        if (!isAuth) {
+            navigate(`/`);
         } else {
-            follow(userId);
-        }
-        if (onClick) {
-            onClick();
+            if (isFollow) {
+                unfollow(userId);
+            } else {
+                follow(userId);
+            }
+            if (onClick) {
+                onClick();
+            }
         }
     };
 
