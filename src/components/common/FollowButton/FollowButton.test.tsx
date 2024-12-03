@@ -3,7 +3,7 @@ import { FollowButton } from './Followbutton.tsx';
 import { useAppSelector, boundThunks } from '@/redux';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter } from 'react-router-dom';
-import { ReactJSX } from '@emotion/react/types/jsx-namespace';
+import { ReactNode } from 'react';
 
 // Мокаем необходимые хуки и функции
 jest.mock('../../../redux', () => ({
@@ -37,7 +37,7 @@ describe('FollowButton component', () => {
         jest.clearAllMocks();
     });
 
-    const renderWithBrowserRouter = (ui: ReactJSX) => render(<BrowserRouter>{ui}</BrowserRouter>);
+    const renderWithBrowserRouter = (ui: ReactNode) => render(<BrowserRouter>{ui}</BrowserRouter>);
 
     test('renders follow button correctly when user is not followed', () => {
         renderWithBrowserRouter(<FollowButton isFollow={false} userId={1} />);
