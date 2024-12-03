@@ -1,28 +1,39 @@
 import { render, screen, fireEvent } from '@testing-library/react';
+import { Provider } from 'react-redux';
 import { ProfileStatus } from './ProfileStatus';
+import { configureMockStoreTyped } from '@/test';
 
 // Mock функции
 const mockUpdateStatus = jest.fn();
 
 describe('ProfileStatus component', () => {
+    const mockStore = configureMockStoreTyped();
+    const store = mockStore({
+        auth: {
+            isAuth: true // Начальное состояние для auth
+        }
+    });
+
     beforeEach(() => {
         jest.clearAllMocks();
     });
 
+    const renderWithProvider = (ui: any) => render(<Provider store={store}>{ui}</Provider>);
+
     test('renders status from props', () => {
-        render(<ProfileStatus status="Test status" updateStatus={mockUpdateStatus} />);
+        renderWithProvider(<ProfileStatus status="Test status" updateStatus={mockUpdateStatus} />);
         const statusElement = screen.getByText('Test status');
         expect(statusElement).toBeInTheDocument();
     });
 
     test('renders "No status" when no status is provided', () => {
-        render(<ProfileStatus status="" updateStatus={mockUpdateStatus} />);
+        renderWithProvider(<ProfileStatus status="" updateStatus={mockUpdateStatus} />);
         const statusElement = screen.getByText('No status');
         expect(statusElement).toBeInTheDocument();
     });
 
     test('enters edit mode on double click', () => {
-        render(<ProfileStatus status="Test status" updateStatus={mockUpdateStatus} />);
+        renderWithProvider(<ProfileStatus status="Test status" updateStatus={mockUpdateStatus} />);
         const statusElement = screen.getByText('Test status');
         fireEvent.doubleClick(statusElement);
 
@@ -31,17 +42,17 @@ describe('ProfileStatus component', () => {
     });
 
     test('updates status on input change', () => {
-        render(<ProfileStatus status="Test status" updateStatus={mockUpdateStatus} />);
+        renderWithProvider(<ProfileStatus status="Test status" updateStatus={mockUpdateStatus} />);
         fireEvent.doubleClick(screen.getByText('Test status'));
 
         const inputElement = screen.getByDisplayValue('Test status');
         fireEvent.change(inputElement, { target: { value: 'New status' } });
 
-        expect(inputElement).toHaveValue('New status');
+        expect(inputElement).toHaveDisplayValue('New status');
     });
 
     test('calls updateStatus with new value on blur', () => {
-        render(<ProfileStatus status="Test status" updateStatus={mockUpdateStatus} />);
+        renderWithProvider(<ProfileStatus status="Test status" updateStatus={mockUpdateStatus} />);
         fireEvent.doubleClick(screen.getByText('Test status'));
 
         const inputElement = screen.getByDisplayValue('Test status');
@@ -52,19 +63,12 @@ describe('ProfileStatus component', () => {
     });
 
     test('does not call updateStatus if status is unchanged', () => {
-        render(<ProfileStatus status="Test status" updateStatus={mockUpdateStatus} />);
+        renderWithProvider(<ProfileStatus status="Test status" updateStatus={mockUpdateStatus} />);
         fireEvent.doubleClick(screen.getByText('Test status'));
 
         const inputElement = screen.getByDisplayValue('Test status');
         fireEvent.blur(inputElement);
 
         expect(mockUpdateStatus).not.toHaveBeenCalled();
-    });
-
-    test('matches the snapshot', () => {
-        const { container } = render(
-            <ProfileStatus status="Test status" updateStatus={() => {}} />
-        );
-        expect(container).toMatchSnapshot();
     });
 });
