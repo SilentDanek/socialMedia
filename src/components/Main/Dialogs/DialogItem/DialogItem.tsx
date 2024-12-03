@@ -1,13 +1,9 @@
 import { FC, memo } from 'react';
 import { Photos } from '@/redux';
 import { Avatar, Chip, Stack, Typography } from '@mui/material';
-import unknownUserSvg from '../../../../assets/images/unknown-user.svg';
+import unknownUserSvg from '@/assets/images/unknown-user.svg';
 import { formatDate } from '@/utils';
-import {
-    DialogItemCard,
-    DialogItemContent,
-    DialogItemUserData
-} from '@components/Main/Dialogs/DialogItem/DialogItem.styles.tsx';
+import { DialogItemCard, DialogItemContent, DialogItemUserData } from './DialogItem.styles.tsx';
 
 type DialogItemProps = {
     hasNewMessages: boolean;
