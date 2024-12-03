@@ -77,7 +77,7 @@ export const useChatMessages = (userId: number) => {
     const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
         const target = e.target as HTMLElement;
         if (
-            target.scrollTop < 400 &&
+            target.scrollTop < 900 &&
             !isFetchingOldMessages &&
             (oldMessages?.totalCount || 0) > page * 20
         ) {

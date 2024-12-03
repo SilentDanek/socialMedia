@@ -17,7 +17,7 @@ export const UserCard: FC<UserCardProps> = ({ user }) => {
     }
 
     return (
-        <StyledUserCard component="article">
+        <StyledUserCard component="article" raised={true}>
             <NavLink to={`/profile/${user.id}`}>
                 <CardMedia
                     component="img"
