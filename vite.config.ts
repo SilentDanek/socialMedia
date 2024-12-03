@@ -10,5 +10,13 @@ export default defineConfig({
     },
     preview: {
         port: 3000
+    },
+    build: {
+        rollupOptions: {
+            external: (id) => {
+                const patterns = /\.(test|stories|e2e)\.(ts|tsx)$/;
+                return patterns.test(id);
+            }
+        }
     }
 });
