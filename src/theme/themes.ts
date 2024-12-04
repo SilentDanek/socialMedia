@@ -10,7 +10,7 @@ export const lightTheme = createTheme({
             main: '#2c75ef',
             hover: '#e8e8e8',
             default: 'rgba(255,255,255,1)',
-            defaultTransparent: 'rgba(255,255,255,0.95)'
+            defaultTransparent: 'rgba(255,255,255,0.80)'
         },
         backgroundImg: mainBackgroundLight,
         backgroundGradient: 'linear-gradient(aquamarine, #b507b5)',

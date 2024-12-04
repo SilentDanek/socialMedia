@@ -2,8 +2,7 @@ import { MainActionTypes } from './actionTypes';
 import { MainState, MainAction } from './types';
 
 const initialState: MainState = {
-    isInitialized: false,
-    errorPageMassage: '404 NOT FOUND'
+    isInitialized: false
 };
 
 export const mainReducer = (state = initialState, action: MainAction): MainState => {
@@ -12,12 +11,6 @@ export const mainReducer = (state = initialState, action: MainAction): MainState
             return {
                 ...state,
                 isInitialized: action.payload.isInitialized
-            };
-        }
-        case MainActionTypes.SET_ERROR_PAGE_MESSAGE: {
-            return {
-                ...state,
-                errorPageMassage: action.payload.errorPageMassage
             };
         }
         default: {

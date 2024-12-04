@@ -5,11 +5,11 @@ import {
     boundThunks,
     getAuthStatus,
     getAuthUserId,
-    getErrorPageMessage,
     getIsInitialized,
     useAppSelector
 } from '@/redux';
 import { MainContent } from './Main.style.tsx';
+import { NotFound } from '@components/Main/NotFound/NotFound.tsx';
 
 const LazyUsers = lazy(() => import('./Users/Users'));
 const LazyDialogs = lazy(() => import('./Dialogs/Dialogs'));
@@ -22,7 +22,6 @@ const ProtectedRoute = ({ isAuth, navigateTo }: { isAuth: boolean; navigateTo: s
 };
 
 export const Main: FC = () => {
-    const errorMessage = useAppSelector(getErrorPageMessage);
     const isAuth = useAppSelector(getAuthStatus);
     const isInitialized = useAppSelector(getIsInitialized);
     const id = useAppSelector(getAuthUserId);
@@ -52,7 +51,7 @@ export const Main: FC = () => {
                         <Route path="/dialogs/:friendId?" element={<LazyDialogs />} />
                         <Route path="/chat" element={<LazyChat />} />
                     </Route>
-                    <Route path="*" element={<h2>{errorMessage}</h2>} />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </SuspensePreload>
         </MainContent>
