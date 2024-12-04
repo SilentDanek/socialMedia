@@ -35,7 +35,7 @@ export const MessageContent = styled(BorderLessThemeBox, {
         width: 0,
         height: 0,
         border: '12px solid transparent',
-        borderTopColor: theme.palette.background.default,
+        borderTopColor: theme.palette.backgroundColors.default,
         borderBottom: 'none',
         marginBottom: '-12px'
     }

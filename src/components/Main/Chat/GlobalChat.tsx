@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { boundThunks, boundActions, getChatMessages, getChatStatus, useAppSelector } from '@/redux';
-import { Chat } from '../../common';
+import { Chat, Preloader } from '../../common';
 import { GlobalChatMeta } from './GlobalChat.meta.tsx';
 
 const GlobalChat = () => {
@@ -20,6 +20,10 @@ const GlobalChat = () => {
             stopMessagesListening();
         };
     }, []);
+
+    if (status === 'pending') {
+        return <Preloader />;
+    }
 
     return (
         <>

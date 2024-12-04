@@ -31,10 +31,8 @@ export function useAuthNavbarSync() {
     const location = useLocation();
     useEffect(() => {
         const pathParts = location.pathname.split('/').filter(Boolean);
-        if (pathParts.length > 0) {
-            const selectedPage = navbarItems.findIndex((b) => b.text.includes(pathParts[0]));
-            boundActions.navbarActions.setSelectedButtonIndex(selectedPage);
-        }
+        const selectedPage = navbarItems.findIndex((b) => b.text.includes(pathParts[0]));
+        boundActions.navbarActions.setSelectedButtonIndex(selectedPage);
     }, [location]);
 
     return { selectedIndex, navbarItems };

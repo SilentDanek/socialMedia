@@ -1,7 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { ChatMessages } from './ChatMessages';
 import { useAppSelector } from '@/redux';
 import { Message } from '../Chat.tsx';
+import { renderWithTheme } from '@/test/helpers/renderWithTheme.tsx';
 
 jest.mock('../../../../redux', () => ({
     useAppSelector: jest.fn()
@@ -23,7 +24,7 @@ describe('ChatMessages component', () => {
     test('renders messages correctly', () => {
         (useAppSelector as jest.Mock).mockReturnValue(1);
 
-        render(<ChatMessages messages={messages} />);
+        renderWithTheme(<ChatMessages messages={messages} />);
 
         expect(screen.getByText('Hello')).toBeInTheDocument();
         expect(screen.getByText('Hi')).toBeInTheDocument();

@@ -11,7 +11,7 @@ export const ThemeBox = styled(Box)<BoxProps & { component?: React.ElementType }
 }));
 
 export const BorderLessThemeBox = styled(Box)(({ theme }) => ({
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.backgroundColors.default,
     borderRadius: theme.shape.borderRadius,
     boxShadow: theme.shadows[3]
 }));

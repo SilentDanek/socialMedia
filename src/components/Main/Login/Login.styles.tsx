@@ -1,5 +1,5 @@
 import { styled } from '@mui/material/styles';
-import { ThemeBox } from '../../common';
+import { BorderLessThemeBox } from '../../common';
 import { Box, Button, ButtonProps, Stack } from '@mui/material';
 import { LoadingButton, LoadingButtonProps } from '@mui/lab';
 import React, { FC, PropsWithChildren } from 'react';
@@ -8,17 +8,18 @@ type SignInForm = React.FormHTMLAttributes<HTMLFormElement>;
 
 export const SignInForm: FC<SignInForm> = ({ children, ...props }) => {
     return (
-        <ThemeBox
+        <BorderLessThemeBox
             sx={{
                 minWidth: 300,
                 maxWidth: '22%',
                 padding: '1% 1.5%',
                 borderRadius: '20px',
-                margin: 6
+                margin: 6,
+                border: '1px solid grey'
             }}
         >
             <form {...props}>{children}</form>
-        </ThemeBox>
+        </BorderLessThemeBox>
     );
 };
 

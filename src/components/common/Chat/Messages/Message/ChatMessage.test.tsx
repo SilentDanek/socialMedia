@@ -1,6 +1,7 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import { ChatMessage } from './ChatMessage';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { renderWithTheme } from '@/test/helpers/renderWithTheme.tsx';
 
 const messageProps = {
     message: 'Hello, this is a test message',
@@ -14,7 +15,7 @@ const messageProps = {
 };
 
 const renderChatMessage = (props = {}) =>
-    render(
+    renderWithTheme(
         <MemoryRouter initialEntries={['/']}>
             <Routes>
                 <Route path="/" element={<ChatMessage {...messageProps} {...props} />} />

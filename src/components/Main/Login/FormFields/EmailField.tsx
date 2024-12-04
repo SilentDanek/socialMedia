@@ -14,6 +14,7 @@ export const EmailField: FC<EmailField> = ({ control }) => {
     return (
         <ControlledTextField
             control={control}
+            autoFocus={true}
             rules={{
                 pattern: { value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/, message: 'Email is invalid' },
                 required: t('emailRequire')
