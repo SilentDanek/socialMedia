@@ -11,6 +11,8 @@ import enProfile from './en/profile.json';
 import uaProfile from './ua/profile.json';
 import enUsers from './en/users.json';
 import uaUsers from './ua/users.json';
+import enNotFound from './en/not-found.json';
+import uaNotFound from './ua/not-found.json';
 
 const defaultLang = localStorage.getItem('language');
 i18n.use(initReactI18next).init({
@@ -20,14 +22,16 @@ i18n.use(initReactI18next).init({
             navbar: enNavbar,
             chat: enChat,
             profile: enProfile,
-            users: enUsers
+            users: enUsers,
+            notFound: enNotFound
         },
         ua: {
             login: uaLogin,
             navbar: uaNavbar,
             chat: uaChat,
             profile: uaProfile,
-            users: uaUsers
+            users: uaUsers,
+            notFound: uaNotFound
         }
     },
     lng: defaultLang || 'en',
