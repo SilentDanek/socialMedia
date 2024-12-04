@@ -10,13 +10,15 @@ export const FieldsetLike = styled(Box)<{ component?: React.ElementType }>(({ th
     position: 'relative'
 }));
 
-export const LegendLike = styled(Typography)(({ theme }: { theme?: Theme }) => ({
+export const LegendLike = styled(Typography)(({ theme }: { theme: Theme }) => ({
     position: 'absolute',
     top: '-17px',
     left: '10px',
     fontSize: '1.2em',
-    fontWeight: theme?.typography.fontWeightBold,
-    backgroundColor: theme?.palette.background.default,
+    border: '1px solid gray',
+    borderRadius: theme.shape.borderRadius,
+    fontWeight: theme.typography.fontWeightBold,
+    backgroundColor: theme.palette.background.default,
     padding: '0 4px'
 }));
 

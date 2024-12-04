@@ -17,6 +17,8 @@ declare module '@mui/material/styles' {
         backgroundColors: {
             main: string;
             hover: string;
+            default: string;
+            defaultTransparent: string;
         };
     }
 
@@ -26,6 +28,8 @@ declare module '@mui/material/styles' {
         backgroundColors: {
             main: string;
             hover: string;
+            default: string;
+            defaultTransparent: string;
         };
     }
 }
