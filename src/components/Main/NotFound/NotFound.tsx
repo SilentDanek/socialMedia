@@ -2,6 +2,8 @@ import { Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { ThemeBox } from '@components/common';
 import { useTranslation } from 'react-i18next';
+import animation from '@assets/404-animation.json';
+import Lottie from 'lottie-react';
 
 export const NotFound = () => {
     const { t } = useTranslation('notFound');
@@ -21,9 +23,7 @@ export const NotFound = () => {
                 padding: 2
             }}
         >
-            <Typography variant="h1" sx={{ fontSize: '4rem', fontWeight: 'bold' }}>
-                404...
-            </Typography>
+            <Lottie animationData={animation} style={{ maxWidth: '500px' }} />
             <Typography variant="h6" sx={{ marginBottom: 2 }}>
                 {t('page not found')}
             </Typography>
