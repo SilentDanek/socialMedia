@@ -13,6 +13,8 @@ import enUsers from './en/users.json';
 import uaUsers from './ua/users.json';
 import enNotFound from './en/not-found.json';
 import uaNotFound from './ua/not-found.json';
+import enDialogs from './en/dialogs.json';
+import uaDialogs from './ua/dialogs.json';
 
 const defaultLang = localStorage.getItem('language');
 i18n.use(initReactI18next).init({
@@ -23,7 +25,8 @@ i18n.use(initReactI18next).init({
             chat: enChat,
             profile: enProfile,
             users: enUsers,
-            notFound: enNotFound
+            notFound: enNotFound,
+            dialogs: enDialogs
         },
         ua: {
             login: uaLogin,
@@ -31,7 +34,8 @@ i18n.use(initReactI18next).init({
             chat: uaChat,
             profile: uaProfile,
             users: uaUsers,
-            notFound: uaNotFound
+            notFound: uaNotFound,
+            dialogs: uaDialogs
         }
     },
     lng: defaultLang || 'en',
