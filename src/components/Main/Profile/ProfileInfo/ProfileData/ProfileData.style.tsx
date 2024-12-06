@@ -1,5 +1,5 @@
 import { styled } from '@mui/system';
-import { Box, Link, Theme, Typography } from '@mui/material';
+import { Box, Link, Typography } from '@mui/material';
 import React from 'react';
 
 export const FieldsetLike = styled(Box)<{ component?: React.ElementType }>(({ theme }) => ({
@@ -10,14 +10,13 @@ export const FieldsetLike = styled(Box)<{ component?: React.ElementType }>(({ th
     position: 'relative'
 }));
 
-export const LegendLike = styled(Typography)(({ theme }: { theme: Theme }) => ({
+export const LegendLike = styled(Typography)(({ theme }) => ({
     position: 'absolute',
     top: '-17px',
     left: '10px',
     fontSize: '1.2em',
     border: '1px solid gray',
     borderRadius: theme.shape.borderRadius,
-    fontWeight: theme.typography.fontWeightBold,
     backgroundColor: theme.palette.background.default,
     padding: '0 4px'
 }));
