@@ -1,6 +1,5 @@
 // login.page.ts (Page Object)
 class LoginPage {
-    // Селекторы элементов
     get emailField() {
         return $('input[name="email"]');
     }
@@ -17,10 +16,10 @@ class LoginPage {
         return $('button[type="submit"]');
     }
     get resetButton() {
-        return $('button[type="button"]');
+        return $('[ data-testid="reset"]');
     }
     get errorMessage() {
-        return $('.Mui-error') || $('[data-testId="form-error-text"]');
+        return $('.Mui-error') || $('');
     }
 
     async open() {

@@ -3,14 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm, useFormState } from 'react-hook-form';
 import { boundThunks, getAuthStatus, getAuthUserId, getCaptchaUrl, useAppSelector } from '@/redux';
 import { FormError } from '@/api/APIErrors';
-
-export type LoginFieldValues = {
-    captcha: string;
-    rememberMe: boolean;
-    email: string;
-    password: string;
-    formError: string;
-};
+import { LoginFieldValues } from '@components/Main/Login/Login.tsx';
 
 export const useLogin = () => {
     const isAuth = useAppSelector(getAuthStatus);

@@ -12,6 +12,14 @@ import { useTranslation } from 'react-i18next';
 import { FormErrorMessage } from '../../common';
 import { useLogin } from './useLogin.ts';
 
+export type LoginFieldValues = {
+    captcha: string;
+    rememberMe: boolean;
+    email: string;
+    password: string;
+    formError: string;
+};
+
 const Login: FC = () => {
     const {
         control,
@@ -45,7 +53,9 @@ const Login: FC = () => {
                 <FormErrorMessage>{formErrorMessage}</FormErrorMessage>
 
                 <FormButtonsContainer>
-                    <ResetFormButton onClick={() => resetForm()}>{t('reset')}</ResetFormButton>
+                    <ResetFormButton data-testid="reset" onClick={() => resetForm()}>
+                        {t('reset')}
+                    </ResetFormButton>
                     <SignInButton loading={isSubmitting}>{t('sign-in')}</SignInButton>
                 </FormButtonsContainer>
             </SignInForm>
