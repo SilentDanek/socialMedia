@@ -1,7 +1,6 @@
 // Quick way to check calls and props
 export const testArr = new Proxy([], {
     get(target: any, prop, receiver) {
-        // Перехватываем методы массива
         if (prop === 'push') {
             return function (...args: any) {
                 console.log(args[0]);

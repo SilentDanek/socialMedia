@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { BrowserRouter } from 'react-router-dom';
 import { ReactNode } from 'react';
 
-// Мокаем необходимые хуки и функции
 jest.mock('../../../redux', () => ({
     useAppSelector: jest.fn(),
     boundThunks: {

@@ -32,7 +32,6 @@ const requestUserProfile =
         dispatch(usersActions.toggleIsFetching(true));
 
         const response = await profileAPI.getUserProfile(userId);
-        //if(response.resultCode === ResultCodes.InternalServerError){}
         dispatch(profileActions.setUserProfile(response));
         dispatch(usersActions.toggleIsFetching(false));
     };

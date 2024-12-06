@@ -1,4 +1,4 @@
-import { ChatMessageAPIType, StatusType } from '../../../api/chatAPI';
+import { ChatMessageAPIType, StatusType } from '@api/chatAPI.ts';
 import { ChatActionTypes } from './actionTypes';
 
 export const chatActions = {

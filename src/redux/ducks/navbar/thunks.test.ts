@@ -29,21 +29,17 @@ describe('navbarThunks', () => {
         const mockProfilePhoto = 'https://example.com/photo.jpg';
         const mockResponse = { photos: { large: mockProfilePhoto } };
 
-        // Мокаем ответ API
         (profileAPI.getUserProfile as jest.Mock).mockResolvedValue(mockResponse);
 
         const userId = 1;
 
-        // Выполняем thunk
         await store.dispatch(navbarThunks.loadProfilePhoto(userId));
 
-        // Проверяем, что правильный экшен был отправлен
         const actions = store.getActions();
         expect(actions[0]).toEqual(navbarActions.setProfilePhoto(mockProfilePhoto));
     });
 
     test('should handle errors gracefully', async () => {
-        // Мокаем ошибку API
         const mockError = new Error('Failed to fetch');
         (profileAPI.getUserProfile as jest.Mock).mockRejectedValue(mockError);
 
@@ -51,10 +47,8 @@ describe('navbarThunks', () => {
 
         const userId = 1;
 
-        // Выполняем thunk
         await store.dispatch(navbarThunks.loadProfilePhoto(userId));
 
-        // Проверяем, что ошибка была залогирована
         expect(consoleSpy).toHaveBeenCalledWith(mockError);
 
         consoleSpy.mockRestore();

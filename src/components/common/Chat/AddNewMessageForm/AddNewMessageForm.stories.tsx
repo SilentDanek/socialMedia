@@ -10,7 +10,7 @@ const meta: Meta<typeof AddNewMessageForm> = {
     argTypes: {
         sendMessage: {
             description: 'Enables sending messages from the form',
-            action: 'sendMessage action' // Автоматически генерирует экшен
+            action: 'sendMessage action'
         },
         blockSubmitButton: {
             description: 'Blocks the submit button by displaying the loader',
@@ -48,7 +48,7 @@ type Story = StoryObj<typeof AddNewMessageForm>;
 
 export const Default: Story = {
     args: {
-        blockSubmitButton: false // По умолчанию кнопка не заблокирована
+        blockSubmitButton: false
     },
     render: (args) => {
         function sendMessage(message: string) {
@@ -57,8 +57,8 @@ export const Default: Story = {
 
         return (
             <AddNewMessageForm
-                sendMessage={sendMessage} // Передаём экшен для отслеживания
-                blockSubmitButton={args.blockSubmitButton} // Учитываем блокировку кнопки
+                sendMessage={sendMessage}
+                blockSubmitButton={args.blockSubmitButton}
             />
         );
     }
