@@ -23,7 +23,7 @@ export const ProfileData: FC<ProfileDataProps> = ({ profile }) => {
             <ProfileDetailItem label={t('about me')} content={profile.aboutMe} />
             <ProfileDetailItem
                 label={t('looking for a job')}
-                content={profile.lookingForAJob ? t('tes') : t('no')}
+                content={profile.lookingForAJob ? t('yes') : t('no')}
             />
 
             {profile.lookingForAJob && (
